@@ -1,0 +1,141 @@
+.Cards {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+}
+.Cards__items {
+  position: relative;
+  z-index: 1;
+  touch-action: pan-x;
+}
+.Cards__item {
+  position: absolute;
+  border-radius: 8px;
+  top: 16px;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: #fff;
+  overflow: hidden;
+  transition: transform 200ms ease-in-out;
+  will-change: transform;
+}
+.Cards__item:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.32));
+  z-index: 2;
+}
+.Cards.is_moving .Cards__item {
+  transition: none;
+}
+.Cards__photo {
+  position: absolute;
+  z-index: 1;
+  background: no-repeat center / cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.Cards__photo.active {
+  display: block;
+}
+.Cards__item--footer {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px;
+  z-index: 3;
+  justify-content: space-between;
+}
+.Cards__item--footer-name {
+  color: #fff;
+  font-size: 22px;
+  line-height: 25px;
+  font-weight: bold;
+}
+.Cards__item--footer-info-ic {
+  background: no-repeat center / contain;
+  background-image: url('data:image/svg+xml,%3C?xml%20version%3D%221.0%22%20?%3E%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M12%2024C5.373%2024%200%2018.627%200%2012S5.373%200%2012%200s12%205.373%2012%2012-5.373%2012-12%2012zm0-13a1%201%200%200%200-1%201v5a1%201%200%200%200%202%200v-5a1%201%200%200%200-1-1zm0-2a1.5%201.5%200%201%200%200-3%201.5%201.5%200%200%200%200%203z%22%20fill%3D%22%23FFF%22%20fill-rule%3D%22evenodd%22/%3E%3C/svg%3E');
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+.cards_item_photo_lines {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px;
+  box-sizing: border-box;
+  z-index: 3;
+  width: 100%;
+}
+.cards_item.gifts_shown .cards_item_photo_lines {
+  z-index: 4;
+}
+.cards_item_photo_line {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: #fff;
+  opacity: 0.48;
+  margin-left: 4px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 0 0 rgba(0, 0, 0, 0.08);
+}
+.cards_item_photo_line:first-child {
+  margin-left: 0;
+}
+.cards_item_photo_line.selected {
+  opacity: 1;
+}
+.Cards__big_button {
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-top: -30px;
+  background: #fff no-repeat center;
+  background-size: 28px;
+  will-change: transform;
+  transition: transform 200ms ease-in-out;
+  z-index: 2;
+}
+.Cards.empty .Cards__big_button {
+  display: none;
+}
+.Cards__big_button.like {
+  right: -8px;
+  background-image: url('asset/liked_24.svg');
+}
+.Cards__big_button.dislike {
+  left: -8px;
+  background-image: url('asset/close_24.svg');
+}
+.Cards.is_moving .Cards__big_button {
+  transition: none;
+}
+.cards_empty {
+  display: none !important;
+}
+.Cards.empty .cards_empty {
+  display: flex !important;
+}
+.Cards.hideControls .Cards__big_button {
+  display: none !important;
+}

@@ -1,0 +1,62 @@
+@import "../../css/vars";
+
+.permissions_modal_wrap {
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.permissions_modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 50px 16px 30px;
+  box-sizing: border-box;
+  background: #fff;
+  margin: 16px;
+  border-radius: @border-radius;
+  position: relative;
+
+  .permissions_close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    .size(56px);
+    background: url('../../asset/close_24.svg') no-repeat center;
+    background-size: 24px;
+    cursor: pointer;
+  }
+
+  .permissions_modal_icon {
+    .size(128px);
+    background: url('../../asset/art_letter_128@2x.png') no-repeat center/contain;
+
+    &.photos {
+      background-image: url('../../asset/art_camera_128@2x.png');
+    }
+
+    &.messages {
+      background-image: url('../../asset/art_bell_128@2x.png');
+    }
+  }
+
+  .permissions_modal_title {
+    line-height: 21px;
+    font-size: 18px;
+    margin-top: 21px;
+    font-weight: bold;
+    color: @color-black;
+  }
+
+  .permissions_caption {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    color: @color-grey;
+    max-width: 350px;
+  }
+}

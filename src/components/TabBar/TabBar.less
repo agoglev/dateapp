@@ -1,0 +1,72 @@
+@import "../../css/vars";
+
+.TabBar {
+  border-top: 1px solid #e4e4e4;
+  width: 100%;
+  background: @color-white;
+  position: relative;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.TabBar__helper {
+  width: 100%;
+  height: env(safe-area-inset-bottom);
+  top: 48px;
+  left: 0;
+  background: @color-white;
+  position: absolute;
+}
+
+.TabBar__cont {
+  display: flex;
+  width: 100%;
+  height: 48px;
+}
+
+.TabBar__item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+
+  &.hasBadge:after {
+    content: '';
+    .circle(8px);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(10px, -12px);
+    background: @color-dark-green;
+  }
+}
+
+.TabBar__item-icon {
+  .size(24px);
+  background: no-repeat center/contain;
+  position: relative;
+  opacity: 0.5;
+  transition: opacity 200ms ease-in-out;
+
+  .TabBar__item.active & {
+    opacity: 1;
+  }
+
+  &.search {
+    .ic-ic_tab_search();
+  }
+
+  &.messages {
+    .ic-ic_tab_messages();
+  }
+
+  &.profile {
+    .ic-ic_tab_profile();
+  }
+
+  &.cards {
+    .ic-menu_cards_24();
+  }
+}

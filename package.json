@@ -1,0 +1,35 @@
+{
+  "name": "dating_service",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "./",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env HOST=192.168.1.2 PORT=3000 react-scripts start",
+    "build": "react-scripts build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "react-hot-loader": "^4.3.6",
+    "react-scripts": "^1.1.5"
+  },
+  "dependencies": {
+    "@vkontakte/icons": "^1.2.0",
+    "@vkontakte/vkui": "^2.9.4",
+    "@vkontakte/vkui-connect": "^1.0.0",
+    "@vkontakte/vkui-connect-mock": "^1.0.5",
+    "blueimp-load-image": "^2.19.0",
+    "core-js": "^2.5.7",
+    "fbemitter": "^2.1.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.6.0",
+    "router5": "^4.5.2",
+    "slick-carousel": "^1.8.1"
+  }
+}
