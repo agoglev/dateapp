@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import * as pages from '../constants/pages';
-import { navThree } from '../router'
+import { navThree } from '../router';
 
 const initialState = {
   userId: 0,
@@ -30,7 +30,8 @@ const initialState = {
   likes: [],
   popout: null,
   hasBadge: false,
-  needTokenMessage: false
+  needTokenMessage: false,
+  works: false, // engineering works
 };
 
 let navHistory = [];
@@ -173,6 +174,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.VK_FAILED: {
       return Object.assign({}, state, {needTokenMessage: true});
+    }
+
+    case actionTypes.WORKS: {
+      return Object.assign({}, state, {works: true});
     }
 
     default:

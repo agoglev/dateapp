@@ -1,4 +1,5 @@
 import store from '../store';
+import * as actionTypes from '../actions/actionTypes';
 import connect from '@vkontakte/vkui-connect';
 import * as utils from '../utils';
 //import connect from '@vkontakte/vkui-connect-mock';
@@ -26,6 +27,10 @@ export function method(name, params = {}) {
       .then(json => {
         if (json.error) {
           reject(json.error);
+
+          if (json.error.code === 'works') {
+            store.dispatch({type: actionTypes.WORKS});
+          }
         } else {
           resolve(json.response);
 
@@ -73,7 +78,8 @@ export const methods = {
   restoreAccount: 'restore_account',
   resetBadge: 'reset_badge',
   setOnline: 'set_online',
-  clearHistory: 'clear_history'
+  clearHistory: 'clear_history',
+  jsError: 'js_error'
 };
 
 let vkRequestId = 0;
@@ -101,13 +107,15 @@ export function handleMethodResult(requestId, response) {
 }
 
 export function handleMethodError(error) {
-  let requestId = false;
-  for (let i = 0; i < error.request_params.length; i++) {
-    const param = error.request_params[i];
-    if (param.key === 'request_id') {
-      requestId = parseInt(param.value, 10);
+  if (error.request_params) {
+    let requestId = false;
+    for (let i = 0; i < error.request_params.length; i++) {
+      const param = error.request_params[i];
+      if (param.key === 'request_id') {
+        requestId = parseInt(param.value, 10);
+      }
     }
+    vkRequestCallbacks[requestId].reject();
+    delete vkRequestCallbacks[requestId];
   }
-  vkRequestCallbacks[requestId].reject();
-  delete vkRequestCallbacks[requestId];
 }

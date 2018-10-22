@@ -27,6 +27,7 @@ import VkPhotos from './containers/VkPhotos/VkPhotos';
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
 import PlaceholderNeedToken from "./components/Placeholder/PlaceholderNeedToken";
+import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
 
 class App extends React.Component {
 	constructor(props) {
@@ -42,6 +43,12 @@ class App extends React.Component {
 	};
 
 	render() {
+    if (this.props.state.works === true) {
+      return (
+        <PlaceholderWorks />
+      )
+    }
+
     const userInfo = this.props.state.usersInfo[this.props.state.userId] || {};
     if (userInfo.deleted) {
       return (
@@ -60,6 +67,7 @@ class App extends React.Component {
         <PlaceholderNeedToken />
       )
     }
+
 
 		return (
       <div>

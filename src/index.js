@@ -1,5 +1,7 @@
-import 'core-js/es6/map';
-import 'core-js/es6/set';
+//import 'core-js/es6/map';
+//import 'core-js/es6/set';
+import 'core-js/es6';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import connect from '@vkontakte/vkui-connect';
@@ -14,6 +16,13 @@ import * as actions from './actions';
 import * as accountActions from './actions/account';
 import * as utils from './utils';
 import * as api from './services/api';
+
+window.onerror = function handler(msg, file, line, col, err) {
+  api.method(api.methods.jsError, {
+    stack: err.message + "\n" + err.stack,
+    device: window.navigator.userAgent
+  });
+};
 
 // Init VK App
 connect.send('VKWebAppInit', {});

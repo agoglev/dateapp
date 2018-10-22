@@ -5,7 +5,7 @@
   "homepage": "./",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env HOST=10.40.58.237 PORT=3000 react-scripts start",
+    "start": "cross-env HOST=192.168.1.2 PORT=3000 react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],
@@ -21,9 +21,11 @@
     "@vkontakte/vkui": "^2.9.4",
     "@vkontakte/vkui-connect": "^1.0.0",
     "@vkontakte/vkui-connect-mock": "^1.0.5",
+    "array.prototype.fill": "^1.0.2",
     "blueimp-load-image": "^2.19.0",
     "core-js": "^2.5.7",
     "fbemitter": "^2.1.1",
+    "promise-polyfill": "8.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
