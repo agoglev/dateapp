@@ -46,6 +46,7 @@ export default class Profile extends Component {
           </a>
           <ProfileButton type="delete" onClick={this._deleteAccountButtonDidPress}>Удалить анкету</ProfileButton>
         </Group>
+        <div className="profile_copyright">The Dating Service © 2018</div>
       </div>
     )
   }
