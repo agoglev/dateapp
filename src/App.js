@@ -85,7 +85,7 @@ class App extends React.Component {
     	return null;
 		}
 
-		const height = getComputedStyle(document.querySelector('.View__header')).height;
+		const height = document.querySelector('.View__header').offsetHeight;
 		return (
 			<div className="Error" style={{top: height}}>{state.error}</div>
 		)

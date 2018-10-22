@@ -387,9 +387,9 @@ export default class Cards extends Component {
   };
 
   _updateHeight = () => {
-    const headerHeight = parseInt(getComputedStyle(document.querySelector('.View__header')).height.replace('px', ''), 10);
-    const footerHeight = parseInt(getComputedStyle(document.querySelector('.TabBar')).height.replace('px', ''), 10);
-    const safeAreaHeight = parseInt(getComputedStyle(document.querySelector('.TabBar__helper')).height.replace('px', ''), 10);
+    const headerHeight = document.querySelector('.View__header').offsetHeight;
+    const footerHeight = document.querySelector('.TabBar').offsetHeight;
+    const safeAreaHeight = document.querySelector('.TabBar__helper').offsetHeight;
     this.refs['items'].style.height = (window.innerHeight - headerHeight - footerHeight - safeAreaHeight) + 'px';
   };
 

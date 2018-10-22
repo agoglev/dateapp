@@ -102,8 +102,10 @@ export function vk(method, params = {}) {
 }
 
 export function handleMethodResult(requestId, response) {
-  vkRequestCallbacks[requestId].resolve(response);
-  delete vkRequestCallbacks[requestId];
+  if (vkRequestCallbacks[requestId]) {
+    vkRequestCallbacks[requestId].resolve(response);
+    delete vkRequestCallbacks[requestId];
+  }
 }
 
 export function handleMethodError(error) {

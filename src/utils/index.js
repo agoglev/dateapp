@@ -71,8 +71,8 @@ export function cancelEvent(e) {
 }
 
 export function getTabBarHeight() {
-  const height = parseInt(getComputedStyle(document.querySelector('.TabBar')).height.replace('px', ''), 10);
-  const helperHeight = parseInt(getComputedStyle(document.querySelector('.TabBar__helper')).height.replace('px', ''), 10);
+  const height = document.querySelector('.TabBar').offsetHeight;
+  const helperHeight = document.querySelector('.TabBar__helper').offsetHeight;
 
   return height + helperHeight;
 }
