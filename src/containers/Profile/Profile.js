@@ -102,8 +102,13 @@ class ProfileButton extends PureComponent {
       [type]: true
     });
 
+    let props = {};
+    if (onClick) {
+      props.onClick = onClick;
+    }
+
     return (
-      <div className="profile_button" onClick={() => onClick && onClick()}>
+      <div className="profile_button" {...props}>
         <div className={iconClassName} />
         <div className="profile_button_title">{children}</div>
         {label && <div className="profile_button_right">

@@ -144,3 +144,19 @@ export function getLastDislikedCard() {
   store.dispatch({type: actionTypes.CARDS_DISLIKED_SET, dislikedCards});
   return card;
 }
+
+export function clearSeenCards() {
+  return new Promise((resolve, reject) => {
+    let cards = store.getState().cards;
+    if (cards.length > 0) {
+      return resolve();
+    }
+    api.method(api.methods.clearSeenCards, {})
+      .then((cards) => {
+        store.dispatch({type: actionTypes.CARDS_SET, cards});
+        resolve();
+      }).catch(() => {
+      reject();
+    });
+  })
+}

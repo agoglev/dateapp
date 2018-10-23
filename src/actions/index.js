@@ -52,7 +52,7 @@ export function setData(field, value, page) {
 }
 
 let _hideErrorTimer = false;
-export function showError(text) {
+export function showError(text = 'Произошла ошибка') {
   clearTimeout(_hideErrorTimer);
   store.dispatch({
     type: actionTypes.SHOW_ERROR,

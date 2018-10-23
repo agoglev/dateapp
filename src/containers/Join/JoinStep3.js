@@ -29,8 +29,10 @@ export default class JoinStep3 extends BaseComponent {
           Фотографии
         </PanelHeader>
         <FormLayout>
-          <div className="profile_edit_photos" bottom="Загрузите свои настоящие фотографии">
-            {this._renderPhotos()}
+          <div style={{padding: '0 6px'}}>
+            <div className="profile_edit_photos" bottom="Загрузите свои настоящие фотографии">
+              {this._renderPhotos()}
+            </div>
           </div>
           <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Готово</Button>
         </FormLayout>
@@ -93,7 +95,7 @@ export default class JoinStep3 extends BaseComponent {
       });
   };
 
-  photoDidSelect(index, [file]) {
+  photoDidSelect(index, file) {
     if (!file) {
       return;
     }
@@ -163,10 +165,10 @@ export default class JoinStep3 extends BaseComponent {
         onClick: () => this._selectVkPhoto(i)
       },
       {
-        title: <div>Из галереи <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
+        title: <span>Из галереи <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
           actions.setPopout();
-          this.photoDidSelect(i, e.target.files);
-        }} /></div>,
+          this.photoDidSelect(i, e.target.files[0]);
+        }} /></span>,
         autoclose: false
       }
     ], 'Загрузка фотографии');
@@ -222,7 +224,7 @@ export default class JoinStep3 extends BaseComponent {
       .then(res => res.blob())
       .then(blob => {
         const file = new File([blob], 'file.png', blob);
-        this.photoDidSelect(photo.index, [file]);
+        this.photoDidSelect(photo.index, file);
       }).catch(() => actions.showError('Произошла ошибка'))
   }
 }

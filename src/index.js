@@ -1,6 +1,7 @@
 //import 'core-js/es6/map';
 //import 'core-js/es6/set';
 import 'core-js/es6';
+import * as Sentry from '@sentry/browser';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -16,6 +17,12 @@ import * as actions from './actions';
 import * as accountActions from './actions/account';
 import * as utils from './utils';
 import * as api from './services/api';
+
+if (!utils.isDev()) {
+  Sentry.init({
+    dsn: "https://fae54b9a6d73455c846c9b989a6d9373@sentry.io/1306576"
+  });
+}
 
 window.onerror = function handler(msg, file, line, col, err) {
   api.method(api.methods.jsError, {

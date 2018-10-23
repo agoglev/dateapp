@@ -34,6 +34,7 @@
 
 .Join__birthday-wrap {
   display: flex;
+  padding: 0 12px;
 
   .Select {
     padding-top: 0 !important;
@@ -55,9 +56,7 @@
 
 .profile_edit_photos {
   position: relative;
-  padding-top: ~"calc(100% + 12px)";
-  margin: -6px 0 0 -6px;
-  width: ~"calc(100% + 12px)";
+  padding-top: 100%;
 
   .profile_edit_photo {
     position: absolute;
@@ -194,9 +193,12 @@
 
 .profile_edit_photo_input {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
   .size(100%);
   opacity: 0;
   z-index: 10;
+  height: 57px;
+  width: 100vw;
+  transform: translate(-50%, -50%);
 }

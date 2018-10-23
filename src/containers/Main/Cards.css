@@ -132,6 +132,7 @@
 }
 .cards_empty {
   display: none !important;
+  z-index: 100;
 }
 .Cards.empty .cards_empty {
   display: flex !important;

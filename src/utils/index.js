@@ -71,10 +71,19 @@ export function cancelEvent(e) {
 }
 
 export function getTabBarHeight() {
-  const height = document.querySelector('.TabBar').offsetHeight;
+  const el = document.querySelector('.TabBar');
+  if (!el) {
+    return 0;
+  }
+  const height = el.offsetHeight;
   const helperHeight = document.querySelector('.TabBar__helper').offsetHeight;
 
   return height + helperHeight;
+}
+
+export function getHeaderHeight() {
+  const el = document.querySelector('.View__header');
+  return el ? el.offsetHeight : 0;
 }
 
 export function genderText(gender, variants) { // gender 2 is female
@@ -169,4 +178,38 @@ export function statReachGoal(eventName) {
   } else {
     StatsQueue.push(eventName);
   }
+}
+
+let yandexAdsInited = false;
+let yandexAdsIniting = false;
+export function initYAAds() {
+  if (yandexAdsInited) {
+    initYABlock();
+  } else {
+    if (!yandexAdsIniting) {
+      yandexAdsIniting = true;
+      (function (w, d, n, s, t) {
+        w[n] = w[n] || [];
+        w[n].push(function () {
+          yandexAdsInited = true;
+          initYABlock();
+        });
+        t = d.getElementsByTagName("script")[0];
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "//an.yandex.ru/system/context.js";
+        s.async = true;
+        t.parentNode.insertBefore(s, t);
+      })(window, window.document, "yandexContextAsyncCallbacks");
+    }
+  }
+}
+
+function initYABlock() {
+  window.Ya.Context.AdvManager.render({
+    blockId: "R-A-325915-1",
+    renderTo: "yandex_rtb_R-A-325915-1",
+    async: true,
+    test: 1
+  });
 }

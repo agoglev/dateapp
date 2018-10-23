@@ -112,7 +112,7 @@ export default class ProfileView extends BaseComponent {
 
   _renderFooter() {
     const user = this.data.user;
-    if (user.id === this.props.state.userId) {
+    if (user.id === this.props.state.userId || this.data.fromHistory === true) {
       return null;
     }
     return (
@@ -136,7 +136,6 @@ export default class ProfileView extends BaseComponent {
   };
 
   _footerDislikeButtonDidPress = () => {
-    console.log('this.data.fromLikes', this.data.fromLikes);
     if (this.data.fromLikes) {
       actions.loaderShow();
       activityActions.likeAction(this.data.user.id, 'dislike')

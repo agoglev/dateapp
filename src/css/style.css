@@ -4,8 +4,16 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 .PanelHeader-bg--brand,
-.Button--level-1 {
+.PanelHeader-content--brand,
+.PanelHeader-left-in--brand,
+.PanelHeader-addon--brand,
+.PanelHeader-right--brand,
+.Button--level-1,
+.Button--lvl-primary {
   background: #e63973 !important;
+}
+.ActionSheetItem {
+  overflow: hidden;
 }
 .Search {
   background: #ebebeb !important;

@@ -8,7 +8,6 @@ import * as actions from '../../actions';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
-import {IOS} from "@vkontakte/vkui/dist/vkui";
 
 export default class Cards extends Component {
 
@@ -88,6 +87,7 @@ export default class Cards extends Component {
             <div className="im_history_empty_img" />
             <div className="im_history_empty_title">Карточки закончились</div>
             <div className="im_history_empty_text">Заходите попозже — наверняка кто-то еще захочет познакомиться</div>
+            <div className="im_history_empty_extra"><Button size="l" onClick={this._clearHiddenCard}>Показать снова</Button></div>
           </div>
           <div className="Cards__items" ref="items">
             {this._renderCards()}
@@ -387,10 +387,9 @@ export default class Cards extends Component {
   };
 
   _updateHeight = () => {
-    const headerHeight = document.querySelector('.View__header').offsetHeight;
-    const footerHeight = document.querySelector('.TabBar').offsetHeight;
-    const safeAreaHeight = document.querySelector('.TabBar__helper').offsetHeight;
-    this.refs['items'].style.height = (window.innerHeight - headerHeight - footerHeight - safeAreaHeight) + 'px';
+    const headerHeight = utils.getHeaderHeight();
+    const footerHeight = utils.getTabBarHeight();
+    this.refs['items'].style.height = (window.innerHeight - headerHeight - footerHeight) + 'px';
   };
 
   _cancelAction = () => {
@@ -398,5 +397,14 @@ export default class Cards extends Component {
     if (card) {
       this._restoreCard(card, false);
     }
+  };
+
+  _clearHiddenCard = () => {
+    actions.showAlert('Показать снова', 'Все карточки, которые вы уже видели будут показаны снова, вы действительно хотите увидеть их?', 'Да, показать').then(() => {
+      actions.loaderShow();
+      cardsActions.clearSeenCards()
+        .then(() => actions.loaderSuccess())
+        .catch(() => actions.showError());
+    });
   };
 }

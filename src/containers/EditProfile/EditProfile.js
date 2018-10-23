@@ -26,8 +26,10 @@ export default class EditProfile extends BaseComponent {
           Редактирование
         </PanelHeader>
         <FormLayout style={{paddingBottom: 77}}>
-          <div className="profile_edit_photos" top="Фотографии" bottom="Загрузите свои настоящие фотографии">
-            {this._renderPhotos()}
+          <div style={{padding: '0 6px'}}>
+            <div className="profile_edit_photos" top="Фотографии" bottom="Загрузите свои настоящие фотографии">
+              {this._renderPhotos()}
+            </div>
           </div>
           <Input
             top="Имя"
@@ -81,8 +83,8 @@ export default class EditProfile extends BaseComponent {
             value={this.data.about}
             onChange={(e) => this.setData('about', e.target.value)}
           />
-          <FixedLayout vertical="bottom" style={{padding: 16, backgroundColor: '#ebedf0'}}>
-            <Button size="xl" level="1" onClick={this._saveButtonDidPress}>Сохранить</Button>
+          <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0'}}>
+            <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>
       </Panel>
@@ -131,7 +133,7 @@ export default class EditProfile extends BaseComponent {
     });
   }
 
-  photoDidSelect(index, [file]) {
+  photoDidSelect(index, file) {
     if (!file) {
       return;
     }
@@ -190,6 +192,9 @@ export default class EditProfile extends BaseComponent {
 
   removePhoto(index) {
     let photos = this.data.photos;
+    if (!photos[index]) {
+      return;
+    }
 
     if (photos[index].id) {
       let deletedPhotos = this.data.deletedPhotos;
@@ -279,10 +284,10 @@ export default class EditProfile extends BaseComponent {
         onClick: () => this._selectVkPhoto(i)
       },
       {
-        title: <div>Из галереи <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
+        title: <span>Из галереи <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
           actions.setPopout();
-          this.photoDidSelect(i, e.target.files);
-        }} /></div>,
+          this.photoDidSelect(i, e.target.files[0]);
+        }} /></span>,
         autoclose: false
       }
     ], 'Загрузка фотографии');
@@ -338,7 +343,7 @@ export default class EditProfile extends BaseComponent {
       .then(res => res.blob())
       .then(blob => {
         const file = new File([blob], 'file.png', blob);
-        this.photoDidSelect(photo.index, [file]);
+        this.photoDidSelect(photo.index, file);
       }).catch(() => actions.showError('Произошла ошибка'))
   }
 }

@@ -13,13 +13,14 @@
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^5.2.0",
-    "react-hot-loader": "^4.3.6",
+    "react-hot-loader": "^4.3.11",
     "react-scripts": "^1.1.5"
   },
   "dependencies": {
+    "@sentry/browser": "^4.2.0",
     "@vkontakte/icons": "^1.2.0",
-    "@vkontakte/vkui": "^2.9.4",
-    "@vkontakte/vkui-connect": "^1.0.0",
+    "@vkontakte/vkui": "^2.12.4",
+    "@vkontakte/vkui-connect": "^1.1.2",
     "@vkontakte/vkui-connect-mock": "^1.0.5",
     "array.prototype.fill": "^1.0.2",
     "blueimp-load-image": "^2.19.0",
@@ -27,8 +28,8 @@
     "fbemitter": "^2.1.1",
     "promise-polyfill": "8.1.0",
     "prop-types": "^15.6.2",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.0.6",
     "redux": "^3.6.0",
     "router5": "^4.5.2",

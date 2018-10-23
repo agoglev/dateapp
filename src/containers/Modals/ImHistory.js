@@ -332,7 +332,8 @@ export default class ImHistory extends BaseComponent {
       this.setState({contextOpened: false});
       actions.go(pages.PROFILE, {
         user,
-        fromLikes: false
+        fromLikes: false,
+        fromHistory: true
       })
   };
 

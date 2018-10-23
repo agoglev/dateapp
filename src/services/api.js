@@ -79,7 +79,8 @@ export const methods = {
   resetBadge: 'reset_badge',
   setOnline: 'set_online',
   clearHistory: 'clear_history',
-  jsError: 'js_error'
+  jsError: 'js_error',
+  clearSeenCards: 'clear_seen_cards'
 };
 
 let vkRequestId = 0;
