@@ -86,3 +86,7 @@ ReactDOM.render(
 if (utils.isDev() && utils.isInspectOpen()) {
   accountActions.init('test');
 }
+
+window.adsEmpty = () => {
+  store.dispatch({type: actionTypes.ADS_UPDATE, shown: false});
+};

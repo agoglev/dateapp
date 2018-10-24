@@ -22,7 +22,6 @@ export default class Activity extends Component {
     this._load();
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
     accountActions.resetBadge();
-    utils.initYAAds();
   }
 
   render() {
@@ -32,7 +31,6 @@ export default class Activity extends Component {
           Активность
         </PanelHeader>
         {this._renderLikes()}
-        <Group><div id="yandex_rtb_R-A-325915-1" /></Group>
         <Group>
           <div className="im_dialogs">
             {this._renderDialogs()}

@@ -1,5 +1,8 @@
 import * as loadImage from 'blueimp-load-image';
 import * as actions from "../actions";
+import * as actionTypes from '../actions/actionTypes';
+import store from '../store';
+import Cards from '../containers/Main/Cards';
 
 export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -75,15 +78,20 @@ export function getTabBarHeight() {
   if (!el) {
     return 0;
   }
-  const height = el.offsetHeight;
+  let height = el.offsetHeight;
   const helperHeight = document.querySelector('.TabBar__helper').offsetHeight;
+
+  if (store.getState().tabBarAdsShown) {
+    //height += 50;
+  }
 
   return height + helperHeight;
 }
 
 export function getHeaderHeight() {
   const el = document.querySelector('.View__header');
-  return el ? el.offsetHeight : 0;
+  let height = el ? el.offsetHeight : 0;
+  return height;
 }
 
 export function genderText(gender, variants) { // gender 2 is female
@@ -91,7 +99,6 @@ export function genderText(gender, variants) { // gender 2 is female
 }
 
 export function dateFormatShort(ts) {
-
   const curDate = new Date();
   const dt = Math.floor((curDate.getTime() - ts) / 1000);
   const days = Math.floor(dt / 86400);
@@ -183,7 +190,8 @@ export function statReachGoal(eventName) {
 let yandexAdsInited = false;
 let yandexAdsIniting = false;
 export function initYAAds() {
-  if (yandexAdsInited) {
+  initYABlock();
+  /*if (yandexAdsInited) {
     initYABlock();
   } else {
     if (!yandexAdsIniting) {
@@ -202,14 +210,19 @@ export function initYAAds() {
         t.parentNode.insertBefore(s, t);
       })(window, window.document, "yandexContextAsyncCallbacks");
     }
-  }
+  }*/
 }
 
 function initYABlock() {
+  if (!window.Ya || !window.Ya.Context) {
+    return;
+  }
   window.Ya.Context.AdvManager.render({
-    blockId: "R-A-325915-1",
-    renderTo: "yandex_rtb_R-A-325915-1",
-    async: true,
-    test: 1
+    blockId: "R-A-325915-2",
+    renderTo: "yandex_rtb_R-A-325915-2"
   });
+  store.dispatch({type: actionTypes.ADS_UPDATE, shown: true});
+  setTimeout(() => {
+    Cards.shared._updateHeight();
+  }, 200);
 }

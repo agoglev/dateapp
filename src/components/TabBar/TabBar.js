@@ -4,6 +4,10 @@ import * as utils from '../../utils';
 import * as actions from '../../actions';
 
 export default class TabBar extends Component {
+  componentDidMount() {
+    utils.initYAAds();
+  }
+
   render() {
     return (
       <div className="TabBar">
@@ -11,6 +15,7 @@ export default class TabBar extends Component {
           {this._renderTabs()}
         </div>
         <div className="TabBar__helper" />
+        <div id="yandex_rtb_R-A-325915-2" />
       </div>
     )
   }

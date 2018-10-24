@@ -13,8 +13,8 @@ export default class Cards extends Component {
 
   static shared = null;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       activePhotos: {},
@@ -29,6 +29,7 @@ export default class Cards extends Component {
     this.likesCount = 0;
 
     Cards.shared = this;
+    this.adsShown = props.state.tabBarAdsShown;
   }
 
   componentWillMount() {
@@ -54,6 +55,13 @@ export default class Cards extends Component {
     node.removeEventListener('touchend', this._touchDidEnd);
 
     document.removeEventListener('touchmove', this._disableScroll);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextProps.state.tabBarAdsShown !== this.adsShown) {
+      this.adsShown = nextProps.state.tabBarAdsShown;
+      setTimeout(this._updateHeight, 200);
+    }
   }
 
   render() {

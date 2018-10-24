@@ -32,6 +32,7 @@ const initialState = {
   hasBadge: false,
   needTokenMessage: false,
   works: false, // engineering works
+  tabBarAdsShown: false
 };
 
 let navHistory = [];
@@ -178,6 +179,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.WORKS: {
       return Object.assign({}, state, {works: true});
+    }
+
+    case actionTypes.ADS_UPDATE: {
+      return Object.assign({}, state, {tabBarAdsShown: action.shown});
     }
 
     default:

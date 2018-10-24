@@ -11,6 +11,7 @@ import JoinIntro from '../Join/JoinIntro';
 import Cards from './Cards';
 import Activity from './Activity';
 import Profile from '../Profile/Profile';
+import * as utils from "../../utils";
 
 export default class Main extends BaseComponent {
   render() {
@@ -55,7 +56,7 @@ export default class Main extends BaseComponent {
     }
 
     return (
-      <FixedLayout vertical="bottom">
+      <FixedLayout vertical="bottom" style={{background: '#fff'}}>
         <TabBar state={state} />
       </FixedLayout>
     )
