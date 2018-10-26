@@ -1,5 +1,6 @@
 import * as activityActions from '../actions/activity';
 import store from '../store';
+import * as accountActions from "../actions/account";
 
 let lastEventId = 0;
 let socket = null;
@@ -82,7 +83,10 @@ function messageDidReceive(e) {
       //$('#profile_balance').html(event.balance_str);
       break;
     case 'badge':
-      //$('.header_item.messages').addClass('has_new');
+      accountActions.showBadge();
+      break;
+    case 'like':
+      activityActions.newLikeEventDidReceive(event.like);
       break;
   }
 }

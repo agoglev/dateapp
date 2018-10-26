@@ -239,6 +239,19 @@ export function newMessageEventDidReceive(dialog) {
   accountActions.showBadge();
 }
 
+export function newLikeEventDidReceive(like) {
+  let { likes } = store.getState();
+  for (let i = 0; i < likes.length; i++) {
+    if (likes[i].user.id === like.user.id) {
+     return;
+    }
+  }
+
+  likes.unshift(like);
+  store.dispatch({type: actionTypes.LIKES_SET, likes});
+  accountActions.showBadge();
+}
+
 function addNewDialog(dialog) {
   let { dialogs } = store.getState();
 
