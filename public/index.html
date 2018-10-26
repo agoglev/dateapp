@@ -2,11 +2,12 @@
 <html lang="en">
 	<head>
 			<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
+			<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 			<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 			<meta name="theme-color" content="#000000">
 			<meta content="IE=Edge" http-equiv="X-UA-Compatible">
 			<script type="text/javascript" src="//an.yandex.ru/system/context.js"></script>
+			<script src="https://vk.com/js/api/mobile_sdk.js"  type="text/javascript"></script>
 			<title>The dating service</title>
 	</head>
 	<body>
@@ -37,6 +38,12 @@
             d.addEventListener("DOMContentLoaded", f, false);
           } else { f(); }
         })(document, window, "yandex_metrika_callbacks2");
+
+        window.VK.init(function() {
+          console.log('VK INITED');
+        }, function() {
+          console.log('VK ERR');
+        }, '5.85');
 			</script>
 	</body>
 </html>

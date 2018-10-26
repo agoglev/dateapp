@@ -1,6 +1,7 @@
 //import 'core-js/es6/map';
 //import 'core-js/es6/set';
 import 'core-js/es6';
+import 'url-search-params-polyfill';
 import * as Sentry from '@sentry/browser';
 
 import React from 'react';
@@ -18,15 +19,8 @@ import * as accountActions from './actions/account';
 import * as utils from './utils';
 import * as api from './services/api';
 
-function parseUrlQuery() {
-  var search = window.location.search.substring(1);
-  if (!search) {
-    return {};
-  }
-  return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-}
-
-const urlParams = parseUrlQuery();
+const urlParams = new URLSearchParams(window.location.search);
+const urlToken = urlParams.get('access_token');
 
 if (!utils.isDev()) {
   Sentry.init({
@@ -101,6 +95,14 @@ window.adsEmpty = () => {
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: false});
 };
 
-if (urlParams.is_dg) {
-  accountActions.init(urlParams.access_token);
+if (urlToken) {
+  window.isDG = true;
+  accountActions.init(urlToken);
+
+  let scope = 0;
+  if (urlParams && urlParams.get) {
+    scope = parseInt(urlParams.get('api_settings'), 10);
+  }
+
+  window.isDGNotifiEnabled = scope & 1 === 1;
 }

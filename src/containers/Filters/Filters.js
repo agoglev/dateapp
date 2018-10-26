@@ -40,8 +40,8 @@ export default class Filters extends BaseComponent {
               value={[this.data.ageFrom, this.data.ageTo]}
             />
           </div>
-          <FixedLayout vertical="bottom" style={{padding: 16}}>
-            <Button size="xl" level="1" onClick={this._saveButtonDidPress}>Сохранить</Button>
+          <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0'}}>
+            <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>
       </Panel>

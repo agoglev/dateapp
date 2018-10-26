@@ -235,7 +235,13 @@ export function requestMessagesPermissions() {
     title="Включите уведомления"
     caption="Чтобы быть в&nbsp;курсе новых лайков и&nbsp;сообщений, разрешите присылать уведомления"
     type="messages"
-    onClick={() => connect.send("VKWebAppAllowNotifications", {})}
+    onClick={() => {
+      if (window.isDG) {
+        window.VK.callMethod('showSettingsBox', 1);
+      } else {
+        connect.send('VKWebAppAllowNotifications', {});
+      }
+    }}
   />);
 }
 

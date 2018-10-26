@@ -16,7 +16,8 @@ export function init(token = false) {
   api.method(api.methods.init, {
     vk_id: vkUserInfo.id,
     vk_sig: vkUserInfo.signed_user_id || '',
-    vk_token: token || ''
+    vk_token: token || '',
+    is_dg: window.isDG ? 1 : 0
   })
     .then(initMethodHandler)
     .catch(() => {

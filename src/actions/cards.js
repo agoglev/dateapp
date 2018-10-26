@@ -125,11 +125,18 @@ export function requestNotificationsAccess() {
     return;
   }
   skipRequestNotificationsAccess = true;
-  api.vk('apps.isNotificationsAllowed').then((resp) => {
-    if (!resp.is_allowed) {
+
+  if (window.isDG) {
+    if (!window.isDGNotifiEnabled) {
       actions.requestMessagesPermissions();
     }
-  });
+  } else {
+    api.vk('apps.isNotificationsAllowed').then((resp) => {
+      if (!resp.is_allowed) {
+        actions.requestMessagesPermissions();
+      }
+    });
+  }
 }
 
 function addCardToDisliked(card) {

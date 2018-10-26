@@ -87,18 +87,28 @@ let vkRequestId = 0;
 let vkRequestCallbacks = {};
 export function vk(method, params = {}) {
   return new Promise((resolve, reject) => {
-    const reqId = ++vkRequestId;
+    if (window.isDG) {
+      window.VK.api(method, params, (resp) => {
+        if (resp.response) {
+          resolve(resp.response);
+        } else {
+          reject(resp.error);
+        }
+      });
+    } else {
+      const reqId = ++vkRequestId;
 
-    vkRequestCallbacks[reqId] = {resolve, reject};
+      vkRequestCallbacks[reqId] = {resolve, reject};
 
-    params.access_token = store.getState().vkAccessToken;
-    params.request_id = reqId;
-    params.v = '5.85';
-    connect.send('VKWebAppCallAPIMethod', {
-      method,
-      params,
-      request_id: String(reqId)
-    });
+      params.access_token = store.getState().vkAccessToken;
+      params.request_id = reqId;
+      params.v = '5.85';
+      connect.send('VKWebAppCallAPIMethod', {
+        method,
+        params,
+        request_id: String(reqId)
+      });
+    }
   });
 }
 
