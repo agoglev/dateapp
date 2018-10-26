@@ -2,6 +2,7 @@ export const NAVIGATE = 'NAVIGATE';
 export const SET_TAB = 'SET_TAB';
 export const SET_DATA = 'SET_DATA';
 export const APP_INITED = 'APP_INITED';
+export const APP_INIT_RETRY = 'APP_INIT_RETRY';
 export const VK_FAILED = 'VK_FAILED';
 export const SETUP_VK_USER_INFO = 'SETUP_VK_USER_INFO';
 export const SHOW_ERROR = 'SHOW_ERROR';

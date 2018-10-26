@@ -8,6 +8,8 @@ import store from '../store';
 import router from '../router';
 import * as api from '../services/api';
 import * as pages from '../constants/pages';
+import * as accountActions from "./account";
+import * as utils from "../utils";
 
 const osname = platform();
 
@@ -235,4 +237,13 @@ export function requestMessagesPermissions() {
     type="messages"
     onClick={() => connect.send("VKWebAppAllowNotifications", {})}
   />);
+}
+
+export function initRetry() {
+  store.dispatch({type: actionTypes.APP_INIT_RETRY});
+  if (utils.isDev() && utils.isInspectOpen()) {
+   accountActions.init('test');
+  } else {
+   connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
+  }
 }

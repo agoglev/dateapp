@@ -219,10 +219,12 @@ function initYABlock() {
   }
   window.Ya.Context.AdvManager.render({
     blockId: "R-A-325915-2",
-    renderTo: "yandex_rtb_R-A-325915-2"
+    renderTo: "yandex_rtb_R-A-325915-2",
+    onRender: function() {
+      setTimeout(() => {
+        Cards.shared && Cards.shared._updateHeight();
+      }, 200);
+    }
   });
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: true});
-  setTimeout(() => {
-    Cards.shared._updateHeight();
-  }, 200);
 }

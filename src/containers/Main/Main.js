@@ -12,6 +12,7 @@ import Cards from './Cards';
 import Activity from './Activity';
 import Profile from '../Profile/Profile';
 import * as utils from "../../utils";
+import PlaceholderError from "../../components/Placeholder/PlaceholderError";
 
 export default class Main extends BaseComponent {
   render() {
@@ -44,7 +45,7 @@ export default class Main extends BaseComponent {
       case 'profile':
         return <Profile state={state} />;
       case 'error':
-        return <h1>Произошла ошибка</h1>;
+        return <PlaceholderError />;
     }
   }
 

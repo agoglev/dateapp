@@ -107,6 +107,10 @@ export default function reducer(state = initialState, action) {
       });
     }
 
+    case actionTypes.APP_INIT_RETRY: {
+      return Object.assign({}, state, {appInited: false});
+    };
+
     case actionTypes.SETUP_VK_USER_INFO: {
       return Object.assign({}, state, {vkUserInfo: action.info, needTokenMessage: false});
     }

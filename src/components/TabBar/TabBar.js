@@ -5,7 +5,7 @@ import * as actions from '../../actions';
 
 export default class TabBar extends Component {
   componentDidMount() {
-    utils.initYAAds();
+    //utils.initYAAds();
   }
 
   render() {
