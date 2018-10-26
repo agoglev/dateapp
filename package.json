@@ -5,7 +5,7 @@
   "homepage": "./",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env HOST=10.40.58.28 PORT=3000 react-scripts start",
+    "start": "cross-env HOST=172.17.54.177 PORT=3000 react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],
@@ -19,7 +19,7 @@
   "dependencies": {
     "@sentry/browser": "^4.2.0",
     "@vkontakte/icons": "^1.2.0",
-    "@vkontakte/vkui": "^2.12.4",
+    "@vkontakte/vkui": "^2.12.5",
     "@vkontakte/vkui-connect": "^1.1.2",
     "@vkontakte/vkui-connect-mock": "^1.0.5",
     "array.prototype.fill": "^1.0.2",
