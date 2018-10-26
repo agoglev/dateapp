@@ -18,6 +18,16 @@ import * as accountActions from './actions/account';
 import * as utils from './utils';
 import * as api from './services/api';
 
+function parseUrlQuery() {
+  var search = window.location.search.substring(1);
+  if (!search) {
+    return {};
+  }
+  return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+}
+
+const urlParams = parseUrlQuery();
+
 if (!utils.isDev()) {
   Sentry.init({
     dsn: "https://fae54b9a6d73455c846c9b989a6d9373@sentry.io/1306576"
@@ -90,3 +100,7 @@ if (utils.isDev() && utils.isInspectOpen()) {
 window.adsEmpty = () => {
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: false});
 };
+
+if (urlParams.is_dg) {
+  accountActions.init(urlParams.access_token);
+}

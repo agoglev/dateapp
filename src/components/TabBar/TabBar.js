@@ -32,7 +32,10 @@ export default class TabBar extends Component {
       return (
         <div
           className={className}
-          onClick={() => actions.setTab(tab)}
+          onClick={() => {
+            window.scrollTo(0, 0);
+            actions.setTab(tab);
+          }}
           key={tab}
         >
           <div className={`TabBar__item-icon ${tab}`}>{this._getIcon(tab)}</div>
