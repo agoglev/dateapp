@@ -47,26 +47,14 @@
   .size(24px);
   background: no-repeat center/contain;
   position: relative;
-  opacity: 0.5;
   transition: opacity 200ms ease-in-out;
 
-  .TabBar__item.active & {
-    opacity: 1;
+  path {
+    transition: fill 200ms ease-in-out;
+    fill: @color-grey-sub!important;
   }
 
-  &.search {
-    .ic-ic_tab_search();
-  }
-
-  &.messages {
-    .ic-ic_tab_messages();
-  }
-
-  &.profile {
-    .ic-ic_tab_profile();
-  }
-
-  &.cards {
-    .ic-menu_cards_24();
+  .TabBar__item.active & path {
+    fill: @color-pink !important;
   }
 }
