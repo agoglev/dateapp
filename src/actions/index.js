@@ -179,12 +179,14 @@ export function showAlert(title, message, okText = false, opts = {}) {
       });
     }
 
-    actions.push({
-      title: 'Отменить',
-      autoclose: true,
-      action: reject,
-      style: 'cancel'
-    });
+    if (!opts.skipCancelButton) {
+      actions.push({
+        title: 'Отменить',
+        autoclose: true,
+        action: reject,
+        style: 'cancel'
+      });
+    }
 
     const popout =  <Alert
       actions={actions}

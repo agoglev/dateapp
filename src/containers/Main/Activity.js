@@ -7,6 +7,7 @@ import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
+import * as api from '../../services/api';
 
 export default class Activity extends Component {
   constructor() {
@@ -30,6 +31,7 @@ export default class Activity extends Component {
         <PanelHeader>
           Активность
         </PanelHeader>
+        {this._renderFeatured()}
         {this._renderLikes()}
         <Group>
           <div className="im_dialogs">
@@ -98,6 +100,47 @@ export default class Activity extends Component {
     });
   }
 
+  _renderFeatured() {
+    const users = this.props.state.featuredUsers;
+
+    if (users.length === 0 || !window.isDG) {
+      return null;
+    }
+
+    return (
+      <Group>
+        <div className="live_feed_featured">
+          {this._renderFeaturedRows(users)}
+        </div>
+      </Group>
+    )
+  }
+
+  _renderFeaturedRows(users) {
+    let res = users.map((user, i) => {
+      return (
+        <div
+          className="live_feed_featured_item"
+          key={i}
+          onClick={() => actions.go(pages.PROFILE, {user: user, fromLikes: true})}
+        >
+          <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+        </div>
+      )
+    });
+
+    let curUser = this.props.state.usersInfo[this.props.state.userId];
+    res.unshift(<div
+      className="live_feed_featured_item add_btn"
+      key={-1}
+      onClick={this._featureDidPress}
+    >
+      <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${curUser.small_photo})`}} />
+    </div>);
+
+    return res;
+  }
+
   _renderLikes() {
     const likes = this.props.state.likes;
 
@@ -153,6 +196,20 @@ export default class Activity extends Component {
         isLoading: false,
         isFailed: true
       });
+    });
+  };
+
+  _featureDidPress = () => {
+    actions.loaderShow();
+    api.showOrderBox('feature').then(() => {
+      actions.loaderSuccess();
+      activityActions.addMeToFeatured();
+    }).catch((isFailed) => {
+      if (isFailed) {
+        actions.showError();
+      } else {
+        actions.loaderHide();
+      }
     });
   };
 }

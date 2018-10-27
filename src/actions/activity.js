@@ -19,7 +19,7 @@ export function load() {
       return;
     }
 
-    api.method(api.methods.activity).then(({dialogs, likes}) => {
+    api.method(api.methods.activity).then(({dialogs, likes, featured_users}) => {
       // dialogs
       actions.setUsers(dialogs.map(dialog => dialog.user));
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
@@ -27,6 +27,11 @@ export function load() {
       // likes
       actions.setUsers(likes.map(like => like.user));
       store.dispatch({type: actionTypes.LIKES_SET, likes});
+
+      // featured users
+      actions.setUsers(featured_users);
+      store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featured_users});
+
       resolve();
     }).catch(() => {
       reject();
@@ -314,4 +319,12 @@ export function clearHistory(peerId) {
       resolve();
     }).catch(reject);
   });
+}
+
+export function addMeToFeatured() {
+  const state = store.getState();
+  let featuredUsers = state.featuredUsers;
+  let user = state.usersInfo[state.userId];
+  featuredUsers.unshift(user);
+  store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featuredUsers});
 }

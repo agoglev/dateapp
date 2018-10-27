@@ -32,7 +32,8 @@ const initialState = {
   hasBadge: false,
   needTokenMessage: false,
   works: false, // engineering works
-  tabBarAdsShown: false
+  tabBarAdsShown: false,
+  featuredUsers: []
 };
 
 let navHistory = [];
@@ -167,6 +168,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.LIKES_SET: {
       return Object.assign({}, state, {likes: action.likes});
+    }
+
+    case actionTypes.FEATURED_USERS_SET: {
+      return Object.assign({}, state, {featuredUsers: action.users});
     }
 
     case actionTypes.SET_POPOUT: {

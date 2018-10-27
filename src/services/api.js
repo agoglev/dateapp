@@ -132,3 +132,30 @@ export function handleMethodError(error) {
     delete vkRequestCallbacks[requestId];
   }
 }
+
+let _orderBoxPromise = false;
+export function showOrderBox(item) {
+  return new Promise((resolve, reject) => {
+    const { VK } = window;
+
+    VK.addCallback('onOrderBoxDone', _orderBoxCallback);
+    _orderBoxPromise = {resolve, reject};
+    VK.callMethod('showOrderBox', {type: 'item', item});
+  });
+}
+
+function _orderBoxCallback(status) {
+  const { VK } = window;
+  VK.removeCallback('showOrderBox', _orderBoxCallback);
+
+  if (!_orderBoxPromise) {
+    return;
+  }
+
+  if (status === 'success') {
+    _orderBoxPromise.resolve();
+  } else {
+    _orderBoxPromise.reject(status === 'fail');
+  }
+  _orderBoxPromise = false;
+}

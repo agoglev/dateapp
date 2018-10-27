@@ -612,3 +612,42 @@
   color: #e63973;
   font-weight: 500;
 }
+.live_feed_featured {
+  padding: 10px 10px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 84px;
+}
+.live_feed_featured:after {
+  width: 10px;
+  height: 30px;
+  display: block;
+  content: '';
+  flex: 0 0 auto;
+}
+.live_feed_featured_item {
+  width: 76px;
+  border-radius: 8px;
+  flex: 0 0 auto;
+  text-align: center;
+}
+.live_feed_featured_item_photo {
+  background: #ebebeb no-repeat center / cover;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 8px;
+}
+.live_feed_featured_item.add_btn .live_feed_featured_item_photo:after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 24px;
+  height: 24px;
+  background: url('asset/promo_add_24.svg') no-repeat center / contain;
+}
