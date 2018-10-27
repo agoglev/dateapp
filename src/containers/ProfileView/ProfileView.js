@@ -42,7 +42,7 @@ export default class ProfileView extends BaseComponent {
               {this._renderInfo()}
             </div>
             <div className="profile_view_about">{user.about}</div>
-            {this.data.fromLikes && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы написать сообщение!</div>}
+            {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы написать сообщение!</div>}
             <div className="profile_view_buttons">
               {this._renderButtons()}
             </div>
@@ -115,9 +115,10 @@ export default class ProfileView extends BaseComponent {
     if (user.id === this.props.state.userId || this.data.fromHistory === true) {
       return null;
     }
+    const isFeature = this.data.fromFeature === true;
     return (
       <div className="profile_view_footer">
-        <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />
+        {!isFeature && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
         <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />
       </div>
     )
@@ -136,7 +137,7 @@ export default class ProfileView extends BaseComponent {
   };
 
   _footerDislikeButtonDidPress = () => {
-    if (this.data.fromLikes) {
+    if (this.data.fromLikes === true) {
       actions.loaderShow();
       activityActions.likeAction(this.data.user.id, 'dislike')
         .then(() => {
@@ -156,13 +157,22 @@ export default class ProfileView extends BaseComponent {
   };
 
   _footerLikeButtonDidPress = () => {
-    if (this.data.fromLikes) {
+    const isFeature = this.data.fromFeature === true;
+    if (this.data.fromLikes === true || isFeature) {
       actions.loaderShow();
-      activityActions.likeAction(this.data.user.id, 'like')
+      activityActions.likeAction(this.data.user.id, 'like', isFeature)
         .then(() => {
           window.history.back();
-          actions.loaderSuccess();
           utils.statReachGoal('like');
+
+          if (isFeature) {
+            actions.loaderHide();
+            actions.showAlert('Лайк поставлен!', 'Дождитесь взаимного лайка, чтобы начать общаться.', 'Ок', {
+              skipCancelButton: true
+            });
+          } else {
+            actions.loaderSuccess();
+          }
         }).catch(() => {
           actions.loaderHide();
           actions.showError('Произошла ошибка');

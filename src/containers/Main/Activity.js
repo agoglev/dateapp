@@ -122,7 +122,7 @@ export default class Activity extends Component {
         <div
           className="live_feed_featured_item"
           key={i}
-          onClick={() => actions.go(pages.PROFILE, {user: user, fromLikes: true})}
+          onClick={() => actions.go(pages.PROFILE, {user: user, fromFeature: true})}
         >
           <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
         </div>
@@ -201,7 +201,7 @@ export default class Activity extends Component {
 
   _featureDidPress = () => {
     actions.loaderShow();
-    api.showOrderBox('feature').then(() => {
+    api.showOrderBox('feature_feed').then(() => {
       actions.loaderSuccess();
       activityActions.addMeToFeatured();
     }).catch((isFailed) => {

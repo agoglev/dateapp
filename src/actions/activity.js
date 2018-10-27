@@ -288,14 +288,14 @@ function removeLikeById(userId) {
   }
 }
 
-export function likeAction(userId, action) {
+export function likeAction(userId, action, fromFeature) {
   return new Promise((resolve, reject) => {
     api.method(api.methods.likesAction, {
       user_id: userId,
       action: action === 'like' ? 1 : 0
     }).then((dialog) => {
       removeLikeById(userId);
-      if (action === 'like') {
+      if (action === 'like' && !fromFeature) {
         addNewDialog(dialog);
       }
       resolve();
