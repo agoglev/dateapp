@@ -21,6 +21,7 @@ import * as api from './services/api';
 
 const urlParams = new URLSearchParams(window.location.search);
 const urlToken = urlParams.get('access_token');
+window.urlToken = urlToken;
 
 if (!utils.isDev()) {
   Sentry.init({
@@ -105,4 +106,5 @@ if (urlToken) {
   }
 
   window.isDGNotifiEnabled = scope & 1 === 1;
+  window.isDGMessagesBlocked = parseInt(urlParams.get('is_messages_blocked'), 10);
 }

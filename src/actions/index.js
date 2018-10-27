@@ -237,7 +237,8 @@ export function requestMessagesPermissions() {
     type="messages"
     onClick={() => {
       if (window.isDG) {
-        window.VK.callMethod('showSettingsBox', 1);
+        //window.VK.callMethod('showSettingsBox', 1);
+        window.VK.callMethod('showAllowMessagesFromCommunityBox', 160479731);
       } else {
         connect.send('VKWebAppAllowNotifications', {});
       }
@@ -248,7 +249,9 @@ export function requestMessagesPermissions() {
 export function initRetry() {
   store.dispatch({type: actionTypes.APP_INIT_RETRY});
   if (utils.isDev() && utils.isInspectOpen()) {
-   accountActions.init('test');
+    accountActions.init('test');
+  } else if (window.isDG) {
+    accountActions.init(window.urlToken);
   } else {
    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
   }

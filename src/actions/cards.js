@@ -127,9 +127,12 @@ export function requestNotificationsAccess() {
   skipRequestNotificationsAccess = true;
 
   if (window.isDG) {
-    if (!window.isDGNotifiEnabled) {
+    if (window.isDGMessagesBlocked) {
       actions.requestMessagesPermissions();
     }
+    //if (!window.isDGNotifiEnabled) {
+    //  actions.requestMessagesPermissions();
+    //}
   } else {
     api.vk('apps.isNotificationsAllowed').then((resp) => {
       if (!resp.is_allowed) {
