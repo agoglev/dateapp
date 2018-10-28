@@ -10,6 +10,7 @@ const API_ENTRY = 'https://dev.kphp.net/api.php';
 export function method(name, params = {}) {
   params.token = store.getState().token;
   params.method = name;
+  params.app_id = window.appId;
   return new Promise((resolve, reject) => {
     const form = new FormData();
     for (let k in params) {

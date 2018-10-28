@@ -337,8 +337,30 @@ export default class Cards extends Component {
   // Other
 
   _setReason(isLike) {
-    cardsActions.setReason(isLike)
-      .catch((card) => {
+    if (!isLike && !cardsActions.dislikeTipShown) {
+      actions.showAlert('Вы пропустили анкету', 'Вам действительно не понравился этот человек?', 'Да').then(() => {
+        cardsActions.resolveDisLikeTip()
+        this._dislikeButtonDidPress();
+      }).catch(() => {
+        cardsActions.resolveLikeTip();
+      });
+      return;
+    } else if (isLike && !cardsActions.likeTipShown) {
+      actions.showAlert('Вы поставили лайк', 'Вам действительно нравится этот человек?', 'Да').then(() => {
+        cardsActions.resolveLikeTip();
+        this._likeButtonDidPress();
+      }).catch(() => {
+        cardsActions.resolveLikeTip();
+      });
+      return;
+    }
+
+    cardsActions.setReason(isLike).then(() => {
+      if (isLike && !cardsActions.matchTipShown) {
+        actions.showAlert('Лайк поставлен!', 'Дождитесь взаимного лайка, чтобы начать общаться', 'Ок', {skipCancelButton: true});
+        cardsActions.resolveMatchTip();
+      }
+    }).catch((card) => {
         this._restoreCard(card, isLike);
         actions.showError('Произошла ошибка');
       });

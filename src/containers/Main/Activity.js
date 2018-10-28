@@ -200,16 +200,18 @@ export default class Activity extends Component {
   };
 
   _featureDidPress = () => {
-    actions.loaderShow();
-    api.showOrderBox('feature_feed').then(() => {
-      actions.loaderSuccess();
-      activityActions.addMeToFeatured();
-    }).catch((isFailed) => {
-      if (isFailed) {
-        actions.showError();
-      } else {
-        actions.loaderHide();
-      }
+    actions.showAlert('Больше просмотров', 'Хороший способ заявить о себе, разместите анкету на виду у всех и получите больше лайков!', 'Продолжить').then(() => {
+      actions.loaderShow();
+      api.showOrderBox('feature_feed').then(() => {
+        actions.loaderSuccess();
+        activityActions.addMeToFeatured();
+      }).catch((isFailed) => {
+        if (isFailed) {
+          actions.showError();
+        } else {
+          actions.loaderHide();
+        }
+      });
     });
   };
 }

@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import store from '../store';
-import * as actions from './index'
+import * as actions from './index';
+import * as cardsActions from './cards';
 import * as api from '../services/api';
 import * as utils from '../utils';
 import * as pages from '../constants/pages';
@@ -114,6 +115,7 @@ function initMethodHandler(resp) {
     actions.setUser(resp.user);
     actions.setTab('cards');
     realTimeInit();
+    cardsActions.initTips();
   }
 }
 

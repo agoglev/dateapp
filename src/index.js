@@ -22,6 +22,7 @@ import * as api from './services/api';
 const urlParams = new URLSearchParams(window.location.search);
 const urlToken = urlParams.get('access_token');
 window.urlToken = urlToken;
+window.appId = parseInt(urlParams.get('api_id'), 10);
 
 if (!utils.isDev()) {
   Sentry.init({

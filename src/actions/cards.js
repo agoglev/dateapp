@@ -5,6 +5,10 @@ import * as api from '../services/api';
 import * as utils from '../utils';
 import * as pages from '../constants/pages';
 
+export let dislikeTipShown = true;
+export let likeTipShown = true;
+export let matchTipShown = true;
+
 export function loadCards() {
   return new Promise((resolve, reject) => {
     let cards = store.getState().cards;
@@ -169,4 +173,46 @@ export function clearSeenCards() {
       reject();
     });
   })
+}
+
+export function initTips() {
+  api.vk('storage.get', {
+    keys: 'cards_liked,cards_disliked,cards_match'
+  }).then((keysRaw) => {
+    console.log('keys', keys);
+
+    let keys = {};
+    for (let i = 0; i < keysRaw.length; i++) {
+      const item = keysRaw[i];
+      keys[item.key] = parseInt(item.value, 10) || 0;
+    }
+
+    dislikeTipShown = keys.cards_disliked === 1;
+    likeTipShown = keys.cards_liked === 1;
+    matchTipShown = keys.cards_match === 1;
+  });
+}
+
+export function resolveLikeTip() {
+  likeTipShown = true;
+  api.vk('storage.set', {
+    key: 'cards_liked',
+    value: '1'
+  });
+}
+
+export function resolveDisLikeTip() {
+  dislikeTipShown = true;
+  api.vk('storage.set', {
+    key: 'cards_disliked',
+    value: '1'
+  });
+}
+
+export function resolveMatchTip() {
+  matchTipShown = true;
+  api.vk('storage.set', {
+    key: 'cards_match',
+    value: '1'
+  });
 }
