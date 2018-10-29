@@ -113,6 +113,7 @@ export default class Activity extends Component {
 
     return (
       <Group>
+        <Header level="2">Топ-анкеты</Header>
         <div className="live_feed_featured">
           {this._renderFeaturedRows(users)}
         </div>
