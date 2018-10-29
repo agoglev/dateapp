@@ -8,6 +8,8 @@ import * as pages from '../constants/pages';
 export let dislikeTipShown = true;
 export let likeTipShown = true;
 export let matchTipShown = true;
+let sortTipShown = true;
+let needShowSortTip = false;
 
 export function loadCards() {
   return new Promise((resolve, reject) => {
@@ -17,6 +19,10 @@ export function loadCards() {
     }
     api.method(api.methods.cardsGet, {})
       .then((cards) => {
+        if (needShowSortTip && cards.length > 10) {
+          cards.splice(9, 0, getSortTip());
+          needShowSortTip = false;
+        }
         store.dispatch({type: actionTypes.CARDS_SET, cards});
         resolve();
       }).catch(() => {
@@ -177,7 +183,7 @@ export function clearSeenCards() {
 
 export function initTips() {
   api.vk('storage.get', {
-    keys: 'cards_liked,cards_disliked,cards_match'
+    keys: 'cards_liked,cards_disliked,cards_match,cards_tip_sort'
   }).then((keysRaw) => {
     let keys = {};
     for (let i = 0; i < keysRaw.length; i++) {
@@ -188,7 +194,27 @@ export function initTips() {
     dislikeTipShown = keys.cards_disliked === 1;
     likeTipShown = keys.cards_liked === 1;
     matchTipShown = keys.cards_match === 1;
+    sortTipShown = keys.cards_tip_sort === 1;
+
+    let cards = store.getState().cards;
+    if (!sortTipShown) {
+      if (!cards.length) {
+        needShowSortTip = true;
+      } else if (cards.length > 10) {
+        cards.splice(1, 0, getSortTip());
+        store.dispatch({type: actionTypes.CARDS_SET, cards});
+      }
+    }
   });
+}
+
+function getSortTip() {
+  return {
+    system: true,
+    type: 'sort',
+    title: 'Подсказка',
+    caption: 'Открывайте приложение каждый день, чтобы появляться чаше у других пользователей.'
+  };
 }
 
 export function resolveLikeTip() {
@@ -213,4 +239,14 @@ export function resolveMatchTip() {
     key: 'cards_match',
     value: '1'
   });
+}
+
+export function resolveSystemCard() {
+  const card = shiftCard();
+  api.vk('storage.set', {
+    key: `cards_tip_${card.type}`,
+    value: '1'
+  });
+  sortTipShown = true;
+  needShowSortTip = false;
 }

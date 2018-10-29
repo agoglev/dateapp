@@ -68,11 +68,13 @@ export default class Cards extends Component {
 
   render() {
     const state = this.props.state;
+
+    let isSystemCard = state.cards.length > 0 && state.cards[0].system;
     const className = utils.classNames({
       Cards: true,
       is_moving: this.state.isMoving,
       empty: !this.props.state.cards.length && !this.state.isLoading && !this.state.isFailed,
-      hideControls: !this.props.state.cards.length || this.state.isLoading && state.cards.length === 0 || this.state.isFailed
+      hideControls: !this.props.state.cards.length || this.state.isLoading && state.cards.length === 0 || this.state.isFailed || isSystemCard
     });
 
     return (
@@ -147,6 +149,20 @@ export default class Cards extends Component {
         style.transform = `rotate(${rotate}deg) translateX(${x}) translateZ(0)`;
       } else {
         style.transform = `scale(0.92) translateZ(0)`;
+      }
+
+      if (card.system) {
+        return (
+          <div
+            className="Cards__item system"
+            key={card.type}
+            style={style}
+          >
+            <div className="Cards__item--system-title">{card.title}</div>
+            <div className="Cards__item--system-caption">{card.caption}</div>
+            <div className="Cards__item--system-extra"><Button size="l" onClick={this._likeButtonDidPress}>Понятно</Button></div>
+          </div>
+        )
       }
 
       let nameComponents = [card.name];
@@ -339,9 +355,18 @@ export default class Cards extends Component {
   // Other
 
   _setReason(isLike) {
+    let card = this.props.state.cards[0];
+    if (!card) {
+      return;
+    }
+
+    if (card.system) {
+      return cardsActions.resolveSystemCard();
+    }
+
     if (!isLike && !cardsActions.dislikeTipShown) {
       actions.showAlert('Вы пропустили анкету', 'Вам действительно не понравился этот человек?', 'Да').then(() => {
-        cardsActions.resolveDisLikeTip()
+        cardsActions.resolveDisLikeTip();
         this._dislikeButtonDidPress();
       }).catch(() => {
         cardsActions.resolveLikeTip();

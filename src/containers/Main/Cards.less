@@ -60,9 +60,42 @@
     z-index: 2;
   }
 
+  &.system {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 16px 16px;
+    flex-direction: column;
+
+    &:after {
+      display: none;
+    }
+  }
+
   .Cards.is_moving & {
     transition: none;
   }
+}
+
+.Cards__item--system-title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: @color-black;
+  text-align: center;
+}
+
+.Cards__item--system-caption {
+  font-size: 16px;
+  line-height: 20px;
+  color: @color-grey;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.Cards__item--system-extra {
+  margin-top: 16px;
 }
 
 .Cards__photo {
@@ -153,6 +186,7 @@
   will-change: transform;
   transition: transform 200ms ease-in-out;
   z-index: 2;
+  box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.1);
 
   .Cards.empty & {
     display: none;
