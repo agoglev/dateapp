@@ -10,6 +10,8 @@ import * as pages from "../../constants/pages";
 export default class Profile extends Component {
   componentDidMount() {
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
+
+    utils.statReachGoal('page_profile');
   }
 
   render() {

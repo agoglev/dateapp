@@ -23,6 +23,8 @@ export default class Activity extends Component {
     this._load();
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
     accountActions.resetBadge();
+
+    utils.statReachGoal('page_activity');
   }
 
   render() {
@@ -106,6 +108,8 @@ export default class Activity extends Component {
     if (users.length === 0 || !window.isDG) {
       return null;
     }
+
+    utils.statReachGoal('feature_block_view');
 
     return (
       <Group>
@@ -213,5 +217,6 @@ export default class Activity extends Component {
         }
       });
     });
+    utils.statReachGoal('feature_btn');
   };
 }

@@ -239,7 +239,9 @@ export function newMessageEventDidReceive(dialog) {
   history.push(dialog.message);
   store.dispatch({type: actionTypes.HISTORY_SET, peerId, history});
 
-  ImHistory.scrollToBottom();
+  if (state.activeView === 'base' && state.activePanels.base === pages.IM_HISTORY) {
+    ImHistory.scrollToBottom();
+  }
 
   accountActions.showBadge();
 }

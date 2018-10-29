@@ -619,6 +619,7 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   height: 84px;
 }
 .live_feed_featured:after {
@@ -650,4 +651,14 @@
   width: 24px;
   height: 24px;
   background: url('asset/promo_add_24.svg') no-repeat center / contain;
+  animation: FeatureBtnRotate 3s linear infinite forwards;
+}
+@keyframes FeatureBtnRotate {
+  0%,
+  85% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }

@@ -179,8 +179,6 @@ export function initTips() {
   api.vk('storage.get', {
     keys: 'cards_liked,cards_disliked,cards_match'
   }).then((keysRaw) => {
-    console.log('keys', keys);
-
     let keys = {};
     for (let i = 0; i < keysRaw.length; i++) {
       const item = keysRaw[i];

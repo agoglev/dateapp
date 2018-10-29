@@ -46,6 +46,8 @@ export default class Cards extends Component {
     node.addEventListener('touchend', this._touchDidEnd);
 
     document.addEventListener('touchmove', this._disableScroll);
+
+    utils.statReachGoal('page_cards');
   }
 
   componentWillUnmount() {

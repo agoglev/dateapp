@@ -116,6 +116,8 @@ function initMethodHandler(resp) {
     actions.setTab('cards');
     realTimeInit();
     cardsActions.initTips();
+    utils.statReachGoal('real_user');
+    utils.statReachGoal(window.isDG ? 'real_user_dg' : 'real_user_vkapps');
   }
 }
 

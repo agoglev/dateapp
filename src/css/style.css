@@ -21,6 +21,9 @@ body {
 .Search {
   background: #ebebeb !important;
 }
+.Search__container {
+  background: #fff !important;
+}
 .Error {
   position: fixed;
   left: 0;
