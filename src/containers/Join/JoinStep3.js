@@ -82,7 +82,7 @@ export default class JoinStep3 extends BaseComponent {
     }
 
     if (photos.length === 0) {
-      return actions.showError('Загрузить хотя бы одну фотографию');
+      return actions.showError('Загрузите хотя бы одну фотографию');
     }
 
     accountActions.createAccount(photos)
@@ -179,7 +179,8 @@ export default class JoinStep3 extends BaseComponent {
     api.vk('photos.get', {
       album_id: 'profile',
       count: 300,
-      photo_sizes: 1
+      photo_sizes: 1,
+      rev: 1
     })
       .then((resp) => {
         actions.loaderHide();
@@ -198,6 +199,14 @@ export default class JoinStep3 extends BaseComponent {
             if (lastSize >= 600) {
               break;
             }
+
+            if (['x', 'y'].indexOf(size.type) > -1) {
+              src = size.url;
+              break;
+            }
+          }
+          if (!src) {
+            continue;
           }
           photos.push({src});
         }
@@ -214,7 +223,7 @@ export default class JoinStep3 extends BaseComponent {
       })
       .catch((err) => {
         actions.loaderHide();
-        actions.showError('Неудалось получить фотографии');
+        actions.showError('Не удалось получить фотографии');
       });
   }
 

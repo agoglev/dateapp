@@ -229,6 +229,14 @@ export function showActionSheet(options, title = '', text = '') {
 }
 
 export function setPopout(popout = null) {
+  if (popout) {
+    go(pages.POPOUT);
+  } else {
+    const state = store.getState();
+    if (state.popout !== null) {
+      window.history.back();
+    }
+  }
   store.dispatch({type: actionTypes.SET_POPOUT, popout})
 }
 

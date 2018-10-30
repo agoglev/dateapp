@@ -23,7 +23,7 @@ export default class JoinStep1 extends BaseComponent {
         <PanelHeader
           left={<UICloseButton />}
         >
-          Общая информация
+          Общее
         </PanelHeader>
         <FormLayout>
           <Input
@@ -49,7 +49,7 @@ export default class JoinStep1 extends BaseComponent {
   }
 
   continueButtonDidPress = () => {
-    const name = this.nameRef.value.trim();
+    const name = utils.stripHTML(this.nameRef.value.trim());
     const gender = parseInt(this.genderRef.value, 10);
     const birthdays = this.refs['birthday'].getData();
 

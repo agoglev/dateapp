@@ -446,7 +446,10 @@ export default class Cards extends Component {
   _updateHeight = () => {
     const headerHeight = utils.getHeaderHeight();
     const footerHeight = utils.getTabBarHeight();
-    this.refs['items'].style.height = (window.innerHeight - headerHeight - footerHeight) + 'px';
+    const items = this.refs['items'];
+    if (items) {
+      items.style.height = (window.innerHeight - headerHeight - footerHeight) + 'px';
+    }
   };
 
   _cancelAction = () => {

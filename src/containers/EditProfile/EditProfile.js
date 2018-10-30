@@ -83,7 +83,7 @@ export default class EditProfile extends BaseComponent {
             value={this.data.about}
             onChange={(e) => this.setData('about', e.target.value)}
           />
-          <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0'}}>
+          <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0', position: 'relative', zIndex: 1000}}>
             <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>
@@ -207,7 +207,7 @@ export default class EditProfile extends BaseComponent {
   }
 
   _saveButtonDidPress = () => {
-    const name = this.data.name.trim();
+    const name = utils.stripHTML(this.data.name.trim());
     const gender = this.data.gender;
     const birthdays = this.data.birthday;
     const country = this.data.country || {};
@@ -233,7 +233,7 @@ export default class EditProfile extends BaseComponent {
     const deletedPhotos = this.data.deletedPhotos;
 
     if (!Object.keys(photos).length) {
-      return actions.showError('Загрузить хотя бы одну фотографию!');
+      return actions.showError('Загрузите хотя бы одну фотографию!');
     }
 
     let savePhotos = [];
@@ -298,7 +298,8 @@ export default class EditProfile extends BaseComponent {
     api.vk('photos.get', {
       album_id: 'profile',
       count: 300,
-      photo_sizes: 1
+      photo_sizes: 1,
+      rev: 1
     })
       .then((resp) => {
         actions.loaderHide();
@@ -317,6 +318,13 @@ export default class EditProfile extends BaseComponent {
             if (lastSize >= 600) {
               break;
             }
+            if (['x', 'y'].indexOf(size.type) > -1) {
+              src = size.url;
+              break;
+            }
+          }
+          if (!src) {
+            continue;
           }
           photos.push({src});
         }
@@ -333,7 +341,7 @@ export default class EditProfile extends BaseComponent {
       })
       .catch((err) => {
         actions.loaderHide();
-        actions.showError('Неудалось получить фотографии: ' + err);
+        actions.showError('Не удалось получить фотографии: ' + err);
       })
   }
 

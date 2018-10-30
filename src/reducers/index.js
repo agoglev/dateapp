@@ -41,6 +41,10 @@ let navHistory = [];
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.NAVIGATE: {
+      if (action.to.name === pages.POPOUT || action.from && action.from.name === pages.POPOUT) {
+        return Object.assign({}, state, {popout: null});
+      }
+
       const historyLen = navHistory.length - 1;
       const isBack = action.from && action.from.name === navHistory[historyLen] && navHistory[historyLen - 1] === action.to.name;
 
@@ -61,7 +65,9 @@ export default function reducer(state = initialState, action) {
         pageData: state.pageData,
         activePanels: Object.assign({}, state.activePanels, {
           [nextView]: action.to.name
-        })
+        }),
+        error: false,
+        globalLoader: false
       };
 
       if (nextView !== state.activeView) {

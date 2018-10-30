@@ -18,6 +18,7 @@ import * as actions from './actions';
 import * as accountActions from './actions/account';
 import * as utils from './utils';
 import * as api from './services/api';
+import Cards from './containers/Main/Cards';
 
 const urlParams = new URLSearchParams(window.location.search);
 const urlToken = urlParams.get('access_token');
@@ -109,3 +110,7 @@ if (urlToken) {
   window.isDGNotifiEnabled = scope & 1 === 1;
   window.isDGMessagesBlocked = parseInt(urlParams.get('is_messages_blocked'), 10);
 }
+
+window.onresize = () => {
+  Cards.shared && Cards.shared._updateHeight();
+};

@@ -228,3 +228,5 @@ function initYABlock() {
   });
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: true});
 }
+
+export function stripHTML(e){return e?e.replace(/<(?:.|\s)*?>/g,""):""}

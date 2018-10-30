@@ -32,10 +32,11 @@
 .Join__birthday-wrap .Select {
   padding-top: 0 !important;
   flex: 1;
-  margin-left: 12px;
+  margin-right: 0 !important;
+  margin-left: 12px !important;
 }
 .Join__birthday-wrap .Select:first-child {
-  margin-left: 0;
+  margin-left: 0 !important;
   flex: 0 0 auto;
   width: 76px;
 }

@@ -103,12 +103,12 @@ export function setReason(isLike) {
         if (store.getState().cards.length < 5) {
           preloadCards();
         }
-
-        if (!isLike) {
-          addCardToDisliked(card);
-        }
       })
       .catch(() => reject(card));
+
+    if (!isLike) {
+      addCardToDisliked(card);
+    }
   });
 }
 
@@ -201,7 +201,7 @@ export function initTips() {
       if (!cards.length) {
         needShowSortTip = true;
       } else if (cards.length > 10) {
-        cards.splice(1, 0, getSortTip());
+        cards.splice(9, 0, getSortTip());
         store.dispatch({type: actionTypes.CARDS_SET, cards});
       }
     }
@@ -213,7 +213,7 @@ function getSortTip() {
     system: true,
     type: 'sort',
     title: 'Подсказка',
-    caption: 'Открывайте приложение каждый день, чтобы появляться чаше у других пользователей.'
+    caption: 'Открывайте приложение каждый день, чтобы появляться чаще у других пользователей.'
   };
 }
 

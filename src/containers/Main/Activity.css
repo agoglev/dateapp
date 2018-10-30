@@ -166,10 +166,6 @@
   box-sizing: border-box;
   max-width: 338px;
   overflow: hidden;
-  text-transform: lowercase;
-}
-.im_message:first-letter {
-  text-transform: none;
 }
 .im_message_wrap.inbox .im_message {
   color: #191919;

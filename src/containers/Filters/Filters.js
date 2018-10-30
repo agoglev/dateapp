@@ -65,7 +65,7 @@ export default class Filters extends BaseComponent {
     let woman = this.data.woman;
 
     if (!man && !woman) {
-      return actions.showError('Выбирите пол!');
+      return actions.showError('Выберите пол!');
     }
 
     actions.loaderShow();

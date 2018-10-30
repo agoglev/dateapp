@@ -73,6 +73,12 @@ export const routes = [
     name: pages.VK_PHOTOS,
     path: pages.VK_PHOTOS,
     view: 'vk_photos'
+  },
+
+  {
+    name: pages.POPOUT,
+    path: pages.POPOUT,
+    view: 'base'
   }
 ];
 

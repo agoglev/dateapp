@@ -24,6 +24,9 @@ body {
 .Search__container {
   background: #fff !important;
 }
+.Search__input {
+  color: #1a1a1a !important;
+}
 .Error {
   position: fixed;
   left: 0;

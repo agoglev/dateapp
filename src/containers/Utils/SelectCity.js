@@ -34,7 +34,7 @@ export default class SelectCity extends BaseComponent {
           Выбор города
         </PanelHeader>
         <FixedLayout vertical="top">
-          <Search onChange={this._searchCity}/>
+          <Search onChange={this._searchCity} />
         </FixedLayout>
         <div style={{paddingTop: osname === IOS ? 48 : 56}}>
           {this._renderContent()}
