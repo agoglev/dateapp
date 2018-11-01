@@ -105,8 +105,14 @@ export default class Activity extends Component {
   _renderFeatured() {
     const users = this.props.state.featuredUsers;
 
+    if (!window.isDG) {
+      utils.statReachGoal('feature_block_view_tmp');
+    }
+
     if (users.length === 0 || !window.isDG) {
-      return null;
+      if (this.props.state.userId !== 1) {
+        return null;
+      }
     }
 
     utils.statReachGoal('feature_block_view');
@@ -207,16 +213,24 @@ export default class Activity extends Component {
   _featureDidPress = () => {
     actions.showAlert('Больше просмотров', 'Хороший способ заявить о себе, разместите анкету на виду у всех и получите больше лайков!', 'Продолжить').then(() => {
       actions.loaderShow();
-      api.showOrderBox('feature_feed').then(() => {
-        actions.loaderSuccess();
-        activityActions.addMeToFeatured();
-      }).catch((isFailed) => {
-        if (isFailed) {
-          actions.showError();
-        } else {
-          actions.loaderHide();
-        }
-      });
+
+      if (window.isDG) {
+        api.showOrderBox('feature_feed').then(() => {
+          actions.loaderSuccess();
+          activityActions.addMeToFeatured();
+        }).catch((isFailed) => {
+          if (isFailed) {
+            actions.showError();
+          } else {
+            actions.loaderHide();
+          }
+        });
+      } else {
+        actions.vkPayRequest(49, 'Больше просмотров').then(() => {
+          actions.loaderSuccess();
+          activityActions.addMeToFeatured();
+        }).catch(() => actions.showError());
+      }
     });
     utils.statReachGoal('feature_btn');
   };

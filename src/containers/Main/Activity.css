@@ -638,26 +638,16 @@
   margin: 0 auto;
   position: relative;
   border-radius: 8px;
-  overflow: hidden;
-}
-.live_feed_featured_item.add_btn .live_feed_featured_item_photo:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #e63973;
 }
 .live_feed_featured_item.add_btn .live_feed_featured_item_photo:after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.25);
+  bottom: -3px;
+  right: -3px;
   width: 24px;
   height: 24px;
   background: url('asset/promo_add_24.svg') no-repeat center / contain;
+  animation: FeatureBtnRotate 3s linear infinite forwards;
 }
 @keyframes FeatureBtnRotate {
   0%,

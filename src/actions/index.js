@@ -247,8 +247,7 @@ export function requestMessagesPermissions() {
     type="messages"
     onClick={() => {
       if (window.isDG) {
-        //window.VK.callMethod('showSettingsBox', 1);
-        window.VK.callMethod('showAllowMessagesFromCommunityBox', 160479731);
+        window.VK.callMethod('showSettingsBox', 1);
       } else {
         connect.send('VKWebAppAllowNotifications', {});
       }
@@ -265,4 +264,16 @@ export function initRetry() {
   } else {
    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
   }
+}
+
+export let vkPayPromise = false;
+export function vkPayRequest(amount, description) {
+  return new Promise((resolve, reject) => {
+    vkPayPromise = {resolve, reject};
+    connect.send('VKWebAppOpenPayForm', {app_id: 6682509, action: 'pay-to-group', params: {
+        group_id: 160479731,
+        amount,
+        description: description + `\nНе меняйте сумму платежа, иначе деньги будут отправлены в пустую!`
+      }});
+  });
 }

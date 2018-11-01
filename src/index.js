@@ -77,6 +77,22 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppCallAPIMethodFailed':
       api.handleMethodError(data.error_data);
       break;
+    case 'VKWebAppOpenPayFormResult':
+      if (actions.vkPayPromise) {
+        if (data.status) {
+          actions.vkPayPromise.resolve();
+        } else {
+          actions.vkPayPromise.reject();
+        }
+      }
+      actions.vkPayPromise = false;
+      break;
+    case 'VKWebAppOpenPayFormFailed':
+      if (actions.vkPayPromise) {
+        actions.vkPayPromise.reject();
+      }
+      actions.vkPayPromise = false;
+      break;
     default:
       console.log(e.detail.type);
   }
