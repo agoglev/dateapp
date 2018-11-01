@@ -105,14 +105,8 @@ export default class Activity extends Component {
   _renderFeatured() {
     const users = this.props.state.featuredUsers;
 
-    if (!window.isDG) {
-      utils.statReachGoal('feature_block_view_tmp');
-    }
-
-    if (users.length === 0 || !window.isDG) {
-      if (this.props.state.userId !== 1) {
-        return null;
-      }
+    if (users.length === 0) {
+      return null;
     }
 
     utils.statReachGoal('feature_block_view');
