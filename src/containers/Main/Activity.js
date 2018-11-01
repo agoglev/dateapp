@@ -228,6 +228,8 @@ export default class Activity extends Component {
           activityActions.addMeToFeatured();
         }).catch(() => actions.showError());
       }
+
+      utils.statReachGoal('feature_buy_btn');
     });
     utils.statReachGoal('feature_btn');
   };

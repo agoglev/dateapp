@@ -31,6 +31,10 @@ if (!utils.isDev()) {
   });
 }
 
+if (window.location.hash.indexOf('notify') > -1) {
+  accountActions.setDefaultTab('messages');
+}
+
 window.onerror = function handler(msg, file, line, col, err) {
   api.method(api.methods.jsError, {
     stack: err.message + "\n" + err.stack,

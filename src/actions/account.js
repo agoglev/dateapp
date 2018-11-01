@@ -8,6 +8,7 @@ import * as pages from '../constants/pages';
 import realTimeInit from '../services/realtime';
 
 export let JoinInfo = {};
+let defaultTab = 'cards';
 
 export function init(token = false) {
   const { vkUserInfo } = store.getState();
@@ -113,7 +114,7 @@ function initMethodHandler(resp) {
     actions.setTab('join');
   } else {
     actions.setUser(resp.user);
-    actions.setTab('cards');
+    actions.setTab(defaultTab);
     realTimeInit();
     cardsActions.initTips();
     utils.statReachGoal('real_user');
@@ -150,4 +151,8 @@ export function showBadge() {
   if (store.getState().activeTab !== 'messages') {
     store.dispatch({type: actionTypes.SET_BADGE, hasBadge: true});
   }
+}
+
+export function setDefaultTab(tab) {
+  defaultTab = tab;
 }
