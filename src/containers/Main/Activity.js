@@ -206,7 +206,7 @@ export default class Activity extends Component {
 
   _featureDidPress = () => {
     const btnText = window.isDG ? 'Получить за 42 р.' : 'Получить за 49 р.';
-    actions.showAlert('Больше просмотров', 'Хороший способ заявить о себе, разместите анкету на виду у всех и получите больше лайков!', btnText, {
+    actions.showAlert('Больше посетителей', 'Окажитесь на виду у всех — разместите анкету над сообщениями', btnText, {
       actionsList: true
     }).then(() => {
       actions.loaderShow();

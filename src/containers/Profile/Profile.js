@@ -6,6 +6,7 @@ import * as actions from '../../actions/index';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
+import connect from '@vkontakte/vkui-connect';
 
 export default class Profile extends Component {
   componentDidMount() {
@@ -40,6 +41,7 @@ export default class Profile extends Component {
         </Group>
         <Group>
           <ProfileButton type="filters" onClick={() => actions.openFilters()} label={this._renderFiltersLabel()}>Интересуют</ProfileButton>
+          <ProfileButton type="share" onClick={this._shareApp}>Поделиться</ProfileButton>
           <a href="https://vk.com/dateapp" target="_blank" style={{textDecoration: 'none'}}>
             <ProfileButton type="community">Сообщество</ProfileButton>
           </a>
@@ -87,6 +89,10 @@ export default class Profile extends Component {
         .then(() => actions.loaderSuccess())
         .catch(() => actions.showError('Произошла ошибка!'));
     });
+  };
+
+  _shareApp = () => {
+    connect.send('VKWebAppShare', {link: 'https://vk.com/app6682509'});
   };
 }
 
