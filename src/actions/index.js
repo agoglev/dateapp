@@ -191,6 +191,7 @@ export function showAlert(title, message, okText = false, opts = {}) {
     const popout =  <Alert
       actions={actions}
       onClose={ () => setPopout() }
+      actionsLayout={opts.actionsList ? 'vertical' : 'horizontal'}
     >
       <h2>{title}</h2>
       <p>{message}</p>
@@ -266,7 +267,7 @@ export function initRetry() {
   }
 }
 
-export let vkPayPromise = false;
+let vkPayPromise = false;
 export function vkPayRequest(amount, description) {
   return new Promise((resolve, reject) => {
     vkPayPromise = {resolve, reject};
@@ -276,4 +277,15 @@ export function vkPayRequest(amount, description) {
         description: description + `\nНе меняйте сумму платежа, иначе деньги будут отправлены в пустую!`
       }});
   });
+}
+
+export function resolveVkPayRequest(status) {
+  if (vkPayPromise) {
+    if (status) {
+      vkPayPromise.resolve();
+    } else {
+      vkPayPromise.reject();
+    }
+  }
+  vkPayPromise = false;
 }

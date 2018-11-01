@@ -211,7 +211,10 @@ export default class Activity extends Component {
   };
 
   _featureDidPress = () => {
-    actions.showAlert('Больше просмотров', 'Хороший способ заявить о себе, разместите анкету на виду у всех и получите больше лайков!', 'Продолжить').then(() => {
+    const btnText = window.isDG ? 'Получить за 42 р.' : 'Получить за 49 р.';
+    actions.showAlert('Больше просмотров', 'Хороший способ заявить о себе, разместите анкету на виду у всех и получите больше лайков!', btnText, {
+      actionsList: true
+    }).then(() => {
       actions.loaderShow();
 
       if (window.isDG) {
@@ -226,7 +229,7 @@ export default class Activity extends Component {
           }
         });
       } else {
-        actions.vkPayRequest(49, 'Больше просмотров').then(() => {
+        actions.vkPayRequest(49, 'Больше просмотров.').then(() => {
           actions.loaderSuccess();
           activityActions.addMeToFeatured();
         }).catch(() => actions.showError());
