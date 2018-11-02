@@ -8,6 +8,9 @@ import * as accountActions from '../../actions/account';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import * as api from '../../services/api';
+import {setPopout} from "../../actions";
+import connect from "@vkontakte/vkui-connect/index";
+import NotificationsPermission from '../../components/NotificationsPermission/NotificationsPermission';
 
 export default class Activity extends Component {
   constructor() {
@@ -206,31 +209,36 @@ export default class Activity extends Component {
 
   _featureDidPress = () => {
     const btnText = window.isDG ? 'Получить за 42 р.' : 'Получить за 49 р.';
-    actions.showAlert('Больше посетителей', 'Окажитесь на виду у всех — разместите анкету над сообщениями', btnText, {
-      actionsList: true
-    }).then(() => {
-      actions.loaderShow();
+    actions.setPopout(<NotificationsPermission
+      title="Больше посетителей"
+      caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
+      type="likes"
+      button={btnText}
+      onClick={() => {
+        actions.loaderShow();
 
-      if (window.isDG) {
-        api.showOrderBox('feature_feed').then(() => {
-          actions.loaderSuccess();
-          activityActions.addMeToFeatured();
-        }).catch((isFailed) => {
-          if (isFailed) {
-            actions.showError();
-          } else {
-            actions.loaderHide();
-          }
-        });
-      } else {
-        actions.vkPayRequest(49, 'Больше просмотров.').then(() => {
-          actions.loaderSuccess();
-          activityActions.addMeToFeatured();
-        }).catch(() => actions.showError());
-      }
+        if (window.isDG) {
+          api.showOrderBox('feature_feed').then(() => {
+            actions.loaderSuccess();
+            activityActions.addMeToFeatured();
+          }).catch((isFailed) => {
+            if (isFailed) {
+              actions.showError();
+            } else {
+              actions.loaderHide();
+            }
+          });
+        } else {
+          actions.vkPayRequest(49, 'Больше просмотров.').then(() => {
+            actions.loaderSuccess();
+            activityActions.addMeToFeatured();
+          }).catch(() => actions.showError());
+        }
 
-      utils.statReachGoal('feature_buy_btn');
-    });
+        utils.statReachGoal('feature_buy_btn');
+      }}
+    />);
+
     utils.statReachGoal('feature_btn');
   };
 }

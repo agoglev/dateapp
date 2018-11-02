@@ -23,7 +23,8 @@ export default class NotificationsPermission extends Component {
       type,
       title,
       caption,
-      onClick
+      onClick,
+      button
     } = this.props;
 
     const iconClassName = utils.classNames({
@@ -41,7 +42,7 @@ export default class NotificationsPermission extends Component {
           <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
             onClick();
             actions.setPopout();
-          }}>Включить</Button>
+          }}>{button ? button : "Включить"}</Button>
         </div>
       </div>
     )
