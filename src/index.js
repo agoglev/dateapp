@@ -24,6 +24,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const urlToken = urlParams.get('access_token');
 window.urlToken = urlToken;
 window.appId = parseInt(urlParams.get('api_id'), 10);
+const isNative = window.location.hash.indexOf('native') > -1;
 
 if (!utils.isDev()) {
   Sentry.init({

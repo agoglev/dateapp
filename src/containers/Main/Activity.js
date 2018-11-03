@@ -208,7 +208,7 @@ export default class Activity extends Component {
   };
 
   _featureDidPress = () => {
-    const btnText = window.isDG ? 'Получить за 42 р.' : 'Получить за 49 р.';
+    const btnText = !window.isDG ? 'Получить' : 'Получить за 49 р.';
     actions.setPopout(<NotificationsPermission
       title="Больше посетителей"
       caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
