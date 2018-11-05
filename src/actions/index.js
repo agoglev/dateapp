@@ -153,7 +153,8 @@ export function openFilters() {
     man: userInfo.filters.man,
     woman: userInfo.filters.woman,
     ageFrom: userInfo.filters.age_from,
-    ageTo: userInfo.filters.age_to
+    ageTo: userInfo.filters.age_to,
+    onlyCity: userInfo.filters.only_city
   };
 
   go(pages.FILTERS, params);

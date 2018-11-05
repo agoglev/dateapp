@@ -40,6 +40,18 @@ export default class Filters extends BaseComponent {
               value={[this.data.ageFrom, this.data.ageTo]}
             />
           </div>
+          <div top="Дальность поиска">
+            <Checkbox
+              name="type"
+              checked={this.data.onlyCity}
+              onChange={(e) => this.setData('onlyCity', true)}
+            >Только город</Checkbox>
+            <Checkbox
+              name="type"
+              checked={!this.data.onlyCity}
+              onChange={(e) => this.setData('onlyCity', false)}
+            >Вся область</Checkbox>
+          </div>
           <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0'}}>
             <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
@@ -73,7 +85,8 @@ export default class Filters extends BaseComponent {
       man,
       woman,
       age_from: this.data.ageFrom,
-      age_to: this.data.ageTo
+      age_to: this.data.ageTo,
+      only_city: this.data.onlyCity ? 1 : 0
     }).then((user) => {
       actions.loaderSuccess();
       actions.setUser(user);
