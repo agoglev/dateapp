@@ -8,8 +8,7 @@ import * as accountActions from '../../actions/account';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import * as api from '../../services/api';
-import {setPopout} from "../../actions";
-import connect from "@vkontakte/vkui-connect/index";
+import connect from '@vkontakte/vkui-connect';
 import NotificationsPermission from '../../components/NotificationsPermission/NotificationsPermission';
 
 export default class Activity extends Component {
@@ -28,6 +27,11 @@ export default class Activity extends Component {
     accountActions.resetBadge();
 
     utils.statReachGoal('page_activity');
+
+    if (actions.isNeedFeatureBoxShow) {
+      actions.setNeedFeatureBoxState(false);
+      this._featureDidPress();
+    }
   }
 
   render() {
@@ -208,13 +212,19 @@ export default class Activity extends Component {
   };
 
   _featureDidPress = () => {
-    const btnText = window.isDG ? 'Получить' : 'Получить за 49 р.';
+    const btnText = window.isDG ? 'Получить' : 'Открыть'; // Получить за 49 р.
+    const text = window.isDG ? `Окажитесь на виду у всех — разместите анкету над сообщениями` : `Функция временно недоступна в сервисах ВКонтакте, вы можете воспользоваться ею открыв приложение в разделе игр.`;
+    const href = window.isDG ? false : 'https://vk.com/app6379407#feature';
     actions.setPopout(<NotificationsPermission
       title="Больше посетителей"
-      caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
+      caption={text}
       type="likes"
       button={btnText}
+      href={href}
       onClick={() => {
+        if (!window.isDG) {
+          return;
+        }
         actions.loaderShow();
 
         if (window.isDG) {

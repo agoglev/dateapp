@@ -24,13 +24,23 @@ export default class NotificationsPermission extends Component {
       title,
       caption,
       onClick,
-      button
+      button,
+      href
     } = this.props;
 
     const iconClassName = utils.classNames({
       permissions_modal_icon: true,
       [type]: true
     });
+
+    let buttonEl = <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
+      onClick && onClick();
+      actions.setPopout();
+    }}>{button ? button : "Включить"}</Button>;
+
+    if (href) {
+      buttonEl = <a href={href} target="_blank">{buttonEl}</a>
+    }
 
     return (
       <div className="permissions_modal_wrap" ref="wrap">
@@ -39,10 +49,7 @@ export default class NotificationsPermission extends Component {
           <div className={iconClassName} />
           <div className="permissions_modal_title">{title}</div>
           <div className="permissions_caption">{caption}</div>
-          <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
-            onClick();
-            actions.setPopout();
-          }}>{button ? button : "Включить"}</Button>
+          {buttonEl}
         </div>
       </div>
     )

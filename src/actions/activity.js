@@ -39,6 +39,18 @@ export function load() {
   });
 }
 
+export function loadFeaturedUsers() {
+  const state = store.getState();
+  if (!state.featuredUsers.length) {
+    return;
+  }
+
+  api.method(api.methods.featuredUsers).then((featuredUsers) => {
+    actions.setUsers(featuredUsers);
+    store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featuredUsers});
+  });
+}
+
 export function loadHistory(peerId) {
   return new Promise((resolve, reject) => {
     api.method(api.methods.imHistory, {

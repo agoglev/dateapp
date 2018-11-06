@@ -25,6 +25,7 @@ const urlToken = urlParams.get('access_token');
 window.urlToken = urlToken;
 window.appId = parseInt(urlParams.get('api_id'), 10);
 const isNative = window.location.hash.indexOf('native') > -1;
+const isNeedFeature = window.location.hash.indexOf('feature') > -1;
 
 if (!utils.isDev()) {
   Sentry.init({
@@ -32,7 +33,11 @@ if (!utils.isDev()) {
   });
 }
 
-if (window.location.hash.indexOf('notify') > -1) {
+if (isNeedFeature) {
+  actions.setNeedFeatureBoxState(true);
+}
+
+if (window.location.hash.indexOf('notify') > -1 || isNeedFeature) {
   accountActions.setDefaultTab('messages');
 }
 

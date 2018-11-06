@@ -2,6 +2,7 @@ import './TabBar.css';
 import React, { Component } from 'react';
 import * as utils from '../../utils';
 import * as actions from '../../actions';
+import * as activityActions from '../../actions/activity';
 
 export default class TabBar extends Component {
   componentDidMount() {
@@ -35,6 +36,9 @@ export default class TabBar extends Component {
           onClick={() => {
             window.scrollTo(0, 0);
             actions.setTab(tab);
+            if (tab === 'messages') {
+              activityActions.loadFeaturedUsers();
+            }
           }}
           key={tab}
         >

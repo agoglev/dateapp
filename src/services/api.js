@@ -67,6 +67,7 @@ export const methods = {
   cardsGet: 'cards_get',
   cardsSetReason: 'cards_set_reason',
   activity: 'activity',
+  featuredUsers: 'featured_users',
   imHistory: 'im_history',
   sendMessage: 'send_message',
   imMarkAsSeen: 'im_mark_as_seen',

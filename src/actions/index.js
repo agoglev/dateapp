@@ -290,3 +290,8 @@ export function resolveVkPayRequest(status) {
   }
   vkPayPromise = false;
 }
+
+export let isNeedFeatureBoxShow = false;
+export function setNeedFeatureBoxState(needShow) {
+  isNeedFeatureBoxShow = needShow;
+}

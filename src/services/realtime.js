@@ -88,5 +88,8 @@ function messageDidReceive(e) {
     case 'like':
       activityActions.newLikeEventDidReceive(event.like);
       break;
+    case 'feature':
+      activityActions.loadFeaturedUsers();
+      break;
   }
 }
