@@ -110,6 +110,10 @@ export function setReason(isLike) {
       .then(() => {
         resolve();
 
+        const cards = store.getState().cards;
+        if (cards.length && cards[0].is_ad) {
+          utils.statReachGoal('ads_view');
+        }
         if (store.getState().cards.length < 5) {
           preloadCards();
         }
@@ -265,7 +269,14 @@ export function resolveSystemCard() {
 let adsLoaded = false;
 export function loadAds() {
   adsLoaded = true;
+  if (window.isDG) {
+    return;
+  }
   api.method(api.methods.ads).then((ads) => {
+    if (ads.length > 0) {
+      utils.statReachGoal('ads_got');
+    }
+
     for (let i = 0; i < ads.length; i++) {
       SystemCardsQueue.push(ads[i]);
     }
@@ -319,4 +330,6 @@ export function markAdAsSeen(id, isClick) {
       setTimeout(() => shiftCard(), 1000);
     }
   }
+
+  utils.statReachGoal(isClick ? 'ads_click' : 'ads_skip');
 }
