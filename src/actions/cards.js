@@ -203,7 +203,7 @@ export function initTips() {
     matchTipShown = keys.cards_match === 1;
     sortTipShown = keys.cards_tip_sort === 1;
 
-    let cards = store.getState().cards;
+    /*let cards = store.getState().cards;
     if (!sortTipShown) {
       if (!cards.length) {
         needShowSortTip = true;
@@ -211,7 +211,7 @@ export function initTips() {
         SystemCardsQueue.push(getSortTip());
         fillSystemCards();
       }
-    }
+    }*/
   });
 }
 
@@ -286,7 +286,7 @@ function fillSystemCards() {
     if (cards[i].system) {
       count = 0;
     }
-    if (count === 0) {
+    if (count === 10) {
       count = 0;
       newCards.splice(i + offset, 0, SystemCardsQueue.shift());
       offset++;
