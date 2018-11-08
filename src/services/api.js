@@ -82,7 +82,9 @@ export const methods = {
   setOnline: 'set_online',
   clearHistory: 'clear_history',
   jsError: 'js_error',
-  clearSeenCards: 'clear_seen_cards'
+  clearSeenCards: 'clear_seen_cards',
+  ads: 'ads',
+  adsSeen: 'ads_seen'
 };
 
 let vkRequestId = 0;

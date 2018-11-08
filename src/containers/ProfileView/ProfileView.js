@@ -163,15 +163,16 @@ export default class ProfileView extends BaseComponent {
       activityActions.likeAction(this.data.user.id, 'like', isFeature)
         .then(() => {
           window.history.back();
-          utils.statReachGoal('like');
 
           if (isFeature) {
             actions.loaderHide();
             actions.showAlert('Лайк поставлен!', 'Дождитесь взаимного лайка, чтобы начать общаться.', 'Ок', {
               skipCancelButton: true
             });
+            utils.statReachGoal('feature_like');
           } else {
             actions.loaderSuccess();
+            utils.statReachGoal('like');
           }
         }).catch(() => {
           actions.loaderHide();

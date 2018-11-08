@@ -15,6 +15,9 @@ body {
 .Button--lvl-primary {
   background: #e63973 !important;
 }
+.Header__content .Icon {
+  display: inline-block;
+}
 .ActionSheetItem {
   overflow: hidden;
 }

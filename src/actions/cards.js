@@ -11,6 +11,8 @@ export let matchTipShown = true;
 let sortTipShown = true;
 let needShowSortTip = false;
 
+let SystemCardsQueue = [];
+
 export function loadCards() {
   return new Promise((resolve, reject) => {
     let cards = store.getState().cards;
@@ -19,12 +21,20 @@ export function loadCards() {
     }
     api.method(api.methods.cardsGet, {})
       .then((cards) => {
-        if (needShowSortTip && cards.length > 10) {
-          cards.splice(9, 0, getSortTip());
-          needShowSortTip = false;
-        }
         store.dispatch({type: actionTypes.CARDS_SET, cards});
         resolve();
+
+        if (needShowSortTip && cards.length > 10) {
+          setTimeout(() => {
+            SystemCardsQueue.push(getSortTip());
+            fillSystemCards();
+            needShowSortTip = false;
+          }, 100);
+        }
+
+        if (!adsLoaded) {
+          loadAds();
+        }
       }).catch(() => {
         reject();
     });
@@ -198,8 +208,8 @@ export function initTips() {
       if (!cards.length) {
         needShowSortTip = true;
       } else if (cards.length > 10) {
-        cards.splice(9, 0, getSortTip());
-        store.dispatch({type: actionTypes.CARDS_SET, cards});
+        SystemCardsQueue.push(getSortTip());
+        fillSystemCards();
       }
     }
   });
@@ -240,10 +250,73 @@ export function resolveMatchTip() {
 
 export function resolveSystemCard() {
   const card = shiftCard();
-  api.vk('storage.set', {
-    key: `cards_tip_${card.type}`,
-    value: '1'
+  if (card.is_ad) {
+    markAdAsSeen(card.id, false);
+  } else {
+    api.vk('storage.set', {
+      key: `cards_tip_${card.type}`,
+      value: '1'
+    });
+    sortTipShown = true;
+    needShowSortTip = false;
+  }
+}
+
+let adsLoaded = false;
+export function loadAds() {
+  adsLoaded = true;
+  api.method(api.methods.ads).then((ads) => {
+    for (let i = 0; i < ads.length; i++) {
+      SystemCardsQueue.push(ads[i]);
+    }
+    fillSystemCards();
   });
-  sortTipShown = true;
-  needShowSortTip = false;
+}
+
+function fillSystemCards() {
+  if (!SystemCardsQueue.length) {
+    return;
+  }
+
+  let cards = store.getState().cards;
+  let newCards = Object.assign([], cards);
+  let count = 0;
+  let offset = 0;
+  for (let i = 0; i < cards.length; i++) {
+    if (cards[i].system) {
+      count = 0;
+    }
+    if (count === 0) {
+      count = 0;
+      newCards.splice(i + offset, 0, SystemCardsQueue.shift());
+      offset++;
+    } else {
+      count++;
+    }
+
+    if (!SystemCardsQueue.length) {
+      break;
+    }
+  }
+  if (offset > 0) {
+    store.dispatch({type: actionTypes.CARDS_SET, cards: newCards});
+  }
+}
+
+let adsMarkedAsSeen = {};
+export function markAdAsSeen(id, isClick) {
+  if (adsMarkedAsSeen[id] && !isClick) {
+    return;
+  }
+  adsMarkedAsSeen[id] = true;
+  api.method(api.methods.adsSeen, {
+    ad_id: id,
+    click: isClick ? 1 : 0
+  });
+  if (isClick) {
+    let cards = store.getState().cards;
+    if (cards.length > 0 && cards[0].is_ad) {
+      setTimeout(() => shiftCard(), 1000);
+    }
+  }
 }

@@ -151,6 +151,25 @@ export default class Cards extends Component {
         style.transform = `scale(0.92) translateZ(0)`;
       }
 
+      if (card.is_ad) {
+        style.backgroundImage = `url(${card.photo})`;
+        return (
+          <a
+            className="Cards__item ads"
+            key={`ad_${card.id}`}
+            style={style}
+            href={card.url}
+            target="_blank"
+          >
+            <div className="Cards__ads__adv-info">Реклама</div>
+            <div className="Cards__ads__info">
+              <div className="Cards__ads__title">{card.title}</div>
+              <div className="Cards__ads__button">Открыть</div>
+            </div>
+          </a>
+        )
+      }
+
       if (card.system) {
         return (
           <div
@@ -224,7 +243,10 @@ export default class Cards extends Component {
   // Gesture recognition
 
   _touchDidStart = (event) => {
-    utils.cancelEvent(event);
+    const card = this.props.state.cards[0];
+    if (!card.is_ad) {
+      utils.cancelEvent(event);
+    }
 
     if (this.state.isAnimating || !this.props.state.cards.length) {
       return;
@@ -272,7 +294,10 @@ export default class Cards extends Component {
   };
 
   _touchDidEnd = (event) => {
-    utils.cancelEvent(event);
+    const card = this.props.state.cards[0];
+    if (!card.is_ad) {
+      utils.cancelEvent(event);
+    }
 
     if (this.state.isAnimating || !this.props.state.cards.length) {
       return;
@@ -320,12 +345,17 @@ export default class Cards extends Component {
 
   _handleTap(event) {
     const target = event.target;
+    const card = this.props.state.cards[0];
+
+    if (card.is_ad) {
+      cardsActions.markAdAsSeen(card.id, true);
+      return;
+    }
 
     if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
       actions.go(pages.PROFILE, {user: this.props.state.cards[0], fromLikes: false});
     } else {
       const isNext = this.startX > window.innerWidth / 2;
-      const card = this.props.state.cards[0];
       let newIndex = this.state.activePhotos[card.id] || 0;
 
       if (isNext) {
