@@ -168,6 +168,8 @@ export default class Activity extends Component {
       return null;
     }
 
+    utils.statReachGoal('likes_block_view');
+
     return (
       <Group style={{ paddingBottom: 8 }}>
         <Header level="2">Последние лайки</Header>
