@@ -5,7 +5,7 @@
   "homepage": "./",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env HOST=192.168.1.2 PORT=3000 react-scripts start",
+    "start": "cross-env HOST=localhost PORT=3000 react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],

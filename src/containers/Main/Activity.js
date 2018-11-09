@@ -119,7 +119,6 @@ export default class Activity extends Component {
 
     return (
       <Group>
-        <Header level="2">Топ-анкеты</Header>
         <div className="live_feed_featured">
           {this._renderFeaturedRows(users)}
         </div>
@@ -141,12 +140,20 @@ export default class Activity extends Component {
     });
 
     let curUser = this.props.state.usersInfo[this.props.state.userId];
-    res.unshift(<div
+    /*res.unshift(<div
       className="live_feed_featured_item add_btn"
       key={-1}
       onClick={this._featureDidPress}
     >
       <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${curUser.small_photo})`}} />
+    </div>);*/
+
+    res.unshift(<div
+      className="live_feed_featured_pay_button"
+      key={-1}
+      onClick={this._featureDidPress}
+    >
+      <div className="live_feed_featured_pay_button_text">Хочу<br/>сюда</div>
     </div>);
 
     return res;

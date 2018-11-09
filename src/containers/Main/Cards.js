@@ -158,7 +158,7 @@ export default class Cards extends Component {
             className="Cards__item ads"
             key={`ad_${card.id}`}
             style={style}
-            href={card.url}
+            href={`https://dateapp.ru/ads_click.php?ad_id=${card.id}`}
             target="_blank"
           >
             <div className="Cards__ads__adv-info">Реклама</div>

@@ -695,7 +695,7 @@
 
 
 .live_feed_featured {
-  padding: 0 10px 0;
+  padding: 10px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: nowrap;
@@ -746,4 +746,27 @@
   100% {
     transform: rotate(180deg);
   }
+}
+
+.live_feed_featured_pay_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+  width: 68px;
+  box-sizing: border-box;
+  background: @color-pink;
+  border-radius: @border-radius;
+  margin-right: 6px;
+}
+
+.live_feed_featured_pay_button_text {
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  z-index: 3;
+  color: @color-white;
+  text-align: center;
 }

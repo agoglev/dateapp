@@ -297,7 +297,7 @@ function fillSystemCards() {
     if (cards[i].system) {
       count = 0;
     }
-    if (count === 10) {
+    if (count === 5) {
       count = 0;
       newCards.splice(i + offset, 0, SystemCardsQueue.shift());
       offset++;
