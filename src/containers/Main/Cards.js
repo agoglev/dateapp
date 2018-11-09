@@ -23,7 +23,8 @@ export default class Cards extends Component {
       likeButtonDiff: 0,
       dislikeButtonDiff: 0,
       isLoading: false,
-      isFailed: false
+      isFailed: false,
+      swipeTip: false
     };
 
     this.likesCount = 0;
@@ -57,6 +58,11 @@ export default class Cards extends Component {
     node.removeEventListener('touchend', this._touchDidEnd);
 
     document.removeEventListener('touchmove', this._disableScroll);
+
+    if (this.swipeTipTimer) {
+      clearTimeout(this.swipeTipTimer);
+      delete this.swipeTipTimer;
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -139,6 +145,7 @@ export default class Cards extends Component {
       const isActive = i === 0;
       const className = utils.classNames({
         Cards__item: true,
+        swipeTip: isActive && this.state.swipeTip
       });
 
       const rotate = isActive ? this.state.rotate : 0;
@@ -265,6 +272,15 @@ export default class Cards extends Component {
 
     if (this.state.isAnimating) {
       return;
+    }
+
+    if (this.swipeTipTimer) {
+      clearTimeout(this.swipeTipTimer);
+      delete this.swipeTipTimer;
+    }
+
+    if (!cardsActions.swipeTipShown) {
+      cardsActions.resolveSwipeTip();
     }
 
     const centerX = window.innerWidth / 2;
@@ -458,6 +474,12 @@ export default class Cards extends Component {
     this.setState({isLoading: true, isFailed: false});
     cardsActions.loadCards().then(() => {
       this.setState({isLoading: false});
+
+      if (!cardsActions.swipeTipShown) {
+        this.swipeTipTimer = setTimeout(() => {
+          this.setState({swipeTip: true});
+        }, 4000);
+      }
     }).catch(() => {
       this.setState({isLoading: false, isFailed: true});
     });

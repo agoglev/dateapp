@@ -8,6 +8,7 @@ import * as pages from '../constants/pages';
 export let dislikeTipShown = true;
 export let likeTipShown = true;
 export let matchTipShown = true;
+export let swipeTipShown = true;
 let sortTipShown = true;
 let needShowSortTip = false;
 
@@ -194,7 +195,7 @@ export function clearSeenCards() {
 
 export function initTips() {
   api.vk('storage.get', {
-    keys: 'cards_liked,cards_disliked,cards_match,cards_tip_sort'
+    keys: 'cards_liked,cards_disliked,cards_match,cards_tip_sort,cards_tip_swipe'
   }).then((keysRaw) => {
     let keys = {};
     for (let i = 0; i < keysRaw.length; i++) {
@@ -206,6 +207,7 @@ export function initTips() {
     likeTipShown = keys.cards_liked === 1;
     matchTipShown = keys.cards_match === 1;
     sortTipShown = keys.cards_tip_sort === 1;
+    swipeTipShown = keys.cards_tip_swipe === 1;
 
     /*let cards = store.getState().cards;
     if (!sortTipShown) {
@@ -332,4 +334,12 @@ export function markAdAsSeen(id, isClick) {
   }
 
   utils.statReachGoal(isClick ? 'ads_click' : 'ads_skip');
+}
+
+export function resolveSwipeTip() {
+  swipeTipShown = true;
+  api.vk('storage.set', {
+    key: `cards_tip_swipe`,
+    value: '1'
+  });
 }

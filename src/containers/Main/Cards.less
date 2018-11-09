@@ -48,6 +48,10 @@
   transition: transform 200ms ease-in-out;
   will-change: transform;
 
+  &.swipeTip {
+    animation: cards_item_swipe_tip_anim 1s ease-in-out;
+  }
+
   &.ads {
     background: @color-grey-bg no-repeat center/cover;
   }
@@ -79,6 +83,18 @@
 
   .Cards.is_moving & {
     transition: none;
+  }
+}
+
+@keyframes cards_item_swipe_tip_anim {
+  0% {
+    transform: rotateZ(0) translateX(0);
+  }
+  50% {
+    transform: rotateZ(12deg) translateX(30vw);
+  }
+  100% {
+    transform: rotateZ(0) translateX(0);
   }
 }
 

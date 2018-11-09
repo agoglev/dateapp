@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll, FixedLayout } from '@vkontakte/vkui';
+import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
