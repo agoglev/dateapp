@@ -281,6 +281,7 @@ export default class Cards extends Component {
 
     if (!cardsActions.swipeTipShown) {
       cardsActions.resolveSwipeTip();
+      this.setState({swipeTip: false});
     }
 
     const centerX = window.innerWidth / 2;
