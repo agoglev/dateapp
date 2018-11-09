@@ -134,7 +134,9 @@ export default class Activity extends Component {
           key={i}
           onClick={() => actions.go(pages.PROFILE, {user: user, fromFeature: true})}
         >
-          <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+          <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}}>
+            <div className="live_feed_featured_item_name">{user.name}</div>
+          </div>
         </div>
       )
     });

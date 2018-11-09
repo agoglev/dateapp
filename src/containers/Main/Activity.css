@@ -638,6 +638,7 @@
   margin: 0 auto;
   position: relative;
   border-radius: 8px;
+  overflow: hidden;
 }
 .live_feed_featured_item.add_btn .live_feed_featured_item_photo:after {
   content: '';
@@ -648,6 +649,32 @@
   height: 24px;
   background: url('asset/promo_add_24.svg') no-repeat center / contain;
   animation: FeatureBtnRotate 3s linear infinite forwards;
+}
+.live_feed_featured_item_photo:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.32));
+  z-index: 1;
+}
+.live_feed_featured_item_name {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+  color: #fff;
+  position: absolute;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+  z-index: 2;
+  overflow: hidden;
 }
 @keyframes FeatureBtnRotate {
   0%,
