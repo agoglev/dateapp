@@ -706,3 +706,9 @@
   color: #fff;
   text-align: center;
 }
+.Activity__likes-badge {
+  background: #e63973;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}

@@ -22,6 +22,7 @@ import ProfileView from './containers/ProfileView/ProfileView';
 import EditProfile from './containers/EditProfile/EditProfile';
 import Filters from './containers/Filters/Filters';
 import VkPhotos from './containers/VkPhotos/VkPhotos';
+import Likes from './containers/Likes/Likes';
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
@@ -129,6 +130,9 @@ class App extends React.Component {
           <JoinStep2 id={pages.JOIN_STEP2} state={state} />
           <JoinStep3 id={pages.JOIN_STEP3} state={state} />
         </UI.View>
+        <View activePanel={state.activePanels.likes} id="likes" header={this._getBaseHeader('likes')}>
+          <Likes id={pages.LIKES} state={state} />
+        </View>
         <View activePanel={state.activePanels.modal} id="modal" header={this._getBaseHeader('modal')}>
           <ProfileView id={pages.PROFILE} state={state} />
           <EditProfile id={pages.EDIT_PROFILE} state={state} />

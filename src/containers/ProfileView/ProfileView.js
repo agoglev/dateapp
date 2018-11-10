@@ -42,7 +42,7 @@ export default class ProfileView extends BaseComponent {
               {this._renderInfo()}
             </div>
             <div className="profile_view_about">{user.about}</div>
-            {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы написать сообщение!</div>}
+            {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы создать чат!</div>}
             <div className="profile_view_buttons">
               {this._renderButtons()}
             </div>
@@ -115,10 +115,10 @@ export default class ProfileView extends BaseComponent {
     if (user.id === this.props.state.userId || this.data.fromHistory === true) {
       return null;
     }
+    // {!isFeature && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
     const isFeature = this.data.fromFeature === true;
     return (
       <div className="profile_view_footer">
-        {!isFeature && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
         <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />
       </div>
     )

@@ -79,6 +79,12 @@ export const routes = [
     name: pages.POPOUT,
     path: pages.POPOUT,
     view: 'base'
+  },
+
+  {
+    name: pages.LIKES,
+    path: pages.LIKES,
+    view: 'likes'
   }
 ];
 

@@ -259,16 +259,21 @@ export function newMessageEventDidReceive(dialog) {
 }
 
 export function newLikeEventDidReceive(like) {
-  let { likes } = store.getState();
-  for (let i = 0; i < likes.length; i++) {
-    if (likes[i].user.id === like.user.id) {
-     return;
-    }
-  }
-
-  likes.unshift(like);
-  store.dispatch({type: actionTypes.LIKES_SET, likes});
   accountActions.showBadge();
+  store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: true});
+
+  const state = store.getState();
+  if (state.activeView === 'likes') {
+    let { likes } = actions.getData(pages.LIKES);
+    for (let i = 0; i < likes.length; i++) {
+      if (likes[i].user.id === like.user.id) {
+        return;
+      }
+    }
+    like.unread = 1;
+    likes.unshift(like);
+    actions.setData('likes', likes, pages.LIKES);
+  }
 }
 
 function addNewDialog(dialog) {
@@ -291,6 +296,7 @@ export function readHistoryEventDidReceive(peerId) {
 }
 
 function removeLikeById(userId) {
+  return;
   let { likes } = store.getState();
 
   for (let i = 0; i < likes.length; i++) {
@@ -341,4 +347,55 @@ export function addMeToFeatured() {
   let user = state.usersInfo[state.userId];
   featuredUsers.unshift(user);
   store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featuredUsers});
+}
+
+export function loadLikes() {
+  actions.setData('isLoading', true, pages.LIKES);
+  actions.setData('isFailed', false, pages.LIKES);
+  api.method(api.methods.getLikes).then((resp) => {
+    actions.setUsers(resp.likes.map(like => like.user));
+    actions.setData('likes', resp.likes, pages.LIKES);
+    actions.setData('nextFrom', resp.next_from, pages.LIKES)
+  }).catch(() => {
+    actions.setData('isFailed', true, pages.LIKES);
+  }).then(() => {
+    actions.setData('isLoading', false, pages.LIKES);
+  });
+}
+
+export function loadMoreLikes() {
+  const pageData = actions.getData(pages.LIKES);
+  actions.setData('isLoadingMore', true, pages.LIKES);
+  api.method(api.methods.getLikes, {
+    start_from: pageData.nextFrom
+  }).then((resp) => {
+    actions.setUsers(resp.likes.map(like => like.user));
+    actions.setData('likes', pageData.likes.concat(resp.likes), pages.LIKES);
+    actions.setData('nextFrom', resp.next_from, pages.LIKES);
+    actions.setData('isLoadingMore', false, pages.LIKES);
+  }).catch(() => {
+    actions.setData('isLoadingMore', false, pages.LIKES);
+  });
+}
+
+export function readLike(userId) {
+  let likes = actions.getData(pages.LIKES).likes;
+  let hasLikeBadge = false;
+  for (let i = 0; i < likes.length; i++) {
+    let like = likes[i];
+    if (like.user.id === userId) {
+      like.unread = false;
+      likes[i] = like;
+      actions.setData('likes', likes, pages.LIKES);
+    }
+    if (like.unread) {
+      hasLikeBadge = true;
+    }
+  }
+
+  store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: hasLikeBadge});
+
+  api.method(api.methods.readLike, {
+    from_id: userId
+  });
 }

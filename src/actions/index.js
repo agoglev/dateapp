@@ -9,6 +9,7 @@ import router from '../router';
 import * as api from '../services/api';
 import * as pages from '../constants/pages';
 import * as accountActions from "./account";
+import * as activityActions from "./activity";
 import * as utils from "../utils";
 
 const osname = platform();
@@ -51,6 +52,11 @@ export function setData(field, value, page) {
     value,
     page
   });
+}
+
+export function getData(page) {
+  const state = store.getState();
+  return state.pageData[page] || {};
 }
 
 let _hideErrorTimer = false;
@@ -166,6 +172,15 @@ export function openJoinStep3() {
   };
 
   go(pages.JOIN_STEP3, params);
+}
+
+export function openLikes() {
+  let params = {
+    likes: []
+  };
+
+  go(pages.LIKES, params);
+  activityActions.loadLikes();
 }
 
 export function showAlert(title, message, okText = false, opts = {}) {

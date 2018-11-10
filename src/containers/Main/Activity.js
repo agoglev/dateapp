@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll } from '@vkontakte/vkui';
+import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll, Cell } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -9,6 +9,7 @@ import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import * as api from '../../services/api';
 import NotificationsPermission from '../../components/NotificationsPermission/NotificationsPermission';
+import Icon24Like from '@vkontakte/icons/dist/24/like';
 
 export default class Activity extends Component {
   constructor() {
@@ -174,6 +175,18 @@ export default class Activity extends Component {
     }
 
     utils.statReachGoal('likes_block_view');
+
+    return <Group>
+      <Cell
+        before={<Icon24Like />}
+        expandable
+        indicator={this.props.state.hasLikesBadge && <div className="Activity__likes-badge" />}
+        onClick={() => {
+          actions.openLikes();
+          utils.statReachGoal('likes_open_modal');
+        }}
+      >Лайки</Cell>
+    </Group>;
 
     return (
       <Group style={{ paddingBottom: 8 }}>

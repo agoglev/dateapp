@@ -84,7 +84,9 @@ export const methods = {
   jsError: 'js_error',
   clearSeenCards: 'clear_seen_cards',
   ads: 'ads',
-  adsSeen: 'ads_seen'
+  adsSeen: 'ads_seen',
+  getLikes: 'get_likes',
+  readLike: 'read_like'
 };
 
 let vkRequestId = 0;

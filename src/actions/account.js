@@ -120,6 +120,7 @@ function initMethodHandler(resp) {
     cardsActions.initTips();
     utils.statReachGoal('real_user');
     utils.statReachGoal(window.isDG ? 'real_user_dg' : 'real_user_vkapps');
+    store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: resp.hasLikesBadge});
   }
 }
 
@@ -149,7 +150,8 @@ export function resetBadge() {
 }
 
 export function showBadge() {
-  if (store.getState().activeTab !== 'messages') {
+  const state = store.getState();
+  if (state.activeTab !== 'messages' && state.activeView !== 'likes') {
     store.dispatch({type: actionTypes.SET_BADGE, hasBadge: true});
   }
 }

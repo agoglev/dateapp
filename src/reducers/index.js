@@ -33,7 +33,8 @@ const initialState = {
   needTokenMessage: false,
   works: false, // engineering works
   tabBarAdsShown: false,
-  featuredUsers: []
+  featuredUsers: [],
+  hasLikesBadge: false
 };
 
 let navHistory = [];
@@ -186,6 +187,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.SET_BADGE: {
       return Object.assign({}, state, {hasBadge: action.hasBadge});
+    }
+
+    case actionTypes.SET_LIKES_BADGE: {
+      return Object.assign({}, state, {hasLikesBadge: action.hasBadge});
     }
 
     case actionTypes.VK_FAILED: {

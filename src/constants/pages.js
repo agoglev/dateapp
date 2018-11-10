@@ -20,4 +20,5 @@ export const EDIT_PROFILE = 'edit';
 export const FILTERS = 'filters';
 export const VK_PHOTOS = 'VK_PHOTO';
 
+export const LIKES = 'likes';
 export const POPOUT = 'popout';
