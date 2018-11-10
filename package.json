@@ -7,7 +7,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "cross-env HOST=10.9.84.24 PORT=3000 HTTPS=false react-scripts start",
+    "start": "cross-env HOST=localhost PORT=3000 HTTPS=false react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],

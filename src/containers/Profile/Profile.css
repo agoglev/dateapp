@@ -179,3 +179,23 @@
   font-size: 12px;
   text-align: center;
 }
+.Profile__dev_row {
+  padding: 10px 16px;
+  display: flex;
+  line-height: 22px;
+  overflow: hidden;
+  max-width: 100%;
+}
+.Profile__dev_row-field {
+  font-weight: 500;
+  flex: 0 0 auto;
+}
+.Profile__dev_row-value {
+  margin-left: 16px;
+  flex: 1;
+  word-wrap: break-word;
+  user-select: text;
+  pointer-events: auto;
+  white-space: normal;
+  overflow: hidden;
+}

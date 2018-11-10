@@ -50,8 +50,24 @@ export default class Profile extends Component {
           </a>
           <ProfileButton type="delete" onClick={this._deleteAccountButtonDidPress}>Удалить анкету</ProfileButton>
         </Group>
+        {this._renderDev()}
         <div className="profile_copyright">The Dating Service © 2018</div>
       </div>
+    )
+  }
+
+  _renderDev() {
+    if (this.props.state.userId !== 1) {
+      return null;
+    }
+
+    return (
+      <Group>
+        <div className="Profile__dev_row">
+          <div className="Profile__dev_row-field">Token:</div>
+          <div className="Profile__dev_row-value">{this.props.state.vkAccessToken}</div>
+        </div>
+      </Group>
     )
   }
 
