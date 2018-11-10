@@ -7,10 +7,10 @@ import * as activityActions from '../../actions/activity';
 export default class TabBar extends Component {
   componentDidMount() {
     if (!window.isDG) {
-      utils.initYAAds(false);
+      //utils.initYAAds(false);
       //utils.initMyTargetAds();
     } else if (utils.isIOS()) {
-      utils.initYAAds(true);
+      //utils.initYAAds(true);
     }
   }
 

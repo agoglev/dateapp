@@ -2,9 +2,11 @@
   "name": "dating_service",
   "version": "1.0.0",
   "description": "",
-  "homepage": "./",
+  "homepage": "https://agoglev.github.io/dateapp/",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "cross-env HOST=192.168.1.2 PORT=3000 HTTPS=true react-scripts start",
     "build": "react-scripts build"
   },

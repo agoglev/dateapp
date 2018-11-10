@@ -1,8 +1,5 @@
-//import 'core-js/es6/map';
-//import 'core-js/es6/set';
 import 'core-js/es6';
 import 'url-search-params-polyfill';
-import * as Sentry from '@sentry/browser';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -24,14 +21,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const urlToken = urlParams.get('access_token');
 window.urlToken = urlToken;
 window.appId = parseInt(urlParams.get('api_id'), 10);
-const isNative = window.location.hash.indexOf('native') > -1;
 const isNeedFeature = window.location.hash.indexOf('feature') > -1;
-
-if (!utils.isDev()) {
-  Sentry.init({
-    dsn: "https://fae54b9a6d73455c846c9b989a6d9373@sentry.io/1306576"
-  });
-}
 
 if (isNeedFeature) {
   actions.setNeedFeatureBoxState(true);
@@ -105,10 +95,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
-if (utils.isDev() && utils.isInspectOpen()) {
-  accountActions.init('test');
-}
 
 window.adsEmpty = () => {
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: false});
