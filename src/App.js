@@ -5,7 +5,6 @@ import { View } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import { connect } from 'react-redux';
 import * as pages from './constants/pages';
-import * as actions from './actions';
 import * as UI from '@vkontakte/vkui';
 import * as utils from './utils'
 
@@ -30,18 +29,6 @@ import PlaceholderNeedToken from "./components/Placeholder/PlaceholderNeedToken"
 import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			fetchedUser: null,
-		};
-	}
-
-	go = (e) => {
-    actions.go(e.currentTarget.dataset.to);
-	};
-
 	render() {
     if (this.props.state.works === true) {
       return (
@@ -151,8 +138,8 @@ class App extends React.Component {
           <VkPhotos id={pages.VK_PHOTOS} state={state} />
         </View>
         <View activePanel={state.activePanels.utils} id="utils">
-          <SelectCountry id={pages.SELECT_COUNTRY} go={this.go} state={state} />
-          <SelectCity id={pages.SELECT_CITY} go={this.go} state={state} />
+          <SelectCountry id={pages.SELECT_COUNTRY} state={state} />
+          <SelectCity id={pages.SELECT_CITY} state={state} />
         </View>
       </UI.Root>
     );
