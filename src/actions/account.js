@@ -87,6 +87,7 @@ export function createAccount(photos) {
         vk_id: vkUserInfo.id,
         vk_sig: vkUserInfo.signed_user_id || '',
         photos: photos.join(','),
+        is_dg: window.isDG ? 1 : 0,
         ...JoinInfo
       })
       .then((resp) => {

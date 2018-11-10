@@ -16,7 +16,7 @@ const initialState = {
   activeTab: '',
   history: [],
   vkUserInfo: {
-    first_name: 'test'
+    first_name: ''
   },
   error: false,
   globalLoader: false,

@@ -31,6 +31,10 @@ export default class Activity extends Component {
       actions.setNeedFeatureBoxState(false);
       this._featureDidPress();
     }
+
+    if (!window.isDG) {
+      //utils.initYAActivityBlock();
+    }
   }
 
   render() {
@@ -41,6 +45,7 @@ export default class Activity extends Component {
         </PanelHeader>
         {this._renderFeatured()}
         {this._renderLikes()}
+        <div id="yandex_rtb_R-A-159294-836" />
         <Group>
           <div className="im_dialogs">
             {this._renderDialogs()}

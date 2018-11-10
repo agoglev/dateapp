@@ -7,7 +7,10 @@ import * as activityActions from '../../actions/activity';
 export default class TabBar extends Component {
   componentDidMount() {
     if (!window.isDG) {
-      utils.initYAAds();
+      utils.initYAAds(false);
+      //utils.initMyTargetAds();
+    } else if (utils.isIOS()) {
+      utils.initYAAds(true);
     }
   }
 
@@ -21,6 +24,13 @@ export default class TabBar extends Component {
         <div id="yandex_rtb_R-A-325915-2" />
       </div>
     )
+
+    /*
+   <div style={{textAlign: 'center'}}>
+          <ins className="mrg-tag" style={{display: 'inline-block', width: '320px', height: '50px'}} data-ad-client="ad-331172"
+               data-ad-slot="331172" />
+        </div>
+     */
   }
 
   _renderTabs() {

@@ -158,12 +158,16 @@ export function getUsrAge(ts) {
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
-function isAndroid() {
+export function isAndroid() {
   return actions.clientPlatform === 'android';
 }
 
-function isAppVersion(major, minor = 0) {
+export function isAppVersion(major, minor = 0) {
   return actions.clientVersion.major >= major && actions.clientVersion.minor >= minor;
+}
+
+export function isIOS() {
+  return !!navigator.platform && /ipad|iphone|ipod/.test(navigator.platform.toLowerCase());
 }
 
 export function canAuthWithSig() {
@@ -189,8 +193,8 @@ export function statReachGoal(eventName) {
 
 let yandexAdsInited = false;
 let yandexAdsIniting = false;
-export function initYAAds() {
-  initYABlock();
+export function initYAAds(isDG) {
+  initYABlock(isDG);
   /*if (yandexAdsInited) {
     initYABlock();
   } else {
@@ -213,12 +217,12 @@ export function initYAAds() {
   }*/
 }
 
-function initYABlock() {
+function initYABlock(isDG) {
   if (!window.Ya || !window.Ya.Context) {
     return;
   }
   window.Ya.Context.AdvManager.render({
-    blockId: "R-A-325915-2",
+    blockId: isDG ? "R-A-325915-3" : "R-A-325915-2",
     renderTo: "yandex_rtb_R-A-325915-2",
     onRender: function() {
       setTimeout(() => {
@@ -229,4 +233,29 @@ function initYABlock() {
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: true});
 }
 
+export function initYAActivityBlock() {
+  if (!window.Ya || !window.Ya.Context) {
+    return;
+  }
+  window.Ya.Context.AdvManager.render({
+    blockId: "R-A-159294-836",
+    renderTo: "yandex_rtb_R-A-159294-836"
+  });
+  store.dispatch({type: actionTypes.ADS_UPDATE, shown: true});
+}
+
 export function stripHTML(e){return e?e.replace(/<(?:.|\s)*?>/g,""):""}
+
+let myTargetInited = false;
+export function initMyTargetAds() {
+  if (myTargetInited) {
+    return;
+  }
+  myTargetInited = true;
+  setTimeout(() => {
+    (window.MRGtag = window.MRGtag || []).push({});
+    const script = document.createElement('script');
+    script.src = 'https://ad.mail.ru/static/ads-async.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }, 1000);
+}
