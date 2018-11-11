@@ -25,8 +25,8 @@ export function load() {
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
 
       // likes
-      actions.setUsers(likes.map(like => like.user));
-      store.dispatch({type: actionTypes.LIKES_SET, likes});
+      //actions.setUsers(likes.map(like => like.user));
+      //store.dispatch({type: actionTypes.LIKES_SET, likes});
 
       // featured users
       actions.setUsers(featured_users);

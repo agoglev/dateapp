@@ -70,7 +70,6 @@ export default class Activity extends Component {
       </div>;
     }
 
-
     if (dialogs.length === 0) {
       return (
         <div className="im_dialogs_empty">
@@ -101,7 +100,7 @@ export default class Activity extends Component {
 
       const user = this.props.state.usersInfo[dialog.user.id];
       return (
-        <div className="im_dialog" key={dialog.id} onClick={() => actions.go(pages.IM_HISTORY, {peerId: dialog.id})}>
+        <div className="im_dialog" key={dialog.id} onClick={() => actions.openChat(dialog.id)}>
           <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
           <div className="im_dialog_cont">
             <div className="im_dialog_name">{user.name}</div>
@@ -168,13 +167,9 @@ export default class Activity extends Component {
   }
 
   _renderLikes() {
-    const likes = this.props.state.likes;
-
-    if (likes.length === 0) {
+    if (this.state.isLoading) {
       return null;
     }
-
-    utils.statReachGoal('likes_block_view');
 
     return <Group>
       <Cell
@@ -187,17 +182,6 @@ export default class Activity extends Component {
         }}
       >Лайки</Cell>
     </Group>;
-
-    return (
-      <Group style={{ paddingBottom: 8 }}>
-        <Header level="2">Последние лайки</Header>
-        <HorizontalScroll>
-          <div className="likes_rows">
-            {this._renderLikesRows(likes)}
-          </div>
-        </HorizontalScroll>
-      </Group>
-    )
   }
 
   _renderLikesRows(likes) {

@@ -174,6 +174,15 @@ export function openJoinStep3() {
   go(pages.JOIN_STEP3, params);
 }
 
+export function openChat(peerId) {
+  let params = {
+    peerId,
+    isFirstShow: true
+  };
+
+  go(pages.IM_HISTORY, params);
+}
+
 export function openLikes() {
   let params = {
     likes: []

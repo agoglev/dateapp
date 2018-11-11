@@ -32,8 +32,10 @@ export default class ImHistory extends BaseComponent {
   }
 
   componentDidMount() {
-    this.setState({isLoading: true, isFailed: false});
-    setTimeout(this._load, 600);
+    if (this.data.isFirstShow) {
+      this.setState({isLoading: true, isFailed: false});
+      setTimeout(this._load, 600);
+    }
 
     const sendBtn = ReactDOM.findDOMNode(this.refs['sendBtn']);
     sendBtn.addEventListener('touchstart', this._send);
@@ -314,6 +316,8 @@ export default class ImHistory extends BaseComponent {
         setTimeout(() => {
           markAsSeen(this.peerId);
         }, 2000);
+
+        this.setData('isFirstShow', false);
       }).catch(() => {
       this.setState({isLoading: false, isFailed: true});
     });
