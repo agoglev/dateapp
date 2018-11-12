@@ -6,6 +6,7 @@ import * as api from '../services/api';
 import * as utils from '../utils';
 import * as pages from '../constants/pages';
 import realTimeInit from '../services/realtime';
+import * as payments from './payments';
 
 export let JoinInfo = {};
 let defaultTab = 'cards';
@@ -121,6 +122,7 @@ function initMethodHandler(resp) {
     utils.statReachGoal('real_user');
     utils.statReachGoal(window.isDG ? 'real_user_dg' : 'real_user_vkapps');
     store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: resp.hasLikesBadge});
+    payments.setPremiumState(resp.hasPremium);
   }
 }
 

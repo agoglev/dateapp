@@ -98,7 +98,7 @@ ReactDOM.render(
 
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
-  accountActions.init('b338381265bff11572c613062035c837464533bfb1894cae427c7599da5a27b3b3058d06b92ebc416d269');
+  accountActions.init('5dbc19698c7b9f9e7f3e18bc040b4c4515ec2c22f481c8f91056c98e1207702ff94b7fc60a38e7f9d14b5');
 }
 
 window.adsEmpty = () => {

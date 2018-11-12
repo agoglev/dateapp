@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { PanelHeader, Button, Spinner, HeaderButton } from '@vkontakte/vkui';
 import * as cardsActions from '../../actions/cards';
+import * as paymentsActions from '../../actions/payments';
 import * as actions from '../../actions';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
@@ -506,10 +507,14 @@ export default class Cards extends Component {
   };
 
   _cancelAction = () => {
-    const card = cardsActions.getLastDislikedCard();
-    if (card) {
-      this._restoreCard(card, false);
-      utils.statReachGoal('cancel_action');
+    if (!paymentsActions.hasPremium && window.isDG && this.props.state.userId === 1) {
+      paymentsActions.showSubscriptionRequest();
+    } else {
+      const card = cardsActions.getLastDislikedCard();
+      if (card) {
+        this._restoreCard(card, false);
+        utils.statReachGoal('cancel_action');
+      }
     }
   };
 
