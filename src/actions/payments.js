@@ -18,7 +18,7 @@ export function showSubscriptionRequest() {
     title="Передумали?"
     caption="Вам нужен Знакомства «Премиум». Вы сможете принять решение заново!"
     type="likes"
-    button="Месяц за 99₽"
+    button="Месяц за 98₽"
     onClick={() => {
       actions.loaderShow();
       api.showOrderBox('premium').then(() => {
@@ -31,6 +31,9 @@ export function showSubscriptionRequest() {
           actions.loaderHide();
         }
       });
+      utils.statReachGoal('premium_continue');
     }}
   />);
+
+  utils.statReachGoal('premium_box');
 }

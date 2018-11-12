@@ -507,7 +507,7 @@ export default class Cards extends Component {
   };
 
   _cancelAction = () => {
-    if (!paymentsActions.hasPremium && window.isDG && this.props.state.userId === 1) {
+    if (!paymentsActions.hasPremium && window.isDG) {
       paymentsActions.showSubscriptionRequest();
     } else {
       const card = cardsActions.getLastDislikedCard();
