@@ -86,7 +86,8 @@ export const methods = {
   ads: 'ads',
   adsSeen: 'ads_seen',
   getLikes: 'get_likes',
-  readLike: 'read_like'
+  readLike: 'read_like',
+  payParams: 'pay_params'
 };
 
 let vkRequestId = 0;

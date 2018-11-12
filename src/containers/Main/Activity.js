@@ -245,10 +245,17 @@ export default class Activity extends Component {
             }
           });
         } else {
-          actions.vkPayRequest(42, 'Больше просмотров.').then(() => {
-            actions.loaderSuccess();
-            activityActions.addMeToFeatured();
-          }).catch(() => actions.showError());
+          if (this.props.state.userId === 1) {
+            actions.vkPay('feature').then(() => {
+              actions.loaderSuccess();
+              activityActions.addMeToFeatured();
+            }).catch(() => actions.showError());
+          } else {
+            actions.vkPayRequest(59, 'Больше просмотров.').then(() => {
+              actions.loaderSuccess();
+              activityActions.addMeToFeatured();
+            }).catch(() => actions.showError());
+          }
         }
 
         utils.statReachGoal('feature_buy_btn');

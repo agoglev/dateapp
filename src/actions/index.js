@@ -304,6 +304,18 @@ export function vkPayRequest(amount, description) {
   });
 }
 
+export function vkPay(type) {
+  return new Promise((resolve, reject) => {
+    vkPayPromise = {resolve, reject};
+    api.method(api.methods.payParams, {type}).then((params) => {
+      connect.send('VKWebAppOpenPayForm', {app_id: 6682509, action: 'pay-to-service', params});
+    }).catch(() => {
+      vkPayPromise = false;
+      reject();
+    });
+  });
+}
+
 export function resolveVkPayRequest(status) {
   if (vkPayPromise) {
     if (status) {

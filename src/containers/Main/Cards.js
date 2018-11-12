@@ -509,6 +509,7 @@ export default class Cards extends Component {
     const card = cardsActions.getLastDislikedCard();
     if (card) {
       this._restoreCard(card, false);
+      utils.statReachGoal('cancel_action');
     }
   };
 
