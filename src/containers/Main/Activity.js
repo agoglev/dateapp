@@ -171,6 +171,7 @@ export default class Activity extends Component {
       return null;
     }
 
+    const likes = this.props.state.likes;
     return <Group>
       <Cell
         before={<Icon24Like />}
@@ -181,6 +182,11 @@ export default class Activity extends Component {
           utils.statReachGoal('likes_open_modal');
         }}
       >Лайки</Cell>
+      {likes.length > 0 && <HorizontalScroll>
+        <div className="likes_rows">
+          {this._renderLikesRows(likes)}
+        </div>
+      </HorizontalScroll>}
     </Group>;
   }
 
@@ -194,13 +200,15 @@ export default class Activity extends Component {
         <div
           className={className}
           key={like.user.id}
-          onClick={() => actions.go(pages.PROFILE, {user: like.user, fromLikes: true})}
+          onClick={() => {
+            actions.openLikes();
+            utils.statReachGoal('likes_open_modal');
+          }}
         >
           <div className="likes_row_photo_wrap">
             <div className="likes_row_photo" style={{backgroundImage: `url(${like.user.small_photo})`}} />
             <div className="likes_row_new_indicator" />
           </div>
-          <div className="likes_row_name">{like.user.name}</div>
         </div>
       )
     });
@@ -245,17 +253,17 @@ export default class Activity extends Component {
             }
           });
         } else {
-          if (this.props.state.userId === 1) {
+          /*if (this.props.state.userId === 1) {
             actions.vkPay('feature').then(() => {
               actions.loaderSuccess();
               activityActions.addMeToFeatured();
             }).catch(() => actions.showError());
-          } else {
+          } else {*/
             actions.vkPayRequest(42, 'Больше просмотров.').then(() => {
               actions.loaderSuccess();
               activityActions.addMeToFeatured();
             }).catch(() => actions.showError());
-          }
+          //}
         }
 
         utils.statReachGoal('feature_buy_btn');

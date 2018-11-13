@@ -509,7 +509,7 @@
 .likes_rows:before {
   content: '';
   width: 10px;
-  height: 88px;
+  height: 66px;
   flex: 0 0 auto;
 }
 .likes_rows::-webkit-scrollbar {
@@ -522,8 +522,8 @@
 }
 .likes_row {
   flex: 0 0 auto;
-  width: 76px;
-  height: 88px;
+  width: 66px;
+  height: 66px;
   display: flex;
   align-items: center;
   justify-items: center;
@@ -537,8 +537,8 @@
   color: #7a7a7a;
 }
 .likes_row_photo_wrap {
-  width: 64px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -560,8 +560,8 @@
   display: block;
 }
 .likes_row_photo {
-  width: 64px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: #ebebeb no-repeat center / cover;
   position: relative;
