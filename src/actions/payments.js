@@ -21,7 +21,7 @@ export function showSubscriptionRequest() {
     button="Месяц за 63₽"
     onClick={() => {
       actions.loaderShow();
-      api.showOrderBox('premium').then(() => {
+      api.showOrderBox('premium1').then(() => {
         actions.loaderSuccess();
         hasPremium = true;
       }).catch((isFailed) => {
