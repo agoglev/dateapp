@@ -224,7 +224,7 @@ export default class Activity extends Component {
   };
 
   _featureDidPress = () => {
-    const btnText = window.isDG ? 'Получить' : 'Получить за 42 р.';
+    const btnText = window.isDG ? 'Получить за 21₽' : 'Получить за 42₽';
     actions.setPopout(<NotificationsPermission
       title="Больше посетителей"
       caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
@@ -251,7 +251,7 @@ export default class Activity extends Component {
               activityActions.addMeToFeatured();
             }).catch(() => actions.showError());
           } else {
-            actions.vkPayRequest(59, 'Больше просмотров.').then(() => {
+            actions.vkPayRequest(42, 'Больше просмотров.').then(() => {
               actions.loaderSuccess();
               activityActions.addMeToFeatured();
             }).catch(() => actions.showError());

@@ -18,7 +18,7 @@ export function showSubscriptionRequest() {
     title="Передумали?"
     caption="Вам нужен Знакомства «Премиум». Вы сможете принять решение заново!"
     type="likes"
-    button="Месяц за 98₽"
+    button="Месяц за 63₽"
     onClick={() => {
       actions.loaderShow();
       api.showOrderBox('premium').then(() => {

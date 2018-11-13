@@ -271,7 +271,7 @@ export function resolveSystemCard() {
 let adsLoaded = false;
 export function loadAds() {
   adsLoaded = true;
-  if (window.isDG) {
+  if (window.isDG || true) {
     return;
   }
   api.method(api.methods.ads).then((ads) => {
