@@ -69,6 +69,10 @@
   padding: 8px;
   border-radius: 8px;
   flex: 0 0 auto;
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
 }
 .LiveChat__message.outbox .LiveChat__message__text {
   background: #e63973;
