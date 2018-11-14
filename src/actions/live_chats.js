@@ -57,6 +57,7 @@ export function loadChat() {
       actions.setData('isNeedPay', true, pages.LIVE_CHAT);
       actions.setData('isLoading', false, pages.LIVE_CHAT);
       actions.setData('waitForPay', false, pages.LIVE_CHAT);
+      utils.statReachGoal('live_chats_need_pay');
     } else {
       timer = setTimeout(loadChat, 3000);
     }
@@ -81,6 +82,7 @@ export function checkEventDidReceive(userId) {
     if (resp.user) {
       connectedUser = resp.user;
       resetVars();
+      utils.statReachGoal('live_chat_created');
     }
   }).catch(loadChat);
 }
@@ -105,6 +107,7 @@ export function acceptEventDidReceive(userId) {
     connectedUser = connectingUser;
     resetVars();
     accepted = false;
+    utils.statReachGoal('live_chat_created');
   } else {
     accepted = userId;
   }

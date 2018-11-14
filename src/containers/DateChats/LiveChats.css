@@ -85,3 +85,9 @@
   font-size: 16px;
   line-height: 20px;
 }
+.LiveChats__intro-image {
+  width: 96px;
+  height: 96px;
+  margin: 16px auto 0;
+  background: url('../../asset/art_live_96@2x.png') no-repeat center / contain;
+}

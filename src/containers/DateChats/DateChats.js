@@ -21,7 +21,8 @@ export default class DateChats extends Component {
         <Group description="Внимание! Сервис находится в beta тестировании.">
           <Div>
             <div className="Join__intro">
-              <div className="Join__intro-title">Знакомства здесь и сейчас</div>
+              <div className="LiveChats__intro-image" />
+              <div className="Join__intro-title" style={{marginTop: '26px'}}>Знакомства здесь и сейчас</div>
               <div className="Join__intro-caption">Нажмите «Лайк», если человек вам понравился, после взаимного лайка между вами появится постоянный чат в разделе «Активность».</div>
             </div>
           </Div>
