@@ -85,6 +85,12 @@ export const routes = [
     name: pages.LIKES,
     path: pages.LIKES,
     view: 'likes'
+  },
+
+  {
+    name: pages.LIVE_CHAT,
+    path: pages.LIVE_CHAT,
+    view: 'modal'
   }
 ];
 

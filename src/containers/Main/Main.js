@@ -13,6 +13,7 @@ import Activity from './Activity';
 import Profile from '../Profile/Profile';
 import * as utils from "../../utils";
 import PlaceholderError from "../../components/Placeholder/PlaceholderError";
+import DateChats from "../DateChats/DateChats";
 
 export default class Main extends BaseComponent {
   render() {
@@ -44,6 +45,8 @@ export default class Main extends BaseComponent {
         return <Activity state={state} />;
       case 'profile':
         return <Profile state={state} />;
+      case 'date_chats':
+        return <DateChats state={state} />;
       case 'error':
         return <PlaceholderError />;
     }

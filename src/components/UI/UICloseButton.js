@@ -8,7 +8,7 @@ export default class UICloseButton extends PureComponent {
   render() {
     return (
       <HeaderButton onClick={() => window.history.back()}>
-        {osname === IOS ? <span>Отменить</span> : <Icon24Cancel/>}
+        {osname === IOS ? <span>{this.props.text || "Отменить"}</span> : <Icon24Cancel/>}
       </HeaderButton>
     )
   }

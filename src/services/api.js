@@ -87,7 +87,13 @@ export const methods = {
   adsSeen: 'ads_seen',
   getLikes: 'get_likes',
   readLike: 'read_like',
-  payParams: 'pay_params'
+  payParams: 'pay_params',
+  liveChatsGet: 'live_chat_get',
+  liveChatsReason: 'live_chats_reason',
+  liveChatsLeave: 'live_chats_leave',
+  liveChatsMessage: 'live_chats_message',
+  liveChatsLike: 'live_chats_like',
+  liveChatsSeen: 'live_chats_seen'
 };
 
 let vkRequestId = 0;

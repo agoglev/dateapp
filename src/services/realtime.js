@@ -1,6 +1,7 @@
 import * as activityActions from '../actions/activity';
 import store from '../store';
 import * as accountActions from "../actions/account";
+import * as liveChatsActions from "../actions/live_chats";
 
 let lastEventId = 0;
 let socket = null;
@@ -16,7 +17,7 @@ function connect() {
   const { userId, token } = store.getState();
 
   const host = 'dateapp.ru'; //location.host;
-  socket = new WebSocket('wss://' + host + '/ws?id=' + userId + '&last_event_id=' + lastEventId + '&token=' + token);
+  socket = new WebSocket('wss://' + host + '/ws?id=' + userId + '&last_event_id=' + lastEventId + '&token=' + token, 'echo-protocol');
   socket.onopen = function() {
     startPingPong();
   };
@@ -30,6 +31,7 @@ function connect() {
 }
 
 function startPingPong() {
+  return;
   clearTimeout(ppTimer);
   ppTimer = setTimeout(() => {
     socket.send('ping');
@@ -90,6 +92,21 @@ function messageDidReceive(e) {
       break;
     case 'feature':
       activityActions.loadFeaturedUsers();
+      break;
+    case 'live_chat_check':
+      liveChatsActions.checkEventDidReceive(parseInt(event.user_id, 10));
+      break;
+    case 'live_chat_accept':
+      liveChatsActions.acceptEventDidReceive(parseInt(event.user_id, 10));
+      break;
+    case 'live_chat_reject':
+      liveChatsActions.rejectEventDidReceive(parseInt(event.user_id, 10));
+      break;
+    case 'live_chat_message':
+      liveChatsActions.messageEventDidReceive(parseInt(event.user_id, 10), event.message_type, event.extra);
+      break;
+    case 'live_chat_leave':
+      liveChatsActions.leaveEventDidReceive(parseInt(event.user_id, 10));
       break;
   }
 }

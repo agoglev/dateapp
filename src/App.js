@@ -23,6 +23,7 @@ import EditProfile from './containers/EditProfile/EditProfile';
 import Filters from './containers/Filters/Filters';
 import VkPhotos from './containers/VkPhotos/VkPhotos';
 import Likes from './containers/Likes/Likes';
+import LiveChat from "./containers/DateChats/LiveChat";
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
@@ -137,6 +138,7 @@ class App extends React.Component {
           <ProfileView id={pages.PROFILE} state={state} />
           <EditProfile id={pages.EDIT_PROFILE} state={state} />
           <Filters id={pages.FILTERS} state={state} />
+          <LiveChat id={pages.LIVE_CHAT} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />

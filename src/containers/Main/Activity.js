@@ -167,7 +167,7 @@ export default class Activity extends Component {
   }
 
   _renderLikes() {
-    if (this.state.isLoading) {
+    if (this.state.isLoading && this.props.state.dialogs.length === 0) {
       return null;
     }
 

@@ -15,8 +15,8 @@ export const SystemMessageType = {
 export function load() {
   return new Promise((resolve, reject) => {
     if (store.getState().dialogs.length > 0) {
-      resolve();
-      return;
+      //resolve();
+      //return;
     }
 
     api.method(api.methods.activity).then(({dialogs, likes, featured_users}) => {

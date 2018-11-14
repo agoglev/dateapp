@@ -98,7 +98,9 @@ ReactDOM.render(
 
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
-  accountActions.init('5dbc19698c7b9f9e7f3e18bc040b4c4515ec2c22f481c8f91056c98e1207702ff94b7fc60a38e7f9d14b5');
+  const token = localStorage.getItem('_token') || '';
+  window._DEBUG_TOKEN = token.length > 0 ? token : '8db33c3bc6524800c2b20eebe0c1b86bbaf3e2751e24264ced59e0ccba5d9eec58b6858186daa6f361cdd';
+  accountActions.init(window._DEBUG_TOKEN);
 }
 
 window.adsEmpty = () => {

@@ -10,6 +10,7 @@ import * as api from '../services/api';
 import * as pages from '../constants/pages';
 import * as accountActions from "./account";
 import * as activityActions from "./activity";
+import * as liveChatsActions from "./live_chats";
 import * as utils from "../utils";
 
 const osname = platform();
@@ -284,7 +285,7 @@ export function requestMessagesPermissions() {
 export function initRetry() {
   store.dispatch({type: actionTypes.APP_INIT_RETRY});
   if (utils.isDev() && utils.isInspectOpen()) {
-    accountActions.init('test');
+    accountActions.init(window._DEBUG_TOKEN);
   } else if (window.isDG) {
     accountActions.init(window.urlToken);
   } else {
@@ -330,4 +331,13 @@ export function resolveVkPayRequest(status) {
 export let isNeedFeatureBoxShow = false;
 export function setNeedFeatureBoxState(needShow) {
   isNeedFeatureBoxShow = needShow;
+}
+
+export function openLiveChat() {
+  go(pages.LIVE_CHAT, {
+    isLoading: true,
+    //user: store.getState().usersInfo[1],
+    //messages: []
+  });
+  setTimeout(liveChatsActions.loadChat, 1000);
 }

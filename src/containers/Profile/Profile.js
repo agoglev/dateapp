@@ -57,7 +57,7 @@ export default class Profile extends Component {
   }
 
   _renderDev() {
-    if (this.props.state.userId !== 1) {
+    if (this.props.state.userId !== 1 && this.props.state.userId !== 3) {
       return null;
     }
 
