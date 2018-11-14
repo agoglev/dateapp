@@ -259,3 +259,10 @@ export function initMyTargetAds() {
     document.getElementsByTagName('head')[0].appendChild(script);
   }, 1000);
 }
+
+export function preventDefault(e) {
+  const event = e.nativeEvent;
+  event.preventDefault();
+  event.stopPropagation();
+  event.returnValue = false;
+}

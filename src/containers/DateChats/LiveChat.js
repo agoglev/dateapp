@@ -7,8 +7,6 @@ import BaseComponent from '../../BaseComponent';
 import * as api from '../../services/api';
 import UICloseButton from '../../components/UI/UICloseButton';
 import * as utils from "../../utils";
-import * as payments from "../../actions/payments";
-import {hasPremium} from "../../actions/payments";
 import * as pages from "../../constants/pages";
 
 const Rates = {
@@ -26,7 +24,12 @@ export default class LiveChat extends BaseComponent {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('touchstart', this._touchDidStart);
+  }
+
   componentWillUnmount() {
+    document.removeEventListener('touchstart', this._touchDidStart);
     liveChatsActions.leaveChat();
   }
 
@@ -139,7 +142,9 @@ export default class LiveChat extends BaseComponent {
               onChange={(e) => this.setState({message: e.target.value})}
             />
             <div className="LiveChat__send-button-wrap">
-              <Button onClick={this._sendButtonDidPress}>Отправить</Button>
+              <div
+                className="ui_inline_button fill"
+              >Отправить</div>
             </div>
           </Div>
         </Group>
@@ -230,8 +235,7 @@ export default class LiveChat extends BaseComponent {
     });
   }
 
-  _sendButtonDidPress = (e) => {
-    e.preventDefault();
+  _sendButtonDidPress = () => {
     const text = this.state.message.trim();
     if (!text.length) {
       return actions.showError('Введите текст сообщения');
@@ -259,6 +263,7 @@ export default class LiveChat extends BaseComponent {
     api.showOrderBox(`live_chats${rateId}`).then(() => {
       actions.loaderSuccess();
       const curCount = this.data.availChats || 0;
+      actions.setData('waitForPay', true, pages.LIVE_CHAT);
       actions.setData('availChats', curCount + Rates[rateId], pages.LIVE_CHAT);
       liveChatsActions.loadChat();
     }).catch((isFailed) => {
@@ -268,5 +273,12 @@ export default class LiveChat extends BaseComponent {
         actions.loaderHide();
       }
     });
+  };
+
+  _touchDidStart = (e) => {
+    if (e.target.classList.contains('ui_inline_button')) {
+      e.preventDefault();
+      this._sendButtonDidPress();
+    }
   };
 }

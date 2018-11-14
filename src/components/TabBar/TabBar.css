@@ -43,11 +43,15 @@
   height: 24px;
   background: no-repeat center / contain;
   position: relative;
-  transition: opacity 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+  color: #a3a3a3;
 }
 .TabBar__item-icon path {
   transition: fill 200ms ease-in-out;
   fill: #a3a3a3 !important;
+}
+.TabBar__item.active .TabBar__item-icon {
+  color: #e63973 !important;
 }
 .TabBar__item.active .TabBar__item-icon path {
   fill: #e63973 !important;

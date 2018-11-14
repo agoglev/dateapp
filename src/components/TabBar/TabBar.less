@@ -47,11 +47,16 @@
   .size(24px);
   background: no-repeat center/contain;
   position: relative;
-  transition: opacity 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
 
+  color: @color-grey-sub;
   path {
     transition: fill 200ms ease-in-out;
-    fill: @color-grey-sub!important;
+    fill: @color-grey-sub !important;
+  }
+
+  .TabBar__item.active & {
+    color: @color-pink !important;
   }
 
   .TabBar__item.active & path {

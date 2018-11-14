@@ -13,6 +13,7 @@ let isConnecting = false;
 let connectingUser = false;
 let isBusy = false;
 let connectedUser = {};
+let accepted = false;
 
 export function loadChat() {
   isStopped = false;
@@ -24,8 +25,11 @@ export function loadChat() {
   isConnecting = false;
   connectingUser = false;
   connectedUser = false;
+  accepted = false;
   isBusy = false;
-  api.method(api.methods.liveChatsGet).then((resp) => {
+  api.method(api.methods.liveChatsGet, {
+    wait_pay: actions.getData(pages.LIVE_CHAT).waitForPay ? 1 : 0
+  }).then((resp) => {
     actions.setData('availChats', parseInt(resp.avail_count, 10), pages.LIVE_CHAT);
     if (isBusy || isStopped) {
       return;
@@ -33,19 +37,26 @@ export function loadChat() {
     clearTimeout(timer);
 
     actions.setData('isConnecting', true, pages.LIVE_CHAT);
+    actions.setData('waitForPay', false, pages.LIVE_CHAT);
 
     isBusy = true;
     isConnecting = true;
     connectingUser = resp.user;
     timer = setTimeout(loadChat, 6000);
+
+    if (accepted === resp.user.id) {
+      acceptEventDidReceive(resp.user.id);
+    }
   }).catch((err) => {
     if (isBusy || isStopped) {
       return;
     }
+    clearTimeout(timer);
     if (err.message === 'payment') {
       isBusy = true;
       actions.setData('isNeedPay', true, pages.LIVE_CHAT);
       actions.setData('isLoading', false, pages.LIVE_CHAT);
+      actions.setData('waitForPay', false, pages.LIVE_CHAT);
     } else {
       timer = setTimeout(loadChat, 3000);
     }
@@ -88,11 +99,13 @@ export function leaveEventDidReceive(userId) {
 }
 
 export function acceptEventDidReceive(userId) {
-  console.log(connectingUser.id, userId);
   if (userId === connectingUser.id) {
     clearTimeout(timer);
     connectedUser = connectingUser;
     resetVars();
+    accepted = false;
+  } else {
+    accepted = userId;
   }
 }
 

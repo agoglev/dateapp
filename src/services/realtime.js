@@ -17,7 +17,7 @@ function connect() {
   const { userId, token } = store.getState();
 
   const host = 'dateapp.ru'; //location.host;
-  socket = new WebSocket('wss://' + host + '/ws?id=' + userId + '&last_event_id=' + lastEventId + '&token=' + token, 'echo-protocol');
+  socket = new WebSocket('wss://' + host + '/ws?id=' + userId + '&last_event_id=' + lastEventId + '&token=' + token);
   socket.onopen = function() {
     startPingPong();
   };
@@ -54,7 +54,12 @@ function messageDidReceive(e) {
     return;
   }
 
-  const data = JSON.parse(e.data);
+  let data;
+  try {
+    data = JSON.parse(e.data);
+  } catch(e) {
+    return;
+  }
 
   let event;
   if (data.Event.Event.chat_event) {

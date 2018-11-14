@@ -340,4 +340,6 @@ export function openLiveChat() {
     //messages: []
   });
   setTimeout(liveChatsActions.loadChat, 1000);
+
+  utils.statReachGoal('live_chats_open');
 }
