@@ -95,6 +95,7 @@ function resetVars() {
 export function leaveEventDidReceive(userId) {
   if (userId === connectedUser.id) {
     actions.setData('isEnded', true, pages.LIVE_CHAT);
+    seen();
   }
 }
 
@@ -109,7 +110,7 @@ export function acceptEventDidReceive(userId) {
   }
 }
 
-export function rejectEventDidReceive() {
+export function rejectEventDidReceive(userId) {
   loadChat();
 }
 
@@ -175,4 +176,3 @@ export function seen() {
     user_id: connectedUser.id
   });
 }
-
