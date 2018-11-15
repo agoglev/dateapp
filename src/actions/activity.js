@@ -403,6 +403,9 @@ export function readLike(userId) {
 }
 
 function checkFeatureTT() {
+  if (!window.isDG) {
+    return;
+  }
   api.vk('storage.get', {
     key: `activity_feature_tt`,
   }).then((val) => {
