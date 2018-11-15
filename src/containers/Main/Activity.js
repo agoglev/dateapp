@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll, Cell } from '@vkontakte/vkui';
+import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll, Cell, Tooltip } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -155,13 +155,20 @@ export default class Activity extends Component {
       <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${curUser.small_photo})`}} />
     </div>);*/
 
-    res.unshift(<div
-      className="live_feed_featured_pay_button"
+    res.unshift(<Tooltip
+      text="Хотите больше лайков?"
       key={-1}
-      onClick={this._featureDidPress}
+      isShown={this.props.state.isFeatureTTShown}
+      onClose={activityActions.hideFeatureTT}
     >
-      <div className="live_feed_featured_pay_button_text">Хочу<br/>сюда</div>
-    </div>);
+      <div
+        className="live_feed_featured_pay_button"
+        key={-1}
+        onClick={this._featureDidPress}
+      >
+        <div className="live_feed_featured_pay_button_text">Хочу<br/>сюда</div>
+      </div>
+    </Tooltip>);
 
     return res;
   }
@@ -234,7 +241,7 @@ export default class Activity extends Component {
   _featureDidPress = () => {
     const btnText = window.isDG ? 'Получить за 21₽' : 'Получить за 42₽';
     actions.setPopout(<NotificationsPermission
-      title="Больше посетителей"
+      title="Больше лайков"
       caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
       type="likes"
       button={btnText}

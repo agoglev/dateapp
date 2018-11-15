@@ -25,6 +25,7 @@ export const DIALOGS_SET = 'DIALOGS_SET';
 export const HISTORY_SET = 'HISTORY_SET';
 export const LIKES_SET = 'LIKES_SET';
 export const FEATURED_USERS_SET = 'FEATURED_USERS_SET';
+export const FEATURE_TT_SET = 'FEATURE_TT_SET';
 
 export const SET_POPOUT = 'SET_POPOUT';
 export const SET_BADGE = 'SET_BADGE';

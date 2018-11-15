@@ -98,8 +98,7 @@ ReactDOM.render(
 
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
-  const token = localStorage.getItem('_token') || '';
-  window._DEBUG_TOKEN = token.length > 0 ? token : '45c6e7a93a42eba61774bf0a9f498c51f5f108272ecf7c630519905c3847e932794585ccd86fe0f859ca9';
+  window._DEBUG_TOKEN = localStorage.getItem('_token');
   accountActions.init(window._DEBUG_TOKEN);
 }
 

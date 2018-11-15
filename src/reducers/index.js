@@ -34,7 +34,8 @@ const initialState = {
   works: false, // engineering works
   tabBarAdsShown: false,
   featuredUsers: [],
-  hasLikesBadge: false
+  hasLikesBadge: false,
+  isFeatureTTShown: false
 };
 
 let navHistory = [];
@@ -203,6 +204,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.ADS_UPDATE: {
       return Object.assign({}, state, {tabBarAdsShown: action.shown});
+    }
+
+    case actionTypes.FEATURE_TT_SET: {
+      return Object.assign({}, state, {isFeatureTTShown: action.shown});
     }
 
     default:

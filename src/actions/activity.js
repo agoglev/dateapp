@@ -33,6 +33,8 @@ export function load() {
       store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featured_users});
 
       resolve();
+
+      checkFeatureTT();
     }).catch(() => {
       reject();
     });
@@ -397,5 +399,23 @@ export function readLike(userId) {
 
   api.method(api.methods.readLike, {
     from_id: userId
+  });
+}
+
+function checkFeatureTT() {
+  api.vk('storage.get', {
+    key: `activity_feature_tt`,
+  }).then((val) => {
+    if (!parseInt(val, 10)) {
+      store.dispatch({type: actionTypes.FEATURE_TT_SET, shown: true});
+    }
+  });
+}
+
+export function hideFeatureTT() {
+  store.dispatch({type: actionTypes.FEATURE_TT_SET, shown: false});
+  api.vk('storage.set', {
+    key: `activity_feature_tt`,
+    value: '1'
   });
 }
