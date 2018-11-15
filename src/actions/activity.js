@@ -407,9 +407,9 @@ function checkFeatureTT() {
     return;
   }
   api.vk('storage.get', {
-    key: `activity_feature_tt`,
+    key: `activity_feature_tt_shown`,
   }).then((val) => {
-    if (!parseInt(val, 10)) {
+    if (parseInt(val, 10) !== 1) {
       store.dispatch({type: actionTypes.FEATURE_TT_SET, shown: true});
     }
   });
@@ -418,7 +418,7 @@ function checkFeatureTT() {
 export function hideFeatureTT() {
   store.dispatch({type: actionTypes.FEATURE_TT_SET, shown: false});
   api.vk('storage.set', {
-    key: `activity_feature_tt`,
+    key: `activity_feature_tt_shown`,
     value: '1'
   });
 }
