@@ -403,13 +403,20 @@ export function readLike(userId) {
 }
 
 function checkFeatureTT() {
-  if (!window.isDG) {
+  const state = store.getState();
+  if (!window.isDG || state.usersInfo[state.userId].register_days < 1) {
     return;
   }
   api.vk('storage.get', {
-    key: `activity_feature_tt_shown`,
-  }).then((val) => {
-    if (parseInt(val, 10) !== 1) {
+    keys: 'activity_feature_tt_shown'
+  }).then((keysRaw) => {
+    let keys = {};
+    for (let i = 0; i < keysRaw.length; i++) {
+      const item = keysRaw[i];
+      keys[item.key] = parseInt(item.value, 10) || 0;
+    }
+
+    if (keys.activity_feature_tt_shown !== 1) {
       store.dispatch({type: actionTypes.FEATURE_TT_SET, shown: true});
     }
   });
