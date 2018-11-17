@@ -38,8 +38,22 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(10px, -12px);
+    margin-left: 10px;
+    margin-top: -12px;
     background: @color-dark-green;
+    animation: 3s linear TabBar__badge_anim forwards infinite;
+  }
+}
+
+@keyframes TabBar__badge_anim {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.5);
+  }
+  20%, 100% {
+    transform: scale(1);
   }
 }
 
