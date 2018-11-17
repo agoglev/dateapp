@@ -77,7 +77,7 @@ export default function reducer(state = initialState, action) {
       }
 
       if (action.from && isBack && [pages.JOIN_STEP1, pages.JOIN_STEP2, pages.JOIN_STEP3].indexOf(action.from.name) === -1) {
-          delete newState.pageData[action.from.name];
+        delete newState.pageData[action.from.name];
       }
       if (!newState.pageData[action.to.name]) {
         newState.pageData[action.to.name] = {};

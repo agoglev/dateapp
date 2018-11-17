@@ -8,6 +8,8 @@ import UICloseButton from '../../components/UI/UICloseButton';
 
 export default class Filters extends BaseComponent {
   render() {
+    const info = this.props.state.usersInfo[this.props.state.userId];
+    const cityName = ` (${info.city_name})` || '';
     return (
       <Panel id={this.props.id}>
         <PanelHeader
@@ -40,12 +42,15 @@ export default class Filters extends BaseComponent {
               value={[this.data.ageFrom, this.data.ageTo]}
             />
           </div>
-          <div top="Дальность поиска">
+          <div top="Дальность поиска" bottom={<span>Вы можете изменить город в <span className="Link" onClick={() => {
+            actions.openEditProfile();
+            return false;
+          }}>редактировании анкеты</span></span>}>
             <Checkbox
               name="type"
               checked={this.data.onlyCity}
               onChange={(e) => this.setData('onlyCity', true)}
-            >Только город</Checkbox>
+            >Только город {cityName}</Checkbox>
             <Checkbox
               name="type"
               checked={!this.data.onlyCity}

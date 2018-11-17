@@ -30,6 +30,9 @@ body {
 .Search__input {
   color: #1a1a1a !important;
 }
+.Link {
+  color: #e63973 !important;
+}
 .Error {
   position: fixed;
   left: 0;

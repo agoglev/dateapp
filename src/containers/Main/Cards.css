@@ -111,6 +111,17 @@
   line-height: 25px;
   font-weight: bold;
   flex: 1;
+  display: flex;
+  align-items: center;
+}
+.Cards__item.online .Cards__item--footer-name:after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #30bf78;
+  margin-left: 8px;
 }
 .Cards__item__super-like {
   background: #fff url('asset/superlike_24.svg') no-repeat center;

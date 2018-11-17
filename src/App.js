@@ -134,10 +134,12 @@ class App extends React.Component {
         <View activePanel={state.activePanels.likes} id="likes" header={this._getBaseHeader('likes')}>
           <Likes id={pages.LIKES} state={state} />
         </View>
+        <View activePanel={state.activePanels.filters} id="filters" header={this._getBaseHeader('filters')}>
+          <Filters id={pages.FILTERS} state={state} />
+        </View>
         <View activePanel={state.activePanels.modal} id="modal" header={this._getBaseHeader('modal')}>
           <ProfileView id={pages.PROFILE} state={state} />
           <EditProfile id={pages.EDIT_PROFILE} state={state} />
-          <Filters id={pages.FILTERS} state={state} />
           <LiveChat id={pages.LIVE_CHAT} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>

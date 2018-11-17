@@ -66,7 +66,7 @@ export const routes = [
   {
     name: pages.FILTERS,
     path: pages.FILTERS,
-    view: 'modal'
+    view: 'filters'
   },
 
   {

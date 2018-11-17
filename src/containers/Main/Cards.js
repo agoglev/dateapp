@@ -142,11 +142,13 @@ export default class Cards extends Component {
       </div>;
     }
 
+    const now = Math.floor(new Date().getTime() / 1000);
     return cards.slice(0, 2).map((card, i) => {
       const isActive = i === 0;
       const className = utils.classNames({
         Cards__item: true,
-        swipeTip: isActive && this.state.swipeTip
+        swipeTip: isActive && this.state.swipeTip,
+        online: now - card.last_update < 60 * 10
       });
 
       const rotate = isActive ? this.state.rotate : 0;
