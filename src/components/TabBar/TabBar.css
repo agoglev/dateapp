@@ -42,14 +42,14 @@
 }
 @keyframes TabBar__badge_anim {
   0% {
-    transform: scale(1);
+    transform: translateY(0);
   }
   10% {
-    transform: scale(1.5);
+    transform: translateY(-6px);
   }
   20%,
   100% {
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 .TabBar__item-icon {
