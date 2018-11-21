@@ -37,9 +37,9 @@ export default class TabBar extends Component {
   _renderTabs() {
     const state = this.props.state;
     let tabs = ['cards', 'messages', 'profile'];
-    if (window.isDG || state.usersInfo[state.userId] && parseInt(state.usersInfo[state.userId].gender, 10) === 1 || state.userId === 1) {
-      tabs.unshift('date_chats');
-    }
+    //if (window.isDG || state.usersInfo[state.userId] && parseInt(state.usersInfo[state.userId].gender, 10) === 1 || state.userId === 1) {
+    //  tabs.unshift('date_chats');
+    //}
     return tabs.map((tab) => {
       const className = utils.classNames({
         TabBar__item: true,

@@ -20,20 +20,24 @@ export function showSubscriptionRequest() {
     type="likes"
     button="Месяц за 63₽"
     onClick={() => {
-      actions.loaderShow();
-      api.showOrderBox('premium1').then(() => {
-        actions.loaderSuccess();
-        hasPremium = true;
-      }).catch((isFailed) => {
-        if (isFailed) {
-          actions.showError();
-        } else {
-          actions.loaderHide();
-        }
-      });
-      utils.statReachGoal('premium_continue');
+      buyPremium();
     }}
   />);
 
   utils.statReachGoal('premium_box');
+}
+
+export function buyPremium() {
+  actions.loaderShow();
+  api.showOrderBox('premium1').then(() => {
+    actions.loaderSuccess();
+    hasPremium = true;
+  }).catch((isFailed) => {
+    if (isFailed) {
+      actions.showError();
+    } else {
+      actions.loaderHide();
+    }
+  });
+  utils.statReachGoal('premium_continue');
 }

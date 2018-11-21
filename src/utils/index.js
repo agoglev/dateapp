@@ -266,3 +266,12 @@ export function preventDefault(e) {
   event.stopPropagation();
   event.returnValue = false;
 }
+
+export function gram(number, variants, skipNumber) {
+  const cases = [2, 0, 1, 1, 1, 2];
+  let res = (variants[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5]]);
+  if (!skipNumber) {
+    res = number+' '+res;
+  }
+  return res;
+}

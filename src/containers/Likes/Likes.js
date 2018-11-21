@@ -8,9 +8,15 @@ import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
 import BaseComponent from '../../BaseComponent';
 import UICloseButton from '../../components/UI/UICloseButton';
+import * as payments from '../../actions/payments';
 
 export default class Likes extends BaseComponent {
   render() {
+    const className = utils.classNames({
+      Likes__items: true,
+      blur: this._isNeedPay()
+    });
+
     return (
       <Panel id={this.props.id}>
         <PanelHeader
@@ -18,8 +24,11 @@ export default class Likes extends BaseComponent {
         >
           Лайки
         </PanelHeader>
-        {this._renderLikes()}
+        <div className={className}>
+          {this._renderLikes()}
+        </div>
         {this._renderLoadMoreButton()}
+        {this._renderPremium()}
       </Panel>
     )
   }
@@ -71,6 +80,27 @@ export default class Likes extends BaseComponent {
     )
   }
 
+  _renderPremium() {
+    if (!this._isNeedPay()) {
+      return null;
+    }
+
+    let label;
+    if (this.data.nextFrom) {
+      label = `${this.data.likes.length}+ лайков`;
+    } else {
+      label = utils.gram(this.data.likes.length, ['лайк', 'лайка', 'лайков']);;
+    }
+
+    return (
+      <div className="Likes__premium">
+        <div className="Likes__premium__title">У вас {label}!</div>
+        <div className="Likes__premium__caption">Вам нужен Знакомства «Премиум», чтобы увидеть их.</div>
+        <Button size="xl" level="1" onClick={() => payments.buyPremium()}>Месяц за 63₽</Button>
+      </div>
+    )
+  }
+
   _load = () => {
     activityActions.loadLikes();
   };
@@ -85,4 +115,12 @@ export default class Likes extends BaseComponent {
       activityActions.readLike(like.user.id);
     }
   };
+
+  _isNeedPay() {
+    if (this.props.state.hasPremium || this.data.isLoading || this.data.isFailed || !this.data.likes.length || !window.isDG) {
+      return false;
+    }
+
+    return this.props.state.userId === 1;
+  }
 }
