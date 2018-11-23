@@ -1,0 +1,39 @@
+@import "../../css/vars";
+
+.SegmentedControl {
+  display: flex;
+  border-radius: @border-radius;
+  border: 1px solid @color-grey-bg;
+  margin: 0 12px;
+}
+
+.SegmentedControl__item {
+  flex: 1;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  position: relative;
+  color: @color-black;
+  transition: color 150ms ease-in-out;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    right: -1px;
+    border: 2px solid @color-pink;
+    border-radius: @border-radius;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+  }
+
+  &.selected {
+    color: @color-pink;
+  }
+
+  &.selected:after {
+    opacity: 1;
+  }
+}

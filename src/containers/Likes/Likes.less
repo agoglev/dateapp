@@ -36,20 +36,36 @@
   }
 }
 
-.Likes__user-row__name {
+.Likes__user-row__name-wrap {
+  display: flex;
+  align-items: center;
   z-index: 2;
-  font-size: 14px;
-  font-weight: 500;
-  color: @color-white;
-  line-height: 16px;
   padding: 0 12px;
   box-sizing: border-box;
   position: absolute;
   bottom: 10px;
   left: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.Likes__user-row__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: @color-white;
+  line-height: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+
+.Likes__user-row__name__online {
+  .circle(8px);
+  background: @color-green;
+  margin-left: 8px;
+  flex: 0 0 auto;
 }
 
 .Likes__empty {

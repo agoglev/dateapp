@@ -241,8 +241,8 @@
 .profile_view_footer_item.liked:after {
   background-image: url('asset/ic_liked.svg');
 }
-.profile_view_footer_item.message:after {
-  background-image: url('asset/ic_message.svg');
+.profile_view_footer_item.message {
+  color: #399EE6;
 }
 .profile_view_footer.deactivated .profile_view_footer_item.like,
 .profile_view_footer.deactivated .profile_view_footer_item.liked {

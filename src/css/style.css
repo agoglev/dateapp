@@ -169,3 +169,9 @@ body {
   font-weight: 500;
   border: 0;
 }
+.clear_fix:after {
+  content: '';
+  display: block;
+  clear: both;
+  width: 100%;
+}

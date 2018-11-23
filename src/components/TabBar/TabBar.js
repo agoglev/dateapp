@@ -36,7 +36,7 @@ export default class TabBar extends Component {
 
   _renderTabs() {
     const state = this.props.state;
-    let tabs = ['cards', 'messages', 'profile'];
+    let tabs = ['search', 'cards', 'messages', 'profile'];
     //if (window.isDG || state.usersInfo[state.userId] && parseInt(state.usersInfo[state.userId].gender, 10) === 1 || state.userId === 1) {
     //  tabs.unshift('date_chats');
     //}
@@ -74,6 +74,8 @@ export default class TabBar extends Component {
       return <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 13a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-7.051 9.316a1 1 0 1 1-1.897-.632C4.178 16.304 7.484 14.5 12 14.5s7.822 1.803 8.948 5.184a1 1 0 0 1-1.897.632C18.234 17.863 15.734 16.5 12 16.5s-6.234 1.363-7.051 3.816z" fill="#e6457a" fillRule="nonzero"/></svg>;
     } else if (tab === 'date_chats') {
       return <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M19.492 18.626c3.393-3.835 3.332-9.602-.09-13.355a1 1 0 1 1 1.477-1.348c4.11 4.506 4.183 11.426.111 16.028a1 1 0 1 1-1.498-1.325zm-3.894-3.153a5 5 0 0 0-.006-6.952 1 1 0 0 1 1.436-1.393 7 7 0 0 1 .008 9.735 1 1 0 1 1-1.438-1.39zM12 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-5.04 2.862a7 7 0 0 1 .01-9.734A1 1 0 0 1 8.404 8.52a5 5 0 0 0-.006 6.953 1 1 0 1 1-1.439 1.389zm-2.45 1.764a1 1 0 1 1-1.497 1.325C-1.06 15.35-.986 8.43 3.123 3.923a1 1 0 1 1 1.479 1.348c-3.423 3.753-3.484 9.52-.092 13.355z" fill="#E63973" fillRule="nonzero"/></svg>;
+    } else if (tab === 'search') {
+      return <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M16.463 15.05l4.244 4.243a1 1 0 0 1-1.414 1.414l-4.244-4.244a7.5 7.5 0 1 1 1.414-1.414zM10.5 16a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z" fill="currentColor" fillRule="evenodd"/></svg>;
     }
   }
 }

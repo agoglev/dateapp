@@ -9,6 +9,7 @@ import * as utils from '../../utils/index';
 import BaseComponent from '../../BaseComponent';
 import Cards from '../Main/Cards';
 import * as pages from "../../constants/pages";
+import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 export default class ProfileView extends BaseComponent {
   render() {
@@ -115,11 +116,13 @@ export default class ProfileView extends BaseComponent {
     if (user.id === this.props.state.userId || this.data.fromHistory === true) {
       return null;
     }
-    // {!isFeature && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
-    const isFeature = this.data.fromFeature === true;
+    const isFromCards = this.data.fromCards === true;
+    const isFromSearch = this.data.fromSearch === true;
     return (
       <div className="profile_view_footer">
-        <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />
+        {isFromCards && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
+        {this.data.isLiked && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
+        {!this.data.isLiked && <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />}
       </div>
     )
   }
@@ -158,11 +161,16 @@ export default class ProfileView extends BaseComponent {
 
   _footerLikeButtonDidPress = () => {
     const isFeature = this.data.fromFeature === true;
-    if (this.data.fromLikes === true || isFeature) {
+    const isSearch = this.data.fromSearch === true;
+    if (this.data.fromLikes === true || isFeature || isSearch) {
       actions.loaderShow();
       activityActions.likeAction(this.data.user.id, 'like', isFeature)
         .then(() => {
-          window.history.back();
+          if (isSearch) {
+            actions.loaderHide();
+          } else {
+            window.history.back();
+          }
 
           if (isFeature) {
             actions.loaderHide();
@@ -170,6 +178,8 @@ export default class ProfileView extends BaseComponent {
               skipCancelButton: true
             });
             utils.statReachGoal('feature_like');
+          } else if (isSearch) {
+            this.setData('isLiked', true);
           } else {
             actions.loaderSuccess();
             utils.statReachGoal('like');
@@ -184,5 +194,9 @@ export default class ProfileView extends BaseComponent {
         Cards.shared._likeButtonDidPress();
       }, 450);
     }
+  };
+
+  _footerMessageButtonDidPress = () => {
+    actions.openChat(this.data.user.id);
   };
 }

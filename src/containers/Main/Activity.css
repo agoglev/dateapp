@@ -9,6 +9,7 @@
 }
 .Activity__failed_msg {
   margin-bottom: 16px;
+  line-height: 24px;
 }
 .im_dialogs_empty {
   color: #7a7a7a;

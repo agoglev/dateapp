@@ -33,20 +33,36 @@
   right: 4px;
   z-index: 2;
 }
-.Likes__user-row__name {
+.Likes__user-row__name-wrap {
+  display: flex;
+  align-items: center;
   z-index: 2;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  line-height: 16px;
   padding: 0 12px;
   box-sizing: border-box;
   position: absolute;
   bottom: 10px;
   left: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.Likes__user-row__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+.Likes__user-row__name__online {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #30bf78;
+  margin-left: 8px;
+  flex: 0 0 auto;
 }
 .Likes__empty {
   color: #7a7a7a;

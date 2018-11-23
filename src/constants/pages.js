@@ -23,3 +23,5 @@ export const LIVE_CHAT = 'live_chat';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';
+
+export const SEARCH = 'SEARCH';

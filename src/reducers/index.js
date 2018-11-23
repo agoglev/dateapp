@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import * as pages from '../constants/pages';
 import { navThree } from '../router';
+import {hasPremium} from "../actions/payments";
 
 const initialState = {
   userId: 0,
@@ -35,7 +36,8 @@ const initialState = {
   tabBarAdsShown: false,
   featuredUsers: [],
   hasLikesBadge: false,
-  isFeatureTTShown: false
+  isFeatureTTShown: false,
+  hasPremium: false
 };
 
 let navHistory = [];
@@ -112,13 +114,18 @@ export default function reducer(state = initialState, action) {
         userId: action.userId,
         gifts: action.gifts,
         hasBadge: action.hasBadge,
-        needTokenMessage: false
+        needTokenMessage: false,
+        hasPremium: action.hasPremium
       });
+    }
+
+    case actionTypes.PREMIUM_SET: {
+      return Object.assign({}, state, {hasPremium: action.has});
     }
 
     case actionTypes.APP_INIT_RETRY: {
       return Object.assign({}, state, {appInited: false});
-    };
+    }
 
     case actionTypes.SETUP_VK_USER_INFO: {
       return Object.assign({}, state, {vkUserInfo: action.info, needTokenMessage: false});

@@ -11,6 +11,7 @@ export let hasPremium = false;
 
 export function setPremiumState(has) {
   hasPremium = has;
+  store.dispatch({type: actionTypes.PREMIUM_SET, has});
 }
 
 export function showSubscriptionRequest() {
@@ -31,7 +32,7 @@ export function buyPremium() {
   actions.loaderShow();
   api.showOrderBox('premium1').then(() => {
     actions.loaderSuccess();
-    hasPremium = true;
+    setPremiumState(true);
   }).catch((isFailed) => {
     if (isFailed) {
       actions.showError();

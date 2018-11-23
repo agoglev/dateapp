@@ -9,6 +9,7 @@ import * as pages from '../../constants/pages';
 import TabBar from '../../components/TabBar/TabBar'
 import JoinIntro from '../Join/JoinIntro';
 import Cards from './Cards';
+import Search from '../Search/Search';
 import Activity from './Activity';
 import Profile from '../Profile/Profile';
 import * as utils from "../../utils";
@@ -47,6 +48,8 @@ export default class Main extends BaseComponent {
         return <Profile state={state} />;
       case 'date_chats':
         return <DateChats state={state} />;
+      case 'search':
+        return <Search id={pages.SEARCH} state={state} />;
       case 'error':
         return <PlaceholderError />;
     }

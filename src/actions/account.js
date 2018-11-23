@@ -9,6 +9,7 @@ import realTimeInit from '../services/realtime';
 import * as payments from './payments';
 
 export let JoinInfo = {};
+export let searchFilters = {};
 let defaultTab = 'cards';
 
 export function init(token = false) {
@@ -110,7 +111,8 @@ function initMethodHandler(resp) {
     token: resp.token,
     userId: resp.user ? resp.user.id : 0,
     gifts: resp.gifts,
-    hasBadge: resp.hasBadge
+    hasBadge: resp.hasBadge,
+    hasPremium: resp.hasPremium
   });
   if (resp.need_join) {
     actions.setTab('join');
@@ -123,6 +125,7 @@ function initMethodHandler(resp) {
     utils.statReachGoal(window.isDG ? 'real_user_dg' : 'real_user_vkapps');
     store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: resp.hasLikesBadge});
     payments.setPremiumState(resp.hasPremium);
+    searchFilters = resp.searchFilters;
   }
 }
 
@@ -160,4 +163,26 @@ export function showBadge() {
 
 export function setDefaultTab(tab) {
   defaultTab = tab;
+}
+
+export function saveSearchFilters(gender, sort, ageFrom, ageTo) {
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.save_search_filters, {
+      gender,
+      sort,
+      age_from: ageFrom,
+      age_to: ageTo
+    }).then(() => {
+      searchFilters = {
+        ...searchFilters,
+        gender,
+        sort,
+        age: {
+          from: ageFrom,
+          to: ageTo
+        }
+      };
+      resolve();
+    }).catch(reject)
+  });
 }

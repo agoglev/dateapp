@@ -93,7 +93,9 @@ export const methods = {
   liveChatsLeave: 'live_chats_leave',
   liveChatsMessage: 'live_chats_message',
   liveChatsLike: 'live_chats_like',
-  liveChatsSeen: 'live_chats_seen'
+  liveChatsSeen: 'live_chats_seen',
+  search: 'search',
+  save_search_filters: 'save_search_filters'
 };
 
 let vkRequestId = 0;

@@ -146,6 +146,12 @@ export default class ImHistory extends BaseComponent {
     let lastTimeKey = null;
 
     const messages = this.props.state.imHistory[this.peerId] || [];
+    if (!messages.length) {
+      return <div className="Activity__failed">
+        <div className="Activity__failed_msg">Нет сообщений</div>
+      </div>;
+    }
+
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
       const date = new Date(message.add_date);

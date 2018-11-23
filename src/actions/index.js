@@ -43,6 +43,22 @@ export function fakeGo(panel, params = {}) {
 }
 
 export function setTab(tabName) {
+  if (tabName === 'search') {
+    const state = store.getState();
+    const user = state.usersInfo[state.userId];
+    const age = utils.getUsrAge(user.age_ts);
+    setDataMulti({
+      //filterGender: user.gender === 2 ? 'girls' : 'mans',
+      filterSort: 'all',
+      //ageFrom: Math.max(17, age - 5),
+      //ageTo: Math.min(age + 5, 55)
+      filterGender: accountActions.searchFilters.gender,
+      //filterSort: accountActions.searchFilters.sort,
+      ageFrom: accountActions.searchFilters.age.from,
+      ageTo: accountActions.searchFilters.age.to,
+    }, pages.SEARCH);
+  }
+
   store.dispatch({type: actionTypes.SET_TAB, tab: tabName});
 }
 
@@ -53,6 +69,12 @@ export function setData(field, value, page) {
     value,
     page
   });
+}
+
+export function setDataMulti(data, page) {
+  for (let i in data) {
+    setData(i, data[i], page);
+  }
 }
 
 export function getData(page) {
