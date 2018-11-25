@@ -240,7 +240,6 @@ export default class ImHistory extends BaseComponent {
 
       const className = utils.classNames({
         im_message_wrap: true,
-        clear_fix: true,
         sending: message.isSending,
         inbox: message.inbox,
         gift: hasGift,

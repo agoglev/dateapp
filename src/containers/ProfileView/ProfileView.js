@@ -164,7 +164,7 @@ export default class ProfileView extends BaseComponent {
     const isSearch = this.data.fromSearch === true;
     if (this.data.fromLikes === true || isFeature || isSearch) {
       actions.loaderShow();
-      activityActions.likeAction(this.data.user.id, 'like', isFeature)
+      activityActions.likeAction(this.data.user.id, 'like', isFeature || isSearch)
         .then(() => {
           if (isSearch) {
             actions.loaderHide();

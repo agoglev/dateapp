@@ -61,7 +61,9 @@ export default class Likes extends BaseComponent {
           onClick={() => this._likeDidPress(like)}
         >
           <div className="Likes__user-row__cont" style={{backgroundImage: `url(${like.user.small_photo})`}}>
-            <div className="Likes__user-row__name">{like.user.name}</div>
+            <div className="Likes__user-row__name-wrap">
+              <div className="Likes__user-row__name">{like.user.name}</div>
+            </div>
           </div>
         </div>
       )
@@ -98,7 +100,8 @@ export default class Likes extends BaseComponent {
       <div className="Likes__premium">
         <div className="Likes__premium__title">У вас {label}!</div>
         <div className="Likes__premium__caption">Вам нужен Знакомства «Премиум», чтобы увидеть их.</div>
-        <Button size="xl" level="1" onClick={() => payments.buyPremium()}>Месяц за 9 голосов</Button>
+        <Button size="xl" level="1" onClick={() => payments.buyPremium()}>Получить премиум</Button>
+        <div className="Likes__premium__info">За 9 голосов в месяц</div>
       </div>
     )
   }

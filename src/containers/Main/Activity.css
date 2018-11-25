@@ -144,6 +144,7 @@
   padding: 6px 16px;
   flex-direction: row-reverse;
   flex: 0 0 auto;
+  overflow: hidden;
 }
 .im_message_wrap.inbox {
   flex-direction: row;

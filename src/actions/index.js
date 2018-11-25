@@ -44,9 +44,9 @@ export function fakeGo(panel, params = {}) {
 
 export function setTab(tabName) {
   if (tabName === 'search') {
-    const state = store.getState();
-    const user = state.usersInfo[state.userId];
-    const age = utils.getUsrAge(user.age_ts);
+    //const state = store.getState();
+    //const user = state.usersInfo[state.userId];
+    //const age = utils.getUsrAge(user.age_ts);
     setDataMulti({
       //filterGender: user.gender === 2 ? 'girls' : 'mans',
       filterSort: 'all',
@@ -57,6 +57,8 @@ export function setTab(tabName) {
       ageFrom: accountActions.searchFilters.age.from,
       ageTo: accountActions.searchFilters.age.to,
     }, pages.SEARCH);
+
+    utils.statReachGoal('search_page');
   }
 
   store.dispatch({type: actionTypes.SET_TAB, tab: tabName});
