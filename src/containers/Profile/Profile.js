@@ -108,7 +108,11 @@ export default class Profile extends Component {
   };
 
   _shareApp = () => {
-    connect.send('VKWebAppShare', {link: 'https://vk.com/app6682509'});
+    if (window.isDG) {
+      window.VK.callMethod('showShareBox', '', ['https://vk.com/app6379407'], 'wall');
+    } else {
+      connect.send('VKWebAppShare', {link: 'https://vk.com/app6682509'});
+    }
   };
 }
 

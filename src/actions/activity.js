@@ -57,9 +57,10 @@ export function loadHistory(peerId) {
   return new Promise((resolve, reject) => {
     api.method(api.methods.imHistory, {
       peer_id: peerId
-    }).then(({history, peer}) => {
+    }).then(({history, peer, banned}) => {
       actions.setUser(peer);
       store.dispatch({type: actionTypes.HISTORY_SET, peerId, history});
+      actions.setData('isBanned', banned, pages.IM_HISTORY);
       resolve();
     }).catch(reject);
   });
@@ -429,5 +430,17 @@ export function hideFeatureTT() {
   api.vk('storage.set', {
     key: `activity_feature_tt_shown`,
     value: '1'
+  });
+}
+
+export function toggleBan(peerId) {
+  return new Promise((resolve, reject) => {
+    const data = actions.getData(pages.IM_HISTORY);
+    api.method(data.isBanned ? api.methods.unBan : api.methods.ban, {
+      id: peerId
+    }).then(() => {
+      actions.setData('isBanned', !data.isBanned, pages.IM_HISTORY);
+      resolve();
+    }).catch(reject);
   });
 }

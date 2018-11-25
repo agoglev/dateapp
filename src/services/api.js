@@ -95,7 +95,9 @@ export const methods = {
   liveChatsLike: 'live_chats_like',
   liveChatsSeen: 'live_chats_seen',
   search: 'search',
-  save_search_filters: 'save_search_filters'
+  save_search_filters: 'save_search_filters',
+  ban: 'ban',
+  unBan: 'unban'
 };
 
 let vkRequestId = 0;

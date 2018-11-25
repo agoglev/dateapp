@@ -14,6 +14,7 @@ import UIBackButton from '../../components/UI/UIBackButton';
 
 import Icon24User from '@vkontakte/icons/dist/24/user';
 import Icon24Delete from '@vkontakte/icons/dist/24/delete';
+import Icon24Block from '@vkontakte/icons/dist/24/do_not_disturb';
 import Icon16Dropdown from '@vkontakte/icons/dist/16/dropdown';
 
 export default class ImHistory extends BaseComponent {
@@ -91,6 +92,12 @@ export default class ImHistory extends BaseComponent {
               onClick={this._deleteHistory}
             >
               Удалить переписку
+            </Cell>
+            <Cell
+              before={<Icon24Block />}
+              onClick={this._toggleBan}
+            >
+              {this.data.isBanned ? 'Разблокировать' : 'Заблокировать'}
             </Cell>
           </List>
         </HeaderContext>
@@ -358,6 +365,14 @@ export default class ImHistory extends BaseComponent {
           actions.loaderSuccess();
         }).catch(() => actions.showError('Проишла ошибка'));
       });
+  };
+
+  _toggleBan = () => {
+    actions.loaderShow();
+    activityActions.toggleBan(this.peerId).then(() => {
+      this.setState({contextOpened: false});
+      actions.loaderSuccess();
+    }).catch(actions.showError);
   };
 
   _renderOnline() {
