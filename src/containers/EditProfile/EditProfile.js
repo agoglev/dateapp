@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, PanelHeader, FormLayout, Input, Select, SelectMimicry, FixedLayout, Button, Textarea } from '@vkontakte/vkui';
+import { Panel, PanelHeader, FormLayout, Input, Select, SelectMimicry, FixedLayout, Button, Textarea, Checkbox } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
@@ -19,8 +19,8 @@ export default class EditProfile extends UploadPhotoComponent {
           Редактирование
         </PanelHeader>
         <FormLayout style={{paddingBottom: 77}}>
-          <div style={{padding: '0 6px'}}>
-            <div className="profile_edit_photos" top="Фотографии" bottom="Загрузите свои настоящие фотографии">
+          <div style={{padding: '0 6px'}} top="Фотографии" bottom="Загрузите свои настоящие фотографии">
+            <div className="profile_edit_photos">
               {this._renderPhotos()}
             </div>
           </div>

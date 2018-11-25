@@ -57,7 +57,8 @@ export function loadHistory(peerId) {
   return new Promise((resolve, reject) => {
     api.method(api.methods.imHistory, {
       peer_id: peerId
-    }).then(({history}) => {
+    }).then(({history, peer}) => {
+      actions.setUser(peer);
       store.dispatch({type: actionTypes.HISTORY_SET, peerId, history});
       resolve();
     }).catch(reject);
@@ -98,7 +99,8 @@ export function sendMessage(peerId, text) {
     peer_id: peerId,
     text: text
   })
-    .then(() => {
+    .then((peer) => {
+      actions.setUser(peer);
       msg.isSending = false;
       updateMessage(peerId, msgId, msg);
       updateDialog(peerId, {

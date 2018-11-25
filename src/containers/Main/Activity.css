@@ -66,11 +66,27 @@
   flex: 1;
   overflow: hidden;
 }
+.im_dialog .im_dialog_name_wrap {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
 .im_dialog .im_dialog_name {
   font-size: 16px;
   line-height: 19px;
   color: #191919;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.im_dialog .im_dialog_name_online {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #30bf78;
+  flex: 0 0 auto;
+  margin-left: 8px;
 }
 .im_dialog .im_dialog_message {
   color: #7a7a7a;
@@ -713,4 +729,11 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
+}
+.Activity__im-history__online {
+  color: #7a7a7a;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 10px;
+  padding: 0 16px;
 }

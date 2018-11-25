@@ -24,8 +24,8 @@ export default class JoinStep3 extends UploadPhotoComponent {
           Фотографии
         </PanelHeader>
         <FormLayout>
-          <div style={{padding: '0 6px'}}>
-            <div className="profile_edit_photos" bottom="Загрузите свои настоящие фотографии">
+          <div style={{padding: '0 6px'}} bottom="Загрузите свои настоящие фотографии">
+            <div className="profile_edit_photos">
               {this._renderPhotos()}
             </div>
           </div>

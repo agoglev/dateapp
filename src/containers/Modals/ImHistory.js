@@ -97,6 +97,7 @@ export default class ImHistory extends BaseComponent {
         <div className="im_history_cont">
           <div className="im_history">
             {this._renderHistory()}
+            {this._renderOnline()}
           </div>
         </div>
 
@@ -358,4 +359,15 @@ export default class ImHistory extends BaseComponent {
         }).catch(() => actions.showError('Проишла ошибка'));
       });
   };
+
+  _renderOnline() {
+    const peer = this.props.state.usersInfo[this.peerId];
+    const now = Math.floor(new Date().getTime() / 1000);
+
+    if (now - peer.last_update < 60 * 10) {
+      return <div className="Activity__im-history__online">Онлайн</div>;
+    }
+
+    return null;
+  }
 }
