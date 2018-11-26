@@ -2,13 +2,14 @@ import './Cards.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { PanelHeader, Button, Spinner, HeaderButton } from '@vkontakte/vkui';
+import { Button, Spinner, HeaderButton } from '@vkontakte/vkui';
 import * as cardsActions from '../../actions/cards';
 import * as paymentsActions from '../../actions/payments';
 import * as actions from '../../actions';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
+import Header from '../../components/proxy/Header';
 
 export default class Cards extends Component {
 
@@ -44,8 +45,11 @@ export default class Cards extends Component {
 
     const node = ReactDOM.findDOMNode(this.refs['items']);
     node.addEventListener('touchstart', this._touchDidStart);
+    node.addEventListener('mousedown', this._touchDidStart);
     node.addEventListener('touchmove', this._touchDidMove);
+    node.addEventListener('mousemove', this._touchDidMove);
     node.addEventListener('touchend', this._touchDidEnd);
+    node.addEventListener('mouseup', this._touchDidEnd);
 
     document.addEventListener('touchmove', this._disableScroll);
 
@@ -55,8 +59,11 @@ export default class Cards extends Component {
   componentWillUnmount() {
     const node = ReactDOM.findDOMNode(this.refs['items']);
     node.removeEventListener('touchstart', this._touchDidStart);
+    node.removeEventListener('mousedown', this._touchDidStart);
     node.removeEventListener('touchmove', this._touchDidMove);
+    node.removeEventListener('mousemove', this._touchDidMove);
     node.removeEventListener('touchend', this._touchDidEnd);
+    node.removeEventListener('mouseup', this._touchDidEnd);
 
     document.removeEventListener('touchmove', this._disableScroll);
 
@@ -86,11 +93,11 @@ export default class Cards extends Component {
 
     return (
       <div>
-        <PanelHeader
+        <Header
           left={this._renderCancelAction()}
         >
           Карточки
-        </PanelHeader>
+        </Header>
         <div className={className}>
           <div
             className="Cards__big_button like"
@@ -262,18 +269,20 @@ export default class Cards extends Component {
       return;
     }
 
+    this.isPressed = true;
+
     this.setState({
       isMoving: true
     });
     this.lastDiff = 0;
-    this.startX = event.touches[0].clientX;
+    this.startX = event.touches ? event.touches[0].clientX : event.clientX;
     this.cancelTap = false;
   };
 
   _touchDidMove = (event) => {
     utils.cancelEvent(event);
 
-    if (this.state.isAnimating) {
+    if (this.state.isAnimating || !this.isPressed) {
       return;
     }
 
@@ -287,8 +296,10 @@ export default class Cards extends Component {
       this.setState({swipeTip: false});
     }
 
-    const centerX = window.innerWidth / 2;
-    const diff = event.touches[0].clientX - this.startX;
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+
+    const centerX = window.isDesktop ? (window.innerWidth - 240) / 2 : window.innerWidth / 2;
+    const diff = clientX - this.startX;
     const rotate = diff * 0.05;
 
     const extraDiff = Math.max(0, (Math.abs(diff) - centerX));
@@ -322,6 +333,8 @@ export default class Cards extends Component {
     if (this.state.isAnimating || !this.props.state.cards.length) {
       return;
     }
+
+    this.isPressed = false;
 
     const percent = this.lastDiff / window.innerWidth;
     if (Math.abs(percent) >= 0.3) {
@@ -500,11 +513,16 @@ export default class Cards extends Component {
   };
 
   _updateHeight = () => {
+    const items = this.refs['items'];
     const headerHeight = utils.getHeaderHeight();
     const footerHeight = utils.getTabBarHeight();
-    const items = this.refs['items'];
+    let height = (window.innerHeight - headerHeight - footerHeight);
+    if (window.isDesktop) {
+      height = Math.min(height, 567);
+    }
+
     if (items) {
-      items.style.height = (window.innerHeight - headerHeight - footerHeight) + 'px';
+      items.style.height = height + 'px';
     }
   };
 

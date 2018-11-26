@@ -1,7 +1,7 @@
 import './Search.css';
 
 import React, { Component, PureComponent } from 'react';
-import { PanelHeader, HeaderButton, HeaderContext, FormLayout, Button, SelectMimicry, RangeSlider, Spinner } from '@vkontakte/vkui';
+import { HeaderButton, HeaderContext, FormLayout, Button, SelectMimicry, RangeSlider, Spinner } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as searchActions from '../../actions/search';
 import * as accountActions from '../../actions/account';
@@ -11,6 +11,7 @@ import BaseComponent from '../../BaseComponent';
 import Icon24Filter from '@vkontakte/icons/dist/24/filter';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import SegmentedControl from "../../components/SegmentedControl/SegmentedControl";
+import Header from '../../components/proxy/Header';
 
 export default class Search extends BaseComponent {
   constructor() {
@@ -60,11 +61,11 @@ export default class Search extends BaseComponent {
     const cityName = `${info.city_name}` || '';
     return (
       <div ref="wrap">
-        <PanelHeader
+        <Header
           left={this._renderFiltersButton()}
         >
           {this.data.filtersOpened ? 'Фильтры' : 'Люди'}
-        </PanelHeader>
+        </Header>
         <HeaderContext opened={this.data.filtersOpened} onClose={this._toggleFilters}>
           <div className="Search__filters">
             <FormLayout>

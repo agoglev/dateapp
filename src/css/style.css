@@ -6,6 +6,9 @@ textarea {
 body {
   min-height: 100vh;
 }
+body.desktop {
+  background: #ebebeb;
+}
 .PanelHeader-bg--brand,
 .PanelHeader-content--brand,
 .PanelHeader-left-in--brand,

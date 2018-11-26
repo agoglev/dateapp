@@ -18,6 +18,14 @@ import DateChats from "../DateChats/DateChats";
 
 export default class Main extends BaseComponent {
   render() {
+    if (window.isDesktop) {
+      return (
+        <div>
+          {this._renderContent()}
+          {this._renderBottom()}
+        </div>
+      )
+    }
     return (
       <Panel id={this.props.id}>
         {this._renderContent()}
@@ -60,6 +68,10 @@ export default class Main extends BaseComponent {
 
     if (['join', 'error'].indexOf(state.activeTab) > -1 || !state.appInited) {
       return null;
+    }
+
+    if (window.isDesktop) {
+      return <TabBar state={state} />;
     }
 
     return (

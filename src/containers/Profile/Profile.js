@@ -7,6 +7,7 @@ import * as accountActions from '../../actions/account';
 import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
 import connect from '@vkontakte/vkui-connect';
+import Header from '../../components/proxy/Header';
 
 export default class Profile extends Component {
   componentDidMount() {
@@ -20,9 +21,9 @@ export default class Profile extends Component {
 
     return (
       <div ref="wrap">
-        <PanelHeader>
+        <Header>
           Профиль
-        </PanelHeader>
+        </Header>
         <Group>
           <div className="profile_wrap">
             <div

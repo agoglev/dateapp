@@ -17,6 +17,8 @@ import * as utils from './utils';
 import * as api from './services/api';
 import Cards from './containers/Main/Cards';
 
+window.isDesktop = true;
+document.body.classList.add('desktop');
 const urlParams = new URLSearchParams(window.location.search);
 const urlToken = urlParams.get('access_token');
 window.urlToken = urlToken;
@@ -122,3 +124,5 @@ if (urlToken) {
 window.onresize = () => {
   Cards.shared && Cards.shared._updateHeight();
 };
+
+utils.updateVkFrameHeight();

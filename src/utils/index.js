@@ -3,6 +3,7 @@ import * as actions from "../actions";
 import * as actionTypes from '../actions/actionTypes';
 import store from '../store';
 import Cards from '../containers/Main/Cards';
+import connect from '@vkontakte/vkui-connect';
 
 export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -74,6 +75,9 @@ export function cancelEvent(e) {
 }
 
 export function getTabBarHeight() {
+  if (window.isDesktop) {
+    return 0;
+  }
   const el = document.querySelector('.TabBar');
   if (!el) {
     return 0;
@@ -89,7 +93,7 @@ export function getTabBarHeight() {
 }
 
 export function getHeaderHeight() {
-  const el = document.querySelector('.View__header');
+  const el = document.querySelector(window.isDesktop ? '.App__desktop__header' : '.View__header');
   let height = el ? el.offsetHeight : 0;
   return height;
 }
@@ -274,4 +278,12 @@ export function gram(number, variants, skipNumber) {
     res = number+' '+res;
   }
   return res;
+}
+
+export function updateVkFrameHeight() {
+  if (window.isDG) {
+    //window.VK.callMethod('resizeWindow', window.innerWidth, Math.max(window.vkHeight - 167, 600));
+  } else {
+    connect.send('VKWebAppResizeWindow', {width: 420, height: 500});
+  }
 }

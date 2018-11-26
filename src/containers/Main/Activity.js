@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { PanelHeader, Button, Spinner, Group, Header, HorizontalScroll, Cell, Tooltip } from '@vkontakte/vkui';
+import { Button, Spinner, Group, HorizontalScroll, Cell, Tooltip } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -10,6 +10,7 @@ import * as pages from '../../constants/pages';
 import * as api from '../../services/api';
 import NotificationsPermission from '../../components/NotificationsPermission/NotificationsPermission';
 import Icon24Like from '@vkontakte/icons/dist/24/like';
+import Header from '../../components/proxy/Header';
 
 export default class Activity extends Component {
   constructor() {
@@ -41,9 +42,9 @@ export default class Activity extends Component {
   render() {
     return (
       <div ref="wrap">
-        <PanelHeader>
+        <Header>
           Активность
-        </PanelHeader>
+        </Header>
         {this._renderFeatured()}
         {this._renderLikes()}
         <div id="yandex_rtb_R-A-159294-836" />

@@ -1,4 +1,5 @@
 import './css/style.css';
+import './App.css';
 
 import React from 'react';
 import { View } from '@vkontakte/vkui';
@@ -120,6 +121,10 @@ class App extends React.Component {
 	_renderContent() {
     const { state } = this.props;
 
+    if (window.isDesktop) {
+      return this._renderDesktop();
+    }
+
     return (
       <UI.Root activeView={state.activeView} popout={this.props.state.popout}>
         <View activePanel={state.activePanels.base} id="base" header={this._getBaseHeader('base')}>
@@ -152,6 +157,14 @@ class App extends React.Component {
       </UI.Root>
     );
 	}
+
+  _renderDesktop() {
+	  return (
+	    <div>
+        <Main id={pages.MAIN} state={this.props.state} />
+      </div>
+    )
+  }
 }
 
 const AppContainer = connect((state) => {

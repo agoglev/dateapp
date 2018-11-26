@@ -40,6 +40,14 @@ export default class TabBar extends Component {
     //if (window.isDG || state.usersInfo[state.userId] && parseInt(state.usersInfo[state.userId].gender, 10) === 1 || state.userId === 1) {
     //  tabs.unshift('date_chats');
     //}
+
+    const TitlesMap = {
+      search: 'Поиск',
+      cards: 'Карточки',
+      messages: 'Сообщения',
+      profile: 'Профиль'
+    };
+
     return tabs.map((tab) => {
       const className = utils.classNames({
         TabBar__item: true,
@@ -59,7 +67,10 @@ export default class TabBar extends Component {
           }}
           key={tab}
         >
-          <div className={`TabBar__item-icon ${tab}`}>{this._getIcon(tab)}</div>
+          <div className={`TabBar__item-icon ${tab}`}>
+            {this._getIcon(tab)}
+          </div>
+          <div className="TabBar__item-title">{TitlesMap[tab]}</div>
         </div>
       )
     });

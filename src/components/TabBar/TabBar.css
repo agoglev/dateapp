@@ -70,3 +70,46 @@
 .TabBar__item.active .TabBar__item-icon path {
   fill: #e63973 !important;
 }
+.TabBar__item-title {
+  line-height: 19px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 4px;
+  color: #a3a3a3;
+  display: none;
+}
+.TabBar__item.active .TabBar__item-title {
+  color: #e63973 !important;
+}
+body.desktop {
+  padding-right: 240px;
+}
+body.desktop .TabBar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 240px;
+  background: #fff;
+  border-left: 1px solid #e4e4e4;
+  border-top: none;
+  height: 100%;
+  padding: 16px 0;
+  z-index: 200;
+}
+body.desktop .TabBar__cont {
+  flex-direction: column;
+}
+body.desktop .TabBar__item {
+  flex: 0 0 auto;
+  width: 100%;
+  justify-content: flex-start;
+  height: 44px;
+  padding: 0 16px;
+}
+body.desktop .TabBar__item.hasBadge:after {
+  margin-top: -4px;
+  animation: none;
+}
+body.desktop .TabBar__item-title {
+  display: block;
+}
