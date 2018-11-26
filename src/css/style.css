@@ -178,3 +178,10 @@ body.desktop {
   clear: both;
   width: 100%;
 }
+body.desktop .HeaderContext {
+  left: initial;
+  top: initial !important;
+  width: 450px;
+  transform: translateY(48px) !important;
+  overflow: hidden;
+}

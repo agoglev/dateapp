@@ -166,6 +166,7 @@
   overscroll-behavior: contain;
   padding-bottom: 97px;
   padding-bottom: calc(97px + env(safe-area-inset-bottom));
+  padding-top: 48px;
 }
 
 #im_history {
@@ -329,6 +330,11 @@
 
   &.is_focused {
     padding-bottom: 0;
+  }
+
+  body.desktop & {
+    left: initial;
+    width: @modal-width;
   }
 }
 

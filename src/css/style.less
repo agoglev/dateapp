@@ -208,3 +208,13 @@ body {
     width: 100%;
   }
 }
+
+body.desktop {
+  .HeaderContext {
+    left: initial;
+    top: initial !important;
+    width: @modal-width;
+    transform: translateY(@header-height) !important;
+    overflow: hidden;
+  }
+}

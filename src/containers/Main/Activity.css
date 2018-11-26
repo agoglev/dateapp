@@ -145,6 +145,7 @@
   overscroll-behavior: contain;
   padding-bottom: 97px;
   padding-bottom: calc(97px + env(safe-area-inset-bottom));
+  padding-top: 48px;
 }
 #im_history {
   padding: 16px 0;
@@ -288,6 +289,10 @@
 }
 .im_send_form.is_focused {
   padding-bottom: 0;
+}
+body.desktop .im_send_form {
+  left: initial;
+  width: 450px;
 }
 .im_send_form_cont {
   flex: 0 0 auto;

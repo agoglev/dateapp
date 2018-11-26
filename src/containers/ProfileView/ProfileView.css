@@ -186,6 +186,9 @@
   position: fixed;
   bottom: 0;
 }
+body.desktop .profile_view_footer {
+  width: 450px;
+}
 .profile_view_footer_item {
   width: 60px;
   height: 60px;

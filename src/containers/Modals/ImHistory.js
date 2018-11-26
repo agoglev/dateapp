@@ -17,6 +17,8 @@ import Icon24Delete from '@vkontakte/icons/dist/24/delete';
 import Icon24Block from '@vkontakte/icons/dist/24/do_not_disturb';
 import Icon16Dropdown from '@vkontakte/icons/dist/16/dropdown';
 
+import Header from '../../components/proxy/Header';
+
 export default class ImHistory extends BaseComponent {
   constructor(props) {
     super(props);
@@ -50,6 +52,22 @@ export default class ImHistory extends BaseComponent {
   }
 
   render() {
+    if (window.isDesktop) {
+      return (
+        <div>
+          {this._renderContnet()}
+        </div>
+      )
+    }
+
+    return (
+      <Panel id={this.props.id} theme="white">
+        {this._renderContnet()}
+      </Panel>
+    )
+  }
+
+  _renderContnet() {
     const sendBtnClassName = utils.classNames({
       im_send_form_button: true,
       active: this.state.hasText
@@ -71,14 +89,14 @@ export default class ImHistory extends BaseComponent {
     }
 
     return (
-      <Panel id={this.props.id} theme="white">
-        <PanelHeader
+      <div>
+        <Header
           left={<UIBackButton />}
         >
           {isLoading ? 'Loading..' : <PanelHeaderContent aside={<Icon16Dropdown />} onClick={this.toggleContext}>
             {peer.name}
           </PanelHeaderContent>}
-        </PanelHeader>
+        </Header>
         <HeaderContext opened={this.state.contextOpened} onClose={this.toggleContext}>
           <List>
             <Cell
@@ -108,8 +126,8 @@ export default class ImHistory extends BaseComponent {
           </div>
         </div>
 
-          <div className={formClassName}>
-            <div className="im_send_form_cont">
+        <div className={formClassName}>
+          <div className="im_send_form_cont">
               <textarea
                 ref="input"
                 className="im_send_form_text_area"
@@ -125,16 +143,15 @@ export default class ImHistory extends BaseComponent {
                   setTimeout(() => ImHistory.scrollToBottom(), 200);
                 }}
               />
-              <div className="im_send_form_buttons">
-                <div className="im_send_photo_button">
-                  <input type="file" onChange={this._photoDidSelect}/>
-                </div>
-                <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
+            <div className="im_send_form_buttons">
+              <div className="im_send_photo_button">
+                <input type="file" onChange={this._photoDidSelect}/>
               </div>
+              <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
             </div>
           </div>
-
-      </Panel>
+        </div>
+      </div>
     )
   }
 
@@ -303,7 +320,14 @@ export default class ImHistory extends BaseComponent {
   };
 
   static scrollToBottom(fast) {
-    const fn = () => window.scrollBy(0, document.body.scrollHeight);
+    const fn = () => {
+      if (window.isDesktop) {
+       const el = document.querySelector('.App__modal__cont');
+       el.scrollTop = el.scrollHeight;
+      } else {
+        window.scrollBy(0, document.body.scrollHeight);
+      }
+    };
     if (fast) {
       fn();
     } else {

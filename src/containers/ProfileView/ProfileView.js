@@ -13,6 +13,18 @@ import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 export default class ProfileView extends BaseComponent {
   render() {
+    if (window.isDesktop) {
+      return this._renderContent();
+    }
+
+    return (
+      <Panel id={this.props.id} theme="white">
+        {this._renderContent()}
+      </Panel>
+    )
+  }
+
+  _renderContent() {
     const user = this.data.user || {};
 
     let nameComponents = [user.name];
@@ -20,37 +32,36 @@ export default class ProfileView extends BaseComponent {
       nameComponents.push(utils.getUsrAge(user.age_ts));
     }
 
-    const slideHeight = window.innerWidth * 1.45;
+    const slideHeight = window.isDesktop ? 540 : window.innerWidth * 1.45;
+
     return (
-      <Panel id={this.props.id} theme="white">
-        <div className="profile_view">
-          <div className="profile_view_photos_arrow prev" />
-          <div className="profile_view_photos_arrow next" />
-          <div className="profile_view_photos_wrap">
-            <Gallery
-              slideWidth="100%"
-              align="center"
-              style={{ height: slideHeight }}
-              bullets="light"
-            >
-              {this._renderPhotos()}
-            </Gallery>
-          </div>
-          <div className="profile_view_hide" onClick={() => window.history.back()} />
-          <div className="profile_view_info">
-            <div className="profile_view_name">{nameComponents.join(', ')}</div>
-            <div className="profile_view_info_rows">
-              {this._renderInfo()}
-            </div>
-            <div className="profile_view_about">{user.about}</div>
-            {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы создать чат!</div>}
-            <div className="profile_view_buttons">
-              {this._renderButtons()}
-            </div>
-          </div>
-          {this._renderFooter()}
+      <div className="profile_view">
+        <div className="profile_view_photos_arrow prev" />
+        <div className="profile_view_photos_arrow next" />
+        <div className="profile_view_photos_wrap">
+          <Gallery
+            slideWidth="100%"
+            align="center"
+            style={{ height: slideHeight }}
+            bullets="light"
+          >
+            {this._renderPhotos()}
+          </Gallery>
         </div>
-      </Panel>
+        <div className="profile_view_hide" onClick={() => window.history.back()} />
+        <div className="profile_view_info">
+          <div className="profile_view_name">{nameComponents.join(', ')}</div>
+          <div className="profile_view_info_rows">
+            {this._renderInfo()}
+          </div>
+          <div className="profile_view_about">{user.about}</div>
+          {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы создать чат!</div>}
+          <div className="profile_view_buttons">
+            {this._renderButtons()}
+          </div>
+        </div>
+        {this._renderFooter()}
+      </div>
     )
   }
 

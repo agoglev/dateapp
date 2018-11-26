@@ -206,9 +206,12 @@
   padding-bottom: ~"calc(16px + env(safe-area-inset-bottom))";
   box-sizing: border-box;
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, @color-white 30%);
-
   position: fixed;
   bottom: 0;
+
+  body.desktop & {
+    width: @modal-width;
+  }
 }
 
 .profile_view_footer_item {

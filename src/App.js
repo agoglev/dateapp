@@ -159,11 +159,35 @@ class App extends React.Component {
 	}
 
   _renderDesktop() {
+	  const modal = this._renderDesktopModal();
 	  return (
 	    <div>
         <Main id={pages.MAIN} state={this.props.state} />
+        {modal && <div className="App__modal" onClick={(e) => {
+          if (e.target.classList.contains('App__modal')) {
+            window.history.back();
+          }
+        }}>
+          <div className="App__modal__cont-wrap">
+            <div className="App__modal__cont">{modal}</div>
+          </div>
+        </div>}
       </div>
     )
+  }
+
+  _renderDesktopModal() {
+	  const state = this.props.state;
+	  const page = state.activePanels[state.activeView];
+
+	  switch (page) {
+      case pages.PROFILE:
+        return <ProfileView id={pages.PROFILE} state={state} />;
+      case pages.IM_HISTORY:
+        return <ImHistory id={pages.IM_HISTORY} state={state} />;
+      default:
+        return false;
+    }
   }
 }
 
