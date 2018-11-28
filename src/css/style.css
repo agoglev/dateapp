@@ -10,6 +10,9 @@ body.desktop {
   background: #ebebeb;
   box-sizing: border-box;
 }
+#root {
+  overflow-y: auto;
+}
 .PanelHeader-bg--brand,
 .PanelHeader-content--brand,
 .PanelHeader-left-in--brand,

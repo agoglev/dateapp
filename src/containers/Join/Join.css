@@ -188,3 +188,10 @@ body.desktop .profile_edit_photos .profile_edit_photo_cont {
   width: 100vw;
   transform: translate(-50%, -50%);
 }
+.profile_edit_photo_cont .profile_edit_photo_input {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+}

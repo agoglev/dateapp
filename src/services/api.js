@@ -189,7 +189,7 @@ export function requestAccessToken() {
       return resolve(state.vkAccessToken);
     }
     accessTokenPromise = {resolve, reject};
-    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: 'photos'});
+    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
   });
 }
 

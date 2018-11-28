@@ -47,7 +47,7 @@ export default class TabBar extends Component {
     //}
 
     const TitlesMap = {
-      search: 'Поиск',
+      search: 'Люди',
       cards: 'Карточки',
       messages: 'Сообщения',
       profile: 'Профиль'

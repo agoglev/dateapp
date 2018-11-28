@@ -21,9 +21,12 @@ const url = window.location.href;
 if (url.indexOf('vk_') > -1) {
   window.initialUrl = url;
 }
+const queryStr = window.location.search;
+window.queryStr = queryStr;
+window.path = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 
-if (urlParams.get('vk_platform') === 'web2') {
+if (urlParams.get('vk_platform') === 'web2' || urlParams.get('platform') === 'web') {
   window.isDesktop = true;
   document.body.classList.add('desktop');
 }
@@ -63,11 +66,14 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppGetClientVersionResult':
       actions.setVersion(data.platform, data.version);
       connect.send('VKWebAppGetUserInfo', {});
-      if (!utils.canAuthWithSig()) {
-        //connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
+      if (!window.isDesktop) {
+        connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
       }
       break;
     case 'VKWebAppAccessTokenReceived':
+      if (!window.isDesktop) {
+        accountActions.init(data.access_token);
+      }
       api.hadnleAccessTokenEventSuccess(data.access_token);
       break;
     case 'VKWebAppAccessTokenFailed':
@@ -101,12 +107,14 @@ VkConnect.subscribe((e) => {
 });
 connect.send("VKWebAppGetClientVersion", {});
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App store={store} router={router} />
-  </Provider>,
-  document.getElementById('root')
-);
+function render() {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App store={store} router={router} />
+    </Provider>,
+    document.getElementById('root')
+  );
+}
 
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
@@ -129,8 +137,21 @@ if (urlToken) {
 
   window.isDGNotifiEnabled = scope & 1 === 1;
   window.isDGMessagesBlocked = parseInt(urlParams.get('is_messages_blocked'), 10);
-} else if (urlSign) {
+} else if (urlSign && window.isDesktop) {
   accountActions.init();
+}
+
+if (window.isDG) {
+  window.onload = () => {
+    window.VK.init(function () {
+
+    }, function () {
+      document.body.innerHTML = 'Ошибка';
+    }, '5.87', queryStr);
+    render();
+  };
+} else {
+  render();
 }
 
 window.onresize = () => {

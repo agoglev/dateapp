@@ -35,10 +35,10 @@ export default class UploadPhotoComponent extends BaseComponent {
             <div className="profile_edit_photo_index">{i + 1}</div>
             <div className="profile_edit_photo_delete" onClick={() => this.removePhoto(i)} />
             <div className="profile_edit_photo_loader" />
-            <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
+            {window.isDesktop && <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
               actions.setPopout();
               this.photoDidSelect(i, e.target.files[0]);
-            }} />
+            }} />}
           </div>
         </div>
       );
@@ -182,7 +182,7 @@ export default class UploadPhotoComponent extends BaseComponent {
       })
       .catch((err) => {
         actions.loaderHide();
-        actions.showError('Не удалось получить фотографии: ' + err);
+        actions.showError('Не удалось получить фотографии: ' + JSON.stringify(err));
       })
   }
 
