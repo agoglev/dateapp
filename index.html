@@ -22,7 +22,7 @@
           } else { f(); }
         })(document, window, "yandex_metrika_callbacks2");
 
-        if (!location.href.match('is_dg')) {
+        if (location.href.match('is_dg')) {
           const script = document.createElement('script');
           script.type = 'text/javascript';
           script.src = location.href.match(/platform=web/) ? 'https://vk.com/js/api/xd_connection.js?2' : 'https://vk.com/js/api/mobile_sdk.js';
