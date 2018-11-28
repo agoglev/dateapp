@@ -152,7 +152,7 @@ export default class Activity extends Component {
       )
     });
 
-    let curUser = this.props.state.usersInfo[this.props.state.userId];
+    //let curUser = this.props.state.usersInfo[this.props.state.userId];
     /*res.unshift(<div
       className="live_feed_featured_item add_btn"
       key={-1}
@@ -161,20 +161,23 @@ export default class Activity extends Component {
       <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${curUser.small_photo})`}} />
     </div>);*/
 
-    res.unshift(<Tooltip
+    // this.props.state.isFeatureTTShown
+    /*
+    <Tooltip
       text="Хотите больше лайков?"
       key={-1}
-      isShown={this.props.state.isFeatureTTShown}
+      isShown={!this.state.isLoading && !this.state.isFailed}
       onClose={activityActions.hideFeatureTT}
     >
+    */
+    res.unshift(
       <div
         className="live_feed_featured_pay_button"
         key={-1}
         onClick={this._featureDidPress}
       >
         <div className="live_feed_featured_pay_button_text">Хочу<br/>сюда</div>
-      </div>
-    </Tooltip>);
+      </div>);
 
     return res;
   }
