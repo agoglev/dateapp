@@ -40,9 +40,9 @@ export default class VkPhotos extends BaseComponent {
 
   _renderPhotos() {
     const photos = this.data.photos || [];
-    return photos.map((photo) => {
+    return photos.map((photo, i) => {
       return (
-        <div className="profile_edit_vk_photos_item" onClick={() => this._photoDidSelect(photo.src)}>
+        <div className="profile_edit_vk_photos_item" onClick={() => this._photoDidSelect(photo.src)} key={i}>
           <div className="profile_edit_vk_photos_item_cont" style={{backgroundImage: `url(${photo.src})`}} />
         </div>
       )

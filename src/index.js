@@ -7,7 +7,7 @@ import connect from '@vkontakte/vkui-connect';
 import App from './App';
 import registerServiceWorker from './sw';
 import store from './store';
-import router, { overrideBack } from './router';
+import router  from './router';
 import { Provider } from 'react-redux';
 import * as actionTypes from './actions/actionTypes';
 import VkConnect from "@vkontakte/vkui-connect/index";
@@ -68,10 +68,11 @@ VkConnect.subscribe((e) => {
       }
       break;
     case 'VKWebAppAccessTokenReceived':
-      accountActions.init(data.access_token);
+      api.hadnleAccessTokenEventSuccess(data.access_token);
       break;
     case 'VKWebAppAccessTokenFailed':
-      store.dispatch({type: actionTypes.VK_FAILED});
+      api.hadnleAccessTokenEventFailed();
+      //store.dispatch({type: actionTypes.VK_FAILED});
       break;
     case 'VKWebAppGetUserInfoResult':
       accountActions.setupVkInfo(data);

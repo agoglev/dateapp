@@ -113,17 +113,21 @@ export function vk(method, params = {}) {
         }
       });
     } else {
-      const reqId = ++vkRequestId;
+      requestAccessToken().then((accessToken) => {
+        const reqId = ++vkRequestId;
 
-      vkRequestCallbacks[reqId] = {resolve, reject};
+        vkRequestCallbacks[reqId] = {resolve, reject};
 
-      params.access_token = store.getState().vkAccessToken;
-      params.request_id = reqId;
-      params.v = '5.85';
-      connect.send('VKWebAppCallAPIMethod', {
-        method,
-        params,
-        request_id: String(reqId)
+        params.access_token = accessToken;
+        params.request_id = reqId;
+        params.v = '5.85';
+        connect.send('VKWebAppCallAPIMethod', {
+          method,
+          params,
+          request_id: String(reqId)
+        });
+      }).catch(() => {
+        reject({access_token: true});
       });
     }
   });
@@ -175,4 +179,31 @@ function _orderBoxCallback(status) {
     _orderBoxPromise.reject(status === 'fail');
   }
   _orderBoxPromise = false;
+}
+
+let accessTokenPromise = false;
+export function requestAccessToken() {
+  return new Promise((resolve, reject) => {
+    const state = store.getState();
+    if (state.vkAccessToken) {
+      return resolve(state.vkAccessToken);
+    }
+    accessTokenPromise = {resolve, reject};
+    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: 'photos'});
+  });
+}
+
+export function hadnleAccessTokenEventSuccess(token) {
+  if (accessTokenPromise) {
+    accessTokenPromise.resolve(token);
+    store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
+    accessTokenPromise = false;
+  }
+}
+
+export function hadnleAccessTokenEventFailed() {
+  if (accessTokenPromise) {
+    accessTokenPromise.reject();
+    accessTokenPromise = false;
+  }
 }

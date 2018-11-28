@@ -49,7 +49,7 @@ export default class UiBirthDay extends Component {
   _getDays() {
     const daysForMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     let result = [];
-    const month = this.monthRef ? parseInt(this.monthRef.value, 10) : parseInt(this.props.month, 10);
+    const month = (this.monthRef ? parseInt(this.monthRef.value, 10) : parseInt(this.props.month, 10)) || 0;
     for (let i = 1; i <= daysForMonth[month]; i++) {
       result.push(<option key={i} value={i}>{i}</option>);
     }

@@ -5,7 +5,7 @@ import BaseComponent from '../../BaseComponent';
 import * as actions from '../../actions';
 import * as accountActions from '../../actions/account';
 import * as pages from '../../constants/pages';
-import { Panel, PanelHeader, FormLayout, Input, Select, Button } from '@vkontakte/vkui';
+import { Panel, FormLayout, Input, Select, Button } from '@vkontakte/vkui';
 import UiBirthDay from '../../components/UI/UiBirthDay';
 import * as utils from "../../utils";
 import UICloseButton from '../../components/UI/UICloseButton';

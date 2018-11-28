@@ -17,7 +17,6 @@ export function init(token = false) {
   if (token) {
     store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
   }
-  console.trace('here');
   api.method(api.methods.init, {
     vk_id: vkUserInfo.id,
     vk_sig: vkUserInfo.signed_user_id || '',

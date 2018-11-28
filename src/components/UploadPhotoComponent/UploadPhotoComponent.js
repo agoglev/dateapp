@@ -26,7 +26,7 @@ export default class UploadPhotoComponent extends BaseComponent {
 
       return (
         <div className={classNames} key={i} onClick={(e) => {
-          if (e.target.className !== 'profile_edit_photo_delete') {
+          if (e.target.className !== 'profile_edit_photo_delete' && !window.isDesktop) {
             this._selectPhotoSheet(i)
           }
         }}>
@@ -35,6 +35,10 @@ export default class UploadPhotoComponent extends BaseComponent {
             <div className="profile_edit_photo_index">{i + 1}</div>
             <div className="profile_edit_photo_delete" onClick={() => this.removePhoto(i)} />
             <div className="profile_edit_photo_loader" />
+            <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
+              actions.setPopout();
+              this.photoDidSelect(i, e.target.files[0]);
+            }} />
           </div>
         </div>
       );
