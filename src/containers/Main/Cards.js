@@ -265,7 +265,7 @@ export default class Cards extends Component {
       utils.cancelEvent(event);
     }
 
-    if (this.state.isAnimating || !this.props.state.cards.length) {
+    if (this.state.isAnimating || !this.props.state.cards.length || window.isDesktop) {
       return;
     }
 
@@ -324,7 +324,7 @@ export default class Cards extends Component {
     }
   };
 
-  _touchDidEnd = (event) => {
+  _touchDidEnd = (event, force = false) => {
     const card = this.props.state.cards[0];
     if (!card.is_ad) {
       utils.cancelEvent(event);
@@ -337,7 +337,7 @@ export default class Cards extends Component {
     this.isPressed = false;
 
     const percent = this.lastDiff / window.innerWidth;
-    if (Math.abs(percent) >= 0.3) {
+    if (Math.abs(percent) >= 0.3 && (!window.isDesktop || force)) {
       const isLike = percent > 0;
       const toX = window.innerWidth * 1.3 * (isLike ? 1 : -1);
       this.setState({
@@ -504,12 +504,12 @@ export default class Cards extends Component {
 
   _likeButtonDidPress = (e) => {
     this.lastDiff = window.innerWidth;
-    this._touchDidEnd(e);
+    this._touchDidEnd(e, true);
   };
 
   _dislikeButtonDidPress = (e) => {
     this.lastDiff = -window.innerWidth;
-    this._touchDidEnd(e);
+    this._touchDidEnd(e, true);
   };
 
   _updateHeight = () => {
