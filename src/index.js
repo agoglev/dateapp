@@ -119,7 +119,7 @@ function render() {
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
-  //accountActions.init(window._DEBUG_TOKEN);
+  accountActions.init(window._DEBUG_TOKEN);
 }
 
 window.adsEmpty = () => {
