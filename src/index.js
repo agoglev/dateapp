@@ -23,7 +23,7 @@ if (url.indexOf('vk_') > -1) {
 }
 const urlParams = new URLSearchParams(window.location.search);
 
-if (urlParams.get('is_desktop') || true) {
+if (urlParams.get('vk_platform') === 'web2') {
   window.isDesktop = true;
   document.body.classList.add('desktop');
 }

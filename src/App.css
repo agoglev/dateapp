@@ -1,0 +1,71 @@
+body.desktop {
+  padding-top: 48px;
+}
+.App__desktop__header {
+  height: 48px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e4e4e4;
+  position: fixed;
+  right: 0;
+  padding-right: 240px;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  background: #e63973;
+  color: #1a1a1a;
+  background: #fff;
+}
+.App__modal .App__desktop__header {
+  right: 240px;
+  padding-right: 0;
+}
+.App__desktop__header__cont {
+  flex: 1;
+  font-weight: 500;
+}
+.App__desktop__header__left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+.App__modal {
+  position: fixed;
+  z-index: 300;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 240px;
+  cursor: pointer;
+  background: #fff;
+}
+.App__modal__cont {
+  overflow-y: auto;
+  width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  padding-top: 48px;
+}
+.App__modal.profile .App__modal__cont {
+  padding-top: 0;
+}
+.App__popout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 400;
+}
