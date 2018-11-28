@@ -8,16 +8,33 @@ import UiBirthDay from '../../components/UI/UiBirthDay';
 import * as api from '../../services/api';
 import UICloseButton from '../../components/UI/UICloseButton';
 import UploadPhotoComponent from '../../components/UploadPhotoComponent/UploadPhotoComponent';
+import Header from '../../components/proxy/Header';
 
 export default class EditProfile extends UploadPhotoComponent {
   render() {
+    if (window.isDesktop) {
+      return (
+        <div>
+          {this._renderContent()}
+        </div>
+      )
+    }
+
     return (
       <Panel id={this.props.id}>
-        <PanelHeader
+        {this._renderContent()}
+      </Panel>
+    )
+  }
+
+  _renderContent() {
+    return (
+      <div>
+        <Header
           left={<UICloseButton />}
         >
           Редактирование
-        </PanelHeader>
+        </Header>
         <FormLayout style={{paddingBottom: 77}}>
           <div style={{padding: '0 6px'}} top="Фотографии" bottom="Загрузите свои настоящие фотографии">
             <div className="profile_edit_photos">
@@ -80,7 +97,7 @@ export default class EditProfile extends UploadPhotoComponent {
             <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>
-      </Panel>
+      </div>
     )
   }
 

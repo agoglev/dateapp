@@ -66,7 +66,7 @@ export default class Main extends BaseComponent {
   _renderBottom() {
     const state = this.props.state;
 
-    if (['join', 'error'].indexOf(state.activeTab) > -1 || !state.appInited) {
+    if (['join', 'error'].indexOf(state.activeTab) > -1 && !window.isDesktop || !state.appInited) {
       return null;
     }
 

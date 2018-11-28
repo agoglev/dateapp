@@ -6,6 +6,7 @@ import * as utilsActions from '../../actions/utils';
 import { Panel, PanelHeader, platform, FixedLayout, List, Cell, Div, Spinner, colors, Search, HeaderButton } from '@vkontakte/vkui';
 import Icon24Done from '@vkontakte/icons/dist/24/done';
 import {IOS} from "@vkontakte/vkui/dist/vkui";
+import Header from '../../components/proxy/Header';
 
 const osname = platform();
 
@@ -26,20 +27,32 @@ export default class SelectCity extends BaseComponent {
   }
 
   render() {
+    if (window.isDesktop) {
+      return (
+        <div>{this._renderCont()}</div>
+      )
+    }
+
     return (
-      <Panel id={this.props.id}>
-        <PanelHeader
+      <Panel id={this.props.id}>{this._renderCont()}</Panel>
+    )
+  }
+
+  _renderCont() {
+    return (
+      <div>
+        <Header
           left={<HeaderButton onClick={() => window.history.back()}>Отмена</HeaderButton>}
         >
           Выбор города
-        </PanelHeader>
+        </Header>
         <FixedLayout vertical="top">
           <Search onChange={this._searchCity} />
         </FixedLayout>
         <div style={{paddingTop: osname === IOS ? 48 : 56}}>
           {this._renderContent()}
         </div>
-      </Panel>
+      </div>
     )
   }
 

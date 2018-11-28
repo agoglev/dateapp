@@ -284,6 +284,6 @@ export function updateVkFrameHeight() {
   if (window.isDG) {
     //window.VK.callMethod('resizeWindow', window.innerWidth, Math.max(window.vkHeight - 167, 600));
   } else {
-    connect.send('VKWebAppResizeWindow', {width: 420, height: 500});
+    //connect.send('VKWebAppResizeWindow', {width: 795, height: 600});
   }
 }

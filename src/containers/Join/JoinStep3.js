@@ -8,6 +8,7 @@ import * as utils from '../../utils';
 import { Panel, PanelHeader, FormLayout, Button } from '@vkontakte/vkui';
 import UIBackButton from '../../components/UI/UIBackButton';
 import UploadPhotoComponent from '../../components/UploadPhotoComponent/UploadPhotoComponent';
+import Header from '../../components/proxy/Header';
 
 export default class JoinStep3 extends UploadPhotoComponent {
   componentDidMount() {
@@ -16,13 +17,21 @@ export default class JoinStep3 extends UploadPhotoComponent {
   }
 
   render() {
+    if (window.isDesktop) {
+      return <div>{this._renderContent()}</div>;
+    }
+
+    return <Panel id={this.props.id}>{this._renderContent()}</Panel>;
+  }
+
+  _renderContent() {
     return (
-      <Panel id={this.props.id}>
-        <PanelHeader
+      <div>
+        <Header
           left={<UIBackButton />}
         >
           Фотографии
-        </PanelHeader>
+        </Header>
         <FormLayout>
           <div style={{padding: '0 6px'}} bottom="Загрузите свои настоящие фотографии">
             <div className="profile_edit_photos">
@@ -31,7 +40,7 @@ export default class JoinStep3 extends UploadPhotoComponent {
           </div>
           <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Готово</Button>
         </FormLayout>
-      </Panel>
+      </div>
     )
   }
 

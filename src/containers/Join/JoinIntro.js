@@ -2,10 +2,11 @@ import './Join.css'
 
 import React from 'react';
 import BaseComponent from '../../BaseComponent';
-import { PanelHeader, Div, Group, Button } from '@vkontakte/vkui';
+import { Div, Group, Button } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as pages from '../../constants/pages';
 import * as utils from '../../utils';
+import Header from '../../components/proxy/Header';
 
 export default class JoinIntro extends BaseComponent {
   componentDidMount() {
@@ -15,9 +16,9 @@ export default class JoinIntro extends BaseComponent {
   render() {
     return (
       <div>
-        <PanelHeader>
+        <Header>
           Знакомства
-        </PanelHeader>
+        </Header>
         <Group>
           <Div>
             <div className="Join__intro-art-wrap">

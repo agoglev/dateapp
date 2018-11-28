@@ -36,6 +36,11 @@ export default class TabBar extends Component {
 
   _renderTabs() {
     const state = this.props.state;
+
+    if (['join', 'error'].indexOf(state.activeTab) > -1) {
+      return this._renderLinks();
+    }
+
     let tabs = ['search', 'cards', 'messages', 'profile'];
     //if (window.isDG || state.usersInfo[state.userId] && parseInt(state.usersInfo[state.userId].gender, 10) === 1 || state.userId === 1) {
     //  tabs.unshift('date_chats');
@@ -88,5 +93,23 @@ export default class TabBar extends Component {
     } else if (tab === 'search') {
       return <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M16.463 15.05l4.244 4.243a1 1 0 0 1-1.414 1.414l-4.244-4.244a7.5 7.5 0 1 1 1.414-1.414zM10.5 16a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z" fill="currentColor" fillRule="evenodd"/></svg>;
     }
+  }
+
+  _renderLinks() {
+    const links = [{
+      title: 'Сообщество',
+      href: 'https://vk.com/dateapp'
+    }, {
+      title: 'Сообщить о проблеме',
+      href: 'https://vk.com/board160479731'
+    }, {
+      title: 'Связаться с разработчиками',
+      href: 'https://vk.me/dateapp'
+    }];
+    return links.map((link, i) => {
+      return (
+        <a key={i} href={link.href} target="_blank" className="TabBar__link">{link.title}</a>
+      )
+    });
   }
 }

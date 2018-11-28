@@ -17,11 +17,13 @@ export function init(token = false) {
   if (token) {
     store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
   }
+  console.trace('here');
   api.method(api.methods.init, {
     vk_id: vkUserInfo.id,
     vk_sig: vkUserInfo.signed_user_id || '',
     vk_token: token || '',
-    is_dg: window.isDG ? 1 : 0
+    is_dg: window.isDG ? 1 : 0,
+    vk_url: window.initialUrl
   })
     .then(initMethodHandler)
     .catch(() => {
@@ -90,6 +92,7 @@ export function createAccount(photos) {
         vk_sig: vkUserInfo.signed_user_id || '',
         photos: photos.join(','),
         is_dg: window.isDG ? 1 : 0,
+        vk_url: window.initialUrl,
         ...JoinInfo
       })
       .then((resp) => {

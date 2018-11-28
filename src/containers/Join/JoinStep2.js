@@ -5,9 +5,10 @@ import BaseComponent from '../../BaseComponent';
 import * as actions from '../../actions';
 import * as accountActions from '../../actions/account';
 import * as pages from '../../constants/pages';
-import { Panel, PanelHeader, FormLayout, SelectMimicry, Button } from '@vkontakte/vkui';
+import { Panel, FormLayout, SelectMimicry, Button } from '@vkontakte/vkui';
 import * as utils from "../../utils";
 import UIBackButton from '../../components/UI/UIBackButton';
+import Header from '../../components/proxy/Header';
 
 export default class JoinStep1 extends BaseComponent {
   constructor() {
@@ -19,14 +20,23 @@ export default class JoinStep1 extends BaseComponent {
   }
 
   render() {
+    if (window.isDesktop) {
+      return <div>{this._renderContent()}</div>;
+    }
+
+    return <Panel id={this.props.id}>{this._renderContent()}</Panel>;
+  }
+
+  _renderContent() {
     const country = this.data.country || {};
+
     return (
-      <Panel id={this.props.id}>
-        <PanelHeader
+      <div>
+        <Header
           left={<UIBackButton />}
         >
           Откуда вы?
-        </PanelHeader>
+        </Header>
         <FormLayout>
           <SelectMimicry
             top="Выберите страну"
@@ -36,7 +46,7 @@ export default class JoinStep1 extends BaseComponent {
           {this._renderCity()}
           <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Далее</Button>
         </FormLayout>
-      </Panel>
+      </div>
     )
   }
 

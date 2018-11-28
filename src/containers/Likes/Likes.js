@@ -1,7 +1,7 @@
 import './Likes.css';
 
 import React from 'react';
-import { Panel, PanelHeader, Spinner, Input, Select, SelectMimicry, FixedLayout, Button, Textarea } from '@vkontakte/vkui';
+import { Panel, Spinner, Button } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as activityActions from '../../actions/activity';
 import * as utils from '../../utils/index';
@@ -9,27 +9,42 @@ import * as pages from "../../constants/pages";
 import BaseComponent from '../../BaseComponent';
 import UICloseButton from '../../components/UI/UICloseButton';
 import * as payments from '../../actions/payments';
+import Header from '../../components/proxy/Header';
 
 export default class Likes extends BaseComponent {
   render() {
+    if (window.isDesktop) {
+      return (
+        <div>{this._renderContent()}</div>
+      )
+    }
+
+    return (
+      <Panel id={this.props.id}>
+        {this._renderContent()}
+      </Panel>
+    )
+  }
+
+  _renderContent() {
     const className = utils.classNames({
       Likes__items: true,
       blur: this._isNeedPay()
     });
 
     return (
-      <Panel id={this.props.id}>
-        <PanelHeader
+      <div>
+        <Header
           left={<UICloseButton />}
         >
           Лайки
-        </PanelHeader>
+        </Header>
         <div className={className}>
           {this._renderLikes()}
         </div>
         {this._renderLoadMoreButton()}
         {this._renderPremium()}
-      </Panel>
+      </div>
     )
   }
 

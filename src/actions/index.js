@@ -12,6 +12,7 @@ import * as accountActions from "./account";
 import * as activityActions from "./activity";
 import * as liveChatsActions from "./live_chats";
 import * as utils from "../utils";
+import { navHistory } from '../reducers';
 
 const osname = platform();
 
@@ -62,6 +63,9 @@ export function setTab(tabName) {
   }
 
   store.dispatch({type: actionTypes.SET_TAB, tab: tabName});
+  if (window.isDesktop) {
+    go(pages.TAB);
+  }
 }
 
 export function setData(field, value, page) {

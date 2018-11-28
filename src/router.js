@@ -2,6 +2,10 @@ import createRouter from 'router5'
 import browserPlugin from 'router5/plugins/browser'
 import listenersPlugin from 'router5/plugins/listeners'
 import * as pages from './constants/pages';
+import * as actions from "./actions";
+import store from "./store";
+import * as actionTypes from "./actions/actionTypes";
+import {navHistory} from "./reducers";
 
 export const routes = [
   {
@@ -13,6 +17,11 @@ export const routes = [
     name: pages.TEST,
     path: `${pages.TEST}`,
     view: 'modal'
+  },
+  {
+    name: pages.TAB,
+    path: pages.TAB,
+    view: 'base'
   },
 
   // Join
@@ -100,15 +109,17 @@ const params = {
 };
 
 let _navThree = {};
+let navMap = {};
 for (let i = 0; i < routes.length; i++) {
   const route = routes[i];
   _navThree[route.name] = route.view;
+  navMap[route.name] = route;
 }
 
 export const navThree = _navThree;
 
 let router = createRouter(routes, params)
-  .usePlugin(browserPlugin({ base: '.', useHash: false }))
+  .usePlugin(browserPlugin({ base: '.', useHash: false, forceDeactivate: true, canDeactivate: true }))
   .usePlugin(listenersPlugin());
 
 export default router;

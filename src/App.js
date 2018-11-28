@@ -159,32 +159,51 @@ class App extends React.Component {
 	}
 
   _renderDesktop() {
-	  const modal = this._renderDesktopModal();
+    const state = this.props.state;
+    const page = state.activePanels[state.activeView];
+
+	  const modal = this._renderDesktopModal(page);
 	  return (
 	    <div>
+        {this.props.state.popout && <div className="App__popout">{this.props.state.popout}</div>}
         <Main id={pages.MAIN} state={this.props.state} />
-        {modal && <div className="App__modal" onClick={(e) => {
+        {modal && <div className={`App__modal ${page}`} onClick={(e) => {
           if (e.target.classList.contains('App__modal')) {
             window.history.back();
           }
         }}>
-          <div className="App__modal__cont-wrap">
-            <div className="App__modal__cont">{modal}</div>
-          </div>
+          <div className="App__modal__cont">{modal}</div>
         </div>}
       </div>
     )
   }
 
-  _renderDesktopModal() {
-	  const state = this.props.state;
-	  const page = state.activePanels[state.activeView];
-
+  _renderDesktopModal(page) {
+    const state = this.props.state;
 	  switch (page) {
       case pages.PROFILE:
         return <ProfileView id={pages.PROFILE} state={state} />;
       case pages.IM_HISTORY:
         return <ImHistory id={pages.IM_HISTORY} state={state} />;
+      case pages.FILTERS:
+        return <Filters id={pages.FILTERS} state={state} />;
+      case pages.LIKES:
+        return <Likes id={pages.LIKES} state={state} />;
+      case pages.EDIT_PROFILE:
+        return <EditProfile id={pages.EDIT_PROFILE} state={state} />;
+      case pages.VK_PHOTOS:
+        return <VkPhotos id={pages.VK_PHOTOS} state={state} />;
+      case pages.SELECT_COUNTRY:
+        return <SelectCountry id={pages.SELECT_COUNTRY} state={state} />;
+      case pages.SELECT_CITY:
+        return <SelectCity id={pages.SELECT_CITY} state={state} />;
+      case pages.JOIN_STEP1:
+        return  <JoinStep1 id={pages.JOIN_STEP1} state={state} />;
+      case pages.JOIN_STEP2:
+        return  <JoinStep2 id={pages.JOIN_STEP2} state={state} />;
+      case pages.JOIN_STEP3:
+        return  <JoinStep3 id={pages.JOIN_STEP3} state={state} />;
+
       default:
         return false;
     }

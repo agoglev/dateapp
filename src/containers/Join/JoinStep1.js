@@ -9,6 +9,7 @@ import { Panel, PanelHeader, FormLayout, Input, Select, Button } from '@vkontakt
 import UiBirthDay from '../../components/UI/UiBirthDay';
 import * as utils from "../../utils";
 import UICloseButton from '../../components/UI/UICloseButton';
+import Header from '../../components/proxy/Header';
 
 export default class JoinStep1 extends BaseComponent {
   componentDidMount() {
@@ -16,15 +17,23 @@ export default class JoinStep1 extends BaseComponent {
   }
 
   render() {
+    if (window.isDesktop) {
+      return <div>{this._renderContent()}</div>;
+    }
+
+    return <Panel id={this.props.id}>{this._renderContent()}</Panel>;
+  }
+
+  _renderContent() {
     const { state } = this.props;
 
     return (
-      <Panel id={this.props.id}>
-        <PanelHeader
+      <div>
+        <Header
           left={<UICloseButton />}
         >
           Общее
-        </PanelHeader>
+        </Header>
         <FormLayout>
           <Input
             top="Имя"
@@ -42,9 +51,9 @@ export default class JoinStep1 extends BaseComponent {
           <div top="Дата рождения">
             <UiBirthDay ref="birthday" />
           </div>
-            <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Далее</Button>
+          <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Далее</Button>
         </FormLayout>
-      </Panel>
+      </div>
     )
   }
 

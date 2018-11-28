@@ -10,6 +10,7 @@ body {
 
   &.desktop {
     background: @color-grey-bg;
+    box-sizing: border-box;
   }
 }
 
@@ -50,7 +51,7 @@ body {
   position: fixed;
   left: 0;
   z-index: 1000;
-  width: 100%;
+  right: 0;
   background: @color-white;
   color: @color-pink;
   font-size: 16px;
@@ -59,6 +60,10 @@ body {
   text-align: center;
   box-shadow: 0 5px 5px rgba(0,0,0,0.1);
   animation: global_error_anim 200ms ease-in-out forwards;
+
+  body.desktop & {
+    right: @menu-width;
+  }
 }
 
 .global_loader {
@@ -212,9 +217,24 @@ body {
 body.desktop {
   .HeaderContext {
     left: initial;
-    top: initial !important;
-    width: @modal-width;
-    transform: translateY(@header-height) !important;
     overflow: hidden;
+    transform: translateY(@header-height) !important;
+  }
+
+  .FixedLayout {
+    width: ~"calc(100% - 240px)";
+    right: @menu-width;
+  }
+
+  .FixedLayout--top {
+    top: @header-height;
+  }
+
+  .HeaderContext {
+    top: 0 !important;
+  }
+
+  .FormLayout {
+    padding: 0 60px;
   }
 }

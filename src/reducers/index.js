@@ -40,7 +40,7 @@ const initialState = {
   hasPremium: false
 };
 
-let navHistory = [];
+export let navHistory = [];
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

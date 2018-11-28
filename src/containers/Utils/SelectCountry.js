@@ -4,8 +4,7 @@ import * as actions from '../../actions';
 import * as utilsActions from '../../actions/utils';
 import { Panel, PanelHeader, platform, Group, List, Cell, Div, Spinner, colors, HeaderButton } from '@vkontakte/vkui';
 import Icon24Done from '@vkontakte/icons/dist/24/done';
-
-const osname = platform();
+import Header from '../../components/proxy/Header';
 
 export default class SelectCountry extends BaseComponent {
   constructor() {
@@ -24,15 +23,27 @@ export default class SelectCountry extends BaseComponent {
   }
 
   render() {
+    if (window.isDesktop) {
+      return (
+        <div>{this._renderCont()}</div>
+      )
+    }
+
     return (
-      <Panel id={this.props.id}>
-        <PanelHeader
+      <Panel id={this.props.id}>{this._renderCont()}</Panel>
+    )
+  }
+
+  _renderCont() {
+    return (
+      <div>
+        <Header
           left={<HeaderButton onClick={() => window.history.back()}>Отмена</HeaderButton>}
         >
           Выбор страны
-        </PanelHeader>
+        </Header>
         {this._renderContent()}
-      </Panel>
+      </div>
     )
   }
 

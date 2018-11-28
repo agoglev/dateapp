@@ -8,6 +8,7 @@ body {
 }
 body.desktop {
   background: #ebebeb;
+  box-sizing: border-box;
 }
 .PanelHeader-bg--brand,
 .PanelHeader-content--brand,
@@ -40,7 +41,7 @@ body.desktop {
   position: fixed;
   left: 0;
   z-index: 1000;
-  width: 100%;
+  right: 0;
   background: #fff;
   color: #e63973;
   font-size: 16px;
@@ -49,6 +50,9 @@ body.desktop {
   text-align: center;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   animation: global_error_anim 200ms ease-in-out forwards;
+}
+body.desktop .Error {
+  right: 240px;
 }
 .global_loader {
   position: fixed;
@@ -180,8 +184,19 @@ body.desktop {
 }
 body.desktop .HeaderContext {
   left: initial;
-  top: initial !important;
-  width: 450px;
-  transform: translateY(48px) !important;
   overflow: hidden;
+  transform: translateY(48px) !important;
+}
+body.desktop .FixedLayout {
+  width: calc(100% - 240px);
+  right: 240px;
+}
+body.desktop .FixedLayout--top {
+  top: 48px;
+}
+body.desktop .HeaderContext {
+  top: 0 !important;
+}
+body.desktop .FormLayout {
+  padding: 0 60px;
 }

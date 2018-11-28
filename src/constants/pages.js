@@ -25,3 +25,5 @@ export const LIKES = 'likes';
 export const POPOUT = 'popout';
 
 export const SEARCH = 'SEARCH';
+
+export const TAB = 'tab';

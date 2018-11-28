@@ -7,7 +7,7 @@ import connect from '@vkontakte/vkui-connect';
 import App from './App';
 import registerServiceWorker from './sw';
 import store from './store';
-import router from './router';
+import router, { overrideBack } from './router';
 import { Provider } from 'react-redux';
 import * as actionTypes from './actions/actionTypes';
 import VkConnect from "@vkontakte/vkui-connect/index";
@@ -17,10 +17,19 @@ import * as utils from './utils';
 import * as api from './services/api';
 import Cards from './containers/Main/Cards';
 
-window.isDesktop = true;
-document.body.classList.add('desktop');
+const url = window.location.href;
+if (url.indexOf('vk_') > -1) {
+  window.initialUrl = url;
+}
 const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.get('is_desktop') || true) {
+  window.isDesktop = true;
+  document.body.classList.add('desktop');
+}
+
 const urlToken = urlParams.get('access_token');
+const urlSign = urlParams.get('sign');
 window.urlToken = urlToken;
 window.appId = parseInt(urlParams.get('api_id'), 10);
 const isNeedFeature = window.location.hash.indexOf('feature') > -1;
@@ -55,7 +64,7 @@ VkConnect.subscribe((e) => {
       actions.setVersion(data.platform, data.version);
       connect.send('VKWebAppGetUserInfo', {});
       if (!utils.canAuthWithSig()) {
-        connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
+        //connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
       }
       break;
     case 'VKWebAppAccessTokenReceived':
@@ -67,7 +76,7 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppGetUserInfoResult':
       accountActions.setupVkInfo(data);
       if (utils.canAuthWithSig()) {
-        setTimeout(accountActions.init(), 10);
+        //setTimeout(accountActions.init(), 10);
       }
       break;
     case 'VKWebAppGetUserInfoFailed':
@@ -101,7 +110,7 @@ ReactDOM.render(
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
-  accountActions.init(window._DEBUG_TOKEN);
+  //accountActions.init(window._DEBUG_TOKEN);
 }
 
 window.adsEmpty = () => {
@@ -119,6 +128,8 @@ if (urlToken) {
 
   window.isDGNotifiEnabled = scope & 1 === 1;
   window.isDGMessagesBlocked = parseInt(urlParams.get('is_messages_blocked'), 10);
+} else if (urlSign) {
+  accountActions.init();
 }
 
 window.onresize = () => {

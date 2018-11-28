@@ -1,22 +1,36 @@
 import React from 'react';
-import { Panel, PanelHeader, FormLayout, Checkbox, RangeSlider, FixedLayout, Button, HeaderButton } from '@vkontakte/vkui';
+import { Panel, FormLayout, Checkbox, RangeSlider, FixedLayout, Button } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as cardsActions from "../../actions/cards";
 import BaseComponent from '../../BaseComponent';
 import * as api from '../../services/api';
 import UICloseButton from '../../components/UI/UICloseButton';
+import Header from '../../components/proxy/Header';
 
 export default class Filters extends BaseComponent {
   render() {
-    const info = this.props.state.usersInfo[this.props.state.userId];
-    const cityName = ` (${info.city_name})` || '';
+    if (window.isDesktop) {
+      return this._renderContent();
+    }
+
     return (
       <Panel id={this.props.id}>
-        <PanelHeader
+        {this._renderContent()}
+      </Panel>
+    )
+  }
+
+  _renderContent() {
+    const info = this.props.state.usersInfo[this.props.state.userId];
+    const cityName = ` (${info.city_name})` || '';
+
+    return (
+      <div>
+        <Header
           left={<UICloseButton />}
         >
           Интересуют
-        </PanelHeader>
+        </Header>
         <FormLayout>
           <div top="Пол">
             <Checkbox
@@ -61,7 +75,7 @@ export default class Filters extends BaseComponent {
             <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>
-      </Panel>
+      </div>
     )
   }
 

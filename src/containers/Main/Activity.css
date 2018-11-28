@@ -147,6 +147,9 @@
   padding-bottom: calc(97px + env(safe-area-inset-bottom));
   padding-top: 48px;
 }
+body.desktop .im_history {
+  padding-bottom: 110px !important;
+}
 #im_history {
   padding: 16px 0;
   box-sizing: border-box;
@@ -281,18 +284,17 @@
   border-top: 1px solid #ebebeb;
   background: #fff;
   height: 97px;
-  width: 100vw;
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
   padding-bottom: env(safe-area-inset-bottom);
 }
 .im_send_form.is_focused {
   padding-bottom: 0;
 }
 body.desktop .im_send_form {
-  left: initial;
-  width: 450px;
+  right: 240px;
 }
 .im_send_form_cont {
   flex: 0 0 auto;

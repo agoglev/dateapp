@@ -88,6 +88,9 @@
   background: #fff url('assest/add.svg') no-repeat center;
   background-size: 24px;
 }
+body.desktop .profile_edit_photos .profile_edit_photo_cont {
+  background-color: #ebebeb;
+}
 .profile_edit_photos .profile_edit_photo:first-child .profile_edit_photo_cont {
   background-image: url('assest/add_48.svg');
 }
