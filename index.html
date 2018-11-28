@@ -25,6 +25,6 @@
         if (!location.href.match('is_dg')) {
           const script = document.createElement('script');
           script.type = 'text/javascript';
-          script.src = location.href.match(/is_mob/) ? 'https://vk.com/js/api/mobile_sdk.js' : 'https://vk.com/js/api/xd_connection.js?2';
+          script.src = location.href.match(/platform=web/) ? 'https://vk.com/js/api/xd_connection.js?2' : 'https://vk.com/js/api/mobile_sdk.js';
           document.getElementById('vk_js').appendChild(script);
         }</script><script type="text/javascript" src="/dateapp/static/js/main.6ed25163.js"></script></body></html>
