@@ -160,14 +160,51 @@ export function showOrderBox(item) {
     const { VK } = window;
 
     VK.addCallback('onOrderBoxDone', _orderBoxCallback);
+    VK.addCallback('onOrderSuccess', _onOrderSuccess);
+    VK.addCallback('onOrderCancel', _onOrderCancel);
+    VK.addCallback('onOrderFail', _onOrderFail);
     _orderBoxPromise = {resolve, reject};
     VK.callMethod('showOrderBox', {type: 'item', item});
   });
 }
 
-function _orderBoxCallback(status) {
+function _onOrderSuccess() {
+  removeOrderCallbacks();
+  if (!_orderBoxPromise) {
+    return;
+  }
+  _orderBoxPromise.resolve();
+  _orderBoxPromise = false;
+}
+
+function _onOrderCancel() {
+  removeOrderCallbacks();
+  if (!_orderBoxPromise) {
+    return;
+  }
+  _orderBoxPromise.reject();
+  _orderBoxPromise = false;
+}
+
+function _onOrderFail() {
+  removeOrderCallbacks();
+  if (!_orderBoxPromise) {
+    return;
+  }
+  _orderBoxPromise.reject(true);
+  _orderBoxPromise = false;
+}
+
+function removeOrderCallbacks() {
   const { VK } = window;
-  VK.removeCallback('showOrderBox', _orderBoxCallback);
+  VK.removeCallback('onOrderBoxDone', _orderBoxCallback);
+  VK.removeCallback('onOrderSuccess', _onOrderSuccess);
+  VK.removeCallback('onOrderCancel', _onOrderCancel);
+  VK.removeCallback('onOrderFail', _onOrderFail);
+}
+
+function _orderBoxCallback(status) {
+  removeOrderCallbacks();
 
   if (!_orderBoxPromise) {
     return;
