@@ -407,7 +407,7 @@ export function readLike(userId) {
 
 function checkFeatureTT() {
   const state = store.getState();
-  if (!window.isDG || state.usersInfo[state.userId].register_days < 1) {
+  if (!window.isDG || state.usersInfo[state.userId].register_days < 1 || window.isDesktop) {
     return;
   }
   api.vk('storage.get', {

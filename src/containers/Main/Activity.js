@@ -163,23 +163,33 @@ export default class Activity extends Component {
 
     // this.props.state.isFeatureTTShown
     /*
-    <Tooltip
-      text="Хотите больше лайков?"
-      key={-1}
-      isShown={!this.state.isLoading && !this.state.isFailed}
-      onClose={activityActions.hideFeatureTT}
-    >
+
     */
-    res.unshift(
+
+    if (window.isDesktop) {
+      res.unshift(this._renderFeatureAddButton());
+    } else {
+      res.unshift(<Tooltip
+        text="Хотите больше лайков?"
+        key={-1}
+        isShown={!this.state.isLoading && !this.state.isFailed && this.props.state.isFeatureTTShown}
+        onClose={activityActions.hideFeatureTT}
+      >{this._renderFeatureAddButton()}</Tooltip>);
+    }
+
+    return res;
+  }
+
+  _renderFeatureAddButton() {
+    return (
       <div
         className="live_feed_featured_pay_button"
         key={-1}
         onClick={this._featureDidPress}
       >
         <div className="live_feed_featured_pay_button_text">Хочу<br/>сюда</div>
-      </div>);
-
-    return res;
+      </div>
+    )
   }
 
   _renderLikes() {
@@ -269,17 +279,17 @@ export default class Activity extends Component {
             }
           });
         } else {
-          /*if (this.props.state.userId === 1) {
+          if (this.props.state.userId === 1) {
             actions.vkPay('feature').then(() => {
               actions.loaderSuccess();
               activityActions.addMeToFeatured();
             }).catch(() => actions.showError());
-          } else {*/
+          } else {
             actions.vkPayRequest(42, 'Больше просмотров.').then(() => {
               actions.loaderSuccess();
               activityActions.addMeToFeatured();
             }).catch(() => actions.showError());
-          //}
+          }
         }
 
         utils.statReachGoal('feature_buy_btn');

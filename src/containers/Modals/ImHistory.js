@@ -42,6 +42,7 @@ export default class ImHistory extends BaseComponent {
 
     const sendBtn = ReactDOM.findDOMNode(this.refs['sendBtn']);
     sendBtn.addEventListener('touchstart', this._send);
+    sendBtn.addEventListener('mousedown', this._send);
   }
 
   componentWillUnmount() {
@@ -49,6 +50,7 @@ export default class ImHistory extends BaseComponent {
 
     const sendBtn = ReactDOM.findDOMNode(this.refs['sendBtn']);
     sendBtn.removeEventListener('touchstart', this._send);
+    sendBtn.removeEventListener('mousedown', this._send);
   }
 
   render() {
