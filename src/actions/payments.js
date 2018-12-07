@@ -19,7 +19,7 @@ export function showSubscriptionRequest() {
     title="Передумали?"
     caption="Вам нужен Знакомства «Премиум». Вы сможете принять решение заново!"
     type="likes"
-    button="Месяц за 63₽"
+    button="Месяц за 9 голосов"
     onClick={() => {
       buyPremium();
     }}

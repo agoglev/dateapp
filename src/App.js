@@ -33,32 +33,6 @@ import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
 
 class App extends React.Component {
 	render() {
-    if (this.props.state.works === true) {
-      return (
-        <PlaceholderWorks />
-      )
-    }
-
-    const userInfo = this.props.state.usersInfo[this.props.state.userId] || {};
-    if (userInfo.deleted) {
-      return (
-        <PlaceholderDeleted />
-      )
-    }
-
-    if (userInfo.banned) {
-      return (
-        <PlaceholderBanned />
-      )
-    }
-
-    if (this.props.state.needTokenMessage === true) {
-      return (
-        <PlaceholderNeedToken />
-      )
-    }
-
-
 		return (
       <div>
 				{this._renderError()}
@@ -120,6 +94,31 @@ class App extends React.Component {
 
 	_renderContent() {
     const { state } = this.props;
+
+    if (state.works === true) {
+      return (
+        <PlaceholderWorks />
+      )
+    }
+
+    const userInfo = state.usersInfo[this.props.state.userId] || {};
+    if (userInfo.deleted) {
+      return (
+        <PlaceholderDeleted />
+      )
+    }
+
+    if (userInfo.banned) {
+      return (
+        <PlaceholderBanned />
+      )
+    }
+
+    if (this.props.state.needTokenMessage === true) {
+      return (
+        <PlaceholderNeedToken />
+      )
+    }
 
     if (window.isDesktop) {
       return this._renderDesktop();

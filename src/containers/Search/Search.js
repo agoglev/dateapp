@@ -58,7 +58,7 @@ export default class Search extends BaseComponent {
     ];
 
     const info = this.props.state.usersInfo[this.props.state.userId];
-    const cityName = `${info.city_name}` || '';
+    const cityName = String(info.city_name).length > 0 ? `${info.city_name}` : '';
     return (
       <div ref="wrap">
         <Header

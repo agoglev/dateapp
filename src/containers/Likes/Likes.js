@@ -104,16 +104,16 @@ export default class Likes extends BaseComponent {
 
     let label;
     if (this.data.nextFrom) {
-      label = `${this.data.likes.length}+ лайков`;
+      label = `${this.data.likes.length}+ девушкам`;
     } else {
-      label = utils.gram(this.data.likes.length, ['лайк', 'лайка', 'лайков']);;
+      label = utils.gram(this.data.likes.length, ['девушке', 'девушкам', 'девушкам']);
     }
 
     utils.statReachGoal('likes_premium');
 
     return (
       <div className="Likes__premium">
-        <div className="Likes__premium__title">У вас {label}!</div>
+        <div className="Likes__premium__title">Вы понравились {label}!</div>
         <div className="Likes__premium__caption">Вам нужен Знакомства «Премиум», чтобы увидеть их.</div>
         <Button size="xl" level="1" onClick={() => payments.buyPremium()}>Получить премиум</Button>
         <div className="Likes__premium__info">За 9 голосов в месяц</div>
@@ -137,8 +137,6 @@ export default class Likes extends BaseComponent {
   };
 
   _isNeedPay() {
-    return false;
-
     const state = this.props.state;
     if (state.hasPremium || this.data.isLoading || this.data.isFailed || !this.data.likes.length || !window.isDG) {
       return false;
