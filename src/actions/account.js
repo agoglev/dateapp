@@ -188,3 +188,20 @@ export function saveSearchFilters(gender, sort, ageFrom, ageTo) {
     }).catch(reject)
   });
 }
+
+export function loadStats() {
+  actions.setData('isFailed', false, pages.STATS);
+  actions.setData('isLoading', true, pages.STATS);
+  api.method(api.methods.stats).then(({stats, level}) => {
+    actions.setDataMulti({
+      stats,
+      level,
+      isLoading: false
+    }, pages.STATS);
+  }).catch(() => {
+    actions.setDataMulti({
+      isLoading: false,
+      isFailed: true
+    }, pages.STATS);
+  });
+}

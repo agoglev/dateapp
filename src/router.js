@@ -100,6 +100,12 @@ export const routes = [
     name: pages.LIVE_CHAT,
     path: pages.LIVE_CHAT,
     view: 'modal'
+  },
+
+  {
+    name: pages.STATS,
+    path: pages.STATS,
+    view: 'modal'
   }
 ];
 

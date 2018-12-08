@@ -3,11 +3,22 @@ import * as actionTypes from './actionTypes';
 import store from '../store';
 import * as actions from './index';
 import * as api from '../services/api';
-import * as activityActions from "./activity";
 import * as utils from "../utils";
 import NotificationsPermission from '../components/NotificationsPermission/NotificationsPermission';
+import * as activityActions from "./activity";
 
 export let hasPremium = false;
+
+export const Prices = {
+  premium: {
+    votes: 6,
+    rubles: 42
+  },
+  feature: {
+    votes: 2,
+    rubles: 49
+  }
+};
 
 export function setPremiumState(has) {
   hasPremium = has;
@@ -15,11 +26,12 @@ export function setPremiumState(has) {
 }
 
 export function showSubscriptionRequest() {
+  const btnText = window.isDG ? `Месяц за ${utils.gram(Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${Prices.premium.rubles}₽`;
   actions.setPopout(<NotificationsPermission
     title="Передумали?"
     caption="Вам нужен Знакомства «Премиум». Вы сможете принять решение заново!"
     type="likes"
-    button="Месяц за 9 голосов"
+    button={btnText}
     onClick={() => {
       buyPremium();
     }}
@@ -30,7 +42,7 @@ export function showSubscriptionRequest() {
 
 export function buyPremium() {
   actions.loaderShow();
-  api.showOrderBox('premium1').then(() => {
+  api.showOrderBox('premium2').then(() => {
     actions.loaderSuccess();
     setPremiumState(true);
   }).catch((isFailed) => {
@@ -41,4 +53,46 @@ export function buyPremium() {
     }
   });
   utils.statReachGoal('premium_continue');
+}
+
+export function showFeatureBox() {
+  const btnText = window.isDG ? `Получить за ${utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.feature.rubles}₽`;
+  actions.setPopout(<NotificationsPermission
+    title="Привлеките больше внимания!"
+    caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
+    type="likes"
+    button={btnText}
+    onClick={() => {
+      actions.loaderShow();
+
+      if (window.isDG) {
+        api.showOrderBox('feature_feed').then(() => {
+          actions.loaderSuccess();
+          activityActions.addMeToFeatured();
+        }).catch((isFailed) => {
+          if (isFailed) {
+            actions.showError();
+          } else {
+            actions.loaderHide();
+          }
+        });
+      } else {
+        if (this.props.state.userId === 1) {
+          actions.vkPay('feature').then(() => {
+            actions.loaderSuccess();
+            activityActions.addMeToFeatured();
+          }).catch(() => actions.showError());
+        } else {
+          actions.vkPayRequest(Prices.feature.rubles, 'Больше просмотров.').then(() => {
+            actions.loaderSuccess();
+            activityActions.addMeToFeatured();
+          }).catch(() => actions.showError());
+        }
+      }
+
+      utils.statReachGoal('feature_buy_btn');
+    }}
+  />);
+
+  utils.statReachGoal('feature_btn');
 }

@@ -1,0 +1,73 @@
+@import "../../css/vars";
+
+.Graph {
+  padding: 16px 30px (16 + 14 + 6px) 30px;
+}
+
+.Graph__cont {
+  position: relative;
+
+  svg {
+    position: relative;
+    z-index: 10;
+  }
+
+  path {
+    stroke: @color-pink;
+  }
+}
+
+.Graph__separator {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  top: 0;
+  background: @color-grey-bg;
+  z-index: 1;
+  transition: background 150ms ease-in-out;
+  transform: translateX(-50%);
+
+  &.active {
+    background: @color-pink;
+  }
+}
+
+.Graph__point {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: @color-white;
+  .circle(14px);
+  border: 2px solid @color-pink;
+  box-sizing: border-box;
+  z-index: 11;
+  transition: background 150ms ease-in-out;
+
+  &.active {
+    background: @color-pink;
+  }
+}
+
+.Graph__touch-zone {
+  z-index: 12;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 16.6%;
+}
+
+.Graph__day {
+  position: absolute;
+  bottom: -(14 + 6px);
+  left: 0;
+  width: 100%;
+  color: @color-grey;
+  text-align: center;
+  font-size: 12px;
+  line-height: 14px;
+  transition: color 150ms ease-in-out;
+
+  .Graph__touch-zone.active & {
+    color: @color-pink;
+  }
+}

@@ -97,7 +97,9 @@ export const methods = {
   search: 'search',
   save_search_filters: 'save_search_filters',
   ban: 'ban',
-  unBan: 'unban'
+  unBan: 'unban',
+  profileView: 'profile_view',
+  stats: 'stats'
 };
 
 let vkRequestId = 0;

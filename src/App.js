@@ -30,6 +30,7 @@ import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
 import PlaceholderNeedToken from "./components/Placeholder/PlaceholderNeedToken";
 import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
+import Stats from "./containers/Stats/Stats";
 
 class App extends React.Component {
 	render() {
@@ -145,6 +146,7 @@ class App extends React.Component {
           <ProfileView id={pages.PROFILE} state={state} />
           <EditProfile id={pages.EDIT_PROFILE} state={state} />
           <LiveChat id={pages.LIVE_CHAT} state={state} />
+          <Stats id={pages.STATS} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />
@@ -197,11 +199,13 @@ class App extends React.Component {
       case pages.SELECT_CITY:
         return <SelectCity id={pages.SELECT_CITY} state={state} />;
       case pages.JOIN_STEP1:
-        return  <JoinStep1 id={pages.JOIN_STEP1} state={state} />;
+        return <JoinStep1 id={pages.JOIN_STEP1} state={state} />;
       case pages.JOIN_STEP2:
-        return  <JoinStep2 id={pages.JOIN_STEP2} state={state} />;
+        return <JoinStep2 id={pages.JOIN_STEP2} state={state} />;
       case pages.JOIN_STEP3:
-        return  <JoinStep3 id={pages.JOIN_STEP3} state={state} />;
+        return <JoinStep3 id={pages.JOIN_STEP3} state={state} />;
+      case pages.STATS:
+        return <Stats id={pages.STATS} state={state} />;
 
       default:
         return false;

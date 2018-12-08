@@ -117,7 +117,7 @@ export default class Profile extends Component {
   };
 }
 
-class ProfileButton extends PureComponent {
+export class ProfileButton extends PureComponent {
   render() {
     const {
       type,

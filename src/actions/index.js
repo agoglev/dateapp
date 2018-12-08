@@ -221,6 +221,20 @@ export function openLikes() {
   activityActions.loadLikes();
 }
 
+export function openStats() {
+  let params = {
+    stats: [],
+    isLoading: true,
+    isFailed: false,
+    selected: 6
+  };
+
+  go(pages.STATS, params);
+  accountActions.loadStats();
+
+  utils.statReachGoal('stats_page');
+}
+
 export function showAlert(title, message, okText = false, opts = {}) {
   return new Promise((resolve, reject) => {
     let actions = [];

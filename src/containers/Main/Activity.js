@@ -1,16 +1,16 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { Button, Spinner, Group, HorizontalScroll, Cell, Tooltip } from '@vkontakte/vkui';
+import { Button, Spinner, Group, HorizontalScroll, Cell, Tooltip, HeaderButton } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
-import * as api from '../../services/api';
-import NotificationsPermission from '../../components/NotificationsPermission/NotificationsPermission';
 import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Header from '../../components/proxy/Header';
+import * as payments from "../../actions/payments";
+import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 
 export default class Activity extends Component {
   constructor() {
@@ -42,7 +42,9 @@ export default class Activity extends Component {
   render() {
     return (
       <div ref="wrap">
-        <Header>
+        <Header
+          left={this._renderStatsButton()}
+        >
           Активность
         </Header>
         {this._renderFeatured()}
@@ -54,6 +56,18 @@ export default class Activity extends Component {
           </div>
         </Group>
       </div>
+    )
+  }
+
+  _renderStatsButton() {
+    if (!window.isDG) {
+      return null;
+    }
+
+    return (
+      <HeaderButton onClick={() => actions.openStats()}>
+        <Icon24Poll />
+      </HeaderButton>
     )
   }
 
@@ -258,44 +272,6 @@ export default class Activity extends Component {
   };
 
   _featureDidPress = () => {
-    const btnText = window.isDG ? 'Получить за 14 голосов' : 'Получить за 99₽';
-    actions.setPopout(<NotificationsPermission
-      title="Больше лайков"
-      caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
-      type="likes"
-      button={btnText}
-      onClick={() => {
-        actions.loaderShow();
-
-        if (window.isDG) {
-          api.showOrderBox('feature_feed').then(() => {
-            actions.loaderSuccess();
-            activityActions.addMeToFeatured();
-          }).catch((isFailed) => {
-            if (isFailed) {
-              actions.showError();
-            } else {
-              actions.loaderHide();
-            }
-          });
-        } else {
-          if (this.props.state.userId === 1) {
-            actions.vkPay('feature').then(() => {
-              actions.loaderSuccess();
-              activityActions.addMeToFeatured();
-            }).catch(() => actions.showError());
-          } else {
-            actions.vkPayRequest(99, 'Больше просмотров.').then(() => {
-              actions.loaderSuccess();
-              activityActions.addMeToFeatured();
-            }).catch(() => actions.showError());
-          }
-        }
-
-        utils.statReachGoal('feature_buy_btn');
-      }}
-    />);
-
-    utils.statReachGoal('feature_btn');
+    payments.showFeatureBox();
   };
 }

@@ -10,8 +10,17 @@ import BaseComponent from '../../BaseComponent';
 import Cards from '../Main/Cards';
 import * as pages from "../../constants/pages";
 import Icon24Message from '@vkontakte/icons/dist/24/message';
+import * as api from '../../services/api';
 
 export default class ProfileView extends BaseComponent {
+  componentDidMount() {
+    if (this.data.user) {
+      api.method(api.methods.profileView, {
+        user_id: this.data.user.id
+      });
+    }
+  }
+
   render() {
     if (window.isDesktop) {
       return this._renderContent();
