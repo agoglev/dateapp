@@ -1,0 +1,63 @@
+.Graph {
+  padding: 16px 30px 36px 30px;
+}
+.Graph__cont {
+  position: relative;
+}
+.Graph__cont svg {
+  position: relative;
+  z-index: 10;
+}
+.Graph__cont path {
+  stroke: #e63973;
+}
+.Graph__separator {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  top: 0;
+  background: #ebebeb;
+  z-index: 1;
+  transition: background 150ms ease-in-out;
+  transform: translateX(-50%);
+}
+.Graph__separator.active {
+  background: #e63973;
+}
+.Graph__point {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #e63973;
+  box-sizing: border-box;
+  z-index: 11;
+  transition: background 150ms ease-in-out;
+}
+.Graph__point.active {
+  background: #e63973;
+}
+.Graph__touch-zone {
+  z-index: 12;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 16.6%;
+}
+.Graph__day {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  color: #7a7a7a;
+  text-align: center;
+  font-size: 12px;
+  line-height: 14px;
+  transition: color 150ms ease-in-out;
+}
+.Graph__touch-zone.active .Graph__day {
+  color: #e63973;
+}

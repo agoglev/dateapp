@@ -1,0 +1,29 @@
+.Stats__info {
+  color: #7a7a7a;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  padding: 0 16px 12px;
+  box-sizing: border-box;
+}
+.Stats__popularity {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  justify-content: center;
+  padding: 16px 0 6px;
+  color: #1a1a1a;
+}
+.Stats__level {
+  flex: 0 0 auto;
+  margin-left: 6px;
+  color: #ffd580;
+}
+.Stats__level.low {
+  color: #e63973;
+}
+.Stats__level.high {
+  color: #30bf78;
+}

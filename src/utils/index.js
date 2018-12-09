@@ -197,8 +197,8 @@ export function statReachGoal(eventName) {
 
 let yandexAdsInited = false;
 let yandexAdsIniting = false;
-export function initYAAds(isDG) {
-  initYABlock(isDG);
+export function initYAAds(blockId) {
+  initYABlock(blockId);
   /*if (yandexAdsInited) {
     initYABlock();
   } else {
@@ -221,13 +221,13 @@ export function initYAAds(isDG) {
   }*/
 }
 
-function initYABlock(isDG) {
+function initYABlock(blockId) {
   if (!window.Ya || !window.Ya.Context) {
     return;
   }
   window.Ya.Context.AdvManager.render({
-    blockId: isDG ? "R-A-325915-3" : "R-A-325915-2",
-    renderTo: "yandex_rtb_R-A-325915-2",
+    blockId,
+    renderTo: 'yandex_rtb',
     onRender: function() {
       setTimeout(() => {
         Cards.shared && Cards.shared._updateHeight();
@@ -243,7 +243,7 @@ export function initYAActivityBlock() {
   }
   window.Ya.Context.AdvManager.render({
     blockId: "R-A-159294-836",
-    renderTo: "yandex_rtb_R-A-159294-836"
+    renderTo: 'yandex_rtb'
   });
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: true});
 }

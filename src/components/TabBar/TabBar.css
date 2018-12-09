@@ -40,6 +40,9 @@
   background: #30bf78;
   animation: 3s linear TabBar__badge_anim forwards infinite;
 }
+body.desktop .TabBar__ads {
+  margin-top: 16px;
+}
 @keyframes TabBar__badge_anim {
   0% {
     transform: translateY(0);

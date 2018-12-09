@@ -7,11 +7,15 @@ import Icon24Back from '@vkontakte/icons/dist/24/live';
 
 export default class TabBar extends Component {
   componentDidMount() {
-    if (!window.isDG) {
-      //utils.initYAAds(false);
+    //if (!window.isDG) {
+      //utils.initYAAds('R-A-325915-2');
       //utils.initMyTargetAds();
-    } else if (utils.isIOS()) {
-      //utils.initYAAds(true);
+    //} else if (utils.isIOS()) {
+      //utils.initYAAds('R-A-325915-3');
+    //}
+
+    if (window.isDesktop && this.props.state.userId === 1) {
+      utils.initYAAds('R-A-325915-4');
     }
   }
 
@@ -22,7 +26,9 @@ export default class TabBar extends Component {
           {this._renderTabs()}
         </div>
         <div className="TabBar__helper" />
-        <div id="yandex_rtb_R-A-325915-2" />
+        <div className="TabBar__ads">
+          <div id="yandex_rtb" />
+        </div>
       </div>
     )
 
