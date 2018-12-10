@@ -98,20 +98,24 @@ export default class Activity extends Component {
     const now = Math.floor(new Date().getTime() / 1000);
     return dialogs.map((dialog) => {
       let text;
-      switch (dialog.message.system) {
-        case activityActions.SystemMessageType.match:
-          text = <div className="im_dialog_system">Новая пара! Скажи «привет»! 👋</div>;
-          break;
-        case activityActions.SystemMessageType.gift:
-          text = <div className="im_dialog_system">Подарок</div>;
-          break;
-        default:
-          if (dialog.message.kludges.photo_url) {
-            text = 'Фотография';
-          } else {
-            text = dialog.message.text;
-          }
-          text = (dialog.message.inbox ? '' : 'Вы: ') + text;
+      if (dialog.want_to_talk && !dialog.message.id) {
+        text = <div className="im_dialog_system">Хочет общаться!</div>;
+      } else {
+        switch (dialog.message.system) {
+          case activityActions.SystemMessageType.match:
+            text = <div className="im_dialog_system">Новая пара! Скажи «привет»! 👋</div>;
+            break;
+          case activityActions.SystemMessageType.gift:
+            text = <div className="im_dialog_system">Подарок</div>;
+            break;
+          default:
+            if (dialog.message.kludges.photo_url) {
+              text = 'Фотография';
+            } else {
+              text = dialog.message.text;
+            }
+            text = (dialog.message.inbox ? '' : 'Вы: ') + text;
+        }
       }
 
       const user = this.props.state.usersInfo[dialog.user.id];

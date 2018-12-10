@@ -48,6 +48,7 @@ export default class Graph extends PureComponent {
     return new Array(POINTS_COUNT - 1).fill(1, 0, POINTS_COUNT - 1).map((_, i) => {
       const data = this._calcPointData(i);
       const nextData = this._calcPointData(i + 1);
+      const prevData = i > 0 ? this._calcPointData(i - 1) : false;
 
       const lineEndX = this.xStep;
       const lineEndY = nextData.startY - data.startY;
@@ -57,7 +58,11 @@ export default class Graph extends PureComponent {
       if (data.startY === nextData.startY) {
         y1 = 0;
       } else {
-        y1 = data.startY < nextData.startY ? 4 : -4;
+        if (prevData) {
+          y1 = prevData.startY - data.startY;
+        } else {
+          y1 = data.startY < nextData.startY ? 4 : -4;
+        }
       }
 
       const x2 = 41;

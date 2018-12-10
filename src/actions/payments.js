@@ -81,7 +81,7 @@ export function showFeatureBox() {
           }
         });
       } else {
-        if (this.props.state.userId === 1) {
+        if (store.getState().userId === 1) {
           actions.vkPay('feature').then(() => {
             actions.loaderSuccess();
             activityActions.addMeToFeatured();
@@ -99,4 +99,35 @@ export function showFeatureBox() {
   />);
 
   utils.statReachGoal('feature_btn');
+}
+
+export function showWantToTalkBox() {
+  const btnText = window.isDG ? `Получить за ${utils.gram(Prices.wantToTalk.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.wantToTalk.rubles}₽`;
+  actions.setPopout(<NotificationsPermission
+    title="Больше сообщений"
+    caption="Пусть все знают, что вы онлайн и хотите общаться!"
+    type="share"
+    button={btnText}
+    onClick={() => {
+      actions.loaderShow();
+      if (window.isDG) {
+        api.showOrderBox('want_to_talk').then(() => {
+          const state = store.getState();
+          let msg = utils.genderText(state.usersInfo[state.userId].gender, [
+            'Девушки из вашего города будут видеть, что вы хотите общаться в течении 24 часов',
+            'Парни из вашего города будут видеть, что вы хотите общаться в течении 24 часов'
+          ]);
+          actions.showAlert('Успешно!', msg, 'Закрыть', {
+            skipCancelButton: true
+          });
+        }).catch((isFailed) => {
+          if (isFailed) {
+            actions.showError();
+          } else {
+            actions.loaderHide();
+          }
+        });
+      }
+    }}
+  />);
 }
