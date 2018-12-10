@@ -17,6 +17,10 @@ export const Prices = {
   feature: {
     votes: 7,
     rubles: 59
+  },
+  wantToTalk: {
+    votes: 7,
+    rubles: 59
   }
 };
 

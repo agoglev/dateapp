@@ -14,8 +14,8 @@ export default class TabBar extends Component {
       //utils.initYAAds('R-A-325915-3');
     //}
 
-    if (window.isDesktop && this.props.state.userId === 1) {
-      utils.initYAAds('R-A-325915-4');
+    if (window.isDesktop && window.isDG && !this.props.state.hasPremium) {
+      //utils.initVkAds();
     }
   }
 

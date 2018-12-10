@@ -112,6 +112,7 @@ body.desktop .TabBar {
 }
 body.desktop .TabBar__cont {
   flex-direction: column;
+  height: auto;
 }
 body.desktop .TabBar__item {
   flex: 0 0 auto;

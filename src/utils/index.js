@@ -287,3 +287,22 @@ export function updateVkFrameHeight() {
     //connect.send('VKWebAppResizeWindow', {width: 795, height: 600});
   }
 }
+
+let vkAdsInited = false;
+export function initVkAds() {
+  if (vkAdsInited) {
+    return;
+  }
+  vkAdsInited = true;
+
+  const adsParams = window.isDG ? {ad_unit_id: 104871, ad_unit_hash: '2394e22b2448e0bedaddb58d70105f80'} : {ad_unit_id: 108348, ad_unit_hash: '64a05b18781de5f9891240cb136e61d9'};
+  if (!window.vkAsyncInitCallbacks) window.vkAsyncInitCallbacks = [];
+  window.vkAsyncInitCallbacks.push(() => window.VK.Widgets.Ads('yandex_rtb', {}, adsParams));
+  const protocol = ((window.location.protocol === 'https:') ? 'https:' : 'http:');
+  const adsElem = document.getElementById('yandex_rtb');
+  const scriptElem = document.createElement('script');
+  scriptElem.type = 'text/javascript';
+  scriptElem.async = true;
+  scriptElem.src = protocol + '//vk.com/js/api/openapi.js?160';
+  adsElem.parentNode.insertBefore(scriptElem, adsElem.nextSibling);
+}
