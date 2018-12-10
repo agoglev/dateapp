@@ -2,6 +2,7 @@ import store from '../store';
 import * as actionTypes from '../actions/actionTypes';
 import connect from '@vkontakte/vkui-connect';
 import * as utils from '../utils';
+import * as actions from '../actions';
 //import connect from '@vkontakte/vkui-connect-mock';
 
 const API_ENTRY = 'https://dev.kphp.net/api.php';
@@ -54,7 +55,9 @@ function updateOnline() {
     return;
   }
 
-  method(methods.setOnline).catch(() => console.log('wrong set offline call'));
+  method(methods.setOnline).then((user) => {
+    actions.setUser(user);
+  }).catch(() => console.log('wrong set offline call'));
   lastOnlineSetTime = now;
 }
 
