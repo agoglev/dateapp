@@ -11,16 +11,16 @@ export let hasPremium = false;
 
 export const Prices = {
   premium: {
-    votes: 6,
-    rubles: 42
+    votes: 8,
+    rubles: 69
   },
   feature: {
     votes: 7,
-    rubles: 59
+    rubles: 49
   },
   wantToTalk: {
     votes: 7,
-    rubles: 59
+    rubles: 49
   }
 };
 
@@ -46,16 +46,23 @@ export function showSubscriptionRequest() {
 
 export function buyPremium() {
   actions.loaderShow();
-  api.showOrderBox('premium2').then(() => {
-    actions.loaderSuccess();
-    setPremiumState(true);
-  }).catch((isFailed) => {
-    if (isFailed) {
-      actions.showError();
-    } else {
-      actions.loaderHide();
-    }
-  });
+  if (window.isDG) {
+    api.showOrderBox('premium2').then(() => {
+      actions.loaderSuccess();
+      setPremiumState(true);
+    }).catch((isFailed) => {
+      if (isFailed) {
+        actions.showError();
+      } else {
+        actions.loaderHide();
+      }
+    });
+  } else {
+    actions.vkPay('premium').then(() => {
+      actions.loaderSuccess();
+      setPremiumState(true);
+    }).catch(() => actions.showError());
+  }
   utils.statReachGoal('premium_continue');
 }
 
@@ -72,7 +79,7 @@ export function showFeatureBox() {
       if (window.isDG) {
         api.showOrderBox('feature_feed').then(() => {
           actions.loaderSuccess();
-          activityActions.addMeToFeatured();
+          activityActions.loadFeaturedUsers();
         }).catch((isFailed) => {
           if (isFailed) {
             actions.showError();
@@ -81,17 +88,10 @@ export function showFeatureBox() {
           }
         });
       } else {
-        if (store.getState().userId === 1) {
-          actions.vkPay('feature').then(() => {
-            actions.loaderSuccess();
-            activityActions.addMeToFeatured();
-          }).catch(() => actions.showError());
-        } else {
-          actions.vkPayRequest(Prices.feature.rubles, 'Больше просмотров.').then(() => {
-            actions.loaderSuccess();
-            activityActions.addMeToFeatured();
-          }).catch(() => actions.showError());
-        }
+        actions.vkPay('feature').then(() => {
+          actions.loaderSuccess();
+          activityActions.loadFeaturedUsers();
+        }).catch(() => actions.showError());
       }
 
       utils.statReachGoal('feature_buy_btn');
@@ -112,14 +112,8 @@ export function showWantToTalkBox() {
       actions.loaderShow();
       if (window.isDG) {
         api.showOrderBox('want_to_talk').then(() => {
-          const state = store.getState();
-          let msg = utils.genderText(state.usersInfo[state.userId].gender, [
-            'Девушки из вашего города будут видеть, что вы хотите общаться в течении 24 часов',
-            'Парни из вашего города будут видеть, что вы хотите общаться в течении 24 часов'
-          ]);
-          actions.showAlert('Успешно!', msg, 'Закрыть', {
-            skipCancelButton: true
-          });
+          actions.loaderHide();
+          wantToTalkSuccess();
         }).catch((isFailed) => {
           if (isFailed) {
             actions.showError();
@@ -127,7 +121,23 @@ export function showWantToTalkBox() {
             actions.loaderHide();
           }
         });
+      } else {
+        actions.vkPay('want_to_talk').then(() => {
+          actions.loaderHide();
+          wantToTalkSuccess();
+        }).catch(() => actions.showError());
       }
     }}
   />);
+}
+
+function wantToTalkSuccess() {
+  const state = store.getState();
+  let msg = utils.genderText(state.usersInfo[state.userId].gender, [
+    'Девушки из вашего города будут видеть, что вы хотите общаться в течении 24 часов',
+    'Парни из вашего города будут видеть, что вы хотите общаться в течении 24 часов'
+  ]);
+  actions.showAlert('Успешно!', msg, 'Закрыть', {
+    skipCancelButton: true
+  });
 }

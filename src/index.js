@@ -96,7 +96,7 @@ VkConnect.subscribe((e) => {
       api.handleMethodError(data.error_data);
       break;
     case 'VKWebAppOpenPayFormResult':
-      actions.resolveVkPayRequest(data.result && data.result.status);
+      actions.resolveVkPayRequest(data.status);
       break;
     case 'VKWebAppOpenPayFormFailed':
       actions.resolveVkPayRequest(false);

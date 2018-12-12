@@ -62,7 +62,7 @@ export default class Stats extends BaseComponent {
         <Group>
           <div className="Stats__promote-features">
             <ProfileButton type="like" onClick={() => payments.showFeatureBox()}>Получить больше лайков</ProfileButton>
-            {window.isDG && this.props.state.usersInfo[this.props.state.userId].city_id > 0 && <ProfileButton type="feedback" onClick={() => payments.showWantToTalkBox()}>Получить больше сообщений</ProfileButton>}
+            {this.props.state.usersInfo[this.props.state.userId].city_id > 0 && <ProfileButton type="feedback" onClick={() => payments.showWantToTalkBox()}>Получить больше сообщений</ProfileButton>}
           </div>
         </Group>
       </div>

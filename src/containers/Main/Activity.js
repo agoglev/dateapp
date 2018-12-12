@@ -60,10 +60,6 @@ export default class Activity extends Component {
   }
 
   _renderStatsButton() {
-    if (!window.isDG) {
-      return null;
-    }
-
     return (
       <HeaderButton onClick={() => actions.openStats()}>
         <Icon24Poll />
