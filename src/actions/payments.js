@@ -16,7 +16,7 @@ export const Prices = {
   },
   feature: {
     votes: 7,
-    rubles: 49
+    rubles: 29
   },
   wantToTalk: {
     votes: 7,
@@ -59,8 +59,8 @@ export function buyPremium() {
     });
   } else {
     actions.vkPay('premium').then(() => {
-      actions.loaderSuccess();
       setPremiumState(true);
+      actions.loaderSuccess();
     }).catch(() => actions.showError());
   }
   utils.statReachGoal('premium_continue');

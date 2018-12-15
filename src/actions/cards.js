@@ -1,9 +1,9 @@
+import React from 'react';
 import * as actionTypes from './actionTypes';
 import store from '../store';
 import * as actions from './index'
 import * as api from '../services/api';
 import * as utils from '../utils';
-import * as pages from '../constants/pages';
 
 export let dislikeTipShown = true;
 export let likeTipShown = true;
@@ -22,6 +22,7 @@ export function loadCards() {
     }
     api.method(api.methods.cardsGet, {})
       .then((cards) => {
+        actions.setUsers(cards);
         store.dispatch({type: actionTypes.CARDS_SET, cards});
         resolve();
 
@@ -110,6 +111,10 @@ export function setReason(isLike) {
       })
       .then(() => {
         resolve();
+
+        if (isLike && card.is_like) {
+          showMatchBox(card);
+        }
 
         const cards = store.getState().cards;
         if (cards.length && cards[0].is_ad) {
@@ -342,4 +347,51 @@ export function resolveSwipeTip() {
     key: `cards_tip_swipe`,
     value: '1'
   });
+}
+
+function showMatchBox(from) {
+  if (window.isDesktop) {
+    return;
+  }
+
+  const state = store.getState();
+  const me = state.usersInfo[state.userId];
+
+  const caption = utils.genderText(from.gender, [
+    <span>{from.name} лайкнул вас,<br/>а вы лайкнули его</span>,
+    <span>{from.name} лайкнула вас,<br/>а вы лайкнули её</span>
+  ]);
+
+  actions.setPopout(<div className="match_box_wrap">
+    <div className="match_box_info">
+      <div className="match_box_title">Взаимный лайк!</div>
+      <div className="match_box_cards">
+        <div className="match_box_card from" style={{backgroundImage: `url(${from.small_photo})`}} />
+        <div className="match_box_card me" style={{backgroundImage: `url(${me.small_photo})`}} />
+      </div>
+      <div className="match_box_caption">{caption}</div>
+    </div>
+    <div className="match_box_buttons">
+      <div className="match_box_button white" onClick={() => {
+        actions.setPopout();
+        setTimeout(() => actions.openChat(from.id), 10);
+      }}>Написать сообщение</div>
+      <div className="match_box_close" onClick={() => actions.setPopout()} />
+    </div>
+    <div className="match_box_bg">
+      <svg width="960" height="960" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient fx="50%" fy="50%" r="52.083%" id="a">
+            <stop stopColor="#DE356D" offset="0%"/>
+            <stop stopColor="#E63973" offset="100%"/>
+          </radialGradient>
+        </defs>
+        <path
+          d="M480 480L432 0h96l-48 480zm0 0L678.43 40.308l83.14 48L480 480zm0 0l391.692-281.57 48 83.14L480 480zm0 0l480-48v96l-480-48zm0 0l439.692 198.43-48 83.14L480 480zm0 0l281.57 391.692-83.14 48L480 480zm0 0l48 480h-96l48-480zm0 0L281.57 919.692l-83.14-48L480 480zm0 0L88.308 761.57l-48-83.14L480 480zm0 0L0 528v-96l480 48zm0 0L40.308 281.57l48-83.14L480 480zm0 0L198.43 88.308l83.14-48L480 480z"
+          fill="url(#a)" fillRule="evenodd"/>
+      </svg>
+    </div>
+  </div>);
+
+  utils.statReachGoal('match');
 }

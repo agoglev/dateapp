@@ -2,7 +2,7 @@ import './Cards.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Spinner, HeaderButton } from '@vkontakte/vkui';
+import { Button, Spinner, HeaderButton, Tooltip } from '@vkontakte/vkui';
 import * as cardsActions from '../../actions/cards';
 import * as paymentsActions from '../../actions/payments';
 import * as actions from '../../actions';
@@ -10,6 +10,8 @@ import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
 import Header from '../../components/proxy/Header';
+
+let skippedLikes = {};
 
 export default class Cards extends Component {
 
@@ -26,7 +28,8 @@ export default class Cards extends Component {
       dislikeButtonDiff: 0,
       isLoading: false,
       isFailed: false,
-      swipeTip: false
+      swipeTip: false,
+      isLikeSkipped: false
     };
 
     this.likesCount = 0;
@@ -128,6 +131,22 @@ export default class Cards extends Component {
       return null;
     }
 
+    if (window.isDesktop) {
+      return this._renderCancelActionCont();
+    }
+
+    return (
+      <Tooltip
+        text="Вы пропустили симпатию"
+        isShown={!this.state.isLoading && !this.state.isFailed && this.state.isLikeSkipped}
+        onClose={() => this.setState({isLikeSkipped: false})}
+      >
+        {this._renderCancelActionCont()}
+      </Tooltip>
+    )
+  }
+
+  _renderCancelActionCont() {
     return (
       <HeaderButton onClick={this._cancelAction}>
         <Icon24Replay />
@@ -205,6 +224,9 @@ export default class Cards extends Component {
       if (card.age_ts) {
         nameComponents.push(utils.getUsrAge(card.age_ts));
       }
+      if (card.is_like) {
+        nameComponents.push('Like');
+      }
 
       return (
         <div
@@ -272,7 +294,8 @@ export default class Cards extends Component {
     this.isPressed = true;
 
     this.setState({
-      isMoving: true
+      isMoving: true,
+      isLikeSkipped: false
     });
     this.lastDiff = 0;
     this.startX = event.touches ? event.touches[0].clientX : event.clientX;
@@ -450,6 +473,12 @@ export default class Cards extends Component {
         actions.showAlert('Лайк поставлен!', 'Дождитесь взаимного лайка, чтобы начать общаться', 'Ок', {skipCancelButton: true});
         cardsActions.resolveMatchTip();
       }
+
+      if (!isLike && card.is_like && !skippedLikes[card.id]) {
+        skippedLikes[card.id] = true;
+        this.setState({isLikeSkipped: true});
+      }
+
     }).catch((card) => {
         this._restoreCard(card, isLike);
         actions.showError('Произошла ошибка');
