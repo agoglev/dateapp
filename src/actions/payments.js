@@ -16,7 +16,7 @@ export const Prices = {
   },
   feature: {
     votes: 7,
-    rubles: 29
+    rubles: 49
   },
   wantToTalk: {
     votes: 7,
@@ -67,12 +67,12 @@ export function buyPremium() {
 }
 
 export function showFeatureBox() {
-  const btnText = window.isDG ? `Получить за ${utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.feature.rubles}₽`;
+  //const btnText = window.isDG ? `Получить за ${utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.feature.rubles}₽`;
   actions.setPopout(<NotificationsPermission
     title="Привлеките больше внимания!"
     caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
     type="likes"
-    button={btnText}
+    button="Получить"
     onClick={() => {
       actions.loaderShow();
 

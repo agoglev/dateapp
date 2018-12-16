@@ -224,9 +224,6 @@ export default class Cards extends Component {
       if (card.age_ts) {
         nameComponents.push(utils.getUsrAge(card.age_ts));
       }
-      if (card.is_like) {
-        nameComponents.push('Like');
-      }
 
       return (
         <div
