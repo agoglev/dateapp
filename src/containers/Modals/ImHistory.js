@@ -41,16 +41,20 @@ export default class ImHistory extends BaseComponent {
     }
 
     const sendBtn = ReactDOM.findDOMNode(this.refs['sendBtn']);
-    sendBtn.addEventListener('touchstart', this._send);
-    sendBtn.addEventListener('mousedown', this._send);
+    if (sendBtn) {
+      sendBtn.addEventListener('touchstart', this._send);
+      sendBtn.addEventListener('mousedown', this._send);
+    }
   }
 
   componentWillUnmount() {
     activityActions.markAsSeen(this.peerId);
 
     const sendBtn = ReactDOM.findDOMNode(this.refs['sendBtn']);
-    sendBtn.removeEventListener('touchstart', this._send);
-    sendBtn.removeEventListener('mousedown', this._send);
+    if (sendBtn) {
+      sendBtn.removeEventListener('touchstart', this._send);
+      sendBtn.removeEventListener('mousedown', this._send);
+    }
   }
 
   render() {
@@ -70,16 +74,6 @@ export default class ImHistory extends BaseComponent {
   }
 
   _renderContnet() {
-    const sendBtnClassName = utils.classNames({
-      im_send_form_button: true,
-      active: this.state.hasText
-    });
-
-    const formClassName = utils.classNames({
-      im_send_form: true,
-      is_focused: this.state.hasFocus
-    });
-
     let peer;
     let isLoading;
     if (this.props.state.usersInfo[this.peerId]) {
@@ -128,8 +122,34 @@ export default class ImHistory extends BaseComponent {
           </div>
         </div>
 
-        <div className={formClassName}>
-          <div className="im_send_form_cont">
+        {this._renderSendForm()}
+      </div>
+    )
+  }
+
+  _renderSendForm() {
+    let peer = {};
+    if (this.props.state.usersInfo[this.peerId]) {
+      peer = this.props.state.usersInfo[this.peerId];
+    }
+
+    if (peer.banned) {
+      return null;
+    }
+
+    const sendBtnClassName = utils.classNames({
+      im_send_form_button: true,
+      active: this.state.hasText
+    });
+
+    const formClassName = utils.classNames({
+      im_send_form: true,
+      is_focused: this.state.hasFocus
+    });
+
+    return (
+      <div className={formClassName}>
+        <div className="im_send_form_cont">
               <textarea
                 ref="input"
                 className="im_send_form_text_area"
@@ -145,12 +165,11 @@ export default class ImHistory extends BaseComponent {
                   setTimeout(() => ImHistory.scrollToBottom(), 200);
                 }}
               />
-            <div className="im_send_form_buttons">
-              <div className="im_send_photo_button">
-                <input type="file" onChange={this._photoDidSelect}/>
-              </div>
-              <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
+          <div className="im_send_form_buttons">
+            <div className="im_send_photo_button">
+              <input type="file" onChange={this._photoDidSelect}/>
             </div>
+            <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
           </div>
         </div>
       </div>
@@ -169,6 +188,7 @@ export default class ImHistory extends BaseComponent {
       </div>;
     }
 
+    const state = this.props.state;
     let groups = [];
     let lastTimeKey = null;
 
@@ -176,6 +196,12 @@ export default class ImHistory extends BaseComponent {
     if (!messages.length) {
       return <div className="Activity__failed">
         <div className="Activity__failed_msg">Нет сообщений</div>
+      </div>;
+    }
+
+    if (state.usersInfo[this.peerId].banned) {
+      return <div className="Activity__failed">
+        <div className="Activity__failed_msg">Пользователь заблокирован</div>
       </div>;
     }
 
