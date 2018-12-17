@@ -553,7 +553,7 @@ export default class Cards extends Component {
   };
 
   _cancelAction = () => {
-    if (!paymentsActions.hasPremium && window.isDG) {
+    if (!paymentsActions.hasPremium) {
       paymentsActions.showSubscriptionRequest();
     } else {
       const card = cardsActions.getLastDislikedCard();

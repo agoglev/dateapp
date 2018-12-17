@@ -46,7 +46,7 @@ export default class Profile extends Component {
           <a href="https://vk.com/dateapp" target="_blank" style={{textDecoration: 'none'}}>
             <ProfileButton type="community">Сообщество</ProfileButton>
           </a>
-          <a href="https://vk.com/board160479731" target="_blank" style={{textDecoration: 'none'}}>
+          <a href="https://vk.me/dateapp" target="_blank" style={{textDecoration: 'none'}}>
             <ProfileButton type="feedback">Сообщить о проблеме</ProfileButton>
           </a>
           <ProfileButton type="delete" onClick={this._deleteAccountButtonDidPress}>Удалить анкету</ProfileButton>

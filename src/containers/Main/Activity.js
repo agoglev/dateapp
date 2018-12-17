@@ -116,17 +116,25 @@ export default class Activity extends Component {
 
       const user = this.props.state.usersInfo[dialog.user.id];
       const isOnline = now - user.last_update < 60 * 10;
+
+      const className = utils.classNames({
+        im_dialog: true,
+        premium: dialog.premium === true
+      });
+
       return (
-        <div className="im_dialog" key={dialog.id} onClick={() => actions.openChat(dialog.id)}>
-          <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
-          <div className="im_dialog_cont">
-            <div className="im_dialog_name_wrap">
-              <div className="im_dialog_name">{user.name}</div>
-              {isOnline && <div className="im_dialog_name_online" />}
+        <div className={className} key={dialog.id} onClick={() => actions.openChat(dialog.id)}>
+          <div className="im_dialog_cont_wrap">
+            <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+            <div className="im_dialog_cont">
+              <div className="im_dialog_name_wrap">
+                <div className="im_dialog_name">{user.name}</div>
+                {isOnline && <div className="im_dialog_name_online" />}
+              </div>
+              <div className="im_dialog_message">{text}</div>
             </div>
-            <div className="im_dialog_message">{text}</div>
+            <div className="im_dialog_badge">{dialog.badge > 0 && dialog.badge}</div>
           </div>
-          <div className="im_dialog_badge">{dialog.badge > 0 && dialog.badge}</div>
           <div className="im_dialog_separator" />
         </div>
       )

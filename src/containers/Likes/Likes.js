@@ -120,13 +120,12 @@ export default class Likes extends BaseComponent {
 
     utils.statReachGoal('likes_premium');
 
-    const btnText = window.isDG ? `Месяц за ${utils.gram(payments.Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${payments.Prices.premium.rubles}₽`;
+    //const btnText = window.isDG ? `Месяц за ${utils.gram(payments.Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${payments.Prices.premium.rubles}₽`;
     return (
       <div className="Likes__premium">
         <div className="Likes__premium__title">Вы понравились {label}!</div>
         <div className="Likes__premium__caption">Свайпайте в право «Карточки», или откройте их сейчас с помощью Знакомства&nbsp;«Премиум».</div>
-        <Button size="xl" level="1" onClick={() => payments.buyPremium()}>Получить премиум</Button>
-        <div className="Likes__premium__info">{btnText}</div>
+        <Button size="xl" level="1" onClick={() => payments.showSubscriptionRequest()}>Открыть сейчас</Button>
       </div>
     )
   }

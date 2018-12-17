@@ -6,6 +6,7 @@ import * as api from '../services/api';
 import * as utils from "../utils";
 import NotificationsPermission from '../components/NotificationsPermission/NotificationsPermission';
 import * as activityActions from "./activity";
+import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
 
 export let hasPremium = false;
 
@@ -30,17 +31,7 @@ export function setPremiumState(has) {
 }
 
 export function showSubscriptionRequest() {
-  const btnText = window.isDG ? `Месяц за ${utils.gram(Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${Prices.premium.rubles}₽`;
-  actions.setPopout(<NotificationsPermission
-    title="Передумали?"
-    caption="Вам нужен Знакомства «Премиум». Вы сможете принять решение заново!"
-    type="likes"
-    button={btnText}
-    onClick={() => {
-      buyPremium();
-    }}
-  />);
-
+  actions.setPopout(<SubscriptionBox />);
   utils.statReachGoal('premium_box');
 }
 

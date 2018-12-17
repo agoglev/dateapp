@@ -45,13 +45,30 @@
 }
 
 .im_dialog {
-  padding: 6px 0;
-  display: flex;
   position: relative;
   transition: opacity 150ms ease-in-out;
 
+  &.premium:after {
+    content: '';
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: @color-pink;
+    z-index: 1;
+  }
+
   &:active {
     opacity: 0.6;
+  }
+
+  .im_dialog_cont_wrap {
+    position: relative;
+    z-index: 2;
+    padding: 6px 0;
+    display: flex;
   }
 
   .im_dialog_photo {
