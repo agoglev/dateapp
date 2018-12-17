@@ -51,7 +51,7 @@ export default class Main extends BaseComponent {
       case 'cards':
         return <Cards state={state} />;
       case 'messages':
-        return <Activity state={state} />;
+        return <Activity state={state} id={pages.ACTIVITY} />;
       case 'profile':
         return <Profile state={state} />;
       case 'date_chats':

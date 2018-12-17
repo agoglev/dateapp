@@ -13,13 +13,14 @@ export const SystemMessageType = {
 };
 
 export function load() {
+  actions.setData('nextFrom', false, pages.ACTIVITY);
   return new Promise((resolve, reject) => {
     if (store.getState().dialogs.length > 0) {
       //resolve();
       //return;
     }
 
-    api.method(api.methods.activity).then(({dialogs, likes, featured_users}) => {
+    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from}) => {
       // dialogs
       actions.setUsers(dialogs.map(dialog => dialog.user));
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
@@ -32,12 +33,47 @@ export function load() {
       actions.setUsers(featured_users);
       store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featured_users});
 
+      actions.setData('nextFrom', next_from, pages.ACTIVITY);
+
       resolve();
 
       checkFeatureTT();
     }).catch(() => {
       reject();
     });
+  });
+}
+
+export function loadMore() {
+  const startFrom = actions.getData(pages.ACTIVITY).nextFrom;
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.activityMore, {
+      start_from: startFrom
+    }).then(({dialogs, next_from}) => {
+      if (startFrom !== actions.getData(pages.ACTIVITY).nextFrom) {
+        return;
+      }
+
+      const state = store.getState();
+      let dialogsMap = {};
+      for (let i = 0; i < state.dialogs.length; i++) {
+        dialogsMap[state.dialogs[i].id] = true;
+      }
+
+      let filteredDialogs = [];
+      for (let i = 0; i < dialogs.length; i++) {
+        if (dialogsMap[dialogs[i].id]) {
+          continue;
+        }
+        filteredDialogs.push(dialogs[i]);
+      }
+      actions.setUsers(filteredDialogs.map(dialog => dialog.user));
+      store.dispatch({type: actionTypes.DIALOGS_SET, dialogs: state.dialogs.concat(filteredDialogs)});
+
+      actions.setData('nextFrom', next_from, pages.ACTIVITY);
+
+      resolve();
+    }).catch(reject);
   });
 }
 

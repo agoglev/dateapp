@@ -27,7 +27,7 @@ export default class SubscriptionBox extends PureComponent {
             </div>
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon messages" />
-              <div className="SubscriptionBox__item_caption">Яркие сообщения, ваши письма не потеряются среди остальных</div>
+              <div className="SubscriptionBox__item_caption">Ваши сообщения будут читать первыми</div>
             </div>
           </div>
           <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {

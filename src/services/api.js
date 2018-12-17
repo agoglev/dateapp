@@ -70,6 +70,7 @@ export const methods = {
   cardsGet: 'cards_get',
   cardsSetReason: 'cards_set_reason',
   activity: 'activity',
+  activityMore: 'activity_more',
   featuredUsers: 'featured_users',
   imHistory: 'im_history',
   sendMessage: 'send_message',

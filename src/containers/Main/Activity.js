@@ -11,14 +11,16 @@ import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Header from '../../components/proxy/Header';
 import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
+import BaseComponent from '../../BaseComponent';
 
-export default class Activity extends Component {
+export default class Activity extends BaseComponent {
   constructor() {
     super();
 
     this.state = {
       isLoading: false,
-      isFailed: false
+      isFailed: false,
+      isLoadingMore: false
     };
   }
 
@@ -55,6 +57,7 @@ export default class Activity extends Component {
             {this._renderDialogs()}
           </div>
         </Group>
+        {this._renderMoreButton()}
       </div>
     )
   }
@@ -265,7 +268,7 @@ export default class Activity extends Component {
   _load = () => {
     this.setState({
       isLoading: true,
-      isFailed: false
+      isFailed: false,
     });
     activityActions.load().then(() => {
       this.setState({
@@ -279,7 +282,28 @@ export default class Activity extends Component {
     });
   };
 
+  _loadMore = () => {
+    this.setState({isLoadingMore: true});
+    activityActions.loadMore().then(() => {
+      this.setState({isLoadingMore: false});
+    }).catch(() => {
+      this.setState({isLoadingMore: false});
+    });
+  };
+
   _featureDidPress = () => {
     payments.showFeatureBox();
   };
+
+  _renderMoreButton() {
+    if (this.state.isLoading || this.state.isFailed || !this.data.nextFrom) {
+      return null;
+    }
+
+    return (
+      <div className="Likes__load-more-wrap" onClick={this._loadMore}>
+        <div className="Likes__load-more">{this.state.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+      </div>
+    )
+  }
 }

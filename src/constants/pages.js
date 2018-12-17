@@ -1,6 +1,9 @@
 export const MAIN = 'main';
 export const TEST = 'persik';
 
+// tabs
+export const ACTIVITY = 'activity';
+
 // Join
 export const JOIN_INTRO = 'join_intro';
 export const JOIN_STEP1 = 'join_step1';
