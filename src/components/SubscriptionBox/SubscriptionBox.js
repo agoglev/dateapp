@@ -4,9 +4,11 @@ import Icon24Cancel from '@vkontakte/icons/dist/24/back';
 import * as actions from '../../actions';
 import { Button } from '@vkontakte/vkui';
 import * as paymentsActions from '../../actions/payments';
+import * as utils from "../../utils";
 
 export default class SubscriptionBox extends PureComponent {
   render() {
+    const btnText = window.isDG ? `Месяц за ${utils.gram(paymentsActions.Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${paymentsActions.Prices.premium.rubles}₽`;
     return (
       <div className="SubscriptionBox">
         <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
@@ -32,6 +34,7 @@ export default class SubscriptionBox extends PureComponent {
             actions.setPopout();
             paymentsActions.buyPremium();
           }}>Активировать</Button>
+          <div className="SubscriptionBox__button_caption">{btnText}</div>
         </div>
       </div>
     )
