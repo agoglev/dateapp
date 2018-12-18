@@ -10,6 +10,7 @@ export default class SubscriptionBox extends PureComponent {
   render() {
     const btnText = window.isDG ? `Месяц за ${utils.gram(paymentsActions.Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${paymentsActions.Prices.premium.rubles}₽`;
     const dayBtnText = window.isDG ? `День за ${utils.gram(paymentsActions.Prices.premiumDay.votes, ['голос', 'голоса', 'голосов'])}` : `День за ${paymentsActions.Prices.premiumDay.rubles}₽`;
+    const vkPayInfo = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
     return (
       <div className="SubscriptionBox">
         <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
@@ -39,6 +40,7 @@ export default class SubscriptionBox extends PureComponent {
             actions.setPopout();
             paymentsActions.buyPremium('premium_day');
           }}>{dayBtnText}</Button>
+          {vkPayInfo}
         </div>
       </div>
     )

@@ -25,7 +25,8 @@ export default class NotificationsPermission extends Component {
       caption,
       onClick,
       button,
-      href
+      href,
+      buttonCaption
     } = this.props;
 
     const iconClassName = utils.classNames({
@@ -50,6 +51,7 @@ export default class NotificationsPermission extends Component {
           <div className="permissions_modal_title">{title}</div>
           <div className="permissions_caption">{caption}</div>
           {buttonEl}
+          {buttonCaption}
         </div>
       </div>
     )

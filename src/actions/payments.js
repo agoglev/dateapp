@@ -84,12 +84,15 @@ export function showFeatureBox(isSale = false) {
     </span>;
   }
 
+  const buttonCaption = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
+
   const productType = isSale ? 'feature_sale' : 'feature';
   actions.setPopout(<NotificationsPermission
     title="Привлеките больше внимания!"
     caption={text}
     type="likes"
     button={btnText}
+    buttonCaption={buttonCaption}
     onClick={() => {
       actions.loaderShow();
 
@@ -120,11 +123,13 @@ export function showFeatureBox(isSale = false) {
 
 export function showWantToTalkBox() {
   const btnText = window.isDG ? `Получить за ${utils.gram(Prices.wantToTalk.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.wantToTalk.rubles}₽`;
+  const buttonCaption = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
   actions.setPopout(<NotificationsPermission
     title="Больше сообщений"
     caption="Пусть все знают, что вы онлайн и хотите общаться!"
     type="share"
     button={btnText}
+    buttonCaption={buttonCaption}
     onClick={() => {
       actions.loaderShow();
       if (window.isDG) {
