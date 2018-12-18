@@ -12,12 +12,20 @@ export let hasPremium = false;
 
 export const Prices = {
   premium: {
-    votes: 6,
-    rubles: 49
+    votes: 10,
+    rubles: 99
+  },
+  premiumDay: {
+    votes: 2,
+    rubles: 19
   },
   feature: {
+    votes: 6,
+    rubles: 48
+  },
+  featureSale: {
     votes: 3,
-    rubles: 21
+    rubles: 24
   },
   wantToTalk: {
     votes: 3,
@@ -35,12 +43,13 @@ export function showSubscriptionRequest() {
   utils.statReachGoal('premium_box');
 }
 
-export function buyPremium() {
+export function buyPremium(type = 'premium') {
   actions.loaderShow();
   if (window.isDG) {
-    api.showOrderBox('premium2').then(() => {
+    api.showOrderBox(type).then(() => {
       actions.loaderSuccess();
       setPremiumState(true);
+      setTimeout(() => showFeatureBox(true), 100);
     }).catch((isFailed) => {
       if (isFailed) {
         actions.showError();
@@ -49,26 +58,43 @@ export function buyPremium() {
       }
     });
   } else {
-    actions.vkPay('premium').then(() => {
+    actions.vkPay(type).then(() => {
       setPremiumState(true);
       actions.loaderSuccess();
+      setTimeout(() => showFeatureBox(true), 100);
     }).catch(() => actions.showError());
   }
   utils.statReachGoal('premium_continue');
 }
 
-export function showFeatureBox() {
-  //const btnText = window.isDG ? `Получить за ${utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.feature.rubles}₽`;
+export function showFeatureBox(isSale = false) {
+  let btnText;
+  if (isSale) {
+    btnText = window.isDG ? `Получить за ${utils.gram(Prices.featureSale.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.featureSale.rubles}₽`;
+  } else {
+    btnText = window.isDG ? `Получить за ${utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.feature.rubles}₽`;
+  }
+
+  let text = 'Окажитесь на виду у всех — разместите анкету над сообщениями';
+  if (isSale) {
+    const oldPrice = window.isDG ? utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов']) : `${Prices.feature.rubles}₽`;
+    text = <span>
+      <div>Окажитесь на виду у всех — разместите анкету над сообщениями</div>
+      <div style={{marginTop: '20px', color: '#000'}}>Получите услугу со скидкой <b>50%</b> только сейчас! Старая цена <b>{oldPrice}</b></div>
+    </span>;
+  }
+
+  const productType = isSale ? 'feature_sale' : 'feature';
   actions.setPopout(<NotificationsPermission
     title="Привлеките больше внимания!"
-    caption="Окажитесь на виду у всех — разместите анкету над сообщениями"
+    caption={text}
     type="likes"
-    button="Получить"
+    button={btnText}
     onClick={() => {
       actions.loaderShow();
 
       if (window.isDG) {
-        api.showOrderBox('feature_feed').then(() => {
+        api.showOrderBox(productType).then(() => {
           actions.loaderSuccess();
           activityActions.loadFeaturedUsers();
         }).catch((isFailed) => {
@@ -79,7 +105,7 @@ export function showFeatureBox() {
           }
         });
       } else {
-        actions.vkPay('feature').then(() => {
+        actions.vkPay(productType).then(() => {
           actions.loaderSuccess();
           activityActions.loadFeaturedUsers();
         }).catch(() => actions.showError());
