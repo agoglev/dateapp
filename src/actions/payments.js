@@ -12,16 +12,16 @@ export let hasPremium = false;
 
 export const Prices = {
   premium: {
-    votes: 8,
-    rubles: 69
+    votes: 6,
+    rubles: 49
   },
   feature: {
-    votes: 7,
-    rubles: 49
+    votes: 3,
+    rubles: 21
   },
   wantToTalk: {
-    votes: 7,
-    rubles: 49
+    votes: 3,
+    rubles: 21
   }
 };
 

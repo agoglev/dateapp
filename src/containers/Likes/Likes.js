@@ -151,6 +151,11 @@ export default class Likes extends BaseComponent {
       return false;
     }
 
+    const now = Math.floor(new Date().getTime() / 1000);
+    if (now - state.usersInfo[state.userId].join_date < 86400) {
+      return false;
+    }
+
     return true;
   }
 }

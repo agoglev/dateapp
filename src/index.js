@@ -56,7 +56,7 @@ window.onerror = function handler(msg, file, line, col, err) {
 connect.send('VKWebAppInit', {});
 
 // Service Worker For Cache
-registerServiceWorker();
+//registerServiceWorker();
 
 router.addListener((to, from) => store.dispatch({ type: actionTypes.NAVIGATE, to, from })).start();
 
