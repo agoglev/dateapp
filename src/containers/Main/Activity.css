@@ -648,6 +648,10 @@ body.desktop .im_send_form {
   color: #e63973;
   font-weight: 500;
 }
+.live_feed_featured_helper {
+  height: 84px;
+  width: 100%;
+}
 .live_feed_featured {
   padding: 10px;
   box-sizing: border-box;
@@ -657,6 +661,15 @@ body.desktop .im_send_form {
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   height: 84px;
+  background: #fff;
+  border-bottom: 1px solid var(--separator_common);
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+body.desktop .live_feed_featured {
+  right: 240px;
 }
 .live_feed_featured:after {
   width: 10px;

@@ -738,6 +738,11 @@
 }
 
 
+.live_feed_featured_helper {
+  height: 84px;
+  width: 100%;
+}
+
 .live_feed_featured {
   padding: 10px;
   box-sizing: border-box;
@@ -747,6 +752,16 @@
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   height: 84px;
+  background: #fff;
+  border-bottom: 1px solid var(--separator_common);
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  body.desktop & {
+    right: @menu-width;
+  }
 
   &:after {
     width: 10px;

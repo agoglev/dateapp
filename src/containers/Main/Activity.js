@@ -154,11 +154,12 @@ export default class Activity extends BaseComponent {
     utils.statReachGoal('feature_block_view');
 
     return (
-      <Group>
-        <div className="live_feed_featured">
+      <div>
+        <div className="live_feed_featured_helper" />
+        <div className="live_feed_featured" style={{top: `${utils.getHeaderHeight()}px`}}>
           {this._renderFeaturedRows(users)}
         </div>
-      </Group>
+      </div>
     )
   }
 
