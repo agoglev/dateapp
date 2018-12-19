@@ -142,8 +142,7 @@ export function sendMessage(peerId, text) {
       updateMessage(peerId, msgId, msg);
       updateDialog(peerId, {
         message: msg
-      });
-      moveDialogToTop(peerId);
+      }, true);
       utils.statReachGoal('message_sent');
     })
     .catch((error) => {
@@ -227,11 +226,14 @@ export function retrySendMessage(peerId, message) {
     });
 }
 
-function updateDialog(peerId, updates) {
+function updateDialog(peerId, updates, isNeedMoveToTop = false) {
   let { dialogs } = store.getState();
   for (let i = 0; i < dialogs.length; i++) {
     if (dialogs[i].id === peerId) {
       dialogs[i] = Object.assign({}, dialogs[i], updates);
+      if (isNeedMoveToTop) {
+        dialogs.unshift(dialogs.splice(i, 1)[0]);
+      }
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
       return true;
     }
@@ -284,7 +286,7 @@ export function newMessageEventDidReceive(dialog) {
     }
   }
 
-  if (!updateDialog(peerId, dialog)) {
+  if (!updateDialog(peerId, dialog, true)) {
     dialogs.unshift(dialog);
     store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
   }
