@@ -758,6 +758,9 @@
   left: 0;
   right: 0;
   z-index: 100;
+  padding-left: 6px;
+  animation: live_feed_featured_anim 200ms ease-in-out forwards;
+  animation-delay: 1.5s;
 
   body.desktop & {
     right: @menu-width;
@@ -769,6 +772,15 @@
     display: block;
     content: '';
     flex: 0 0 auto;
+  }
+}
+
+@keyframes live_feed_featured_anim {
+  from {
+    padding-left: 6px;
+  }
+  to {
+    padding-left: 64px + 18px;
   }
 }
 
@@ -840,13 +852,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   flex: 0 0 auto;
   width: 68px;
+  height: 64px;
   box-sizing: border-box;
   background: @color-pink;
   border-radius: @border-radius;
   margin-right: 6px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
 }
 
 .live_feed_featured_pay_button_text {

@@ -1,0 +1,61 @@
+.Moder__reports__item {
+  padding: 10px;
+}
+.Moder__reports__item__photos {
+  overflow-x: auto;
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+}
+.Moder__reports__item__photo {
+  flex: 0 0 auto;
+  width: 250px;
+  height: 300px;
+  background: #ebebeb no-repeat center / contain;
+  float: left;
+  margin-left: 10px;
+  border-radius: 8px;
+}
+.Moder__reports__item__photo:first-child {
+  margin-left: 0;
+}
+.Moder__reports__item__name {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 22px;
+  margin-top: 12px;
+  color: #1a1a1a;
+}
+.Moder__reports__item__about,
+.Moder__reports__item__info,
+.Moder__reports__item__summary {
+  font-size: 16px;
+  line-height: 20px;
+  color: #7a7a7a;
+  margin-top: 10px;
+}
+.Moder__reports__item__summary {
+  color: #1a1a1a;
+}
+.Moder__reports__item__actions {
+  margin-top: 16px;
+  display: flex;
+}
+.Moder__reports__item__actions .Button {
+  flex: 1;
+  margin-left: 8px;
+}
+.Moder__reports__item__actions .Button:first-child {
+  margin-left: 0;
+  background: #30bf78 !important;
+}
+.Moder__reports__item_resolved {
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+  color: #7a7a7a;
+  padding: 16px 0;
+}
+.Moder__reports__item_resolved .Button {
+  margin-top: 16px;
+  background: #7a7a7a !important;
+}

@@ -19,6 +19,7 @@ function connect() {
   const host = 'dateapp.ru'; //location.host;
   socket = new WebSocket('wss://' + host + '/ws?id=' + userId + '&last_event_id=' + lastEventId + '&token=' + token);
   socket.onopen = function() {
+    console.log('ws connected');
     startPingPong();
   };
 

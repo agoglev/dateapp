@@ -241,11 +241,11 @@ export function openModer() {
     reports: [],
     isLoading: true,
     isFailed: false,
-    type: 'all'
+    type: 'template'
   };
 
   go(pages.MODER, params);
-  moderActions.loadReports();
+  moderActions.loadReports('template');
 }
 
 export function showAlert(title, message, okText = false, opts = {}) {

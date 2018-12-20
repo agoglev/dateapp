@@ -6,7 +6,6 @@ import Header from '../../components/proxy/Header';
 import { Panel, Group, Spinner, Button, Search, Tabs, TabsItem, HorizontalScroll } from '@vkontakte/vkui';
 import UICloseButton from '../../components/UI/UICloseButton';
 import * as moderActions from '../../actions/moder';
-import * as actions from '../../actions';
 import * as utils from '../../utils';
 
 export default class Moder extends BaseComponent {

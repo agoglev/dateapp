@@ -208,6 +208,8 @@ class App extends React.Component {
         return <JoinStep3 id={pages.JOIN_STEP3} state={state} />;
       case pages.STATS:
         return <Stats id={pages.STATS} state={state} />;
+      case pages.MODER:
+        return <Moder id={pages.MODER} state={state} />;
 
       default:
         return false;
