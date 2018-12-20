@@ -80,6 +80,10 @@ export default class ProfileView extends BaseComponent {
       return null;
     }
 
+    if (this.data.fromFeature === true && !this.props.state.isModer) {
+      return null;
+    }
+
     return (
       <div className="profile_view_button" onClick={this._reportButtonDidPress}>Пожаловаться</div>
     )

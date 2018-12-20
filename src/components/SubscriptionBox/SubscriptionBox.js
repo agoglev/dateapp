@@ -21,11 +21,11 @@ export default class SubscriptionBox extends PureComponent {
           <div className="SubscriptionBox__items">
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon likes" />
-              <div className="SubscriptionBox__item_caption">Просмотр списка лайков</div>
+              <div className="SubscriptionBox__item_caption">Узнайте кому вы понравились</div>
             </div>
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon cancel_action" />
-              <div className="SubscriptionBox__item_caption">Свободная отмена действий</div>
+              <div className="SubscriptionBox__item_caption">Отмените свое «нет» в «Карточках»</div>
             </div>
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon messages" />

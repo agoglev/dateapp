@@ -13,6 +13,7 @@ import Header from '../../components/proxy/Header';
 
 let skippedLikes = {};
 
+let isFromCancelActionCards = false;
 export default class Cards extends Component {
 
   static shared = null;
@@ -447,6 +448,13 @@ export default class Cards extends Component {
       return cardsActions.resolveSystemCard();
     }
 
+    if (isFromCancelActionCards && isLike && !paymentsActions.hasPremium) {
+      paymentsActions.showSubscriptionRequest();
+      return;
+    }
+
+    isFromCancelActionCards = false;
+
     if (!isLike && !cardsActions.dislikeTipShown) {
       actions.showAlert('Вы пропустили анкету', 'Вам действительно не понравился этот человек?', 'Да').then(() => {
         cardsActions.resolveDisLikeTip();
@@ -523,6 +531,8 @@ export default class Cards extends Component {
           this.setState({swipeTip: true});
         }, 4000);
       }
+
+      isFromCancelActionCards = false;
     }).catch(() => {
       this.setState({isLoading: false, isFailed: true});
     });
@@ -553,14 +563,11 @@ export default class Cards extends Component {
   };
 
   _cancelAction = () => {
-    if (!paymentsActions.hasPremium) {
-      paymentsActions.showSubscriptionRequest();
-    } else {
-      const card = cardsActions.getLastDislikedCard();
-      if (card) {
-        this._restoreCard(card, false);
-        utils.statReachGoal('cancel_action');
-      }
+    const card = cardsActions.getLastDislikedCard();
+    if (card) {
+      this._restoreCard(card, false);
+      utils.statReachGoal('cancel_action');
+      isFromCancelActionCards = true;
     }
   };
 
