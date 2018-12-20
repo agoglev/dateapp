@@ -41,6 +41,7 @@ export default class Profile extends Component {
           </div>
         </Group>
         <Group>
+          {this.props.state.isModer && <ProfileButton type="admin_settings" onClick={() => actions.openModer()}>Модерация</ProfileButton>}
           <ProfileButton type="filters" onClick={() => actions.openFilters()} label={this._renderFiltersLabel()}>Интересуют</ProfileButton>
           <ProfileButton type="share" onClick={this._shareApp}>Поделиться</ProfileButton>
           <a href="https://vk.com/dateapp" target="_blank" style={{textDecoration: 'none'}}>

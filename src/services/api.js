@@ -103,7 +103,11 @@ export const methods = {
   ban: 'ban',
   unBan: 'unban',
   profileView: 'profile_view',
-  stats: 'stats'
+  stats: 'stats',
+  reports: 'reports',
+  skipReport: 'skip_report',
+  banReport: 'ban_report',
+  restoreReport: 'restore_report',
 };
 
 let vkRequestId = 0;

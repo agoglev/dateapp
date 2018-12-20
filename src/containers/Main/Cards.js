@@ -280,7 +280,7 @@ export default class Cards extends Component {
 
   _touchDidStart = (event) => {
     const card = this.props.state.cards[0];
-    if (!card.is_ad) {
+    if (card && !card.is_ad) {
       utils.cancelEvent(event);
     }
 
@@ -346,7 +346,7 @@ export default class Cards extends Component {
 
   _touchDidEnd = (event, force = false) => {
     const card = this.props.state.cards[0];
-    if (!card.is_ad) {
+    if (card && !card.is_ad) {
       utils.cancelEvent(event);
     }
 

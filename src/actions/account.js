@@ -114,7 +114,8 @@ function initMethodHandler(resp) {
     userId: resp.user ? resp.user.id : 0,
     gifts: resp.gifts,
     hasBadge: resp.hasBadge,
-    hasPremium: resp.hasPremium
+    hasPremium: resp.hasPremium,
+    isModer: resp.isModer || false
   });
   if (resp.need_join) {
     actions.setTab('join');

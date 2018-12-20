@@ -31,6 +31,7 @@ import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
 import PlaceholderNeedToken from "./components/Placeholder/PlaceholderNeedToken";
 import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
 import Stats from "./containers/Stats/Stats";
+import Moder from "./containers/Moder/Moder";
 
 class App extends React.Component {
 	render() {
@@ -147,6 +148,7 @@ class App extends React.Component {
           <EditProfile id={pages.EDIT_PROFILE} state={state} />
           <LiveChat id={pages.LIVE_CHAT} state={state} />
           <Stats id={pages.STATS} state={state} />
+          <Moder id={pages.MODER} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />

@@ -10,6 +10,7 @@ import * as api from '../services/api';
 import * as pages from '../constants/pages';
 import * as accountActions from "./account";
 import * as activityActions from "./activity";
+import * as moderActions from "./moder";
 import * as liveChatsActions from "./live_chats";
 import * as utils from "../utils";
 import { navHistory } from '../reducers';
@@ -233,6 +234,18 @@ export function openStats() {
   accountActions.loadStats();
 
   utils.statReachGoal('stats_page');
+}
+
+export function openModer() {
+  let params = {
+    reports: [],
+    isLoading: true,
+    isFailed: false,
+    type: 'all'
+  };
+
+  go(pages.MODER, params);
+  moderActions.loadReports();
 }
 
 export function showAlert(title, message, okText = false, opts = {}) {

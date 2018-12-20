@@ -115,7 +115,8 @@ export default function reducer(state = initialState, action) {
         gifts: action.gifts,
         hasBadge: action.hasBadge,
         needTokenMessage: false,
-        hasPremium: action.hasPremium
+        hasPremium: action.hasPremium,
+        isModer: action.isModer
       });
     }
 

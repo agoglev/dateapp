@@ -106,6 +106,12 @@ export const routes = [
     name: pages.STATS,
     path: pages.STATS,
     view: 'modal'
+  },
+
+  {
+    name: pages.MODER,
+    path: pages.MODER,
+    view: 'modal'
   }
 ];
 
