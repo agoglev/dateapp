@@ -49,7 +49,7 @@ export default class GiftSend extends BaseComponent {
         </Header>
         <div className="Gifts__send_wrap" style={{minHeight: `${this.state.height}px`, paddingBottom: 77}}>
           <Gallery
-            slideWidth="90%"
+            slideWidth="100%"
             align="center"
             style={{flex: 1}}
             slideIndex={this.data.slideIndex}

@@ -28,10 +28,16 @@
   display: flex;
   overflow: hidden;
   background: #fff;
+  box-sizing: border-box;
 
   .Gallery {
     flex: 1;
-    min-height: 300px;
+    min-height: 256px;
+    height: 100% !important;
+  }
+
+  .Gallery__viewport {
+    position: absolute;
   }
 }
 

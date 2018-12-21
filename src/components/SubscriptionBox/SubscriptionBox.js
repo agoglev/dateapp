@@ -21,7 +21,7 @@ export default class SubscriptionBox extends PureComponent {
           <div className="SubscriptionBox__items">
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon likes" />
-              <div className="SubscriptionBox__item_caption">Узнайте кому вы понравились</div>
+              <div className="SubscriptionBox__item_caption">Узнайте, кому вы понравились</div>
             </div>
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon cancel_action" />
@@ -29,7 +29,7 @@ export default class SubscriptionBox extends PureComponent {
             </div>
             <div className="SubscriptionBox__item">
               <div className="SubscriptionBox__item_icon messages" />
-              <div className="SubscriptionBox__item_caption">Ваши сообщения будут читать первыми</div>
+              <div className="SubscriptionBox__item_caption">Пусть ваши сообщения читают в первую очередь</div>
             </div>
           </div>
           <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
