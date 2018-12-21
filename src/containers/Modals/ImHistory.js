@@ -67,7 +67,7 @@ export default class ImHistory extends BaseComponent {
     }
 
     return (
-      <Panel id={this.props.id} theme="white">
+      <Panel id={this.props.id} theme="white" className={this.state.hasFocus ? 'is_focused' : ''}>
         {this._renderContnet()}
       </Panel>
     )
@@ -430,7 +430,7 @@ export default class ImHistory extends BaseComponent {
   };
 
   _renderOnline() {
-    const peer = this.props.state.usersInfo[this.peerId];
+    const peer = this.props.state.usersInfo[this.peerId] || {};
     const now = Math.floor(new Date().getTime() / 1000);
 
     if (now - peer.last_update < 60 * 10) {

@@ -149,8 +149,7 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-  min-height: calc(100vh - 97px);
-  min-height: calc(100vh - 97px - env(safe-area-inset-bottom));
+  padding: 16px;
 }
 .im_history {
   -webkit-overflow-scrolling: touch;
@@ -159,20 +158,20 @@
   flex-wrap: nowrap;
   overscroll-behavior: contain;
   padding-bottom: 97px;
-  padding-bottom: calc(97px + env(safe-area-inset-bottom));
-  padding-top: 48px;
 }
 body.desktop .im_history {
   padding-bottom: 110px !important;
 }
 #im_history {
-  padding: 16px 0;
   box-sizing: border-box;
   background: #fff;
   min-height: 100vh;
 }
 #im_history .Panel__in {
   background: #fff;
+}
+#im_history.is_focused .Panel__in {
+  padding-bottom: 0 !important;
 }
 .im_message_wrap {
   display: flex;
