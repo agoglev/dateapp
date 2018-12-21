@@ -3,7 +3,7 @@ import './Gifts.css';
 import React from 'react';
 import BaseComponent from '../../BaseComponent';
 import Header from '../../components/proxy/Header';
-import { Panel, FormLayout, Textarea, Input, Button, Gallery, Avatar, Cell } from '@vkontakte/vkui';
+import { Panel, FormLayout, Textarea, Input, Button, Gallery, Avatar, Cell, FixedLayout } from '@vkontakte/vkui';
 import UIBackButton from '../../components/UI/UIBackButton';
 import * as utils from '../../utils';
 import * as paymentsActions from '../../actions/payments';
@@ -47,7 +47,7 @@ export default class GiftSend extends BaseComponent {
         >
           Отправка
         </Header>
-        <div className="Gifts__send_wrap" style={{minHeight: `${this.state.height}px`}}>
+        <div className="Gifts__send_wrap" style={{minHeight: `${this.state.height}px`, paddingBottom: 77}}>
           <Gallery
             slideWidth="90%"
             align="center"
@@ -63,7 +63,9 @@ export default class GiftSend extends BaseComponent {
               <Cell before={<Avatar src={peer.small_photo} />}>{peer.name}</Cell>
             </div>
             <Textarea placeholder="Напишите сообщение" value={this.data.message} onChange={(e) => this.setData('message', e.target.value)} />
-            <Button size="xl" level="1" onClick={this._sendButtonDidPress} style={{margin: 16}}>Отправить подарок</Button>
+            <FixedLayout vertical="bottom" style={{backgroundColor: '#fff', position: 'relative', zIndex: 1000}}>
+              <Button size="xl" level="1" onClick={this._sendButtonDidPress} style={{margin: 16}}>Отправить подарок</Button>
+            </FixedLayout>
           </FormLayout>
         </div>
       </div>
