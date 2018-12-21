@@ -5,6 +5,16 @@
   justify-content: center;
   height: 100%;
 }
+@keyframes permissions_modal_anim {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 .permissions_modal {
   display: flex;
   align-items: center;
@@ -17,6 +27,7 @@
   margin: 16px;
   border-radius: 8px;
   position: relative;
+  animation: permissions_modal_anim 250ms ease-in-out;
 }
 .permissions_modal .permissions_close {
   position: absolute;
