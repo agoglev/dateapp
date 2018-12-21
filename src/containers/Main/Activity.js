@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { Button, Spinner, Group, HorizontalScroll, Cell, Tooltip, HeaderButton } from '@vkontakte/vkui';
+import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -192,16 +192,7 @@ export default class Activity extends BaseComponent {
 
     */
 
-    if (window.isDesktop) {
-      res.unshift(this._renderFeatureAddButton());
-    } else {
-      res.unshift(<Tooltip
-        text="Хотите больше лайков?"
-        key={-1}
-        isShown={!this.state.isLoading && !this.state.isFailed && this.props.state.isFeatureTTShown}
-        onClose={activityActions.hideFeatureTT}
-      >{this._renderFeatureAddButton()}</Tooltip>);
-    }
+    res.unshift(this._renderFeatureAddButton());
 
     return res;
   }
