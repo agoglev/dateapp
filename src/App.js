@@ -25,13 +25,14 @@ import Filters from './containers/Filters/Filters';
 import VkPhotos from './containers/VkPhotos/VkPhotos';
 import Likes from './containers/Likes/Likes';
 import LiveChat from "./containers/DateChats/LiveChat";
+import Stats from "./containers/Stats/Stats";
+import Moder from "./containers/Moder/Moder";
+import Notify from "./containers/Notify/Notify";
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
 import PlaceholderNeedToken from "./components/Placeholder/PlaceholderNeedToken";
 import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
-import Stats from "./containers/Stats/Stats";
-import Moder from "./containers/Moder/Moder";
 
 class App extends React.Component {
 	render() {
@@ -149,6 +150,7 @@ class App extends React.Component {
           <LiveChat id={pages.LIVE_CHAT} state={state} />
           <Stats id={pages.STATS} state={state} />
           <Moder id={pages.MODER} state={state} />
+          <Notify id={pages.NOTIFY} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />
@@ -210,6 +212,8 @@ class App extends React.Component {
         return <Stats id={pages.STATS} state={state} />;
       case pages.MODER:
         return <Moder id={pages.MODER} state={state} />;
+      case pages.NOTIFY:
+        return <Notify id={pages.NOTIFY} state={state} />;
 
       default:
         return false;

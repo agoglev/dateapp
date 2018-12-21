@@ -138,7 +138,7 @@ export default class Cards extends Component {
 
     return (
       <Tooltip
-        text="Вы пропустили симпатию"
+        text="Упс! Вы упустили симпатию"
         isShown={!this.state.isLoading && !this.state.isFailed && this.state.isLikeSkipped}
         onClose={() => this.setState({isLikeSkipped: false})}
       >

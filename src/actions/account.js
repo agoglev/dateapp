@@ -129,6 +129,10 @@ function initMethodHandler(resp) {
     store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: resp.hasLikesBadge});
     payments.setPremiumState(resp.hasPremium);
     searchFilters = resp.searchFilters;
+
+    if (resp.payments_rates) {
+      payments.setPrices(resp.payments_rates);
+    }
   }
 }
 
@@ -205,4 +209,29 @@ export function loadStats() {
       isFailed: true
     }, pages.STATS);
   });
+}
+
+export function loadNotifySettings() {
+  actions.setData('isLoading', true, pages.NOTIFY);
+  actions.setData('isFailed', false, pages.NOTIFY);
+  api.method(api.methods.notify).then((settings) => {
+    actions.setData('settings', settings, pages.NOTIFY);
+    actions.setData('isLoading', false, pages.NOTIFY);
+  }).catch(() => {
+    actions.setData('isLoading', false, pages.NOTIFY);
+    actions.setData('isFailed', true, pages.NOTIFY);
+  });
+}
+
+export function saveNotifySettings() {
+  actions.loaderShow();
+  const { settings } = actions.getData(pages.NOTIFY);
+  api.method(api.methods.notifySave, {
+    message: settings.message ? 1 : 0,
+    match: settings.match ? 1 : 0,
+    like: settings.like ? 1 : 0,
+  }).then(() => {
+    actions.loaderSuccess();
+    window.history.back();
+  }).catch(() => actions.showError())
 }

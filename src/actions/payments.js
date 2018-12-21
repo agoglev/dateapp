@@ -10,7 +10,7 @@ import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
 
 export let hasPremium = false;
 
-export const Prices = {
+export let Prices = {
   premium: {
     votes: 10,
     rubles: 99
@@ -32,6 +32,10 @@ export const Prices = {
     rubles: 21
   }
 };
+
+export function setPrices(newPrices) {
+  Prices = newPrices;
+}
 
 export function setPremiumState(has) {
   hasPremium = has;

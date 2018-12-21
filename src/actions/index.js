@@ -248,6 +248,17 @@ export function openModer() {
   moderActions.loadReports('template');
 }
 
+export function openNotify() {
+  let params = {
+    isLoading: true,
+    isFailed: false,
+    settings: {}
+  };
+
+  go(pages.NOTIFY, params);
+  accountActions.loadNotifySettings();
+}
+
 export function showAlert(title, message, okText = false, opts = {}) {
   return new Promise((resolve, reject) => {
     let actions = [];

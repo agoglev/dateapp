@@ -25,6 +25,7 @@ export const VK_PHOTOS = 'VK_PHOTO';
 export const LIVE_CHAT = 'live_chat';
 export const STATS = 'stats';
 export const MODER = 'moder';
+export const NOTIFY = 'notify';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';

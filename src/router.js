@@ -112,6 +112,12 @@ export const routes = [
     name: pages.MODER,
     path: pages.MODER,
     view: 'modal'
+  },
+
+  {
+    name: pages.NOTIFY,
+    path: pages.NOTIFY,
+    view: 'modal'
   }
 ];
 

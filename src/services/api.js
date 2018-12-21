@@ -108,6 +108,8 @@ export const methods = {
   skipReport: 'skip_report',
   banReport: 'ban_report',
   restoreReport: 'restore_report',
+  notify: 'notify',
+  notifySave: 'notify_save',
 };
 
 let vkRequestId = 0;
