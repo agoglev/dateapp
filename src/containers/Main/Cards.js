@@ -401,6 +401,10 @@ export default class Cards extends Component {
     const target = event.target;
     const card = this.props.state.cards[0];
 
+    if (!target) {
+      return;
+    }
+
     if (card.is_ad) {
       cardsActions.markAdAsSeen(card.id, true);
       return;

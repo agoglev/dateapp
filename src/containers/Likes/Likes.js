@@ -37,7 +37,7 @@ export default class Likes extends BaseComponent {
         <Header
           left={<UICloseButton />}
         >
-          Лайки
+          Вы нравитесь
         </Header>
         <div className={className}>
           {this._renderLikes()}
@@ -124,8 +124,8 @@ export default class Likes extends BaseComponent {
     return (
       <div className="Likes__premium">
         <div className="Likes__premium__title">Вы понравились {label}!</div>
-        <div className="Likes__premium__caption">Свайпайте в право «Карточки», или откройте их сейчас с помощью Знакомства&nbsp;«Премиум».</div>
-        <Button size="xl" level="1" onClick={() => payments.showSubscriptionRequest()}>Открыть сейчас</Button>
+        <div className="Likes__premium__caption">Найдите их в «Карточках» или разблокируйте доступ прямо сейчас.</div>
+        <Button size="xl" level="1" onClick={() => payments.showSubscriptionRequest()}>Разблокировать</Button>
       </div>
     )
   }

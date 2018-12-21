@@ -229,13 +229,16 @@ export default class Activity extends BaseComponent {
           actions.openLikes();
           utils.statReachGoal('likes_open_modal');
         }}
-      >Лайки</Cell>
+      >Вы нравитесь</Cell>
+    </Group>;
+
+      /*
       {likes.length > 0 && <HorizontalScroll>
         <div className="likes_rows">
           {this._renderLikesRows(likes)}
         </div>
       </HorizontalScroll>}
-    </Group>;
+       */
   }
 
   _renderLikesRows(likes) {
