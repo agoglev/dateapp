@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.64a6cd08.css",
-  "main.css.map": "static/css/main.64a6cd08.css.map",
-  "main.js": "static/js/main.d16a5a61.js",
-  "main.js.map": "static/js/main.d16a5a61.js.map",
+  "main.css": "static/css/main.be71daa1.css",
+  "main.css.map": "static/css/main.be71daa1.css.map",
+  "main.js": "static/js/main.b86c9b17.js",
+  "main.js.map": "static/js/main.b86c9b17.js.map",
   "static/media/add.svg": "static/media/add.3bf83574.svg",
   "static/media/add_48.svg": "static/media/add_48.f73ede8f.svg",
   "static/media/arrow_16.svg": "static/media/arrow_16.90124333.svg",
@@ -45,5 +45,6 @@
   "static/media/slick.ttf": "static/media/slick.d41f55a7.ttf",
   "static/media/slick.woff": "static/media/slick.b7c9e1e4.woff",
   "static/media/superlike_24.svg": "static/media/superlike_24.ae26cc47.svg",
+  "static/media/toolbar_gift_24.svg": "static/media/toolbar_gift_24.b40c8cea.svg",
   "static/media/toolbar_photo_24.svg": "static/media/toolbar_photo_24.823848ba.svg"
 }
