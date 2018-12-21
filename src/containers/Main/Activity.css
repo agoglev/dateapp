@@ -412,11 +412,15 @@ body.desktop .im_send_form {
   flex-direction: column;
 }
 .im_history_gift_image {
-  width: 224px;
-  height: 224px;
+  max-width: 224px;
+  width: 100%;
   background: #fff no-repeat center / contain;
   border-radius: 4px;
-  background-size: 192px;
+}
+.im_history_gift_image:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
 }
 .im_history_gift_info {
   color: #99752e;
