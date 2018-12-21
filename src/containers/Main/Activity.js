@@ -203,7 +203,18 @@ export default class Activity extends BaseComponent {
   }
 
   _renderFeatureAddButton() {
+    const user = this.props.state.usersInfo[this.props.state.userId];
     return (
+      <div
+        className="live_feed_featured_item add_btn"
+        key={-1}
+        onClick={this._featureDidPress}
+      >
+        <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+      </div>
+    )
+
+    /*return (
       <div
         className="live_feed_featured_pay_button"
         key={-1}
@@ -211,7 +222,7 @@ export default class Activity extends BaseComponent {
       >
         <div className="live_feed_featured_pay_button_text">Хочу<br/>сюда</div>
       </div>
-    )
+    )*/
   }
 
   _renderLikes() {

@@ -780,7 +780,7 @@
 
   //&.live_feed_featured {
     //animation: none;
-    padding-left: 64px + 18px;
+    //padding-left: 64px + 18px;
   //}
 
   &:after {
@@ -817,14 +817,19 @@
   border-radius: @border-radius;
   overflow: hidden;
 
-  .live_feed_featured_item.add_btn &:after {
+  .live_feed_featured_item.add_btn & {
+    overflow: initial;
+  }
+
+  .live_feed_featured_item.add_btn &:before {
     content: '';
     position: absolute;
     bottom: -3px;
     right: -3px;
     .size(24px);
     background: url('./asset/promo_add_24.svg') no-repeat center/contain;
-    animation: FeatureBtnRotate 3s linear infinite forwards;
+    //animation: FeatureBtnRotate 3s linear infinite forwards;
+    z-index: 3;
   }
 
   &:after {
@@ -836,6 +841,10 @@
     height: 100%;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.32));
     z-index: 1;
+  }
+
+  .live_feed_featured_item.add_btn &:after {
+    display: none;
   }
 }
 
