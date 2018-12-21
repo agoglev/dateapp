@@ -119,8 +119,22 @@ function updateMessage(peerId, msgId, msg) {
   }
 }
 
+export function addGiftMessage(peerId, giftId, text) {
+  const msgId = new Date().getTime();
+  const msg = {
+    id: msgId,
+    text,
+    add_date: msgId,
+    kludges: {
+      gift_id: giftId
+    },
+    unread: 1,
+    system: SystemMessageType.gift
+  };
+  addMessage(peerId, msg);
+}
+
 export function sendMessage(peerId, text) {
-  console.log('sendMessage', text);
   const msgId = new Date().getTime();
   const msg = {
     id: msgId,

@@ -13,6 +13,7 @@ import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 import BaseComponent from '../../BaseComponent';
 
+let skipFeatureAnim = false;
 export default class Activity extends BaseComponent {
   constructor() {
     super();

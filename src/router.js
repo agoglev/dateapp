@@ -118,6 +118,18 @@ export const routes = [
     name: pages.NOTIFY,
     path: pages.NOTIFY,
     view: 'modal'
+  },
+
+  {
+    name: pages.GIFTS,
+    path: pages.GIFTS,
+    view: 'modal'
+  },
+
+  {
+    name: pages.GIFT_SEND,
+    path: pages.GIFT_SEND,
+    view: 'modal'
   }
 ];
 

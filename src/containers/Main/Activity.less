@@ -183,7 +183,7 @@
   padding-bottom: 97px;
 
   body.desktop & {
-    padding-bottom: 110px !important;
+    padding-bottom: 48px !important;
   }
 }
 
@@ -505,7 +505,8 @@
   }
 }
 
-.im_send_photo_button {
+.im_send_photo_button,
+.im_send_gift_button {
   .size(48px);
   position: relative;
   background: url('./asset/toolbar_photo_24.svg') no-repeat center;
@@ -519,6 +520,10 @@
     top: 0;
     left: 0;
   }
+}
+
+.im_send_gift_button {
+  background-image: url('./asset/toolbar_gift_24.svg');
 }
 
 .im_history_photo {
@@ -758,13 +763,18 @@
   left: 0;
   right: 0;
   z-index: 100;
-  padding-left: 6px;
-  animation: live_feed_featured_anim 200ms ease-in-out forwards;
-  animation-delay: 1.5s;
+  //padding-left: 6px;
+  //animation: live_feed_featured_anim 200ms ease-in-out forwards;
+  //animation-delay: 1.5s;
 
   body.desktop & {
     right: @menu-width;
   }
+
+  //&.live_feed_featured {
+    //animation: none;
+    padding-left: 64px + 18px;
+  //}
 
   &:after {
     width: 10px;

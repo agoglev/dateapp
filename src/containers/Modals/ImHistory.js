@@ -38,6 +38,7 @@ export default class ImHistory extends BaseComponent {
     if (this.data.isFirstShow) {
       this.setState({isLoading: true, isFailed: false});
       setTimeout(this._load, 600);
+      ImHistory.scrollToBottom();
     }
 
     const sendBtn = ReactDOM.findDOMNode(this.refs['sendBtn']);
@@ -169,6 +170,7 @@ export default class ImHistory extends BaseComponent {
             <div className="im_send_photo_button">
               <input type="file" onChange={this._photoDidSelect}/>
             </div>
+            {!window.isDesktop && !window.isDG && <div className="im_send_gift_button" onClick={() => actions.openGifts(this.peerId)} />}
             <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
           </div>
         </div>
@@ -274,9 +276,10 @@ export default class ImHistory extends BaseComponent {
 
       let hasGift = false;
       let hasPhoto = false;
-      if (message.system === SystemMessageType.gift || message.kludges.gift_id > 0) {
+      const giftId = parseInt(message.kludges.gift_id, 10);
+      if (message.system === SystemMessageType.gift || giftId > 0) {
         hasGift = true;
-        const gift = giftsActions.getGiftById(message.kludges.gift_id);
+        const gift = giftsActions.getGiftById(giftId);
         text = <div className="im_history_gift">
           <div className="im_history_gift_image" style={{backgroundImage: `url(${gift.url})`}} />
           <div className="im_history_gift_info">Подарок</div>

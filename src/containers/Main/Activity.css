@@ -160,7 +160,7 @@
   padding-bottom: 97px;
 }
 body.desktop .im_history {
-  padding-bottom: 110px !important;
+  padding-bottom: 48px !important;
 }
 #im_history {
   box-sizing: border-box;
@@ -442,7 +442,8 @@ body.desktop .im_send_form {
 .im_history_gift_text:empty {
   display: none;
 }
-.im_send_photo_button {
+.im_send_photo_button,
+.im_send_gift_button {
   width: 48px;
   height: 48px;
   position: relative;
@@ -450,13 +451,17 @@ body.desktop .im_send_form {
   background-size: 24px;
   overflow: hidden;
 }
-.im_send_photo_button input {
+.im_send_photo_button input,
+.im_send_gift_button input {
   opacity: 0;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
+}
+.im_send_gift_button {
+  background-image: url('asset/toolbar_gift_24.svg');
 }
 .im_history_photo {
   position: relative;
@@ -666,9 +671,7 @@ body.desktop .im_send_form {
   left: 0;
   right: 0;
   z-index: 100;
-  padding-left: 6px;
-  animation: live_feed_featured_anim 200ms ease-in-out forwards;
-  animation-delay: 1.5s;
+  padding-left: 82px;
 }
 body.desktop .live_feed_featured {
   right: 240px;

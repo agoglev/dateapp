@@ -33,6 +33,8 @@ import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
 import PlaceholderNeedToken from "./components/Placeholder/PlaceholderNeedToken";
 import PlaceholderWorks from "./components/Placeholder/PlaceholderWorks";
+import Gifts from "./containers/Gifts/Gifts";
+import GiftSend from "./containers/Gifts/GiftSend";
 
 class App extends React.Component {
 	render() {
@@ -151,6 +153,8 @@ class App extends React.Component {
           <Stats id={pages.STATS} state={state} />
           <Moder id={pages.MODER} state={state} />
           <Notify id={pages.NOTIFY} state={state} />
+          <Gifts id={pages.GIFTS} state={state} />
+          <GiftSend id={pages.GIFT_SEND} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />
@@ -214,6 +218,10 @@ class App extends React.Component {
         return <Moder id={pages.MODER} state={state} />;
       case pages.NOTIFY:
         return <Notify id={pages.NOTIFY} state={state} />;
+      case pages.GIFTS:
+        return <Gifts id={pages.GIFTS} state={state} />;
+      case pages.GIFT_SEND:
+        return <GiftSend id={pages.GIFT_SEND} state={state} />;
 
       default:
         return false;

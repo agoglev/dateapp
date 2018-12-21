@@ -26,6 +26,8 @@ export const LIVE_CHAT = 'live_chat';
 export const STATS = 'stats';
 export const MODER = 'moder';
 export const NOTIFY = 'notify';
+export const GIFTS = 'gifts';
+export const GIFT_SEND = 'gift_send';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';

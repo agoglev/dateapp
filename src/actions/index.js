@@ -259,6 +259,34 @@ export function openNotify() {
   accountActions.loadNotifySettings();
 }
 
+export function openGifts(userId) {
+  let params = {
+    userId
+  };
+
+  go(pages.GIFTS, params);
+}
+
+export function openGiftSend(userId, gift) {
+  let gifts = store.getState().gifts.filter((gift) => gift.available);
+  let slideIndex = 0;
+  for (let i = 0; i < gifts.length; i++) {
+    if (gifts[i].id === gift.id) {
+      slideIndex = i;
+      break;
+    }
+  }
+
+  let params = {
+    userId,
+    gift,
+    slideIndex,
+    message: ''
+  };
+
+  go(pages.GIFT_SEND, params);
+}
+
 export function showAlert(title, message, okText = false, opts = {}) {
   return new Promise((resolve, reject) => {
     let actions = [];
@@ -371,10 +399,10 @@ export function vkPayRequest(amount, description) {
   });
 }
 
-export function vkPay(type) {
+export function vkPay(type, extraFields = {}) {
   return new Promise((resolve, reject) => {
     vkPayPromise = {resolve, reject};
-    api.method(api.methods.payParams, {type}).then((params) => {
+    api.method(api.methods.payParams, {type, ...extraFields}).then((params) => {
       connect.send('VKWebAppOpenPayForm', {app_id: 6682509, action: 'pay-to-service', params});
     }).catch(() => {
       vkPayPromise = false;

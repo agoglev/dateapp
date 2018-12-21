@@ -7,6 +7,7 @@ import * as utils from "../utils";
 import NotificationsPermission from '../components/NotificationsPermission/NotificationsPermission';
 import * as activityActions from "./activity";
 import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
+import ImHistory from "../containers/Modals/ImHistory";
 
 export let hasPremium = false;
 
@@ -69,6 +70,25 @@ export function buyPremium(type = 'premium') {
     }).catch(() => actions.showError());
   }
   utils.statReachGoal('premium_continue');
+}
+
+export function buyGift(giftId, userId, message) {
+  actions.vkPay(`gift`, {
+    gift_id: giftId,
+    user_id: userId,
+    message: message
+  }).then(() => {
+    actions.loaderSuccess();
+    window.history.back();
+    setTimeout(() => {
+      window.history.back();
+
+      setTimeout(() => {
+        activityActions.addGiftMessage(userId, giftId, message);
+        ImHistory.scrollToBottom();
+      }, 1000);
+    }, 10);
+  }).catch(() => actions.showError());
 }
 
 export function showFeatureBox(isSale = false) {
