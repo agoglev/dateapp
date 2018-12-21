@@ -48,7 +48,8 @@ if (window.location.hash.indexOf('notify') > -1 || isNeedFeature) {
 window.onerror = function handler(msg, file, line, col, err) {
   api.method(api.methods.jsError, {
     stack: err.message + "\n" + err.stack,
-    device: window.navigator.userAgent
+    device: window.navigator.userAgent,
+    url: window.location.href
   });
 };
 

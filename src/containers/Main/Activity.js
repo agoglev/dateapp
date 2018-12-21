@@ -96,6 +96,11 @@ export default class Activity extends BaseComponent {
 
     const now = Math.floor(new Date().getTime() / 1000);
     return dialogs.map((dialog) => {
+      const user = this.props.state.usersInfo[dialog.user.id];
+      if (!user) {
+        return null;
+      }
+
       let text;
       if (dialog.want_to_talk && !dialog.message.id) {
         text = <div className="im_dialog_system">Хочет общаться!</div>;
@@ -117,7 +122,6 @@ export default class Activity extends BaseComponent {
         }
       }
 
-      const user = this.props.state.usersInfo[dialog.user.id];
       const isOnline = now - user.last_update < 60 * 10;
 
       const className = utils.classNames({

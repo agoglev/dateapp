@@ -351,7 +351,9 @@ export default class ImHistory extends BaseComponent {
     const fn = () => {
       if (window.isDesktop) {
        const el = document.querySelector('.App__modal__cont');
-       el.scrollTop = el.scrollHeight;
+       if (el) {
+         el.scrollTop = el.scrollHeight;
+       }
       } else {
         window.scrollBy(0, document.body.scrollHeight);
       }
