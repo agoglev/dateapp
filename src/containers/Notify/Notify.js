@@ -47,6 +47,7 @@ export default class Notify extends BaseComponent {
       <Group>
         <Checkbox checked={this.data.settings.message} onChange={(e) => this._onChange('message', e.target.checked)}>Новые сообщения</Checkbox>
         <Checkbox checked={this.data.settings.match} onChange={(e) => this._onChange('match', e.target.checked)}>Новые пары</Checkbox>
+        <Checkbox checked={this.data.settings.gift} onChange={(e) => this._onChange('gift', e.target.checked)}>Новые подарки</Checkbox>
         <Checkbox checked={this.data.settings.like} onChange={(e) => this._onChange('like', e.target.checked)}>Новые лайки</Checkbox>
         <FormLayout>
           <Button size="xl" level="1" onClick={this._saveButtonDidPress}>Сохранить</Button>

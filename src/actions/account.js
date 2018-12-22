@@ -230,6 +230,7 @@ export function saveNotifySettings() {
     message: settings.message ? 1 : 0,
     match: settings.match ? 1 : 0,
     like: settings.like ? 1 : 0,
+    gift: settings.gift ? 1 : 0,
   }).then(() => {
     actions.loaderSuccess();
     window.history.back();
