@@ -435,11 +435,53 @@ export default class ImHistory extends BaseComponent {
   _renderOnline() {
     const peer = this.props.state.usersInfo[this.peerId] || {};
     const now = Math.floor(new Date().getTime() / 1000);
+    const diff = now - peer.last_update;
 
     if (now - peer.last_update < 60 * 10) {
       return <div className="Activity__im-history__online">Онлайн</div>;
+    } else if (diff < 86400 * 7) {
+      const dateStr = this._lastUpdateFormat(peer.last_update * 1000);
+      return <div className="Activity__im-history__online">{utils.genderText(peer.gender, [
+        'Был онлайн ' + dateStr,
+        'Была онлайн ' + dateStr
+      ]).toLowerCase()}</div>;
+    } else {
+      return <div className="Activity__im-history__online">{utils.genderText(peer.gender, [
+        'Был онлайн более недели назад',
+        'Была онлайн более недели назад'
+      ])}</div>;
+    }
+  }
+
+  _lastUpdateFormat(ts) {
+    const tDate = new Date(ts);
+    const curDate = new Date();
+    const dt = Math.floor((curDate.getTime() - ts) / 1000);
+    const days = Math.floor(dt / 86400);
+
+    let h = tDate.getHours();
+    if (h < 10) {
+      h = '0' + h;
     }
 
-    return null;
+    let m = tDate.getMinutes();
+    if (m < 10) {
+      m = '0' + m;
+    }
+
+    if (days === 0) {
+      return `сегодня в ${h}:${m}`;
+    } else if (days === 1) {
+      return `вчера в ${h}:${m}`;
+    } else {
+      const date = new Date(ts);
+
+      const months = ["Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября", "Ноября","Декабря"];
+
+      if (date.getFullYear() === curDate.getFullYear()) {
+        return date.getDate() + ' ' + months[date.getMonth()]
+      }
+      return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear()
+    }
   }
 }
