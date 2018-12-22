@@ -13,15 +13,6 @@ body.desktop {
 body.desktop #root {
   overflow-y: auto;
 }
-.PanelHeader-bg--brand,
-.PanelHeader-content--brand,
-.PanelHeader-left-in--brand,
-.PanelHeader-addon--brand,
-.PanelHeader-right--brand,
-.Button--level-1,
-.Button--lvl-primary {
-  background: #e63973 !important;
-}
 .Header__content .Icon {
   display: inline-block;
 }
@@ -37,16 +28,13 @@ body.desktop #root {
 .Search__input {
   color: #1a1a1a !important;
 }
-.Link {
-  color: #e63973 !important;
-}
 .Error {
   position: fixed;
   left: 0;
   z-index: 1000;
   right: 0;
   background: #fff;
-  color: #e63973;
+  color: #5181b8;
   font-size: 16px;
   padding: 10px;
   box-sizing: border-box;
@@ -100,7 +88,7 @@ body.desktop .Error {
 .global_loader.global_loader_success path {
   opacity: 1;
   fill: none;
-  stroke: #e63973;
+  stroke: #5181b8;
   stroke-dasharray: 100%,100%;
 }
 .global_loader.global_loader_success .global_loader_cont:after {
@@ -126,8 +114,8 @@ body.desktop .Error {
   display: inline-block;
   font-size: 14px;
   line-height: 16px;
-  color: #e63973;
-  border: 1px solid #e63973;
+  color: #5181b8;
+  border: 1px solid #5181b8;
   padding: 7px 12px;
   border-radius: 6px;
   box-sizing: border-box;
@@ -144,7 +132,7 @@ body.desktop .Error {
   padding-bottom: 6px;
 }
 .ui_inline_button.fill {
-  background: #e63973;
+  background: #5181b8;
   color: #fff;
   border: 0;
 }
@@ -171,11 +159,11 @@ body.desktop .Error {
 }
 .ui_inline_button.light {
   background: rgba(230, 57, 115, 0.16);
-  color: #e63973;
+  color: #5181b8;
 }
 .ui_inline_button.white {
   background: #fff;
-  color: #e63973;
+  color: #5181b8;
   font-weight: 500;
   border: 0;
 }

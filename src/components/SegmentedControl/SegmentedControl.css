@@ -20,13 +20,13 @@
   left: -1px;
   bottom: -1px;
   right: -1px;
-  border: 2px solid #e63973;
+  border: 2px solid #5181b8;
   border-radius: 8px;
   opacity: 0;
   transition: opacity 150ms ease-in-out;
 }
 .SegmentedControl__item.selected {
-  color: #e63973;
+  color: #5181b8;
 }
 .SegmentedControl__item.selected:after {
   opacity: 1;

@@ -9,7 +9,7 @@
   z-index: 10;
 }
 .Graph__cont path {
-  stroke: #e63973;
+  stroke: #5181b8;
 }
 .Graph__separator {
   position: absolute;
@@ -22,7 +22,7 @@
   transform: translateX(-50%);
 }
 .Graph__separator.active {
-  background: #e63973;
+  background: #5181b8;
 }
 .Graph__point {
   position: absolute;
@@ -31,13 +31,13 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid #e63973;
+  border: 2px solid #5181b8;
   box-sizing: border-box;
   z-index: 11;
   transition: background 150ms ease-in-out;
 }
 .Graph__point.active {
-  background: #e63973;
+  background: #5181b8;
 }
 .Graph__touch-zone {
   z-index: 12;
@@ -59,5 +59,5 @@
   transition: color 150ms ease-in-out;
 }
 .Graph__touch-zone.active .Graph__day {
-  color: #e63973;
+  color: #5181b8;
 }

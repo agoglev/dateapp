@@ -30,7 +30,7 @@ body.desktop .Likes__user_row {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #e63973;
+  background: #5181b8;
   position: absolute;
   top: 4px;
   right: 4px;
@@ -93,7 +93,7 @@ body.desktop .Likes__user_row {
   justify-content: center;
   border-radius: 8px;
   flex: 1;
-  background: #e63973;
+  background: #5181b8;
 }
 .Likes__items.blur {
   filter: blur(15px);

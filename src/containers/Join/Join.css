@@ -138,7 +138,7 @@ body.desktop .profile_edit_photos .profile_edit_photo_cont {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #e63973 url('assest/delete_photo.svg') no-repeat center / contain;
+  background: #5181b8 url('assest/delete_photo.svg') no-repeat center / contain;
   background-size: 12px;
   border: 2px solid #fff;
   box-sizing: border-box;

@@ -47,7 +47,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background: #e63973;
+  background: #5181b8;
   z-index: 1;
 }
 .im_dialog:active {
@@ -111,7 +111,7 @@
   user-select: text;
 }
 .im_dialog .im_dialog_system {
-  color: #e63973;
+  color: #5181b8;
 }
 .im_dialog .im_dialog_name,
 .im_dialog .im_dialog_message {
@@ -122,7 +122,7 @@
 }
 .im_dialog .im_dialog_badge {
   flex: 0 0 auto;
-  background: #e63973;
+  background: #5181b8;
   font-size: 14px;
   line-height: 24px;
   height: 24px;
@@ -195,7 +195,7 @@ body.desktop .im_history {
   line-height: 22px;
   border-radius: 8px;
   color: #fff;
-  background: #e63973;
+  background: #5181b8;
   user-select: text;
   word-wrap: break-word;
   word-break: break-word;
@@ -244,7 +244,7 @@ body.desktop .im_history {
   text-transform: none;
 }
 .im_message_name.admin {
-  color: #e63973;
+  color: #5181b8;
 }
 .im_message_date {
   margin-right: 12px;
@@ -280,7 +280,7 @@ body.desktop .im_history {
 }
 .im_message_wrap.failed .im_message_unread_indicator {
   opacity: 1;
-  background: #e63973;
+  background: #5181b8;
 }
 .im_date {
   color: #808080;
@@ -362,7 +362,7 @@ body.desktop .im_send_form {
   line-height: 22px;
 }
 .im_send_form_button.active {
-  color: #e63973;
+  color: #5181b8;
 }
 .im_history_match {
   padding: 16px 32px 15px;
@@ -391,7 +391,7 @@ body.desktop .im_send_form {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #e63973 url('asset/match_like.svg') no-repeat center;
+  background: #5181b8 url('asset/match_like.svg') no-repeat center;
   background-size: 36px;
 }
 .im_history_match .im_history_match_title {
@@ -595,7 +595,7 @@ body.desktop .im_send_form {
   display: none;
   content: '';
   position: absolute;
-  border: 2px solid #e63973;
+  border: 2px solid #5181b8;
   box-sizing: border-box;
   top: 0;
   left: 0;
@@ -617,7 +617,7 @@ body.desktop .im_send_form {
 .likes_row.unread .likes_row_photo:after {
   content: '';
   position: absolute;
-  border: 2px solid #e63973;
+  border: 2px solid #5181b8;
   box-sizing: border-box;
   top: 0;
   left: 0;
@@ -653,7 +653,7 @@ body.desktop .im_send_form {
   box-sizing: border-box;
 }
 .likes_row.unread .likes_row_name {
-  color: #e63973;
+  color: #5181b8;
   font-weight: 500;
 }
 .live_feed_featured_helper {
@@ -768,7 +768,7 @@ body.desktop .live_feed_featured {
   width: 68px;
   height: 64px;
   box-sizing: border-box;
-  background: #e63973;
+  background: #5181b8;
   border-radius: 8px;
   margin-right: 6px;
   position: absolute;
@@ -786,7 +786,7 @@ body.desktop .live_feed_featured {
   text-align: center;
 }
 .Activity__likes-badge {
-  background: #e63973;
+  background: #5181b8;
   width: 10px;
   height: 10px;
   border-radius: 50%;

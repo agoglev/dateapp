@@ -59,8 +59,8 @@
   position: absolute;
   top: 18px;
   right: 16px;
-  border: 1px solid #e63973;
-  color: #e63973;
+  border: 1px solid #5181b8;
+  color: #5181b8;
   border-radius: 6px;
   font-size: 14px;
   line-height: 16px;
@@ -266,7 +266,7 @@ body.desktop .profile_view_footer {
   font-size: 16px;
   line-height: 22px;
   text-align: center;
-  color: #e63973;
+  color: #5181b8;
   padding: 13px 0;
 }
 .profile_view_button:first-child {

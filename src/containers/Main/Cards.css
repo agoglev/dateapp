@@ -258,7 +258,7 @@ body.desktop .Cards {
 .match_box_wrap {
   width: 100%;
   height: 100%;
-  background: #e63973;
+  background: #5181b8;
   color: #fff;
   display: flex;
   align-items: center;
@@ -367,7 +367,7 @@ body.desktop .Cards {
   margin-bottom: 16px;
 }
 .match_box_button.white {
-  color: #e63973;
+  color: #5181b8;
   background: #fff;
 }
 .match_box_close {

@@ -68,10 +68,10 @@ body.desktop .TabBar__ads {
   fill: #a3a3a3 !important;
 }
 .TabBar__item.active .TabBar__item-icon {
-  color: #e63973 !important;
+  color: #5181b8 !important;
 }
 .TabBar__item.active .TabBar__item-icon path {
-  fill: #e63973 !important;
+  fill: #5181b8 !important;
 }
 .TabBar__item-title {
   line-height: 19px;
@@ -82,7 +82,7 @@ body.desktop .TabBar__ads {
   display: none;
 }
 .TabBar__item.active .TabBar__item-title {
-  color: #e63973 !important;
+  color: #5181b8 !important;
 }
 .TabBar__link {
   line-height: 19px;

@@ -191,8 +191,16 @@ export default class UploadPhotoComponent extends BaseComponent {
     fetch(photo.src)
       .then(res => res.blob())
       .then(blob => {
-        const file = new File([blob], 'file.png', blob);
-        this.photoDidSelect(photo.index, file);
-      }).catch(() => actions.showError('Неудалось скачать фото'))
+        blob.lastModifiedDate = new Date();
+        //const file = new File([blob], 'file.png', blob);
+        this.photoDidSelect(photo.index, blob);
+      }).catch((err) => {
+        actions.showError('Неудалось скачать фото');
+        api.method(api.methods.jsError, {
+          stack: err.message + "\n" + err.stack,
+          device: window.navigator.userAgent,
+          url: window.location.href
+        });
+     });
   }
 }
