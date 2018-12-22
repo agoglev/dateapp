@@ -34,13 +34,6 @@ export default class ProfileView extends BaseComponent {
   }
 
   _renderContent() {
-    const user = this.data.user || {};
-
-    let nameComponents = [user.name];
-    if (user.age_ts) {
-      nameComponents.push(utils.getUsrAge(user.age_ts));
-    }
-
     const slideHeight = window.isDesktop ? 540 : window.innerWidth * 1.45;
 
     return (
@@ -58,18 +51,49 @@ export default class ProfileView extends BaseComponent {
           </Gallery>
         </div>
         <div className="profile_view_hide" onClick={() => window.history.back()} />
-        <div className="profile_view_info">
-          <div className="profile_view_name">{nameComponents.join(', ')}</div>
-          <div className="profile_view_info_rows">
-            {this._renderInfo()}
-          </div>
-          <div className="profile_view_about">{user.about}</div>
-          {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы создать чат!</div>}
-          <div className="profile_view_buttons">
-            {this._renderButtons()}
-          </div>
-        </div>
+        {this._renderInfoWrap()}
         {this._renderFooter()}
+      </div>
+    )
+  }
+
+  _renderInfoWrap() {
+    const user = this.data.user || {};
+
+    if (user.banned || user.deleted) {
+      let text;
+      if (user.banned) {
+        text = utils.genderText(user.gender, [
+          `${user.name} заблокирован по жалобам других участников`,
+          `${user.name} заблокирована по жалобам других участников`
+        ]);
+      } else {
+        text = utils.genderText(user.gender, [
+          `${user.name} удалил свою анкету`,
+          `${user.name} удалила свою анкету`
+        ]);
+      }
+      return (
+        <div className="profile_view_deactivated">{text}</div>
+      )
+    }
+
+    let nameComponents = [user.name];
+    if (user.age_ts) {
+      nameComponents.push(utils.getUsrAge(user.age_ts));
+    }
+
+    return (
+      <div className="profile_view_info">
+        <div className="profile_view_name">{nameComponents.join(', ')}</div>
+        <div className="profile_view_info_rows">
+          {this._renderInfo()}
+        </div>
+        <div className="profile_view_about">{user.about}</div>
+        {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы создать чат!</div>}
+        <div className="profile_view_buttons">
+          {this._renderButtons()}
+        </div>
       </div>
     )
   }
