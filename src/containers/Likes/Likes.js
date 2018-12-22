@@ -103,12 +103,12 @@ export default class Likes extends BaseComponent {
     }
 
     const state = this.props.state;
-    let label;
-    if (state.usersInfo[state.userId].gender === 1) {
+    const label = utils.gram(this.data.count, ['человеку', 'людям', 'людям']);;
+    /*if (state.usersInfo[state.userId].gender === 1) {
       if (this.data.nextFrom) {
         label = `${this.data.likes.length}+ парням`;
       } else {
-        label = utils.gram(this.data.likes.length, ['парню', 'парням', 'парням']);
+        label = utils.gram(count, ['человеку', 'людям', 'людям']);
       }
     } else {
       if (this.data.nextFrom) {
@@ -116,7 +116,7 @@ export default class Likes extends BaseComponent {
       } else {
         label = utils.gram(this.data.likes.length, ['девушке', 'девушкам', 'девушкам']);
       }
-    }
+    }*/
 
     utils.statReachGoal('likes_premium');
 

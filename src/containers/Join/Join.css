@@ -9,7 +9,7 @@
   margin: 16px auto 0;
 }
 .Join__intro-art {
-  background: url('assest/art_onboarding.png') no-repeat center / contain;
+  background: url('assest/art_onboarding.png?1') no-repeat center / contain;
   padding-top: 61%;
 }
 .Join__intro-title {

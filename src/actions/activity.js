@@ -411,6 +411,7 @@ export function loadLikes() {
   actions.setData('isFailed', false, pages.LIKES);
   api.method(api.methods.getLikes).then((resp) => {
     actions.setUsers(resp.likes.map(like => like.user));
+    actions.setData('count', resp.count, pages.LIKES);
     actions.setData('likes', resp.likes, pages.LIKES);
     actions.setData('nextFrom', resp.next_from, pages.LIKES)
   }).catch(() => {
