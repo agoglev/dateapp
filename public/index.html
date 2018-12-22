@@ -20,17 +20,14 @@
 			<div id="yandex_rtb_R-A-325915-1"></div>
 			<!-- Yandex.Metrika counter -->
 			<script type="text/javascript" >
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
         if (location.href.match('6682509') || location.href.match(/platform\=web/)) {
-          const script = document.createElement('script');
-          script.type = 'text/javascript';
           script.src = 'https://vk.com/js/api/xd_connection.js?2';
-          document.getElementById('vk_js').appendChild(script);
         } else {
-          const script = document.createElement('script');
-          script.type = 'text/javascript';
           script.src = 'https://vk.com/js/api/mobile_sdk.js?3';
-          document.getElementById('vk_js').appendChild(script);
         }
+        document.getElementById('vk_js').appendChild(script);
 
         (function (d, w, c) {
           (w[c] = w[c] || []).push(function() {

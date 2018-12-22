@@ -193,6 +193,6 @@ export default class UploadPhotoComponent extends BaseComponent {
       .then(blob => {
         const file = new File([blob], 'file.png', blob);
         this.photoDidSelect(photo.index, file);
-      }).catch(() => actions.showError('Произошла ошибка'))
+      }).catch(() => actions.showError('Неудалось скачать фото'))
   }
 }

@@ -136,7 +136,7 @@ export default class ProfileView extends BaseComponent {
   }
 
   _renderFooter() {
-    const user = this.data.user;
+    const user = this.data.user || {};
     if (user.id === this.props.state.userId || this.data.fromHistory === true) {
       return null;
     }

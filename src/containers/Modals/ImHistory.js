@@ -433,6 +433,10 @@ export default class ImHistory extends BaseComponent {
   };
 
   _renderOnline() {
+    if (this.state.isLoading || this.state.isFailed) {
+      return null;
+    }
+
     const peer = this.props.state.usersInfo[this.peerId] || {};
     const now = Math.floor(new Date().getTime() / 1000);
     const diff = now - peer.last_update;
