@@ -13,7 +13,11 @@ export const SystemMessageType = {
 };
 
 export function load() {
-  actions.setData('nextFrom', false, pages.ACTIVITY);
+  actions.setData({
+    nextFrom: false,
+    isLoading: true,
+    isFailed: false,
+  }, pages.ACTIVITY);
   return new Promise((resolve, reject) => {
     if (store.getState().dialogs.length > 0) {
       //resolve();
@@ -33,12 +37,19 @@ export function load() {
       actions.setUsers(featured_users);
       store.dispatch({type: actionTypes.FEATURED_USERS_SET, users: featured_users});
 
-      actions.setData('nextFrom', next_from, pages.ACTIVITY);
+      actions.setData({
+        nextFrom: next_from,
+        isLoading: false
+      }, pages.ACTIVITY);
 
       resolve();
 
       checkFeatureTT();
     }).catch(() => {
+      actions.setData({
+        isLoading: false,
+        isFailed: true
+      }, pages.ACTIVITY);
       reject();
     });
   });

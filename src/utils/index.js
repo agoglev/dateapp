@@ -306,3 +306,7 @@ export function initVkAds() {
   scriptElem.src = protocol + '//vk.com/js/api/openapi.js?160';
   adsElem.parentNode.insertBefore(scriptElem, adsElem.nextSibling);
 }
+
+export function isObject(e) {
+  return "[object Object]" === Object.prototype.toString.call(e);
+}

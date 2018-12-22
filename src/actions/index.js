@@ -61,6 +61,8 @@ export function setTab(tabName) {
     }, pages.SEARCH);
 
     utils.statReachGoal('search_page');
+  } else if (tabName === 'messages') {
+    activityActions.load();
   }
 
   store.dispatch({type: actionTypes.SET_TAB, tab: tabName});
@@ -70,12 +72,20 @@ export function setTab(tabName) {
 }
 
 export function setData(field, value, page) {
-  store.dispatch({
-    type: actionTypes.SET_DATA,
-    field,
-    value,
-    page
-  });
+  if (utils.isObject(field)) {
+    store.dispatch({
+      type: actionTypes.SET_DATA_MULTI,
+      changes: field,
+      page: value
+    });
+  } else {
+    store.dispatch({
+      type: actionTypes.SET_DATA,
+      field,
+      value,
+      page
+    });
+  }
 }
 
 export function setDataMulti(data, page) {

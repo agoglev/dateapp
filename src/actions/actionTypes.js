@@ -1,6 +1,7 @@
 export const NAVIGATE = 'NAVIGATE';
 export const SET_TAB = 'SET_TAB';
 export const SET_DATA = 'SET_DATA';
+export const SET_DATA_MULTI = 'SET_DATA_MULTI';
 export const APP_INITED = 'APP_INITED';
 export const APP_INIT_RETRY = 'APP_INIT_RETRY';
 export const VK_FAILED = 'VK_FAILED';

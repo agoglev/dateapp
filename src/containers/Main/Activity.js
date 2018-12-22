@@ -19,14 +19,12 @@ export default class Activity extends BaseComponent {
     super();
 
     this.state = {
-      isLoading: false,
-      isFailed: false,
       isLoadingMore: false
     };
   }
 
   componentDidMount() {
-    this._load();
+    //this._load();
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
     accountActions.resetBadge();
 
@@ -74,11 +72,11 @@ export default class Activity extends BaseComponent {
   _renderDialogs() {
     const dialogs = this.props.state.dialogs;
 
-    if (this.state.isLoading && dialogs.length === 0) {
+    if (this.data.isLoading && dialogs.length === 0) {
       return <div className="Activity__loader"><Spinner/></div>;
     }
 
-    if (this.state.isFailed) {
+    if (this.data.isFailed) {
       return <div className="Activity__failed">
         <div className="Activity__failed_msg">Произошла ошибка</div>
         <Button size="l" onClick={this._load}>Повторить</Button>
@@ -226,7 +224,7 @@ export default class Activity extends BaseComponent {
   }
 
   _renderLikes() {
-    if (this.state.isLoading && this.props.state.dialogs.length === 0) {
+    if (this.data.isLoading && this.props.state.dialogs.length === 0) {
       return null;
     }
 
@@ -277,20 +275,7 @@ export default class Activity extends BaseComponent {
   }
 
   _load = () => {
-    this.setState({
-      isLoading: true,
-      isFailed: false,
-    });
-    activityActions.load().then(() => {
-      this.setState({
-        isLoading: false
-      });
-    }).catch(() => {
-      this.setState({
-        isLoading: false,
-        isFailed: true
-      });
-    });
+    activityActions.load();
   };
 
   _loadMore = () => {
@@ -307,7 +292,7 @@ export default class Activity extends BaseComponent {
   };
 
   _renderMoreButton() {
-    if (this.state.isLoading || this.state.isFailed || !this.data.nextFrom) {
+    if (this.data.isLoading || this.data.isFailed || !this.data.nextFrom) {
       return null;
     }
 

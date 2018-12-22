@@ -106,6 +106,14 @@ export default function reducer(state = initialState, action) {
       });
     }
 
+    case actionTypes.SET_DATA_MULTI: {
+      return Object.assign({}, state, {
+        pageData: Object.assign({}, state.pageData, {
+          [action.page]: Object.assign({}, state.pageData[action.page], action.changes)
+        })
+      });
+    }
+
     case actionTypes.APP_INITED: {
       return Object.assign({}, state, {
         appInited: true,

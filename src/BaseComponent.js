@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as actions from './actions/index';
+import * as utils from './utils';
 
 export default class BaseComponent extends Component {
   static propTypes = {
@@ -14,7 +15,11 @@ export default class BaseComponent extends Component {
   }
 
   setData(field, value) {
-    actions.setData(field, value, this.props.id);
+    if (utils.isObject(field)) {
+      actions.setData(field, this.props.id);
+    } else {
+      actions.setData(field, value, this.props.id);
+    }
   }
 
   hasData(field) {
