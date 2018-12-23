@@ -329,3 +329,17 @@
   text-align: center;
   padding: 0 16px;
 }
+
+.profile_view_fav_btn {
+  .size(48px);
+  background: url('../../asset/fav_24.svg') no-repeat center/contain;
+  background-size: 24px;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  cursor: pointer;
+
+  &.unfav {
+    background-image: url('../../asset/unfav_24.svg');
+  }
+}

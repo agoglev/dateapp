@@ -237,3 +237,24 @@ export function saveNotifySettings() {
     window.history.back();
   }).catch(() => actions.showError())
 }
+
+export function loadFullProfile(profileId) {
+  actions.setData({
+    isLoading: true,
+    isFailed: false
+  }, pages.PROFILE);
+  api.method(api.methods.profileView, {
+    user_id: profileId
+  }).then((info) => {
+    actions.setData({
+      isLoading: false,
+      isLiked: info.is_liked,
+      isFavorite: info.is_favorite
+    }, pages.PROFILE);
+  }).catch(() => {
+    actions.setData({
+      isLoading: false,
+      isFailed: true
+    }, pages.PROFILE);
+  });
+}

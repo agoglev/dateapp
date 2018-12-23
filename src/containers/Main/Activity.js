@@ -68,6 +68,7 @@ export default class Activity extends BaseComponent {
     return (
       <Tabs type="buttons">
         <TabsItem onClick={() => this._setTab('chats')} selected={this.data.tab === 'chats'}>Чаты</TabsItem>
+        <TabsItem onClick={() => this._setTab('fav')} selected={this.data.tab === 'fav'}>Избранные</TabsItem>
         <TabsItem onClick={() => this._setTab('guests')} selected={this.data.tab === 'guests'}>Гости <span className="Activity__new_guests">{this.data.newGuests ? `+${this.data.newGuests}` : ''}</span></TabsItem>
       </Tabs>
     )
@@ -79,6 +80,8 @@ export default class Activity extends BaseComponent {
         return <div className="im_dialogs">{this._renderDialogs()}</div>;
       case 'guests':
         return this._renderGuests();
+      case 'fav':
+        return this.__renderFav();
     }
   }
 
@@ -193,7 +196,7 @@ export default class Activity extends BaseComponent {
         <div
           className="live_feed_featured_item"
           key={i}
-          onClick={() => actions.go(pages.PROFILE, {user: user, fromFeature: true})}
+          onClick={() => actions.openProfile(user, {fromFeature: true})}
         >
           <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}}>
             <div className="live_feed_featured_item_name">{user.name}</div>
@@ -333,6 +336,16 @@ export default class Activity extends BaseComponent {
           <div className="Likes__load-more">{this.state.isGuestsLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
         </div>
       )
+    } else if (this.data.tab === 'fav') {
+      if (this.data.isLoadingFav || this.data.isFailedFav || !this.data.favNextFrom) {
+        return null;
+      }
+
+      return (
+        <div className="Likes__load-more-wrap" onClick={this._loadMoreFav}>
+          <div className="Likes__load-more">{this.state.isFavLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+        </div>
+      )
     } else {
       return null;
     }
@@ -343,6 +356,8 @@ export default class Activity extends BaseComponent {
 
     if (tab === 'guests') {
       activityActions.loadGuests();
+    } else if (tab === 'fav') {
+      this.loadFav();
     }
   }
 
@@ -401,6 +416,68 @@ export default class Activity extends BaseComponent {
       this.setState({isGuestsLoadingMore: false});
     }).catch(() => {
       this.setState({isGuestsLoadingMore: false});
+    });
+  };
+
+  __renderFav() {
+    if (this.data.isLoadingFav) {
+      return <div className="Activity__loader"><Spinner/></div>;
+    }
+
+    if (this.data.isFailedFav) {
+      return <div className="Activity__failed">
+        <div className="Activity__failed_msg">Произошла ошибка</div>
+        <Button size="l" onClick={this.loadFav}>Повторить</Button>
+      </div>;
+    }
+
+    if (!this.data.favorites.length) {
+      return <div className="Likes__empty">Вы не добавили никого в «Избранные»</div>
+    }
+
+    const now = Math.floor(new Date().getTime() / 1000);
+    return this.data.favorites.map((guest) => {
+      const user = this.props.state.usersInfo[guest.id];
+      if (!user) {
+        return null;
+      }
+
+      let text = <div className="im_dialog_system">у вас в «Избранных»</div>;
+      const isOnline = now - user.last_update < 60 * 10;
+
+      return (
+        <div className="im_dialog" key={guest.id} onClick={(e) => {
+          if (e.target.className !== 'im_dialog_fav'){
+            actions.openChat(guest.id)
+          }
+        }}>
+          <div className="im_dialog_cont_wrap">
+            <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+            <div className="im_dialog_cont">
+              <div className="im_dialog_name_wrap">
+                <div className="im_dialog_name">{user.name}</div>
+                {isOnline && <div className="im_dialog_name_online" />}
+              </div>
+              <div className="im_dialog_message">{text}</div>
+            </div>
+            <div className="im_dialog_fav" onClick={() => activityActions.removeFromFav(guest.id)} />
+          </div>
+          <div className="im_dialog_separator" />
+        </div>
+      )
+    });
+  }
+
+  loadFav = () => {
+    activityActions.loadFav();
+  };
+
+  _loadMoreFav = () => {
+    this.setState({isFavLoadingMore: true});
+    activityActions.loadMoreGuests().then(() => {
+      this.setState({isFavLoadingMore: false});
+    }).catch(() => {
+      this.setState({isFavLoadingMore: false});
     });
   };
 }

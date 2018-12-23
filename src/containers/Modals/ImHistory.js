@@ -404,11 +404,7 @@ export default class ImHistory extends BaseComponent {
   _showProfile = () => {
       const user = this.props.state.usersInfo[this.peerId];
       this.setState({contextOpened: false});
-      actions.go(pages.PROFILE, {
-        user,
-        fromLikes: false,
-        fromHistory: true
-      })
+      actions.openProfile(user, {fromHistory: true});
   };
 
   _deleteHistory = () => {

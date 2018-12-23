@@ -413,7 +413,7 @@ export default class Cards extends Component {
     }
 
     if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
-      actions.go(pages.PROFILE, {user: this.props.state.cards[0], fromCards: true});
+      actions.openProfile(this.props.state.cards[0], {fromCards: true});
     } else {
       const isNext = this.startX > window.innerWidth / 2;
       let newIndex = this.state.activePhotos[card.id] || 0;

@@ -309,6 +309,22 @@ export function openGiftSend(userId, gift) {
   go(pages.GIFT_SEND, params);
 }
 
+export function openProfile(user, opts = {}) {
+  let params = {
+    user,
+    isLoading: true,
+    isFailed: false,
+    fromLikes: opts.fromLikes || false,
+    fromHistory: opts.fromHistory || false,
+    fromSearch: opts.fromSearch || false,
+    fromCards: opts.fromCards || false,
+    fromFeature: opts.fromFeature || false
+  };
+
+  go(pages.PROFILE, params);
+  accountActions.loadFullProfile(user.id);
+}
+
 export function showAlert(title, message, okText = false, opts = {}) {
   return new Promise((resolve, reject) => {
     let actions = [];

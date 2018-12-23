@@ -13,14 +13,6 @@ import Icon24Message from '@vkontakte/icons/dist/24/message';
 import * as api from '../../services/api';
 
 export default class ProfileView extends BaseComponent {
-  componentDidMount() {
-    if (this.data.user) {
-      api.method(api.methods.profileView, {
-        user_id: this.data.user.id
-      });
-    }
-  }
-
   render() {
     if (window.isDesktop) {
       return this._renderContent();
@@ -83,8 +75,14 @@ export default class ProfileView extends BaseComponent {
       nameComponents.push(utils.getUsrAge(user.age_ts));
     }
 
+    const favBtnClassName = utils.classNames({
+      profile_view_fav_btn: true,
+      unfav: this.data.isFavorite
+    });
+
     return (
       <div className="profile_view_info">
+        <div className={favBtnClassName} onClick={this._favButtonDidPress} />
         <div className="profile_view_name">{nameComponents.join(', ')}</div>
         <div className="profile_view_info_rows">
           {this._renderInfo()}
@@ -246,5 +244,16 @@ export default class ProfileView extends BaseComponent {
 
   _footerMessageButtonDidPress = () => {
     actions.openChat(this.data.user.id);
+  };
+
+  _favButtonDidPress = () => {
+    actions.loaderShow();
+    api.method(api.methods.toggleFav, {
+      user_id: this.data.user.id,
+      is_fav: this.data.isFavorite ? 0 : 1
+    }).then(() => {
+      actions.loaderSuccess();
+      this.setData({isFavorite: !this.data.isFavorite});
+    }).catch(actions.showError);
   };
 }

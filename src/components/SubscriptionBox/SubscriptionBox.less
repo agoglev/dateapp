@@ -11,6 +11,10 @@
   top: 0;
   left: 0;
   animation: SubscriptionBox_anim 250ms ease-in-out;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 0;
+  box-sizing: border-box;
 }
 
 @keyframes SubscriptionBox_anim {
@@ -95,7 +99,7 @@
   }
 
   &.invisible {
-    background-image: url('../../asset/premium_invisible_40.svg');
+    background-image: url('../../asset/premium_invisible_40.png');
   }
 
   &.messages {

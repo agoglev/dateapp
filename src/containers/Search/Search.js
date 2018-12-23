@@ -144,7 +144,7 @@ export default class Search extends BaseComponent {
         <div
           className={className}
           key={user.id}
-          onClick={() => actions.go(pages.PROFILE, {user, fromSearch: true})}
+          onClick={() => actions.openProfile(user, {fromSearch: true})}
         >
           <div className="Likes__user-row__cont" style={{backgroundImage: `url(${user.small_photo})`}}>
             <div className="Likes__user-row__name-wrap">

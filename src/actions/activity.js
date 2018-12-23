@@ -564,3 +564,75 @@ export function loadMoreGuests() {
     }).catch(reject);
   });
 }
+
+export function loadFav() {
+  actions.setData({
+    isLoadingFav: true,
+    isFailedFav: false,
+  }, pages.ACTIVITY);
+  api.method(api.methods.favorites).then(({favorites, next_from}) => {
+    actions.setUsers(favorites);
+    actions.setData({
+      isLoadingFav: false,
+      favorites,
+      favNextFrom: next_from
+    }, pages.ACTIVITY);
+  }).catch(() => {
+    actions.setData({
+      isLoadingFav: false,
+      isFailedFav: true
+    }, pages.ACTIVITY);
+  });
+}
+
+export function loadMoreFav() {
+  const startFrom = actions.getData(pages.ACTIVITY).favNextFrom;
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.favorites, {
+      start_from: startFrom
+    }).then(({favorites, next_from}) => {
+      if (startFrom !== actions.getData(pages.ACTIVITY).favNextFrom) {
+        return;
+      }
+
+      const currentGuests = actions.getData(pages.ACTIVITY).favorites;
+      let dialogsMap = {};
+      for (let i = 0; i < currentGuests.length; i++) {
+        dialogsMap[currentGuests[i].id] = true;
+      }
+
+      let filteredDialogs = [];
+      for (let i = 0; i < favorites.length; i++) {
+        if (dialogsMap[favorites[i].id]) {
+          continue;
+        }
+        filteredDialogs.push(favorites[i]);
+      }
+      actions.setUsers(favorites);
+      actions.setData({
+        favNextFrom: next_from,
+        favorites: currentGuests.concat(filteredDialogs)
+      }, pages.ACTIVITY);
+
+      resolve();
+    }).catch(reject);
+  });
+}
+
+export function removeFromFav(profileId) {
+  actions.loaderShow();
+  api.method(api.methods.toggleFav, {
+    user_id: profileId,
+    is_fav: 0
+  }).then(() => {
+    let favorites = actions.getData(pages.ACTIVITY).favorites;
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i].id === profileId) {
+        favorites.splice(i, 1);
+        actions.setData({favorites}, pages.ACTIVITY);
+        break;
+      }
+    }
+    actions.loaderSuccess();
+  }).catch(actions.showError);
+}

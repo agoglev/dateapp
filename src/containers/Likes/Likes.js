@@ -139,7 +139,7 @@ export default class Likes extends BaseComponent {
   };
 
   _likeDidPress = (like) => {
-    actions.go(pages.PROFILE, {user: like.user, fromLikes: true});
+    actions.openProfile(like.user, {fromLikes: true});
     if (like.unread) {
       activityActions.readLike(like.user.id);
     }

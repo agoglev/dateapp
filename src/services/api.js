@@ -112,7 +112,9 @@ export const methods = {
   notifySave: 'notify_save',
   guests: 'guests',
   premium: 'premium',
-  premiumSave: 'premium_save'
+  premiumSave: 'premium_save',
+  toggleFav: 'toggle_fav',
+  favorites: 'favorites'
 };
 
 let vkRequestId = 0;

@@ -9,6 +9,10 @@
   top: 0;
   left: 0;
   animation: SubscriptionBox_anim 250ms ease-in-out;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 0;
+  box-sizing: border-box;
 }
 @keyframes SubscriptionBox_anim {
   from {
@@ -83,7 +87,7 @@
   background-image: url('../../asset/premium_gifts_40.svg');
 }
 .SubscriptionBox__item_icon.invisible {
-  background-image: url('../../asset/premium_invisible_40.svg');
+  background-image: url('../../asset/premium_invisible_40.png');
 }
 .SubscriptionBox__item_icon.messages {
   background-image: url('../../asset/settings_feedback_40.svg');
