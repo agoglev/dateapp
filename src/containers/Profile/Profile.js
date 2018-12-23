@@ -8,6 +8,7 @@ import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
 import connect from '@vkontakte/vkui-connect';
 import Header from '../../components/proxy/Header';
+import * as payments from '../../actions/payments';
 
 export default class Profile extends Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ export default class Profile extends Component {
 
   render() {
     const userInfo = this.props.state.usersInfo[this.props.state.userId];
+    const premiumLable = this.props.state.hasPremium ? <div className="notification_caption grey">Активирован</div> : <div className="notification_caption">Активировать</div>;
 
     return (
       <div ref="wrap">
@@ -37,6 +39,18 @@ export default class Profile extends Component {
                 className="profile_edit_button"
                 onClick={() => actions.openEditProfile()}
               >Редактировать</div>
+            </div>
+            <div className="notification payments_profile_block" onClick={() => {
+              if (!this.props.state.hasPremium) {
+                payments.showSubscriptionRequest();
+              }
+            }}>
+              <div className="notification_photo" />
+              <div className="notification_cont">
+                <div className="notification_title">Знакомства «Премиум»</div>
+                {premiumLable}
+              </div>
+              {!this.props.state.hasPremium && <div className="notification_close" />}
             </div>
           </div>
         </Group>

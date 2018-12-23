@@ -263,3 +263,136 @@ body.desktop {
   height: 18px;
   flex: 0 0 auto;
 }
+
+// Notifications
+
+.notifications {
+  position: absolute;
+  width: 100%;
+  max-width: 420px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: auto;
+  z-index: 2000;
+  box-sizing: border-box;
+
+  &:empty {
+    display: none;
+  }
+
+  .vk_apps & {
+    top: env(safe-area-inset-top);
+  }
+}
+
+.notification {
+  position: absolute;
+  border-radius: @border-radius;
+  background-color: @color-white;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+  animation: notification_show_anim 200ms ease-in-out forwards;
+  padding: 16px 48px 16px 16px;
+  box-sizing: border-box;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  text-decoration: none !important;
+
+  &.hide {
+    animation: notification_hide_anim 200ms ease-in-out forwards;
+  }
+}
+
+.notification_photo {
+  flex: 0 0 auto;
+  .circle(40px);
+  background: no-repeat center/cover;
+
+  .payments_profile_block & {
+    background-image: url('../asset/art_premium_96@2x.png');
+  }
+}
+
+.notification_cont {
+  flex: 1;
+  margin-left: 12px;
+  overflow: hidden;
+}
+
+.notification_title {
+  color: @color-black;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.notification_caption {
+  font-size: 14px;
+  line-height: 18px;
+  color: @color-grey;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  .notification.multi_line & {
+    white-space: normal;
+  }
+
+  .notification.mark_caption & {
+    color: @color-pink;
+  }
+}
+
+.notification_close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 100%;
+  background: url('../asset/close_16.svg') no-repeat center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+@keyframes notification_show_anim {
+  from {
+    transform: translateY(-115%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes notification_hide_anim {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-115%);
+  }
+}
+
+.payments_profile_block {
+  position: relative !important;
+  margin: 26px 0 0 !important;
+  animation: none !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  cursor: pointer;
+
+  .notification_caption {
+    color: @color-pink;
+  }
+
+  .notification_caption.grey {
+    color: @color-grey;
+  }
+
+  .notification_close {
+    background-image: url('../asset/arrow_16.svg');
+  }
+}
