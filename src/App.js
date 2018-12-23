@@ -173,7 +173,7 @@ class App extends React.Component {
 
 	  const modal = this._renderDesktopModal(page);
 	  return (
-	    <div>
+	    <div className="Desktop__content">
         {this.props.state.popout && <div className="App__popout">{this.props.state.popout}</div>}
         <Main id={pages.MAIN} state={this.props.state} />
         {modal && <div className={`App__modal ${page}`} onClick={(e) => {

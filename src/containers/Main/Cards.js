@@ -2,7 +2,7 @@ import './Cards.css';
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Spinner, HeaderButton, Tooltip } from '@vkontakte/vkui';
+import { Button, Spinner, HeaderButton } from '@vkontakte/vkui';
 import * as cardsActions from '../../actions/cards';
 import * as paymentsActions from '../../actions/payments';
 import * as actions from '../../actions';
@@ -10,6 +10,7 @@ import * as utils from '../../utils';
 import * as pages from '../../constants/pages';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
 import Header from '../../components/proxy/Header';
+import Tooltip from '../../components/Tooltip/Tooltip';
 
 let skippedLikes = {};
 
@@ -133,11 +134,12 @@ export default class Cards extends Component {
     }
 
     if (window.isDesktop) {
-      return this._renderCancelActionCont();
+      //return this._renderCancelActionCont();
     }
 
     return (
       <Tooltip
+        offsetX={window.isDesktop ? -8 : 0}
         text="Упс! Вы упустили симпатию"
         isShown={!this.state.isLoading && !this.state.isFailed && this.state.isLikeSkipped}
         onClose={() => this.setState({isLikeSkipped: false})}
