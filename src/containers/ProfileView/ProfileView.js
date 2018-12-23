@@ -252,6 +252,10 @@ export default class ProfileView extends BaseComponent {
       user_id: this.data.user.id,
       is_fav: this.data.isFavorite ? 0 : 1
     }).then(() => {
+      if (!this.data.isFavorite) {
+        utils.statReachGoal('fav');
+      }
+
       actions.loaderSuccess();
       this.setData({isFavorite: !this.data.isFavorite});
     }).catch(actions.showError);
