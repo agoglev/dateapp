@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.e46d81bc.css",
-  "main.css.map": "static/css/main.e46d81bc.css.map",
-  "main.js": "static/js/main.16650118.js",
-  "main.js.map": "static/js/main.16650118.js.map",
+  "main.css": "static/css/main.d702f285.css",
+  "main.css.map": "static/css/main.d702f285.css.map",
+  "main.js": "static/js/main.0295b4fc.js",
+  "main.js.map": "static/js/main.0295b4fc.js.map",
   "static/media/add.svg": "static/media/add.5b81f711.svg",
   "static/media/add_48.svg": "static/media/add_48.e3b29add.svg",
   "static/media/arrow_16.svg": "static/media/arrow_16.90124333.svg",
@@ -14,6 +14,7 @@
   "static/media/close_24.svg": "static/media/close_24.2b0d264e.svg",
   "static/media/close_white_24.svg": "static/media/close_white_24.8b1dff79.svg",
   "static/media/delete_photo.svg": "static/media/delete_photo.b0456da0.svg",
+  "static/media/fav_24.svg": "static/media/fav_24.d2b8eb1e.svg",
   "static/media/gift_16.svg": "static/media/gift_16.ee6bdeab.svg",
   "static/media/ic_close_24_grey.svg": "static/media/ic_close_24_grey.77bfc038.svg",
   "static/media/ic_liked.svg": "static/media/ic_liked.b56941bd.svg",
@@ -26,7 +27,6 @@
   "static/media/match_like.svg": "static/media/match_like.35f11774.svg",
   "static/media/match_white_64.svg": "static/media/match_white_64.f0e58b99.svg",
   "static/media/premium_gifts_40.svg": "static/media/premium_gifts_40.b034ff5d.svg",
-  "static/media/premium_invisible_40.svg": "static/media/premium_invisible_40.84f039ad.svg",
   "static/media/premium_likes_40.svg": "static/media/premium_likes_40.c57f1dcb.svg",
   "static/media/premium_superlikes_40.svg": "static/media/premium_superlikes_40.c0e7900f.svg",
   "static/media/premium_undo_40.svg": "static/media/premium_undo_40.c757a152.svg",
@@ -48,5 +48,6 @@
   "static/media/slick.woff": "static/media/slick.b7c9e1e4.woff",
   "static/media/superlike_24.svg": "static/media/superlike_24.ae26cc47.svg",
   "static/media/toolbar_gift_24.svg": "static/media/toolbar_gift_24.7756240b.svg",
-  "static/media/toolbar_photo_24.svg": "static/media/toolbar_photo_24.de41d95b.svg"
+  "static/media/toolbar_photo_24.svg": "static/media/toolbar_photo_24.de41d95b.svg",
+  "static/media/unfav_24.svg": "static/media/unfav_24.8d07913a.svg"
 }
