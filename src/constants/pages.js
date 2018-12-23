@@ -2,7 +2,7 @@ export const MAIN = 'main';
 export const TEST = 'persik';
 
 // tabs
-export const ACTIVITY = 'activity';
+export const ACTIVITY = 'messages';
 
 // Join
 export const JOIN_INTRO = 'join_intro';
@@ -28,6 +28,7 @@ export const MODER = 'moder';
 export const NOTIFY = 'notify';
 export const GIFTS = 'gifts';
 export const GIFT_SEND = 'gift_send';
+export const PREMIUM = 'premium';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';

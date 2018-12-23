@@ -24,7 +24,7 @@ export function load() {
       //return;
     }
 
-    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from}) => {
+    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from, new_guests}) => {
       // dialogs
       actions.setUsers(dialogs.map(dialog => dialog.user));
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
@@ -39,7 +39,8 @@ export function load() {
 
       actions.setData({
         nextFrom: next_from,
-        isLoading: false
+        isLoading: false,
+        newGuests: new_guests
       }, pages.ACTIVITY);
 
       resolve();
@@ -504,6 +505,61 @@ export function toggleBan(peerId) {
       id: peerId
     }).then(() => {
       actions.setData('isBanned', !data.isBanned, pages.IM_HISTORY);
+      resolve();
+    }).catch(reject);
+  });
+}
+
+export function loadGuests() {
+  actions.setData({
+    isLoadingGuests: true,
+    isFailedGuests: false,
+    newGuests: false
+  }, pages.ACTIVITY);
+  api.method(api.methods.guests).then(({guests, next_from}) => {
+    actions.setUsers(guests);
+    actions.setData({
+      isLoadingGuests: false,
+      guests,
+      guestsNextFrom: next_from
+    }, pages.ACTIVITY);
+  }).catch(() => {
+    actions.setData({
+      isLoadingGuests: false,
+      isFailedGuests: true
+    }, pages.ACTIVITY);
+  });
+}
+
+export function loadMoreGuests() {
+  const startFrom = actions.getData(pages.ACTIVITY).guestsNextFrom;
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.guests, {
+      start_from: startFrom
+    }).then(({guests, next_from}) => {
+      if (startFrom !== actions.getData(pages.ACTIVITY).guestsNextFrom) {
+        return;
+      }
+
+      const currentGuests = actions.getData(pages.ACTIVITY).guests;
+      let dialogsMap = {};
+      for (let i = 0; i < currentGuests.length; i++) {
+        dialogsMap[currentGuests[i].id] = true;
+      }
+
+      let filteredDialogs = [];
+      for (let i = 0; i < guests.length; i++) {
+        if (dialogsMap[guests[i].id]) {
+          continue;
+        }
+        filteredDialogs.push(guests[i]);
+      }
+      actions.setUsers(guests);
+      actions.setData({
+        guestsNextFrom: next_from,
+        guests: currentGuests.concat(filteredDialogs)
+      }, pages.ACTIVITY);
+
       resolve();
     }).catch(reject);
   });

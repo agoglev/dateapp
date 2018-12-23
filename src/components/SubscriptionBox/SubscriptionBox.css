@@ -82,6 +82,9 @@
 .SubscriptionBox__item_icon.gifts {
   background-image: url('../../asset/premium_gifts_40.svg');
 }
+.SubscriptionBox__item_icon.invisible {
+  background-image: url('../../asset/premium_invisible_40.svg');
+}
 .SubscriptionBox__item_icon.messages {
   background-image: url('../../asset/settings_feedback_40.svg');
 }

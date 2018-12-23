@@ -324,3 +324,10 @@ body.desktop .FormLayout {
 .payments_profile_block .notification_close {
   background-image: url('../asset/arrow_16.svg');
 }
+.Premium__expire {
+  color: #7a7a7a;
+  padding: 16px 16px 0;
+}
+.Premium__expire span {
+  color: #1a1a1a;
+}

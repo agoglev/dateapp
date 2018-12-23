@@ -31,6 +31,10 @@ export default class SubscriptionBox extends PureComponent {
               <div className="SubscriptionBox__item_icon messages" />
               <div className="SubscriptionBox__item_caption">Пусть ваши сообщения читают в первую очередь</div>
             </div>
+            <div className="SubscriptionBox__item">
+              <div className="SubscriptionBox__item_icon invisible" />
+              <div className="SubscriptionBox__item_caption">Станьте невидимкой</div>
+            </div>
           </div>
           <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
             actions.setPopout();

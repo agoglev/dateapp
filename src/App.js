@@ -28,6 +28,7 @@ import LiveChat from "./containers/DateChats/LiveChat";
 import Stats from "./containers/Stats/Stats";
 import Moder from "./containers/Moder/Moder";
 import Notify from "./containers/Notify/Notify";
+import Premium from "./containers/Premium/Premium";
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
@@ -155,6 +156,7 @@ class App extends React.Component {
           <Notify id={pages.NOTIFY} state={state} />
           <Gifts id={pages.GIFTS} state={state} />
           <GiftSend id={pages.GIFT_SEND} state={state} />
+          <Premium id={pages.PREMIUM} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />
@@ -222,6 +224,8 @@ class App extends React.Component {
         return <Gifts id={pages.GIFTS} state={state} />;
       case pages.GIFT_SEND:
         return <GiftSend id={pages.GIFT_SEND} state={state} />;
+      case pages.PREMIUM:
+        return <Premium id={pages.PREMIUM} state={state} />;
 
       default:
         return false;

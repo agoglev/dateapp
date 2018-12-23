@@ -110,6 +110,9 @@ export const methods = {
   restoreReport: 'restore_report',
   notify: 'notify',
   notifySave: 'notify_save',
+  guests: 'guests',
+  premium: 'premium',
+  premiumSave: 'premium_save'
 };
 
 let vkRequestId = 0;

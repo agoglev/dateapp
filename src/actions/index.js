@@ -45,6 +45,7 @@ export function fakeGo(panel, params = {}) {
 }
 
 export function setTab(tabName) {
+  let params = {};
   if (tabName === 'search') {
     //const state = store.getState();
     //const user = state.usersInfo[state.userId];
@@ -62,9 +63,11 @@ export function setTab(tabName) {
 
     utils.statReachGoal('search_page');
   } else if (tabName === 'messages') {
+    params.tab = 'chats';
     activityActions.load();
   }
 
+  setData(params, tabName);
   store.dispatch({type: actionTypes.SET_TAB, tab: tabName});
   if (window.isDesktop) {
     go(pages.TAB);
@@ -275,6 +278,15 @@ export function openGifts(userId) {
   };
 
   go(pages.GIFTS, params);
+}
+
+export function openPremium() {
+  let params = {
+    isLoading: true,
+    isFailed: false
+  };
+
+  go(pages.PREMIUM, params);
 }
 
 export function openGiftSend(userId, gift) {

@@ -798,3 +798,9 @@ body.desktop .live_feed_featured {
   margin-top: 10px;
   padding: 0 16px;
 }
+.Activity__new_guests {
+  color: #5181b8;
+}
+.Activity__new_guests:empty {
+  display: none;
+}

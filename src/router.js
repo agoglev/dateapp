@@ -130,6 +130,12 @@ export const routes = [
     name: pages.GIFT_SEND,
     path: pages.GIFT_SEND,
     view: 'modal'
+  },
+
+  {
+    name: pages.PREMIUM,
+    path: pages.PREMIUM,
+    view: 'modal'
   }
 ];
 

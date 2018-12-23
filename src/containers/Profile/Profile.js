@@ -43,6 +43,8 @@ export default class Profile extends Component {
             <div className="notification payments_profile_block" onClick={() => {
               if (!this.props.state.hasPremium) {
                 payments.showSubscriptionRequest();
+              } else {
+                actions.openPremium();
               }
             }}>
               <div className="notification_photo" />
