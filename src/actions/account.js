@@ -126,7 +126,6 @@ function initMethodHandler(resp) {
     cardsActions.initTips();
     utils.statReachGoal('real_user');
     utils.statReachGoal(window.isDG ? 'real_user_dg' : 'real_user_vkapps');
-    store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: resp.hasLikesBadge});
     payments.setPremiumState(resp.hasPremium);
     searchFilters = resp.searchFilters;
 

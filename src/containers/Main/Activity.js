@@ -248,7 +248,7 @@ export default class Activity extends BaseComponent {
   }
 
   _renderLikes() {
-    if (this.data.isLoading && this.props.state.dialogs.length === 0) {
+    if (this.data.isLoading && this.props.state.dialogs.length === 0 || !this.data.likesCount) {
       return null;
     }
 
@@ -257,12 +257,11 @@ export default class Activity extends BaseComponent {
       <Cell
         before={<Icon24Like />}
         expandable
-        indicator={this.props.state.hasLikesBadge && <div className="Activity__likes-badge" />}
         onClick={() => {
           actions.openLikes();
           utils.statReachGoal('likes_open_modal');
         }}
-      >Вы нравитесь</Cell>
+      >Вы нравитесь {utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}</Cell>
     </Group>;
 
       /*

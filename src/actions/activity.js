@@ -24,7 +24,7 @@ export function load() {
       //return;
     }
 
-    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from, new_guests}) => {
+    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from, new_guests, likes_count}) => {
       // dialogs
       actions.setUsers(dialogs.map(dialog => dialog.user));
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
@@ -40,7 +40,8 @@ export function load() {
       actions.setData({
         nextFrom: next_from,
         isLoading: false,
-        newGuests: new_guests
+        newGuests: new_guests,
+        likesCount: likes_count
       }, pages.ACTIVITY);
 
       resolve();
@@ -329,7 +330,6 @@ export function newMessageEventDidReceive(dialog) {
 
 export function newLikeEventDidReceive(like) {
   accountActions.showBadge();
-  store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: true});
 
   const state = store.getState();
   if (state.activeView === 'likes') {
@@ -343,6 +343,10 @@ export function newLikeEventDidReceive(like) {
     likes.unshift(like);
     actions.setData('likes', likes, pages.LIKES);
   }
+
+  let likesCount = actions.getData(pages.ACTIVITY).likesCount || 0;
+  likesCount++;
+  actions.setData({likesCount}, pages.ACTIVITY);
 }
 
 function addNewDialog(dialog) {
@@ -365,13 +369,12 @@ export function readHistoryEventDidReceive(peerId) {
 }
 
 function removeLikeById(userId) {
-  return;
-  let { likes } = store.getState();
+  let { likes } = actions.getData(pages.LIKES);
 
   for (let i = 0; i < likes.length; i++) {
     if (likes[i].user.id === userId) {
       likes.splice(i, 1);
-      store.dispatch({type: actionTypes.LIKES_SET, likes});
+      actions.setData({likes}, pages.LIKES);
       break;
     }
   }
@@ -383,9 +386,14 @@ export function likeAction(userId, action, fromFeature) {
       user_id: userId,
       action: action === 'like' ? 1 : 0
     }).then((dialog) => {
-      removeLikeById(userId);
       if (action === 'like' && !fromFeature) {
         addNewDialog(dialog);
+      }
+      if (action === 'dislike') {
+        removeLikeById(userId);
+        let likesCount = actions.getData(pages.ACTIVITY).likesCount || 0;
+        likesCount = Math.max(0, likesCount - 1);
+        actions.setData({likesCount}, pages.ACTIVITY);
       }
       resolve();
     }).catch(reject);
@@ -462,8 +470,6 @@ export function readLike(userId) {
       hasLikeBadge = true;
     }
   }
-
-  store.dispatch({type: actionTypes.SET_LIKES_BADGE, hasBadge: hasLikeBadge});
 
   api.method(api.methods.readLike, {
     from_id: userId

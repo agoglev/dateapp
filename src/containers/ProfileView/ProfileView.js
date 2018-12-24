@@ -163,10 +163,10 @@ export default class ProfileView extends BaseComponent {
       return null;
     }
     const isFromCards = this.data.fromCards === true;
-    const isFromSearch = this.data.fromSearch === true;
+    const isFromLikes = this.data.fromLikes === true;
     return (
       <div className="profile_view_footer">
-        {isFromCards && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
+        {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
         {this.data.isLiked && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
         {!this.data.isLiked && <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />}
       </div>

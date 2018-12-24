@@ -206,10 +206,6 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {hasBadge: action.hasBadge});
     }
 
-    case actionTypes.SET_LIKES_BADGE: {
-      return Object.assign({}, state, {hasLikesBadge: action.hasBadge});
-    }
-
     case actionTypes.VK_FAILED: {
       return Object.assign({}, state, {needTokenMessage: true});
     }
