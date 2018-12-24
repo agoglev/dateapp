@@ -21,6 +21,7 @@ export default class Search extends BaseComponent {
       filtersOpened: false
     }
   }
+
   componentDidMount() {
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
     searchActions.init();

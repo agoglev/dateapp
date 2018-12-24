@@ -114,7 +114,8 @@ export const methods = {
   premium: 'premium',
   premiumSave: 'premium_save',
   toggleFav: 'toggle_fav',
-  favorites: 'favorites'
+  favorites: 'favorites',
+  saveGeo: 'save_geo'
 };
 
 let vkRequestId = 0;

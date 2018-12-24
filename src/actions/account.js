@@ -257,3 +257,13 @@ export function loadFullProfile(profileId) {
     }, pages.PROFILE);
   });
 }
+
+export function saveGeo(data) {
+  if (!data.available) {
+    return;
+  }
+  api.method(api.methods.saveGeo, {
+    lat: parseInt(data.lat, 10),
+    long: parseInt(data.long, 10),
+  });
+}
