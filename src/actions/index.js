@@ -249,6 +249,24 @@ export function openStats() {
   utils.statReachGoal('stats_page');
 }
 
+export function openJoinStep1() {
+  go(pages.JOIN_STEP1);
+}
+
+export function openJoinStep2() {
+  const vkUserInfo = store.getState().vkUserInfo;
+
+  let params = {};
+  if (vkUserInfo.country) {
+    params.country = vkUserInfo.country;
+  }
+  if (vkUserInfo.city) {
+    params.city = vkUserInfo.city;
+  }
+
+  go(pages.JOIN_STEP2, params);
+}
+
 export function openModer() {
   let params = {
     reports: [],

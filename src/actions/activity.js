@@ -640,5 +640,5 @@ export function removeFromFav(profileId) {
       }
     }
     actions.loaderSuccess();
-  }).catch(actions.showError);
+  }).catch(() => actions.showError());
 }

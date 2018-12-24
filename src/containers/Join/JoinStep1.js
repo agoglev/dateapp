@@ -26,6 +26,10 @@ export default class JoinStep1 extends BaseComponent {
 
   _renderContent() {
     const { state } = this.props;
+    const bdate = (state.vkUserInfo.bdate || '').split('.').map((item) => parseInt(item, 10));
+    const day = bdate[0] || 0;
+    const month = Math.max(0, (bdate[1] - 1)) || 0;
+    const year = bdate[2] || 0;
 
     return (
       <div>
@@ -49,7 +53,7 @@ export default class JoinStep1 extends BaseComponent {
             <option value="2">Мужской</option>
           </Select>
           <div top="Дата рождения">
-            <UiBirthDay ref="birthday" />
+            <UiBirthDay ref="birthday" day={day} month={month} year={year}/>
           </div>
           <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Далее</Button>
         </FormLayout>
@@ -71,6 +75,6 @@ export default class JoinStep1 extends BaseComponent {
       gender,
       ...birthdays
     });
-    actions.go(pages.JOIN_STEP2);
+    actions.openJoinStep2();
   };
 }

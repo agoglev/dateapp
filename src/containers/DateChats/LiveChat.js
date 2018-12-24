@@ -245,7 +245,7 @@ export default class LiveChat extends BaseComponent {
     liveChatsActions.sendMessage(text).then(() => {
       actions.loaderHide();
       this.setState({message: ''});
-    }).catch(actions.showError);
+    }).catch(() => actions.showError());
   };
 
   _skipButtonDidPress = () => {

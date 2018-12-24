@@ -7,6 +7,8 @@ import * as actions from '../../actions';
 import * as pages from '../../constants/pages';
 import * as utils from '../../utils';
 import Header from '../../components/proxy/Header';
+import * as accountActions from "../../actions/account";
+import * as api from '../../services/api';
 
 export default class JoinIntro extends BaseComponent {
   componentDidMount() {
@@ -30,10 +32,26 @@ export default class JoinIntro extends BaseComponent {
             </div>
           </Div>
           <Div>
-            <Button size="xl" level="1" onClick={() => actions.go(pages.JOIN_STEP1)}>Заполнить анкету</Button>
+            <Button size="xl" level="1" onClick={this._buttonDidPress}>Заполнить анкету</Button>
           </Div>
         </Group>
       </div>
     )
   }
+
+  _buttonDidPress = () => {
+    if (window.isDG) {
+      actions.loaderShow();
+      api.vk('users.get', {
+        fields: 'sex,bdate,country,city'
+      }).then((users) => {
+        actions.loaderHide();
+        console.log(users);
+        accountActions.setupVkInfo(users[0]);
+        setTimeout(actions.openJoinStep1, 100);
+      }).catch(() => actions.showError());
+    } else {
+      actions.openJoinStep1();
+    }
+  };
 }

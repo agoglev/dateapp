@@ -119,19 +119,23 @@ export default class UploadPhotoComponent extends BaseComponent {
   }
 
   _selectPhotoSheet = (i) => {
-    actions.showActionSheet([
+    let items = [
       {
         title: 'Из профиля ВК',
         onClick: () => this._selectVkPhoto(i)
-      },
-      {
+      }
+    ];
+    if (!window.isDG) {
+      items.push({
         title: <span>Из галереи <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
           actions.setPopout();
           this.photoDidSelect(i, e.target.files[0]);
         }} /></span>,
         autoclose: false
-      }
-    ], 'Загрузка фотографии');
+      });
+    }
+
+    actions.showActionSheet(items, 'Загрузка фотографии');
   };
 
   _selectVkPhoto(i) {

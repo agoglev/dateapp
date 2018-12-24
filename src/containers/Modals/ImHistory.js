@@ -425,7 +425,7 @@ export default class ImHistory extends BaseComponent {
     activityActions.toggleBan(this.peerId).then(() => {
       this.setState({contextOpened: false});
       actions.loaderSuccess();
-    }).catch(actions.showError);
+    }).catch(() => actions.showError());
   };
 
   _renderOnline() {

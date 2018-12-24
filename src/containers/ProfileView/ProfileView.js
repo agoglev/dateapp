@@ -258,6 +258,6 @@ export default class ProfileView extends BaseComponent {
 
       actions.loaderSuccess();
       this.setData({isFavorite: !this.data.isFavorite});
-    }).catch(actions.showError);
+    }).catch(() => actions.showError());
   };
 }
