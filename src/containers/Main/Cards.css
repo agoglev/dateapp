@@ -355,6 +355,7 @@ body.desktop .Cards {
   padding: 16px 32px;
   box-sizing: border-box;
   width: 100%;
+  max-width: 350px;
 }
 .match_box_button {
   font-size: 16px;

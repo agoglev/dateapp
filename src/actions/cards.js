@@ -37,6 +37,8 @@ export function loadCards() {
         if (!adsLoaded) {
           loadAds();
         }
+
+        showMatchBox(cards[0]);
       }).catch(() => {
         reject();
     });
@@ -350,10 +352,6 @@ export function resolveSwipeTip() {
 }
 
 function showMatchBox(from) {
-  if (window.isDesktop) {
-    return;
-  }
-
   const state = store.getState();
   const me = state.usersInfo[state.userId];
 
