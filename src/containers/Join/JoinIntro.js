@@ -43,7 +43,7 @@ export default class JoinIntro extends BaseComponent {
     if (window.isDG) {
       actions.loaderShow();
       api.vk('users.get', {
-        fields: 'sex,bdate,country,city'
+        fields: 'sex,bdate,country,city,photo_max'
       }).then((users) => {
         actions.loaderHide();
         console.log(users);

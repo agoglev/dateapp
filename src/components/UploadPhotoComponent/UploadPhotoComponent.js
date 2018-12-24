@@ -45,60 +45,67 @@ export default class UploadPhotoComponent extends BaseComponent {
     });
   }
 
-  photoDidSelect(index, file) {
-    if (!file) {
-      return;
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-      return;
-    }
-
-    if (file.type.substr(0, 5) !== 'image') {
-      return;
-    }
-
-    loadImage.parseMetaData(file, (data) => {
-      let orientation = 0;
-      if (data.exif) {
-        orientation = data.exif.get('Orientation');
+  photoDidSelect(index, file, isSystemPhoto = false) {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        return reject();
       }
-      const loadingImage = loadImage(
-        file,
-        (canvas) => {
-          const base64data = canvas.toDataURL('image/jpeg');
-          const blobBin = atob(base64data.split(',')[1]);
-          let array = [];
-          for(let i = 0; i < blobBin.length; i++) {
-            array.push(blobBin.charCodeAt(i));
-          }
-          const newFile = new Blob([new Uint8Array(array)], {type: 'image/png'});
 
-          let photos = this.data.photos;
-          photos[index] = {
-            isUploading: true,
-            isFailed: false,
-            url: base64data
-          };
-          this.setData('photos', photos);
+      if (file.size > 15 * 1024 * 1024 && !isSystemPhoto) {
+        return reject();
+      }
 
-          actions.uploadPhoto(newFile).then((photoHash) => {
-            let photos = this.data.photos;
-            if (photos[index]) {
-              photos[index].isUploading = false;
-              photos[index].hash = photoHash;
-              this.setData('photos', photos);
-            }
-          }).catch(() => {
-            this.removePhoto(index);
-            actions.showError('Неудалось загрузить фото');
-          })
-        }, {
-          canvas: true,
-          orientation: orientation,
-          maxWidth: 800
+      if (file.type.substr(0, 5) !== 'image' && !isSystemPhoto) {
+        return reject();
+      }
+
+      loadImage.parseMetaData(file, (data) => {
+        let orientation = 0;
+        if (data.exif) {
+          orientation = data.exif.get('Orientation');
         }
-      );
+        const loadingImage = loadImage(
+          file,
+          (canvas) => {
+            const base64data = canvas.toDataURL('image/jpeg');
+            const blobBin = atob(base64data.split(',')[1]);
+            let array = [];
+            for(let i = 0; i < blobBin.length; i++) {
+              array.push(blobBin.charCodeAt(i));
+            }
+            const newFile = new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+            let photos = this.data.photos;
+            photos[index] = {
+              isUploading: true,
+              isFailed: false,
+              url: base64data
+            };
+            this.setData('photos', photos);
+
+            actions.uploadPhoto(newFile).then((photoHash) => {
+              let photos = this.data.photos;
+              if (photos[index]) {
+                photos[index].isUploading = false;
+                photos[index].hash = photoHash;
+                console.log('photoHash', photoHash, photos);
+                this.setData('photos', photos);
+                setTimeout(() => resolve(), 100);
+              }
+            }).catch(() => {
+              if (!isSystemPhoto) {
+                this.removePhoto(index);
+                actions.showError('Неудалось загрузить фото');
+              }
+              reject();
+            })
+          }, {
+            canvas: true,
+            orientation: orientation,
+            maxWidth: 800
+          }
+        );
+      });
     });
   }
 

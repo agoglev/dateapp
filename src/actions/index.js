@@ -209,14 +209,6 @@ export function openFilters() {
   go(pages.FILTERS, params);
 }
 
-export function openJoinStep3() {
-  let params = {
-    photos: {}
-  };
-
-  go(pages.JOIN_STEP3, params);
-}
-
 export function openChat(peerId) {
   let params = {
     peerId,
@@ -265,6 +257,22 @@ export function openJoinStep2() {
   }
 
   go(pages.JOIN_STEP2, params);
+}
+
+export function openJoinStep3() {
+  let params = {
+    photos: {}
+  };
+
+  if (window.isDG) {
+    const vkUserInfo = store.getState().vkUserInfo;
+    params.photos[0] = {
+      url: vkUserInfo.photo_max ? vkUserInfo.photo_max : vkUserInfo.photo_200,
+      needUpload: true
+    };
+  }
+
+  go(pages.JOIN_STEP3, params);
 }
 
 export function openModer() {

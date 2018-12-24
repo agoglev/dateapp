@@ -31,7 +31,7 @@ export default class Profile extends Component {
             <div
               className="profile_photo"
               style={{backgroundImage: `url(${userInfo.big_photo})`}}
-              onClick={() => actions.go(pages.PROFILE, {user: userInfo, fromLikes: false})}
+              onClick={() => actions.openProfile(userInfo)}
             />
             <div className="profile_cont">
               <div className="profile_name">{userInfo.name}</div>

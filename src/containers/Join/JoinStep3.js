@@ -46,8 +46,15 @@ export default class JoinStep3 extends UploadPhotoComponent {
 
   continueButtonDidPress = () => {
     let photos = [];
-    for (let i in this.data.photos) {
+    for (let i = 0; i < 6; i++) {
       const photo = this.data.photos[i];
+      if (!photo) {
+        continue;
+      }
+
+      if (photo.needUpload) {
+        return this._uploadMainPhoto(0, photo);
+      }
 
       if (photo.isUploading) {
         actions.showError('Дождитесь загрузки фото');
@@ -70,4 +77,41 @@ export default class JoinStep3 extends UploadPhotoComponent {
         actions.showError('Произошла ошибка');
       });
   };
+
+  _uploadMainPhoto(index, photo) {
+    const photosPreset = this.data.photos;
+    delete photosPreset[index].needUpload;
+    photosPreset[index].isUploading = true;
+    this.setData({photos: photosPreset});
+
+    actions.loaderShow();
+
+    fetch(photo.url)
+      .then(res => res.blob())
+      .then(blob => {
+        blob.lastModifiedDate = new Date();
+        this.photoDidSelect(index, blob).then(() => {
+          const photos = this.data.photos;
+          photos[index].isUploading = false;
+          this.setData({photos});
+
+          setTimeout(() => {
+            actions.loaderHide();
+            this.continueButtonDidPress();
+          }, 100);
+        }).catch(() => {
+          const photos = this.data.photos;
+          photos[index].needUpload = true;
+          photos[index].isUploading = false;
+          this.setData({photos});
+          actions.showError('Неудалось загрузить фото');
+        });
+      }).catch((err) => {
+      actions.showError('Неудалось скачать фото');
+      const photos = this.data.photos;
+      photos[index].isUploading = false;
+      photos[index].needUpload = true;
+      this.setData({photos});
+    });
+  }
 }
