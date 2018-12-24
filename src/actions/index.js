@@ -266,10 +266,13 @@ export function openJoinStep3() {
 
   if (window.isDG) {
     const vkUserInfo = store.getState().vkUserInfo;
-    params.photos[0] = {
-      url: vkUserInfo.photo_max ? vkUserInfo.photo_max : vkUserInfo.photo_200,
-      needUpload: true
-    };
+    const photoUrl = vkUserInfo.photo_max ? vkUserInfo.photo_max : vkUserInfo.photo_200;
+    if (photoUrl && photoUrl.indexOf('camera_') === -1 && photoUrl.indexOf('/images/') === -1) {
+      params.photos[0] = {
+        url: vkUserInfo.photo_max ? vkUserInfo.photo_max : vkUserInfo.photo_200,
+        needUpload: true
+      };
+    }
   }
 
   go(pages.JOIN_STEP3, params);
