@@ -5,11 +5,14 @@ import * as api from '../services/api';
 import * as utils from '../utils';
 import * as pages from '../constants/pages';
 
+let lastLoadTs = 0;
 export function init() {
   const data = actions.getData(pages.SEARCH);
-  if (data.users) {
+  const ts = new Date().getTime();
+  if (data.users && ts - lastLoadTs < 60 * 1000) {
     return;
   }
+  lastLoadTs = ts;
   load();
 }
 
