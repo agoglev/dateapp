@@ -1,18 +1,15 @@
 @import "../../css/vars";
 
 .SubscriptionBox {
-  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
   background: @color-white;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   animation: SubscriptionBox_anim 250ms ease-in-out;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
   padding: 20px 0;
   box-sizing: border-box;
 }
@@ -41,11 +38,12 @@
   max-width: 375px;
   width: 100%;
   margin: 0 auto;
+  flex: 0 0 auto;
 }
 
 .SubscriptionBox__icon {
   .size(96px);
-  margin: 36px auto 0;
+  margin: 0 auto;
   background: url('../../asset/art_premium_96@2x.png') no-repeat center/contain;
 }
 
@@ -119,4 +117,17 @@
   font-size: 14px;
   line-height: 20px;
   color: @color-grey;
+}
+
+.SubscriptionBox__pay_buttons {
+  display: flex;
+  flex: 0 0 auto;
+
+  .Button {
+    margin-left: 8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 }

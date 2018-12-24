@@ -36,14 +36,16 @@ export default class SubscriptionBox extends PureComponent {
               <div className="SubscriptionBox__item_caption">Станьте невидимкой</div>
             </div>
           </div>
-          <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
-            actions.setPopout();
-            paymentsActions.buyPremium('premium');
-          }}>{btnText}</Button>
-          <Button size="xl" level="1" style={{marginTop: 12}} onClick={() => {
-            actions.setPopout();
-            paymentsActions.buyPremium('premium_day');
-          }}>{dayBtnText}</Button>
+          <div className="SubscriptionBox__pay_buttons">
+            <Button size="xl" level="2" onClick={() => {
+              actions.setPopout();
+              paymentsActions.buyPremium('premium_day');
+            }}>{dayBtnText}</Button>
+            <Button size="xl" level="2" onClick={() => {
+              actions.setPopout();
+              paymentsActions.buyPremium('premium');
+            }}>{btnText}</Button>
+          </div>
           {vkPayInfo}
         </div>
       </div>
