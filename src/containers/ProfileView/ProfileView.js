@@ -82,7 +82,7 @@ export default class ProfileView extends BaseComponent {
 
     return (
       <div className="profile_view_info">
-        <div className={favBtnClassName} onClick={this._favButtonDidPress} />
+        {user.id !== this.props.state.userId && <div className={favBtnClassName} onClick={this._favButtonDidPress} />}
         <div className="profile_view_name">{nameComponents.join(', ')}</div>
         <div className="profile_view_info_rows">
           {this._renderInfo()}

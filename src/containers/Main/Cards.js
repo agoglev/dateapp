@@ -287,7 +287,13 @@ export default class Cards extends Component {
       utils.cancelEvent(event);
     }
 
-    if (this.state.isAnimating || !this.props.state.cards.length || window.isDesktop) {
+    if (this.state.isAnimating || !this.props.state.cards.length) {
+      return;
+    }
+
+    this.startX = event.touches ? event.touches[0].clientX : event.clientX;
+
+    if (window.isDesktop) {
       return;
     }
 
@@ -298,7 +304,6 @@ export default class Cards extends Component {
       isLikeSkipped: false
     });
     this.lastDiff = 0;
-    this.startX = event.touches ? event.touches[0].clientX : event.clientX;
     this.cancelTap = false;
   };
 
@@ -415,7 +420,8 @@ export default class Cards extends Component {
     if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
       actions.openProfile(this.props.state.cards[0], {fromCards: true});
     } else {
-      const isNext = this.startX > window.innerWidth / 2;
+      const width = window.isDesktop ? window.innerWidth - 240 : window.innerWidth;
+      const isNext = this.startX > width / 2;
       let newIndex = this.state.activePhotos[card.id] || 0;
 
       if (isNext) {

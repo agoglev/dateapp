@@ -37,8 +37,6 @@ export function loadCards() {
         if (!adsLoaded) {
           loadAds();
         }
-
-        showMatchBox(cards[0]);
       }).catch(() => {
         reject();
     });
