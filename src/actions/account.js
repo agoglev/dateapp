@@ -7,6 +7,7 @@ import * as utils from '../utils';
 import * as pages from '../constants/pages';
 import realTimeInit from '../services/realtime';
 import * as payments from './payments';
+import * as searchActions from './search';
 
 export let JoinInfo = {};
 export let searchFilters = {};
@@ -266,5 +267,7 @@ export function saveGeo(data) {
   api.method(api.methods.saveGeo, {
     lat: parseInt(data.lat, 10),
     long: parseInt(data.long, 10),
+  }).then(() => {
+    searchActions.load(true);
   });
 }

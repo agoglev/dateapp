@@ -29,8 +29,10 @@ function makeFilters() {
   };
 }
 
-export function load() {
-  actions.setData('isLoading', true, pages.SEARCH);
+export function load(skipLoader = false) {
+  if (!skipLoader) {
+    actions.setData('isLoading', true, pages.SEARCH);
+  }
   actions.setData('isFailed', false, pages.SEARCH);
   actions.setData('isLoadingMore', false, pages.SEARCH);
   api.method(api.methods.search, makeFilters()).then(({users, nextFrom}) => {

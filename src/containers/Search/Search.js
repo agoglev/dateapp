@@ -65,7 +65,7 @@ export default class Search extends BaseComponent {
         <Header
           left={this._renderFiltersButton()}
         >
-          {this.data.filtersOpened ? 'Фильтры' : 'Люди'}
+          {this.data.filtersOpened ? 'Фильтры' : (window.isDG ? 'Люди' : 'Люди рядом')}
         </Header>
         <HeaderContext opened={this.data.filtersOpened} onClose={this._toggleFilters}>
           <div className="Search__filters">

@@ -33,7 +33,7 @@ export default class JoinIntro extends BaseComponent {
             </div>
           </Div>
           <Div>
-            <Button size="xl" level="1" onClick={this._buttonDidPress}>Заполнить анкету</Button>
+            <Button size="xl" level="1" onClick={this._buttonDidPress}>Создать анкету</Button>
           </Div>
         </Group>
       </div>
