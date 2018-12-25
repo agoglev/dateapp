@@ -71,7 +71,6 @@ export default class JoinStep3 extends UploadPhotoComponent {
     accountActions.createAccount(photos)
       .then(() => {
         setTimeout(() => actions.go(pages.MAIN), 500);
-        utils.statReachGoal('register');
       })
       .catch(() => {
         actions.showError('Произошла ошибка');

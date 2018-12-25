@@ -98,6 +98,7 @@ export function createAccount(photos) {
         actions.loaderSuccess();
         initMethodHandler(resp);
         resolve();
+        utils.statReachGoal('register');
       })
       .catch(() => {
         actions.loaderHide();
