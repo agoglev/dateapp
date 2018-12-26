@@ -264,10 +264,16 @@ export function saveGeo(data) {
   if (!data.available) {
     return;
   }
+
+  actions.setData({isGeoNotifyShown: false}, pages.SEARCH);
   api.method(api.methods.saveGeo, {
     lat: parseInt(data.lat, 10),
     long: parseInt(data.long, 10),
   }).then(() => {
     searchActions.load(true);
   });
+}
+
+export function geoFailed() {
+  actions.setData({isGeoNotifyShown: true}, pages.SEARCH);
 }

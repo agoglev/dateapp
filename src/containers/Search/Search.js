@@ -12,6 +12,7 @@ import Icon24Filter from '@vkontakte/icons/dist/24/filter';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import SegmentedControl from "../../components/SegmentedControl/SegmentedControl";
 import Header from '../../components/proxy/Header';
+import InternalNotification from "../../components/InternalNotification/InternalNotification";
 
 export default class Search extends BaseComponent {
   constructor() {
@@ -109,10 +110,26 @@ export default class Search extends BaseComponent {
           </div>
         </HeaderContext>
         <div className="Likes__items clear_fix">
+          {this._renderGeoNotification()}
           {this._renderItems()}
         </div>
         {this._renderLoadMoreButton()}
       </div>
+    )
+  }
+
+  _renderGeoNotification() {
+    if (!this.data.isGeoNotifyShown || this.data.isLoading || this.data.isFailed || window.isDG) {
+      return null;
+    }
+
+    return (
+      <InternalNotification
+        title="Доступ к геолокации"
+        text="Разрешить доступ к геолокации, чтобы видеть людей рядом с вами"
+        icon="geo"
+        extra={<Button onClick={this._geoAccessButtonDidPress}>Разрешить</Button>}
+      />
     )
   }
 
@@ -209,5 +226,9 @@ export default class Search extends BaseComponent {
 
   _loadMore = () => {
     searchActions.loadMore();
+  };
+
+  _geoAccessButtonDidPress = () => {
+    this.setData({isGeoNotifyShown: false});
   };
 }

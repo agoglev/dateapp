@@ -106,6 +106,9 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppGeodataResult':
       accountActions.saveGeo(data);
       break;
+    case 'VKWebAppGeodataFailed':
+      accountActions.geoFailed();
+      break;
     default:
       console.log(e.detail.type);
   }

@@ -33,8 +33,10 @@ export function load(skipLoader = false) {
   if (!skipLoader) {
     actions.setData('isLoading', true, pages.SEARCH);
   }
-  actions.setData('isFailed', false, pages.SEARCH);
-  actions.setData('isLoadingMore', false, pages.SEARCH);
+  actions.setData({
+    isFailed: false,
+    isLoadingMore: false
+  }, pages.SEARCH);
   api.method(api.methods.search, makeFilters()).then(({users, nextFrom}) => {
     actions.setUsers(users);
     actions.setData('users', users, pages.SEARCH);
