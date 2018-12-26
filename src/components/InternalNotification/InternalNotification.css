@@ -1,0 +1,32 @@
+.InternalNotification {
+  display: flex;
+  padding: 12px;
+  background: #fff;
+  border-bottom: 1px solid var(--separator_common);
+}
+.InternalNotification__icon {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  background: no-repeat center / contain;
+}
+.InternalNotification__icon.geo {
+  background-image: url('../../asset/section_geo_16.svg');
+}
+.InternalNotification__cont {
+  margin-left: 12px;
+  flex: 1;
+}
+.InternalNotification__title {
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+.InternalNotification__text {
+  font-size: 16px;
+  line-height: 24px;
+  color: #7a7a7a;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}

@@ -1,14 +1,21 @@
 import './Profile.css';
 
 import React, { Component, PureComponent } from 'react';
-import { PanelHeader, Group } from '@vkontakte/vkui';
+import { PanelHeader, Group, List, Cell } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils/index';
-import * as pages from "../../constants/pages";
 import connect from '@vkontakte/vkui-connect';
 import Header from '../../components/proxy/Header';
 import * as payments from '../../actions/payments';
+
+import Icon24Settings from '@vkontakte/icons/dist/24/settings';
+import Icon24Filter from '@vkontakte/icons/dist/24/filter';
+import Icon24Notification from '@vkontakte/icons/dist/24/notification';
+import Icon24Share from '@vkontakte/icons/dist/24/share';
+import Icon24Users from '@vkontakte/icons/dist/24/users';
+import Icon24Message from '@vkontakte/icons/dist/24/message';
+import Icon24User from '@vkontakte/icons/dist/24/user';
 
 export default class Profile extends Component {
   componentDidMount() {
@@ -57,17 +64,15 @@ export default class Profile extends Component {
           </div>
         </Group>
         <Group>
-          {this.props.state.isModer && <ProfileButton type="admin_settings" onClick={() => actions.openModer()}>Модерация</ProfileButton>}
-          <ProfileButton type="filters" onClick={() => actions.openFilters()} label={this._renderFiltersLabel()}>Интересуют</ProfileButton>
-          <ProfileButton type="notify" onClick={() => actions.openNotify()}>Уведомления</ProfileButton>
-          <ProfileButton type="share" onClick={this._shareApp}>Поделиться</ProfileButton>
-          <a href="https://vk.com/dateapp" target="_blank" style={{textDecoration: 'none'}}>
-            <ProfileButton type="community">Сообщество</ProfileButton>
-          </a>
-          <a href="https://vk.me/dateapp" target="_blank" style={{textDecoration: 'none'}}>
-            <ProfileButton type="feedback">Сообщить о проблеме</ProfileButton>
-          </a>
-          <ProfileButton type="delete" onClick={this._deleteAccountButtonDidPress}>Удалить анкету</ProfileButton>
+          <List>
+            {this.props.state.isModer && <Cell expandable before={<Icon24Settings />} onClick={() => actions.openModer()}>Модерация</Cell>}
+            <Cell expandable before={<Icon24Filter />} onClick={() => actions.openFilters()} indicator={this._renderFiltersLabel()}>Интересуют</Cell>
+            <Cell expandable before={<Icon24Notification />} onClick={() => actions.openNotify()}>Уведомления</Cell>
+            <Cell expandable before={<Icon24Share />} onClick={this._shareApp}>Поделиться</Cell>
+            <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>
+            <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>
+            <Cell expandable before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
+          </List>
         </Group>
         {this._renderDev()}
         <div className="profile_copyright">The Dating Service © 2018</div>
