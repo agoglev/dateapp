@@ -43,18 +43,19 @@ export function setPremiumState(has) {
   store.dispatch({type: actionTypes.PREMIUM_SET, has});
 }
 
-export function showSubscriptionRequest() {
-  actions.setPopout(<SubscriptionBox />);
+export function showSubscriptionRequest(target = 'none') {
+  actions.setPopout(<SubscriptionBox target={target} />);
   utils.statReachGoal('premium_box');
 }
 
-export function buyPremium(type = 'premium') {
+export function buyPremium(type = 'premium', target = 'none') {
   actions.loaderShow();
   if (window.isDG) {
     api.showOrderBox(type).then(() => {
       actions.loaderSuccess();
       setPremiumState(true);
       setTimeout(() => showFeatureBox(true), 100);
+      utils.statReachGoal('premium_target_' + target);
     }).catch((isFailed) => {
       if (isFailed) {
         actions.showError();
@@ -67,6 +68,7 @@ export function buyPremium(type = 'premium') {
       setPremiumState(true);
       actions.loaderSuccess();
       setTimeout(() => showFeatureBox(true), 100);
+      utils.statReachGoal('premium_target_' + target);
     }).catch(() => actions.showError());
   }
   utils.statReachGoal('premium_continue');

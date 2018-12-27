@@ -68,7 +68,7 @@ export default class Activity extends BaseComponent {
     return (
       <Tabs type="buttons">
         <TabsItem onClick={() => this._setTab('chats')} selected={this.data.tab === 'chats'}>Чаты</TabsItem>
-        <TabsItem onClick={() => this._setTab('fav')} selected={this.data.tab === 'fav'}>Избранные</TabsItem>
+        <TabsItem onClick={() => this._setTab('fav')} selected={this.data.tab === 'fav'}>Избранные <span className="Activity__new_guests">{this.data.newFav ? `+${this.data.newFav}` : ''}</span></TabsItem>
         <TabsItem onClick={() => this._setTab('guests')} selected={this.data.tab === 'guests'}>Гости <span className="Activity__new_guests">{this.data.newGuests ? `+${this.data.newGuests}` : ''}</span></TabsItem>
       </Tabs>
     )
@@ -441,17 +441,34 @@ export default class Activity extends BaseComponent {
         return null;
       }
 
-      let text = <div className="im_dialog_system">у вас в «Избранных»</div>;
+      let text;
+      if (user.is_inbox_fav) {
+        text = <div className="im_dialog_system">{utils.genderText(user.gender, [
+          'добавил вас в «Избранные»',
+          'добавила вас в «Избранные»'
+        ])}</div>;
+      } else {
+        text = <div className="im_dialog_system">у вас в «Избранных»</div>;
+      }
       const isOnline = now - user.last_update < 60 * 10;
 
+      const className = utils.classNames({
+        im_dialog: true,
+        hidden: user.is_inbox_fav && !this.props.state.hasPremium
+      });
+
       return (
-        <div className="im_dialog" key={guest.id} onClick={(e) => {
-          if (e.target.className !== 'im_dialog_fav'){
+        <div className={className} key={guest.id} onClick={(e) => {
+          if (user.is_inbox_fav && !this.props.state.hasPremium) {
+            payments.showSubscriptionRequest('fav');
+          } else if (e.target.className !== 'im_dialog_fav'){
             actions.openChat(guest.id)
           }
         }}>
           <div className="im_dialog_cont_wrap">
-            <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+            <div className="im_dialog_photo_wrap">
+              <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
+            </div>
             <div className="im_dialog_cont">
               <div className="im_dialog_name_wrap">
                 <div className="im_dialog_name">{user.name}</div>
@@ -459,7 +476,7 @@ export default class Activity extends BaseComponent {
               </div>
               <div className="im_dialog_message">{text}</div>
             </div>
-            <div className="im_dialog_fav" onClick={() => activityActions.removeFromFav(guest.id)} />
+            {!user.is_inbox_fav && <div className="im_dialog_fav" onClick={() => activityActions.removeFromFav(guest.id)} />}
           </div>
           <div className="im_dialog_separator" />
         </div>

@@ -49,7 +49,7 @@ export default class Profile extends Component {
             </div>
             <div className="notification payments_profile_block" onClick={() => {
               if (!this.props.state.hasPremium) {
-                payments.showSubscriptionRequest();
+                payments.showSubscriptionRequest('profile');
               } else {
                 actions.openPremium();
               }
@@ -71,7 +71,7 @@ export default class Profile extends Component {
             <Cell expandable before={<Icon24Share />} onClick={this._shareApp}>Поделиться</Cell>
             <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>
             <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>
-            <Cell expandable before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
+            <Cell before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
           </List>
         </Group>
         {this._renderDev()}

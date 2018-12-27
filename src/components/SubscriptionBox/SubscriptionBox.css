@@ -37,8 +37,8 @@
   flex: 0 0 auto;
 }
 .SubscriptionBox__icon {
-  width: 96px;
-  height: 96px;
+  width: 84px;
+  height: 84px;
   margin: 0 auto;
   background: url('../../asset/art_premium_96@2x.png') no-repeat center / contain;
 }
@@ -58,16 +58,30 @@
   margin-bottom: 24px;
 }
 .SubscriptionBox__item {
-  margin-top: 16px;
+  margin-top: 14px;
   display: flex;
   align-items: center;
+  border-radius: 8px;
+}
+.SubscriptionBox__item.animate {
+  background: rgba(163, 69, 230, 0.2);
+  animation: SubscriptionBox__item_anim 3s ease-in-out forwards;
+  animation-delay: 3s;
 }
 .SubscriptionBox__item:first-child {
   margin-top: 19px;
 }
+@keyframes SubscriptionBox__item_anim {
+  from {
+    background: rgba(163, 69, 230, 0.2);
+  }
+  to {
+    background: #fff;
+  }
+}
 .SubscriptionBox__item_icon {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: no-repeat center / contain;
   flex: 0 0 auto;
@@ -89,6 +103,9 @@
 }
 .SubscriptionBox__item_icon.messages {
   background-image: url('../../asset/settings_feedback_40.svg');
+}
+.SubscriptionBox__item_icon.fav {
+  background-image: url('../../asset/premium_fav_40.svg');
 }
 .SubscriptionBox__item_caption {
   margin-left: 12px;

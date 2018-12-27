@@ -8,6 +8,7 @@ import * as utils from "../../utils";
 
 export default class SubscriptionBox extends PureComponent {
   render() {
+    const target = this.props.target;
     const btnText = window.isDG ? `Месяц за ${utils.gram(paymentsActions.Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${paymentsActions.Prices.premium.rubles}₽`;
     const dayBtnText = window.isDG ? `День за ${utils.gram(paymentsActions.Prices.premiumDay.votes, ['голос', 'голоса', 'голосов'])}` : `День за ${paymentsActions.Prices.premiumDay.rubles}₽`;
     const vkPayInfo = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
@@ -19,36 +20,43 @@ export default class SubscriptionBox extends PureComponent {
           <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
           <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
           <div className="SubscriptionBox__items">
-            <div className="SubscriptionBox__item">
-              <div className="SubscriptionBox__item_icon likes" />
-              <div className="SubscriptionBox__item_caption">Узнайте, кому вы понравились</div>
-            </div>
-            <div className="SubscriptionBox__item">
-              <div className="SubscriptionBox__item_icon cancel_action" />
-              <div className="SubscriptionBox__item_caption">Отмените свое «нет» в «Карточках»</div>
-            </div>
-            <div className="SubscriptionBox__item">
-              <div className="SubscriptionBox__item_icon messages" />
-              <div className="SubscriptionBox__item_caption">Пусть ваши сообщения читают в первую очередь</div>
-            </div>
-            <div className="SubscriptionBox__item">
-              <div className="SubscriptionBox__item_icon invisible" />
-              <div className="SubscriptionBox__item_caption">Станьте невидимкой</div>
-            </div>
+            {this._renderItems()}
           </div>
           <div className="SubscriptionBox__pay_buttons">
             <Button size="xl" level="2" onClick={() => {
               actions.setPopout();
-              paymentsActions.buyPremium('premium_day');
+              paymentsActions.buyPremium('premium_day', target);
             }}>{dayBtnText}</Button>
             <Button size="xl" level="2" onClick={() => {
               actions.setPopout();
-              paymentsActions.buyPremium('premium');
+              paymentsActions.buyPremium('premium', target);
             }}>{btnText}</Button>
           </div>
           {vkPayInfo}
         </div>
       </div>
     )
+  }
+
+  _renderItems() {
+    return [
+      {type: 'likes', label: 'Узнайте, кому вы понравились'},
+      {type: 'cancel_action', label: 'Отмените свое «нет» в «Карточках»'},
+      {type: 'messages', label: 'Пусть ваши сообщения читают в первую очередь'},
+      {type: 'invisible', label: 'Станьте невидимкой'},
+      {type: 'fav', label: 'Узнайте, кто добавил вас в "Избранные"'},
+    ].map((item) => {
+      const className = utils.classNames({
+        SubscriptionBox__item: true,
+        animate: item.type === this.props.target
+      });
+
+      return (
+        <div className={className} key={item.type}>
+          <div className={`SubscriptionBox__item_icon ${item.type}`} />
+          <div className="SubscriptionBox__item_caption">{item.label}</div>
+        </div>
+      )
+    });
   }
 }

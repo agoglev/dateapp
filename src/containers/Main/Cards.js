@@ -461,7 +461,7 @@ export default class Cards extends Component {
     }
 
     if (isFromCancelActionCards && isLike && !paymentsActions.hasPremium) {
-      setTimeout(paymentsActions.showSubscriptionRequest, 300);
+      setTimeout(() => paymentsActions.showSubscriptionRequest('cancel_action'), 300);
       return;
     }
 

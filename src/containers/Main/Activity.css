@@ -67,6 +67,20 @@
   background: #ebebeb no-repeat center / cover;
   flex: 0 0 auto;
 }
+.im_dialog .im_dialog_photo_wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 auto;
+  margin-left: 16px;
+}
+.im_dialog .im_dialog_photo_wrap .im_dialog_photo {
+  margin-left: 0;
+}
+.im_dialog.hidden .im_dialog_photo {
+  filter: blur(5px);
+}
 .im_dialog .im_dialog_separator {
   position: absolute;
   bottom: 0;

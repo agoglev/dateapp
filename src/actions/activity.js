@@ -24,7 +24,7 @@ export function load() {
       //return;
     }
 
-    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from, new_guests, likes_count}) => {
+    api.method(api.methods.activity).then(({dialogs, likes, featured_users, next_from, new_guests, likes_count, new_fav}) => {
       // dialogs
       actions.setUsers(dialogs.map(dialog => dialog.user));
       store.dispatch({type: actionTypes.DIALOGS_SET, dialogs});
@@ -41,6 +41,7 @@ export function load() {
         nextFrom: next_from,
         isLoading: false,
         newGuests: new_guests,
+        newFav: new_fav,
         likesCount: likes_count
       }, pages.ACTIVITY);
 
@@ -575,6 +576,7 @@ export function loadFav() {
   actions.setData({
     isLoadingFav: true,
     isFailedFav: false,
+    newFav: false
   }, pages.ACTIVITY);
   api.method(api.methods.favorites).then(({favorites, next_from}) => {
     actions.setUsers(favorites);

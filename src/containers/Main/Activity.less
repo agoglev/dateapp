@@ -78,6 +78,21 @@
     flex: 0 0 auto;
   }
 
+  .im_dialog_photo_wrap {
+    .circle(64px);
+    overflow: hidden;
+    flex: 0 0 auto;
+    margin-left: 16px;
+
+    .im_dialog_photo {
+      margin-left: 0;
+    }
+  }
+
+  &.hidden .im_dialog_photo {
+    filter: blur(5px);
+  }
+
   .im_dialog_separator {
     position: absolute;
     bottom: 0;
