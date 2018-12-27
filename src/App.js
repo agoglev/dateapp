@@ -135,7 +135,6 @@ class App extends React.Component {
         <View activePanel={state.activePanels.base} id="base" header={this._getBaseHeader('base')}>
           <Main id={pages.MAIN} state={state} />
           <ImHistory id={pages.IM_HISTORY} state={state} />
-          <Likes id={pages.LIKES} state={state} />
         </View>
         <UI.View activePanel={state.activePanels.join} id="join">
           <JoinStep1 id={pages.JOIN_STEP1} state={state} />

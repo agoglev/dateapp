@@ -7,7 +7,7 @@ import * as activityActions from '../../actions/activity';
 import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
 import BaseComponent from '../../BaseComponent';
-import UIBackButton from '../../components/UI/UIBackButton';
+import UICloseButton from '../../components/UI/UICloseButton';
 import * as payments from '../../actions/payments';
 import Header from '../../components/proxy/Header';
 
@@ -35,7 +35,7 @@ export default class Likes extends BaseComponent {
     return (
       <div>
         <Header
-          left={<UIBackButton />}
+          left={<UICloseButton />}
         >
           Вы нравитесь
         </Header>
@@ -147,7 +147,7 @@ export default class Likes extends BaseComponent {
 
   _isNeedPay() {
     const state = this.props.state;
-    if (state.hasPremium || this.data.isLoading || this.data.isFailed || !this.data.likes.length) {
+    if (state.hasPremium || this.data.isLoading || this.data.isFailed || !this.data.likes || !this.data.likes.length) {
       return false;
     }
 
