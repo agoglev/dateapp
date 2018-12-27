@@ -7,7 +7,6 @@ import * as cardsActions from '../../actions/cards';
 import * as paymentsActions from '../../actions/payments';
 import * as actions from '../../actions';
 import * as utils from '../../utils';
-import * as pages from '../../constants/pages';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
 import Header from '../../components/proxy/Header';
 import Tooltip from '../../components/Tooltip/Tooltip';
@@ -118,7 +117,10 @@ export default class Cards extends Component {
             <div className="im_history_empty_img" />
             <div className="im_history_empty_title">Карточки закончились</div>
             <div className="im_history_empty_text">Заходите попозже — наверняка кто-то еще захочет познакомиться</div>
-            <div className="im_history_empty_extra"><Button size="l" onClick={this._clearHiddenCard}>Показать снова</Button></div>
+            <div className="im_history_empty_extra">
+              <div><Button size="l" onClick={this._clearHiddenCard}>Показать снова</Button></div>
+              <div style={{marginTop: '10px'}}><Button stretched size="l" level="secondary" onClick={() => actions.openFilters()}>Фильтры</Button></div>
+            </div>
           </div>
           <div className="Cards__items" ref="items">
             {this._renderCards()}
@@ -134,12 +136,13 @@ export default class Cards extends Component {
     }
 
     if (window.isDesktop) {
-      //return this._renderCancelActionCont();
+      return this._renderCancelActionCont();
     }
 
     return (
       <Tooltip
         offsetX={window.isDesktop ? -8 : 0}
+        key="cancel_action"
         text="Упс! Вы упустили симпатию"
         isShown={!this.state.isLoading && !this.state.isFailed && this.state.isLikeSkipped}
         onClose={() => this.setState({isLikeSkipped: false})}
@@ -151,7 +154,7 @@ export default class Cards extends Component {
 
   _renderCancelActionCont() {
     return (
-      <HeaderButton onClick={this._cancelAction}>
+      <HeaderButton key="cancel_action" onClick={this._cancelAction}>
         <Icon24Replay />
       </HeaderButton>
     )

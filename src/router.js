@@ -93,7 +93,7 @@ export const routes = [
   {
     name: pages.LIKES,
     path: pages.LIKES,
-    view: 'likes'
+    view: 'base'
   },
 
   {
