@@ -129,3 +129,61 @@
 .SubscriptionBox__pay_buttons .Button:first-child {
   margin-left: 0;
 }
+.SubscriptionBox__pay_button {
+  border-radius: 8px;
+  border: 1px solid #ebebeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px 0 42px;
+  margin-left: 6px;
+  position: relative;
+  cursor: pointer;
+}
+.SubscriptionBox__pay_button:first-child {
+  margin-left: 0;
+}
+.SubscriptionBox__pay_button__badge {
+  position: absolute;
+  color: #fff;
+  background: #e63973;
+  font-size: 12px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -14px);
+  line-height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+}
+.SubscriptionBox__pay_button__badge.green {
+  background-color: #2DB370;
+}
+.SubscriptionBox__pay_button__title {
+  font-size: 16px;
+  line-height: 20px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+.SubscriptionBox__pay_button__price {
+  color: #7a7a7a;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 16px;
+}
+.SubscriptionBox__pay_button__buy {
+  color: #fff;
+  background: #e63973;
+  padding: 8px 0;
+  flex-grow: 1;
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 0 0 8px 8px;
+}
