@@ -10,6 +10,8 @@ import Header from '../../components/proxy/Header';
 import * as accountActions from "../../actions/account";
 import * as api from '../../services/api';
 import * as loadImage from "blueimp-load-image";
+import Icon24Message from '@vkontakte/icons/dist/24/message';
+import Icon24Users from '@vkontakte/icons/dist/24/users';
 
 export default class JoinIntro extends BaseComponent {
   componentDidMount() {
@@ -36,6 +38,12 @@ export default class JoinIntro extends BaseComponent {
             <Button size="xl" level="1" onClick={this._buttonDidPress}>Создать анкету</Button>
           </Div>
         </Group>
+        {!window.isDesktop && <div>
+          <Button level="3" component="a"
+                  href="https://vk.me/dateapp" before={<Icon24Message />} target="_blank">Сообщить о проблеме</Button>
+          <Button level="3" component="a"
+                  href="https://vk.com/dateapp" before={<Icon24Users />} target="_blank">Сообщество</Button>
+        </div>}
       </div>
     )
   }
