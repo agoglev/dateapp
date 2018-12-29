@@ -34,22 +34,22 @@ export default class SubscriptionBox extends PureComponent {
             {this._renderItems()}
           </div>
           <div className="SubscriptionBox__pay_buttons">
-            <div className="SubscriptionBox__pay_button">
+            <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('day')}>
               <div className="SubscriptionBox__pay_button__title">День</div>
               <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
-              <div className="SubscriptionBox__pay_button__buy" onClick={() => this._rateDidPress('day')}>Получить</div>
+              <div className="SubscriptionBox__pay_button__buy">Получить</div>
             </div>
-            <div className="SubscriptionBox__pay_button">
+            <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('weak')}>
               <div className="SubscriptionBox__pay_button__badge">популярно</div>
               <div className="SubscriptionBox__pay_button__title">Неделя</div>
               <div className="SubscriptionBox__pay_button__price">{prices.weak}</div>
-              <div className="SubscriptionBox__pay_button__buy" onClick={() => this._rateDidPress('weak')}>Получить</div>
+              <div className="SubscriptionBox__pay_button__buy">Получить</div>
             </div>
-            <div className="SubscriptionBox__pay_button">
+            <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
               <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
               <div className="SubscriptionBox__pay_button__title">Месяц</div>
               <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
-              <div className="SubscriptionBox__pay_button__buy" onClick={() => this._rateDidPress('month')}>Получить</div>
+              <div className="SubscriptionBox__pay_button__buy">Получить</div>
             </div>
           </div>
           {vkPayInfo}

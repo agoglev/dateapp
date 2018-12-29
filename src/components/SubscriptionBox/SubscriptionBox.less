@@ -204,15 +204,17 @@
 
 .SubscriptionBox__pay_button__buy {
   color: @color-white;
-  background: @color-red;
-  padding: 8px 0;
+  background: @color-vk-blue;
+  padding: 6px 2px;
   flex-grow: 1;
   position: absolute;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  border-radius: 0 0 @border-radius @border-radius;
+  border-radius: @border-radius;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
