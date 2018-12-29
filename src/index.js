@@ -16,6 +16,7 @@ import * as accountActions from './actions/account';
 import * as utils from './utils';
 import * as api from './services/api';
 import Cards from './containers/Main/Cards';
+import Proxy from './services/proxy_sdk/proxy';
 
 const url = window.location.href;
 if (url.indexOf('vk_') > -1) {
@@ -53,8 +54,11 @@ window.onerror = function handler(msg, file, line, col, err) {
   });
 };
 
-// Init VK App
-connect.send('VKWebAppInit', {});
+if (urlToken) {
+  Proxy.init('direct_games');
+} else {
+  Proxy.init('vk_apps');
+}
 
 // Service Worker For Cache
 //registerServiceWorker();

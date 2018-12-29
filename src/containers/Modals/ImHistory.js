@@ -6,11 +6,13 @@ import * as utils from '../../utils';
 import BaseComponent from '../../BaseComponent';
 import * as giftsActions from '../../actions/gifts';
 import * as actions from '../../actions';
-import * as pages from '../../constants/pages';
+import * as accountActions from '../../actions/account';
+import Proxy from '../../services/proxy_sdk/proxy';
 
 import {SystemMessageType} from "../../actions/activity";
 import {markAsSeen} from "../../actions/activity";
 import UIBackButton from '../../components/UI/UIBackButton';
+import InternalNotification from "../../components/InternalNotification/InternalNotification";
 
 import Icon24User from '@vkontakte/icons/dist/24/user';
 import Icon24Delete from '@vkontakte/icons/dist/24/delete';
@@ -90,7 +92,7 @@ export default class ImHistory extends BaseComponent {
         <Header
           left={<UIBackButton />}
         >
-          {isLoading ? 'Loading..' : <PanelHeaderContent aside={<Icon16Dropdown />} onClick={this.toggleContext}>
+          {isLoading ? 'Loading..' : <PanelHeaderContent status={this._renderOnline()} aside={<Icon16Dropdown />} onClick={this.toggleContext}>
             {peer.name}
           </PanelHeaderContent>}
         </Header>
@@ -118,13 +120,28 @@ export default class ImHistory extends BaseComponent {
         </HeaderContext>
         <div className="im_history_cont">
           <div className="im_history">
+            {this._renderNotify()}
             {this._renderHistory()}
-            {this._renderOnline()}
           </div>
         </div>
 
         {this._renderSendForm()}
       </div>
+    )
+  }
+
+  _renderNotify() {
+    if (this.props.state.isImNotifyEnabled || this.data.isLoading || this.data.isFailed) {
+      return null;
+    }
+
+    return (
+      <InternalNotification
+        style={{padding: 0, marginBottom: '16px', paddingBottom: '10px'}}
+        title="Доступ к уведомлениям"
+        text="Боитесь пропустить новые сообщения? Разрешите доступ к уведомлениям!"
+        extra={<Button onClick={this._enableNotifyDidPress}>Разрешить</Button>}
+      />
     )
   }
 
@@ -435,21 +452,21 @@ export default class ImHistory extends BaseComponent {
 
     const peer = this.props.state.usersInfo[this.peerId] || {};
     const now = Math.floor(new Date().getTime() / 1000);
-    const diff = now - peer.last_update;
 
     if (now - peer.last_update < 60 * 10) {
-      return <div className="Activity__im-history__online">Онлайн</div>;
-    } else if (diff < 86400 * 7) {
-      const dateStr = utils.lastUpdateFormat(peer.last_update * 1000);
-      return <div className="Activity__im-history__online">{utils.genderText(peer.gender, [
-        'Был онлайн ' + dateStr,
-        'Была онлайн ' + dateStr
-      ]).toLowerCase()}</div>;
+      return 'онлайн';
     } else {
-      return <div className="Activity__im-history__online">{utils.genderText(peer.gender, [
-        'Был онлайн более недели назад',
-        'Была онлайн более недели назад'
-      ])}</div>;
+      const dateStr = utils.lastUpdateFormat(peer.last_update * 1000);
+      return utils.genderText(peer.gender, [
+        'был онлайн ' + dateStr,
+        'была онлайн ' + dateStr
+      ]).toLowerCase();
     }
+  }
+
+  _enableNotifyDidPress() {
+    Proxy.allowMessagesFromGroup(160479731).then(() => {
+      accountActions.imNotifyEnable();
+    });
   }
 }

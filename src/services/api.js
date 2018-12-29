@@ -115,7 +115,8 @@ export const methods = {
   premiumSave: 'premium_save',
   toggleFav: 'toggle_fav',
   favorites: 'favorites',
-  saveGeo: 'save_geo'
+  saveGeo: 'save_geo',
+  imNotifyEnable: 'im_notify_enable'
 };
 
 let vkRequestId = 0;

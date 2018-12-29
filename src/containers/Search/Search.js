@@ -6,7 +6,6 @@ import * as actions from '../../actions/index';
 import * as searchActions from '../../actions/search';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils/index';
-import * as pages from "../../constants/pages";
 import BaseComponent from '../../BaseComponent';
 import Icon24Filter from '@vkontakte/icons/dist/24/filter';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';

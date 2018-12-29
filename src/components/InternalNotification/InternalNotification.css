@@ -9,12 +9,12 @@
   width: 42px;
   height: 42px;
   background: no-repeat center / contain;
+  margin-right: 12px;
 }
 .InternalNotification__icon.geo {
   background-image: url('../../asset/section_geo_16.svg');
 }
 .InternalNotification__cont {
-  margin-left: 12px;
   flex: 1;
 }
 .InternalNotification__title {

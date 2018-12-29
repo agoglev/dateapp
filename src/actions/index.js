@@ -504,3 +504,7 @@ export function openLiveChat() {
 
   utils.statReachGoal('live_chats_open');
 }
+
+export function hideImNotifyRequest() {
+  store.dispatch({type: actionTypes.IM_NOTIFY_SET, enabled: true});
+}

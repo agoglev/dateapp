@@ -117,7 +117,8 @@ function initMethodHandler(resp) {
     gifts: resp.gifts,
     hasBadge: resp.hasBadge,
     hasPremium: resp.hasPremium,
-    isModer: resp.isModer || false
+    isModer: resp.isModer || false,
+    isImNotifyEnabled: resp.isImNotifyEnabled
   });
   if (resp.need_join) {
     actions.setTab('join');
@@ -276,4 +277,9 @@ export function saveGeo(data) {
 
 export function geoFailed() {
   actions.setData({isGeoNotifyShown: true}, pages.SEARCH);
+}
+
+export function imNotifyEnable() {
+  actions.hideImNotifyRequest();
+  api.method(api.methods.imNotifyEnable);
 }

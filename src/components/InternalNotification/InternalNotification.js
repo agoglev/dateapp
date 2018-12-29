@@ -10,7 +10,8 @@ export default class InternalNotification extends PureComponent {
     title: PropTypes.string,
     text: PropTypes.string,
     icon: PropTypes.string,
-    extra: PropTypes.node
+    extra: PropTypes.node,
+    style: PropTypes.object
   };
 
   render() {
@@ -18,7 +19,8 @@ export default class InternalNotification extends PureComponent {
       title,
       text,
       icon,
-      extra
+      extra,
+      style
     } = this.props;
 
     const iconClassName = utils.classNames({
@@ -27,8 +29,8 @@ export default class InternalNotification extends PureComponent {
     });
 
     return (
-      <div className="InternalNotification">
-        <div className={iconClassName} />
+      <div className="InternalNotification" style={style || {}}>
+        {icon && <div className={iconClassName} />}
         <div className="InternalNotification__cont">
           <div className="InternalNotification__title">{title}</div>
           <div className="InternalNotification__text">{text}</div>

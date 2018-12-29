@@ -124,12 +124,17 @@ export default function reducer(state = initialState, action) {
         hasBadge: action.hasBadge,
         needTokenMessage: false,
         hasPremium: action.hasPremium,
-        isModer: action.isModer
+        isModer: action.isModer,
+        isImNotifyEnabled: action.isImNotifyEnabled
       });
     }
 
     case actionTypes.PREMIUM_SET: {
       return Object.assign({}, state, {hasPremium: action.has});
+    }
+
+    case actionTypes.IM_NOTIFY_SET: {
+      return Object.assign({}, state, {isImNotifyEnabled: action.enabled});
     }
 
     case actionTypes.APP_INIT_RETRY: {

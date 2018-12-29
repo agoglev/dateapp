@@ -13,6 +13,7 @@ export const SET_USERS_INFO = 'SET_USERS_INFO';
 export const WORKS = 'WORKS';
 export const ADS_UPDATE = 'ADS_UPDATE';
 export const PREMIUM_SET = 'PREMIUM_SET';
+export const IM_NOTIFY_SET = 'IM_NOTIFY_SET';
 
 export const SHOW_LOADER = 'SHOW_LOADER';
 export const HIDE_LOADER = 'HIDE_LOADER';
