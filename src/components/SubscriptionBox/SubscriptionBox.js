@@ -39,12 +39,6 @@ export default class SubscriptionBox extends PureComponent {
               <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
               <div className="SubscriptionBox__pay_button__buy">Получить</div>
             </div>
-            <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('weak')}>
-              <div className="SubscriptionBox__pay_button__badge">популярно</div>
-              <div className="SubscriptionBox__pay_button__title">Неделя</div>
-              <div className="SubscriptionBox__pay_button__price">{prices.weak}</div>
-              <div className="SubscriptionBox__pay_button__buy">Получить</div>
-            </div>
             <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
               <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
               <div className="SubscriptionBox__pay_button__title">Месяц</div>
@@ -57,6 +51,15 @@ export default class SubscriptionBox extends PureComponent {
       </div>
     )
   }
+
+  /*
+              <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('weak')}>
+              <div className="SubscriptionBox__pay_button__badge">популярно</div>
+              <div className="SubscriptionBox__pay_button__title">Неделя</div>
+              <div className="SubscriptionBox__pay_button__price">{prices.weak}</div>
+              <div className="SubscriptionBox__pay_button__buy">Получить</div>
+            </div>
+   */
 
   _rateDidPress = (rate) => {
     const target = this.props.target;

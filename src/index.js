@@ -54,9 +54,7 @@ window.onerror = function handler(msg, file, line, col, err) {
   });
 };
 
-if (urlToken) {
-  Proxy.init('direct_games');
-} else {
+if (!urlToken) {
   Proxy.init('vk_apps');
 }
 
@@ -156,7 +154,7 @@ if (urlToken) {
 if (window.isDG) {
   window.onload = () => {
     window.VK.init(function () {
-
+      Proxy.init('direct_games');
     }, function () {
       document.body.innerHTML = 'Ошибка';
     }, '5.87', queryStr);
