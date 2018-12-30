@@ -151,12 +151,16 @@
   display: none;
 }
 .im_dialog .im_dialog_fav {
-  width: 24px;
-  height: 24px;
-  background: url('../../asset/unfav_24.svg') no-repeat center / contain;
+  width: 36px;
+  height: 36px;
+  background: url('../../asset/fav_24.svg') no-repeat center / contain;
   margin-left: 10px;
   align-self: center;
-  margin-right: 16px;
+  margin-right: 4px;
+  background-size: 18px;
+}
+.im_dialog .im_dialog_fav.active {
+  background-image: url('../../asset/unfav_24.svg');
 }
 .im_history_wrap {
   display: flex;

@@ -248,16 +248,9 @@ export default class ProfileView extends BaseComponent {
 
   _favButtonDidPress = () => {
     actions.loaderShow();
-    api.method(api.methods.toggleFav, {
-      user_id: this.data.user.id,
-      is_fav: this.data.isFavorite ? 0 : 1
-    }).then(() => {
-      if (!this.data.isFavorite) {
-        utils.statReachGoal('fav');
-      }
-
+    activityActions.toggleFav(this.data.user.id, this.data.isFavorite ? 0 : 1).then(() => {
       actions.loaderSuccess();
       this.setData({isFavorite: !this.data.isFavorite});
-    }).catch(() => actions.showError());
+    }).catch((err) => actions.showError(err.message));
   };
 }

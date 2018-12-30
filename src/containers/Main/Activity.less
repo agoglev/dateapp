@@ -170,11 +170,16 @@
   }
 
   .im_dialog_fav {
-    .size(24px);
-    background: url('../../asset/unfav_24.svg') no-repeat center/contain;
+    .size(36px);
+    background: url('../../asset/fav_24.svg') no-repeat center/contain;
     margin-left: 10px;
     align-self: center;
-    margin-right: 16px;
+    margin-right: 4px;
+    background-size: 18px;
+
+    &.active {
+      background-image: url('../../asset/unfav_24.svg');
+    }
   }
 }
 

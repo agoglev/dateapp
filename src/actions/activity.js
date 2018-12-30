@@ -641,6 +641,27 @@ export function removeFromFav(profileId) {
         break;
       }
     }
+    updateDialog(profileId, {
+      is_fav: false
+    });
     actions.loaderSuccess();
   }).catch(() => actions.showError());
+}
+
+export function toggleFav(peerId, isFav) {
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.toggleFav, {
+      user_id: peerId,
+      is_fav: isFav ? 1 : 0
+    }).then(() => {
+      updateDialog(peerId, {
+        is_fav: isFav
+      });
+      resolve();
+
+      if (isFav) {
+        utils.statReachGoal('fav');
+      }
+    }).catch((err) => reject(err));
+  });
 }

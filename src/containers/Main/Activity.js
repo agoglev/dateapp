@@ -152,8 +152,18 @@ export default class Activity extends BaseComponent {
         premium: dialog.premium === true
       });
 
+      const badge = dialog.badge > 0 ? dialog.badge : false;
+      const favClassName = utils.classNames({
+        im_dialog_fav: true,
+        active: dialog.is_fav || false
+      });
+
       return (
-        <div className={className} key={dialog.id} onClick={() => actions.openChat(dialog.id)}>
+        <div className={className} key={dialog.id} onClick={(e) => {
+          if (!e.target.classList.contains('im_dialog_fav')) {
+            actions.openChat(dialog.id)
+          }
+        }}>
           <div className="im_dialog_cont_wrap">
             <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
             <div className="im_dialog_cont">
@@ -163,7 +173,8 @@ export default class Activity extends BaseComponent {
               </div>
               <div className="im_dialog_message">{text}</div>
             </div>
-            <div className="im_dialog_badge">{dialog.badge > 0 && dialog.badge}</div>
+            {badge && <div className="im_dialog_badge">{badge}</div>}
+            {!badge && <div className={favClassName} onClick={() => this._toggleFav(dialog)} />}
           </div>
           <div className="im_dialog_separator" />
         </div>
@@ -461,7 +472,7 @@ export default class Activity extends BaseComponent {
         <div className={className} key={guest.id} onClick={(e) => {
           if (user.is_inbox_fav && !this.props.state.hasPremium) {
             payments.showSubscriptionRequest('fav');
-          } else if (e.target.className !== 'im_dialog_fav'){
+          } else if (!e.target.classList.contains('im_dialog_fav')) {
             actions.openChat(guest.id)
           }
         }}>
@@ -476,7 +487,7 @@ export default class Activity extends BaseComponent {
               </div>
               <div className="im_dialog_message">{text}</div>
             </div>
-            {!user.is_inbox_fav && <div className="im_dialog_fav" onClick={() => activityActions.removeFromFav(guest.id)} />}
+            {!user.is_inbox_fav && <div className="im_dialog_fav active" onClick={() => activityActions.removeFromFav(guest.id)} />}
           </div>
           <div className="im_dialog_separator" />
         </div>
@@ -495,5 +506,12 @@ export default class Activity extends BaseComponent {
     }).catch(() => {
       this.setState({isFavLoadingMore: false});
     });
+  };
+
+  _toggleFav = (dialog) => {
+    actions.loaderShow();
+    activityActions.toggleFav(dialog.user.id, !dialog.is_fav).then(() => {
+      actions.loaderSuccess();
+    }).catch((err) => actions.showError(err.message));
   };
 }
