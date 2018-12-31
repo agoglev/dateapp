@@ -93,7 +93,7 @@ export default class EditProfile extends UploadPhotoComponent {
             value={this.data.about}
             onChange={(e) => this.setData('about', e.target.value)}
           />
-          <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0', position: 'relative', zIndex: 1000}}>
+          <FixedLayout vertical="bottom" className="Join__footer_btn_wrap">
             <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: 16}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>

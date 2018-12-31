@@ -1,7 +1,7 @@
 .TabBar {
-  border-top: 1px solid #e4e4e4;
+  border-top: 1px solid var(--separator_alternate);
   width: 100%;
-  background: #fff;
+  background: var(--background_light);
   position: relative;
   padding: 0 15px;
   box-sizing: border-box;
@@ -11,7 +11,7 @@
   height: env(safe-area-inset-bottom);
   top: 48px;
   left: 0;
-  background: #fff;
+  background: var(--background_light);
   position: absolute;
 }
 .TabBar__cont {

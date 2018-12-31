@@ -37,14 +37,14 @@ body {
 }
 
 .Search {
-  background: @color-grey-bg !important;
+  //background: @color-grey-bg !important;
 }
 
 .Search__container {
-  background: @color-white !important;
+ // background: @color-white !important;
 }
 .Search__input {
-  color: @color-black !important;
+  //color: @color-black !important;
 }
 
 .Link {
@@ -84,7 +84,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: var(--background_light);
     .size(104px);
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
     border-radius: 8px;
@@ -289,7 +289,7 @@ body.desktop {
 .notification {
   position: absolute;
   border-radius: @border-radius;
-  background-color: @color-white;
+  background-color: var(--background_light);
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
@@ -323,7 +323,7 @@ body.desktop {
 }
 
 .notification_title {
-  color: @color-black;
+  color: var(--text_primary);
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;

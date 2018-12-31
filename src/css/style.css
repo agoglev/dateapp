@@ -19,15 +19,6 @@ body.desktop #root {
 .ActionSheetItem {
   overflow: hidden;
 }
-.Search {
-  background: #ebebeb !important;
-}
-.Search__container {
-  background: #fff !important;
-}
-.Search__input {
-  color: #1a1a1a !important;
-}
 .Error {
   position: fixed;
   left: 0;
@@ -59,7 +50,7 @@ body.desktop .Error {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: var(--background_light);
   width: 104px;
   height: 104px;
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
@@ -230,7 +221,7 @@ body.desktop .FormLayout {
 .notification {
   position: absolute;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--background_light);
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
@@ -261,7 +252,7 @@ body.desktop .FormLayout {
   overflow: hidden;
 }
 .notification_title {
-  color: #1a1a1a;
+  color: var(--text_primary);
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;

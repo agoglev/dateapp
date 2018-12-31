@@ -2,7 +2,7 @@
 @import "~slick-carousel/slick/slick-theme.css";
 #profile .Panel__in {
   padding-top: 0 !important;
-  background: #fff !important;
+  background: var(--background_content) !important;
 }
 .profile_view {
   padding-bottom: 28px;
@@ -52,7 +52,7 @@
 .profile_view_info {
   padding: 20px 16px 0;
   position: relative;
-  background: #fff;
+  background: var(--background_content);
   margin-bottom: 72px;
 }
 .profile_view_send_msg {
@@ -129,16 +129,16 @@
 .profile_view_info_purpose {
   font-size: 16px;
   line-height: 20px;
-  color: #7a7a7a;
+  color: var(--text_placeholder);
   margin: 16px 0 10px;
 }
 .profile_view_info_purpose span {
-  color: #1a1a1a;
+  color: var(--text_placeholder);
 }
 .profile_view_info_row {
   line-height: 16px;
   font-size: 14px;
-  color: #7a7a7a;
+  color: var(--text_placeholder);
   margin-top: 7px;
   padding-left: 24px;
   position: relative;
@@ -172,7 +172,7 @@
 }
 .profile_view.deactivated .profile_view_about {
   text-align: center;
-  color: #7a7a7a;
+  color: var(--text_placeholder);
 }
 .profile_view_footer {
   width: 100%;
@@ -182,7 +182,7 @@
   padding: 20px 16px 16px;
   padding-bottom: calc(16px + env(safe-area-inset-bottom));
   box-sizing: border-box;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 30%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--background_content) 30%);
   position: fixed;
   bottom: 0;
 }
@@ -195,7 +195,7 @@ body.desktop .profile_view_footer {
   border-radius: 50%;
   position: relative;
   box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.1);
-  background: #fff;
+  background: var(--background_light);
 }
 .profile_view_footer_item:after {
   width: 24px;
@@ -262,11 +262,11 @@ body.desktop .profile_view_footer {
   display: none;
 }
 .profile_view_button {
-  border-top: 1px solid #ebebeb;
+  border-top: 1px solid var(--separator_alternate);
   font-size: 16px;
   line-height: 22px;
   text-align: center;
-  color: #5181b8;
+  color: var(--accent);
   padding: 13px 0;
 }
 .profile_view_button:first-child {
@@ -280,13 +280,13 @@ body.desktop .profile_view_footer {
   background: rgba(230, 57, 115, 0.16);
   border-radius: 8px;
   margin-top: 16px;
-  color: #1a1a1a;
+  color: var(--text_placeholder);
 }
 .profile_view_deactivated {
   margin-top: 19px;
   line-height: 24px;
   font-size: 16px;
-  color: #7a7a7a;
+  color: var(--text_placeholder);
   text-align: center;
   padding: 0 16px;
 }

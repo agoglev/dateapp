@@ -176,7 +176,7 @@
   height: 60px;
   border-radius: 50%;
   margin-top: -30px;
-  background: #fff no-repeat center;
+  background: var(--background_light) no-repeat center;
   background-size: 28px;
   will-change: transform;
   transition: transform 200ms ease-in-out;

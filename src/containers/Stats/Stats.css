@@ -1,5 +1,5 @@
 .Stats__info {
-  color: #7a7a7a;
+  color: var(--text_secondary);
   font-size: 14px;
   line-height: 18px;
   text-align: center;
@@ -14,7 +14,7 @@
   text-align: center;
   justify-content: center;
   padding: 16px 0 6px;
-  color: #1a1a1a;
+  color: var(--text_primary);
 }
 .Stats__level {
   flex: 0 0 auto;

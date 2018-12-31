@@ -1,7 +1,7 @@
 .SegmentedControl {
   display: flex;
   border-radius: 8px;
-  border: 1px solid #ebebeb;
+  border: 1px solid var(--separator_alpha);
   margin: 0 12px;
 }
 .SegmentedControl__item {
@@ -10,7 +10,7 @@
   line-height: 32px;
   text-align: center;
   position: relative;
-  color: #1a1a1a;
+  color: var(--text_primary);
   transition: color 150ms ease-in-out;
 }
 .SegmentedControl__item:after {
@@ -20,13 +20,13 @@
   left: -1px;
   bottom: -1px;
   right: -1px;
-  border: 2px solid #5181b8;
+  border: 2px solid var(--accent);
   border-radius: 8px;
   opacity: 0;
   transition: opacity 150ms ease-in-out;
 }
 .SegmentedControl__item.selected {
-  color: #5181b8;
+  color: var(--accent);
 }
 .SegmentedControl__item.selected:after {
   opacity: 1;

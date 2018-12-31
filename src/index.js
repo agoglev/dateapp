@@ -111,6 +111,9 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppGeodataFailed':
       accountActions.geoFailed();
       break;
+    case 'VKWebAppUpdateConfig':
+      document.body.setAttribute('scheme', data.scheme);
+      break;
     default:
       console.log(e.detail.type);
   }

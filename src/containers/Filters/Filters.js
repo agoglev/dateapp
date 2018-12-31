@@ -71,9 +71,7 @@ export default class Filters extends BaseComponent {
               onChange={(e) => this.setData('onlyCity', false)}
             >Вся область</Radio>
           </div>
-          <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0'}}>
-            <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
-          </FixedLayout>
+          <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
         </FormLayout>
       </div>
     )

@@ -23,7 +23,7 @@
   text-align: center;
   padding: 50px 16px 30px;
   box-sizing: border-box;
-  background: #fff;
+  background: var(--background_content);
   margin: 16px;
   border-radius: 8px;
   position: relative;
@@ -58,12 +58,12 @@
   font-size: 18px;
   margin-top: 21px;
   font-weight: bold;
-  color: #1a1a1a;
+  color: var(--text_primary);
 }
 .permissions_modal .permissions_caption {
   margin-top: 8px;
   font-size: 16px;
   line-height: 24px;
-  color: #7a7a7a;
+  color: var(--text_secondary);
   max-width: 350px;
 }

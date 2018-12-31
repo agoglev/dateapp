@@ -58,7 +58,7 @@
   left: 68px;
   right: 0;
   height: 1px;
-  background: #ebebeb;
+  background: var(--separator_alpha);
 }
 .profile_button_icon {
   width: 40px;
@@ -97,7 +97,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;
-  color: #1a1a1a;
+  color: var(--text_primary);
   margin-left: 12px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -111,7 +111,7 @@
   align-items: center;
 }
 .profile_button_indicator {
-  color: #7a7a7a;
+  color: var(--text_secondary);
   font-size: 16px;
   line-height: 22px;
   margin-right: 8px;
@@ -132,7 +132,7 @@
   right: 0;
   left: 16px;
   height: 1px;
-  background: #ebebeb;
+  background: var(--separator_alpha);
 }
 .profile_share_buttons .profile_share_button {
   display: flex;

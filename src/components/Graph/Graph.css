@@ -16,28 +16,28 @@
   width: 1px;
   height: 100%;
   top: 0;
-  background: #ebebeb;
+  background: var(--separator_alpha);
   z-index: 1;
   transition: background 150ms ease-in-out;
   transform: translateX(-50%);
 }
 .Graph__separator.active {
-  background: #5181b8;
+  background: var(--accent);
 }
 .Graph__point {
   position: absolute;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: var(--background_content);
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid #5181b8;
+  border: 2px solid var(--accent);
   box-sizing: border-box;
   z-index: 11;
   transition: background 150ms ease-in-out;
 }
 .Graph__point.active {
-  background: #5181b8;
+  background: var(--accent);
 }
 .Graph__touch-zone {
   z-index: 12;
@@ -52,12 +52,12 @@
   bottom: -20px;
   left: 0;
   width: 100%;
-  color: #7a7a7a;
+  color: var(--text_secondary);
   text-align: center;
   font-size: 12px;
   line-height: 14px;
   transition: color 150ms ease-in-out;
 }
 .Graph__touch-zone.active .Graph__day {
-  color: #5181b8;
+  color: var(--accent);
 }

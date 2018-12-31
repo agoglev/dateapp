@@ -97,7 +97,7 @@
     padding-top: 100%;
     position: relative;
     border-radius: 8px;
-    background: @color-white url('./assest/add.svg') no-repeat center;
+    background: var(--background_light) url('./assest/add.svg') no-repeat center;
     background-size: 24px;
 
     body.desktop & {
@@ -214,4 +214,9 @@
     height: 100%;
     transform: none;
   }
+}
+
+.Join__footer_btn_wrap {
+  background: var(--background_content);
+  z-index: 1000;
 }

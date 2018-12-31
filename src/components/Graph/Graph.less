@@ -22,28 +22,28 @@
   width: 1px;
   height: 100%;
   top: 0;
-  background: @color-grey-bg;
+  background: var(--separator_alpha);
   z-index: 1;
   transition: background 150ms ease-in-out;
   transform: translateX(-50%);
 
   &.active {
-    background: @color-pink;
+    background: var(--accent);
   }
 }
 
 .Graph__point {
   position: absolute;
   transform: translate(-50%, -50%);
-  background: @color-white;
+  background: var(--background_content);
   .circle(14px);
-  border: 2px solid @color-pink;
+  border: 2px solid var(--accent);
   box-sizing: border-box;
   z-index: 11;
   transition: background 150ms ease-in-out;
 
   &.active {
-    background: @color-pink;
+    background: var(--accent);
   }
 }
 
@@ -61,13 +61,13 @@
   bottom: -(14 + 6px);
   left: 0;
   width: 100%;
-  color: @color-grey;
+  color: var(--text_secondary);
   text-align: center;
   font-size: 12px;
   line-height: 14px;
   transition: color 150ms ease-in-out;
 
   .Graph__touch-zone.active & {
-    color: @color-pink;
+    color: var(--accent);
   }
 }
