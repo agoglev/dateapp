@@ -153,7 +153,7 @@
 .im_dialog .im_dialog_fav {
   width: 36px;
   height: 36px;
-  background: url('../../asset/fav_24.svg') no-repeat center / contain;
+  background: url('../../asset/fav_24.svg?1') no-repeat center / contain;
   margin-left: 10px;
   align-self: center;
   margin-right: 4px;

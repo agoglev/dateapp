@@ -72,9 +72,6 @@ export default class TabBar extends Component {
           onClick={() => {
             window.scrollTo(0, 0);
             actions.setTab(tab);
-            if (tab === 'messages') {
-              activityActions.loadFeaturedUsers();
-            }
           }}
           key={tab}
         >

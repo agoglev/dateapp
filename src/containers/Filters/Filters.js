@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, FormLayout, Checkbox, RangeSlider, FixedLayout, Button } from '@vkontakte/vkui';
+import { Panel, FormLayout, Checkbox, RangeSlider, FixedLayout, Button, Radio } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as cardsActions from "../../actions/cards";
 import BaseComponent from '../../BaseComponent';
@@ -60,16 +60,16 @@ export default class Filters extends BaseComponent {
             actions.openEditProfile();
             return false;
           }}>редактировании анкеты</span></span>}>
-            <Checkbox
-              name="type"
+            <Radio
+              name="radio"
               checked={this.data.onlyCity}
               onChange={(e) => this.setData('onlyCity', true)}
-            >Только город {cityName}</Checkbox>
-            <Checkbox
-              name="type"
+            >Только город {cityName}</Radio>
+            <Radio
+              name="radio"
               checked={!this.data.onlyCity}
               onChange={(e) => this.setData('onlyCity', false)}
-            >Вся область</Checkbox>
+            >Вся область</Radio>
           </div>
           <FixedLayout vertical="bottom" style={{backgroundColor: '#ebedf0'}}>
             <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
