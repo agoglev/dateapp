@@ -701,6 +701,7 @@ body.desktop .im_send_form {
   left: 0;
   right: 0;
   z-index: 100;
+  transform: translateZ(0);
 }
 body.desktop .live_feed_featured {
   right: 240px;
@@ -725,6 +726,7 @@ body.desktop .live_feed_featured {
   border-radius: 8px;
   flex: 0 0 auto;
   text-align: center;
+  transform: translateZ(0);
 }
 .live_feed_featured_item_photo {
   background: #ebebeb no-repeat center / cover;
