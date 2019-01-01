@@ -92,10 +92,10 @@ export default class UploadPhotoComponent extends BaseComponent {
                 this.setData('photos', photos);
                 setTimeout(() => resolve(), 100);
               }
-            }).catch(() => {
+            }).catch((err) => {
               if (!isSystemPhoto) {
                 this.removePhoto(index);
-                actions.showError('Неудалось загрузить фото');
+                actions.showError(err.message);
               }
               reject();
             })

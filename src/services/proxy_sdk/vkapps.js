@@ -1,5 +1,4 @@
 import connect from '@vkontakte/vkui-connect';
-import * as accountActions from "../../actions/account";
 
 let promises = {};
 
