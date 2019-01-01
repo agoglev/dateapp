@@ -12,6 +12,7 @@ import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import SegmentedControl from "../../components/SegmentedControl/SegmentedControl";
 import Header from '../../components/proxy/Header';
 import InternalNotification from "../../components/InternalNotification/InternalNotification";
+import Proxy from '../../services/proxy_sdk/proxy';
 
 export default class Search extends BaseComponent {
   constructor() {
@@ -229,5 +230,6 @@ export default class Search extends BaseComponent {
 
   _geoAccessButtonDidPress = () => {
     this.setData({isGeoNotifyShown: false});
+    Proxy.getGeodata();
   };
 }

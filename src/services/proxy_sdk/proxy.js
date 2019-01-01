@@ -20,4 +20,5 @@ export default {
     Sdk.init();
   },
   allowMessagesFromGroup: (groupId, key = '') => Sdk.allowMessagesFromGroup(groupId, key),
+  getGeodata: () => Sdk.getGeodata()
 };

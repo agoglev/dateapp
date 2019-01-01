@@ -4,7 +4,7 @@ import * as actions from './index'
 import * as api from '../services/api';
 import * as utils from '../utils';
 import * as pages from '../constants/pages';
-import connect from '@vkontakte/vkui-connect';
+import Proxy from '../services/proxy_sdk/proxy';
 
 let lastLoadTs = 0;
 export function init() {
@@ -16,7 +16,7 @@ export function init() {
   lastLoadTs = ts;
   load();
 
-  connect.send("VKWebAppGetGeodata", {});
+  Proxy.getGeodata();
 }
 
 function makeFilters() {

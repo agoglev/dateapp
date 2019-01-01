@@ -1,3 +1,4 @@
+import connect from "@vkontakte/vkui-connect/index";
 
 let promises = {};
 
@@ -21,6 +22,12 @@ export default {
     return new Promise((resolve, reject) => {
       promises.allowMessagesFromGroup = {resolve, reject};
       window.VK.callMethod('showAllowMessagesFromCommunityBox', groupId);
+    });
+  },
+
+  getGeodata() {
+    return new Promise((resolve, reject) => {
+      reject();
     });
   }
 }
