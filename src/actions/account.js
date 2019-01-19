@@ -137,9 +137,13 @@ function initMethodHandler(resp) {
       payments.setPrices(resp.payments_rates);
     }
 
-    proxy.getGeodata().then(() => {
-      cardsActions.loadCards(true);
-    });
+    if (resp.loc) {
+      proxy.getGeodata().then((location) => {
+        if (utils.distance(parseInt(location.lat, 10), parseInt(location.long, 10), resp.loc.lat, resp.loc.long, 'K') >= 2) {
+          cardsActions.loadCards(true);
+        }
+      });
+    }
   }
 }
 
@@ -276,7 +280,10 @@ export function saveGeo(data) {
     lat: parseInt(data.lat, 10),
     long: parseInt(data.long, 10),
   }).then(() => {
-    searchActions.load(true);
+    const data = actions.getData(pages.SEARCH);
+    if (data.users) {
+      searchActions.load(true);
+    }
   });
 }
 
