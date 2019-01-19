@@ -14,10 +14,10 @@ let needShowSortTip = false;
 
 let SystemCardsQueue = [];
 
-export function loadCards() {
+export function loadCards(force = false) {
   return new Promise((resolve, reject) => {
     let cards = store.getState().cards;
-    if (cards.length > 0) {
+    if (cards.length > 0 && !force) {
       return resolve();
     }
     api.method(api.methods.cardsGet, {})
@@ -37,8 +37,8 @@ export function loadCards() {
         if (!adsLoaded) {
           loadAds();
         }
-      }).catch(() => {
-        reject();
+      }).catch((err) => {
+        reject(err);
     });
   })
 }

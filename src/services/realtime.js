@@ -70,7 +70,6 @@ function messageDidReceive(e) {
   }
 
   if (lastEventId > 0 && data.Event.Id < lastEventId) {
-    console.log('SKIP');
     return
   }
 
@@ -113,6 +112,12 @@ function messageDidReceive(e) {
       break;
     case 'live_chat_leave':
       liveChatsActions.leaveEventDidReceive(parseInt(event.user_id, 10));
+      break;
+    case 'user_online':
+      activityActions.userAreOnline(event.user);
+      break;
+    case 'guest':
+      activityActions.newGuset(event.user);
       break;
   }
 }

@@ -6,6 +6,7 @@ import * as api from '../services/api';
 import * as utils from '../utils';
 import * as pages from '../constants/pages';
 import ImHistory from "../containers/Modals/ImHistory";
+import * as pushActions from './push';
 
 export const SystemMessageType = {
   match: 1,
@@ -326,7 +327,30 @@ export function newMessageEventDidReceive(dialog) {
     ImHistory.scrollToBottom();
   }
 
+  if (state.activeView === 'base' && state.activeTab !== 'messages') {
+    const title = utils.genderText(dialog.user.gender, [
+      '{name} написал вам сообщение',
+      '{name} написала вам сообщение'
+    ]).replace('{name}', dialog.user.name);
+    pushActions.showNotification('message', title, getMessagePreviewStr(dialog.message), {
+      onClick: () => actions.openChat(peerId)
+    });
+  }
+
   accountActions.showBadge();
+}
+
+function getMessagePreviewStr(message) {
+  switch (message.system) {
+    case SystemMessageType.gift:
+      return 'Подарок';
+    default:
+      if (message.kludges.photo_url) {
+        return 'Фотография';
+      } else {
+        return message.text;
+      }
+  }
 }
 
 export function newLikeEventDidReceive(like) {
@@ -664,4 +688,34 @@ export function toggleFav(peerId, isFav) {
       }
     }).catch((err) => reject(err));
   });
+}
+
+export function userAreOnline(user) {
+  const state = store.getState();
+  if (state.activeView === 'base') {
+    actions.setUser(user);
+    const title = utils.genderText(user.gender, [
+      '{name} появился онлайн',
+      '{name} появилась онлайн'
+    ]).replace('{name}', user.name);
+    pushActions.showNotification('online', title, 'Написать сообщение', {
+      onClick: () => actions.openChat(user.id),
+      iconSrc: user.small_photo
+    });
+  }
+}
+
+export function newGuset(user) {
+  const state = store.getState();
+  if (state.activeView === 'base') {
+    actions.setUser(user);
+    const title = utils.genderText(user.gender, [
+      '{name} посетил вашу анкету',
+      '{name} посетила вашу анкету'
+    ]).replace('{name}', user.name);
+    pushActions.showNotification('guest', title, 'Открыть', {
+      onClick: () => actions.openProfile(user.id),
+      iconSrc: user.small_photo
+    });
+  }
 }

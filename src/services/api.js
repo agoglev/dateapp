@@ -40,7 +40,7 @@ export function method(name, params = {}) {
             updateOnline();
           }
         }
-      }).catch(() => reject({http: true}));
+      }).catch((err) => reject({http: true, message: err.message}));
   });
 }
 

@@ -37,7 +37,8 @@ const initialState = {
   featuredUsers: [],
   hasLikesBadge: false,
   isFeatureTTShown: false,
-  hasPremium: false
+  hasPremium: false,
+  pushNotifications: []
 };
 
 export let navHistory = [];
@@ -225,6 +226,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.FEATURE_TT_SET: {
       return Object.assign({}, state, {isFeatureTTShown: action.shown});
+    }
+
+    case actionTypes.SET_PUSH_NOTIFICATIONS: {
+      return Object.assign({}, state, {pushNotifications: action.items});
     }
 
     default:

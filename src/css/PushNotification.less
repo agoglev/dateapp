@@ -1,0 +1,76 @@
+@import "./vars";
+
+.PushNotification {
+  position: fixed;
+  border-radius: @border-radius;
+  background-color: var(--background_light);
+  display: flex;
+  align-items: center;
+  animation: PushNotification__anim 200ms ease-in-out forwards;
+  padding: 16px 6px 16px 16px;
+  box-sizing: border-box;
+  top: 16px;
+  margin-top: env(safe-area-inset-top);
+  left: 8px;
+  right: 8px;
+  z-index: 1000;
+
+  &.hasShadow {
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.16);
+  }
+}
+
+@keyframes PushNotification__anim {
+  from {
+    transform: translateY(-115%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.PushNotification__icon {
+  flex: 0 0 auto;
+  .circle(40px);
+  background: no-repeat center/cover;
+
+  .PushNotification.like & {
+    background-image: url('../containers/Main/asset/liked_24.svg');
+  }
+
+  .PushNotification.message & {
+    background-image: url('../containers/ProfileView/asset/ic_message.svg');
+  }
+}
+
+.PushNotification__cont {
+  margin-left: 12px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.PushNotification__title {
+  color: var(--text_primary);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.PushNotification__message {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text_secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
+}
+
+.PushNotification__close {
+  flex: 0 0 auto;
+  .size(48px);
+  background: url('../asset/close_16.svg') no-repeat center;
+  background-size: 16px;
+  cursor: pointer;
+  margin-left: 12px;
+}

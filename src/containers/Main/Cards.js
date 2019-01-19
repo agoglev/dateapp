@@ -169,7 +169,7 @@ export default class Cards extends Component {
 
     if (this.state.isFailed) {
       return <div className="Activity__failed">
-        <div className="Activity__failed_msg">Произошла ошибка</div>
+        <div className="Activity__failed_msg">Произошла ошибка ({this.state.isFailed})</div>
         <Button size="l" onClick={this._load}>Повторить</Button>
       </div>;
     }
@@ -548,8 +548,8 @@ export default class Cards extends Component {
       }
 
       isFromCancelActionCards = false;
-    }).catch(() => {
-      this.setState({isLoading: false, isFailed: true});
+    }).catch((err) => {
+      this.setState({isLoading: false, isFailed: err.message});
     });
   };
 

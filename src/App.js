@@ -1,5 +1,6 @@
 import './css/style.css';
 import './App.css';
+import './css/PushNotification.css';
 
 import React from 'react';
 import { View } from '@vkontakte/vkui';
@@ -7,7 +8,8 @@ import '@vkontakte/vkui/dist/vkui.css';
 import { connect } from 'react-redux';
 import * as pages from './constants/pages';
 import * as UI from '@vkontakte/vkui';
-import * as utils from './utils'
+import * as utils from './utils';
+import * as pushActions from './actions/push';
 
 import Main from './containers/Main/Main';
 
@@ -43,6 +45,7 @@ class App extends React.Component {
       <div>
 				{this._renderError()}
         {this._renderLoader()}
+        {this._renderPushNotifications()}
 				{this._renderContent()}
 			</div>
 		);
@@ -84,6 +87,26 @@ class App extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _renderPushNotifications() {
+	  return this.props.state.pushNotifications.map((notification, i) => {
+	    const className = utils.classNames({
+        PushNotification: true,
+        [notification.type]: true,
+        hasShadow: i === 0
+      });
+	    return (
+	      <div className={className} key={notification.id} onClick={notification.onClick}>
+          <div className="PushNotification__icon" style={{backgroundImage: `url(${notification.iconSrc})`}} />
+          <div className="PushNotification__cont">
+            <div className="PushNotification__title">{notification.title}</div>
+            <div className="PushNotification__message">{notification.message}</div>
+          </div>
+          <div className="PushNotification__close" onClick={() => pushActions.hideNotifications()} />
+        </div>
+      )
+    });
   }
 
   _getBaseHeader(view) {
@@ -226,7 +249,6 @@ class App extends React.Component {
         return <GiftSend id={pages.GIFT_SEND} state={state} />;
       case pages.PREMIUM:
         return <Premium id={pages.PREMIUM} state={state} />;
-
       default:
         return false;
     }

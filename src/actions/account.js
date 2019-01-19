@@ -8,6 +8,7 @@ import * as pages from '../constants/pages';
 import realTimeInit from '../services/realtime';
 import * as payments from './payments';
 import * as searchActions from './search';
+import proxy from "../services/proxy_sdk/proxy";
 
 export let JoinInfo = {};
 export let searchFilters = {};
@@ -135,6 +136,10 @@ function initMethodHandler(resp) {
     if (resp.payments_rates) {
       payments.setPrices(resp.payments_rates);
     }
+
+    proxy.getGeodata().then(() => {
+      cardsActions.loadCards(true);
+    });
   }
 }
 
