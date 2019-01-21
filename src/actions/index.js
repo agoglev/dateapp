@@ -469,7 +469,11 @@ export function vkPayRequest(amount, description) {
 export function vkPay(type, extraFields = {}) {
   return new Promise((resolve, reject) => {
     vkPayPromise = {resolve, reject};
-    api.method(api.methods.payParams, {type, ...extraFields}).then((params) => {
+    api.method(api.methods.payParams, {
+      type,
+      is_ios: utils.isIOS() ? 1 : 0,
+      ...extraFields
+    }).then((params) => {
       connect.send('VKWebAppOpenPayForm', {app_id: 6682509, action: 'pay-to-service', params});
     }).catch(() => {
       vkPayPromise = false;

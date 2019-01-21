@@ -24,7 +24,8 @@ export function init(token = false) {
     vk_sig: vkUserInfo.signed_user_id || '',
     vk_token: token || '',
     is_dg: window.isDG ? 1 : 0,
-    vk_url: window.initialUrl
+    vk_url: window.initialUrl,
+    is_ios: utils.isIOS() ? 1 : 0
   })
     .then(initMethodHandler)
     .catch(() => {
@@ -94,6 +95,7 @@ export function createAccount(photos) {
         photos: photos.join(','),
         is_dg: window.isDG ? 1 : 0,
         vk_url: window.initialUrl,
+        is_ios: utils.isIOS() ? 1 : 0,
         ...JoinInfo
       })
       .then((resp) => {
