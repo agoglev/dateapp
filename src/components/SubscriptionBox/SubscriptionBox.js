@@ -11,15 +11,17 @@ export default class SubscriptionBox extends PureComponent {
     let prices;
     if (window.isDG) {
       prices = {
-        day: utils.gram(paymentsActions.Prices.premiumDay.votes, ['голос', 'голоса', 'голосов']),
-        weak: utils.gram(paymentsActions.Prices.premiumWeak.votes, ['голос', 'голоса', 'голосов']),
-        month: utils.gram(paymentsActions.Prices.premiumMonth.votes, ['голос', 'голоса', 'голосов'])
+        day: utils.gram(paymentsActions.Prices.premiumDay.votes * 2, ['голос', 'голоса', 'голосов']),
+        daySale: utils.gram(paymentsActions.Prices.premiumDay.votes, ['голос', 'голоса', 'голосов']),
+        month: utils.gram(paymentsActions.Prices.premiumMonth.votes * 2, ['голос', 'голоса', 'голосов']),
+        monthSale: utils.gram(paymentsActions.Prices.premiumMonth.votes, ['голос', 'голоса', 'голосов'])
       };
     } else {
       prices = {
-        day: utils.gram(paymentsActions.Prices.premiumDay.rubles, ['рубль', 'рубля', 'рублей']),
-        weak: utils.gram(paymentsActions.Prices.premiumWeak.rubles, ['рубль', 'рубля', 'рублей']),
-        month: utils.gram(paymentsActions.Prices.premiumMonth.rubles, ['рубль', 'рубля', 'рублей'])
+        day: utils.gram(paymentsActions.Prices.premiumDay.rubles * 2, ['рубль', 'рубля', 'рублей']),
+        daySale: utils.gram(paymentsActions.Prices.premiumDay.rubles, ['рубль', 'рубля', 'рублей']),
+        month: utils.gram(paymentsActions.Prices.premiumMonth.rubles * 2, ['рубль', 'рубля', 'рублей']),
+        monthSale: utils.gram(paymentsActions.Prices.premiumMonth.rubles, ['рубль', 'рубля', 'рублей'])
       };
     }
     const vkPayInfo = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
@@ -37,12 +39,14 @@ export default class SubscriptionBox extends PureComponent {
             <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('day')}>
               <div className="SubscriptionBox__pay_button__title">День</div>
               <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
+              <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
               <div className="SubscriptionBox__pay_button__buy">Получить</div>
             </div>
             <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
               <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
               <div className="SubscriptionBox__pay_button__title">Месяц</div>
               <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
+              <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
               <div className="SubscriptionBox__pay_button__buy">Получить</div>
             </div>
           </div>

@@ -171,7 +171,7 @@ export function isAppVersion(major, minor = 0) {
 }
 
 export function isIOS() {
-  return !!navigator.platform && /ipad|iphone|ipod/.test(navigator.platform.toLowerCase());
+  return !!navigator.platform && /ipad|iphone|ipod/.test(navigator.platform.toLowerCase()) || window.vkPlatform === 'mobile_iphone';
 }
 
 export function canAuthWithSig() {
