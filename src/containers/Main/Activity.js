@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton, Tabs, TabsItem } from '@vkontakte/vkui';
+import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton, Tabs, TabsItem, Avatar, List } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -11,6 +11,7 @@ import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Header from '../../components/proxy/Header';
 import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
+import Icon16Like from '@vkontakte/icons/dist/16/like';
 import BaseComponent from '../../BaseComponent';
 
 let skipFeatureAnim = false;
@@ -263,17 +264,25 @@ export default class Activity extends BaseComponent {
       return null;
     }
 
-    const likes = this.props.state.likes;
-    return <Group>
-      <Cell
-        before={<Icon24Like />}
-        expandable
-        onClick={() => {
-          actions.openLikes();
-          utils.statReachGoal('likes_open_modal');
-        }}
-      >Вы нравитесь {utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}</Cell>
-    </Group>;
+    return (
+      <Group>
+        <List>
+          <Cell
+            expandable
+            before={<Avatar style={{ background: 'var(--destructive)' }} size={28}><Icon16Like fill="var(--white)" /></Avatar>}
+            description={`Вы понравились ${utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}`}
+            onClick={() => {
+              actions.openLikes();
+              utils.statReachGoal('likes_open_modal');
+            }}
+          >
+            Лайки
+          </Cell>
+        </List>
+      </Group>
+    );
+
+    //const likes = this.props.state.likes;
 
       /*
       {likes.length > 0 && <HorizontalScroll>
