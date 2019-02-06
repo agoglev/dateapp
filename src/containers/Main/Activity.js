@@ -6,6 +6,7 @@ import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils';
+import * as ab from '../../utils/ab_test';
 import * as pages from '../../constants/pages';
 import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Header from '../../components/proxy/Header';
@@ -272,7 +273,19 @@ export default class Activity extends BaseComponent {
             before={<Avatar style={{ background: 'var(--destructive)' }} size={28}><Icon16Like fill="var(--white)" /></Avatar>}
             description={`Вы понравились ${utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}`}
             onClick={() => {
-              actions.openLikes();
+              if (this.props.state.hasPremium) {
+                actions.openLikes();
+              } else {
+                const abGroup = ab.group(this.props.state.userId, ab.Groups.likes_premium);
+                if (abGroup === 2) {
+                  payments.showSubscriptionRequest('likes', {
+                    likesCount: this.data.likesCount
+                  });
+                } else {
+                  actions.openLikes();
+                }
+                ab.statEvent(this.props.state.userId, ab.Groups.likes_premium, 'view');
+              }
               utils.statReachGoal('likes_open_modal');
             }}
           >

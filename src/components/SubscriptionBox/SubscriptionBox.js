@@ -25,13 +25,14 @@ export default class SubscriptionBox extends PureComponent {
       };
     }
     const vkPayInfo = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
+
     return (
       <div className="SubscriptionBox">
         <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
         <div className="SubscriptionBox__cont">
           <div className="SubscriptionBox__icon"/>
           <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
-          <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
+          <div className="SubscriptionBox__caption">Активируйте Знакомства «Премиум» и наслаждайтесь дополнительными возможностями!</div>
           <div className="SubscriptionBox__items">
             {this._renderItems()}
           </div>
@@ -40,14 +41,14 @@ export default class SubscriptionBox extends PureComponent {
               <div className="SubscriptionBox__pay_button__title">День</div>
               <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
               <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
-              <div className="SubscriptionBox__pay_button__buy">Получить</div>
+              <div className="SubscriptionBox__pay_button__buy">Активировать</div>
             </div>
             <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
               <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
               <div className="SubscriptionBox__pay_button__title">Месяц</div>
               <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
               <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
-              <div className="SubscriptionBox__pay_button__buy">Получить</div>
+              <div className="SubscriptionBox__pay_button__buy">Активировать</div>
             </div>
           </div>
           {vkPayInfo}
@@ -72,11 +73,14 @@ export default class SubscriptionBox extends PureComponent {
   };
 
   _renderItems() {
+    const opts = this.props.opts || {};
+    const likesLabel = opts.likesCount ? `Вы понравились ${utils.gram(opts.likesCount, ['человеку', 'людям', 'людям'])}. Узнайте, кто они!` : 'Узнайте, кому вы понравились';
+
     return [
-      {type: 'likes', label: 'Узнайте, кому вы понравились'},
+      {type: 'likes', label: likesLabel},
       {type: 'cancel_action', label: 'Отмените свое «нет» в «Карточках»'},
       {type: 'messages', label: 'Пусть ваши сообщения читают в первую очередь'},
-      {type: 'invisible', label: 'Станьте невидимкой'},
+      //{type: 'invisible', label: 'Станьте невидимкой'},
       {type: 'fav', label: 'Узнайте, кто добавил вас в "Избранные"'},
     ].map((item) => {
       const className = utils.classNames({

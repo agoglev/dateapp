@@ -4,6 +4,7 @@ import store from '../store';
 import * as actions from './index';
 import * as api from '../services/api';
 import * as utils from "../utils";
+import * as ab from "../utils/ab_test";
 import NotificationsPermission from '../components/NotificationsPermission/NotificationsPermission';
 import * as activityActions from "./activity";
 import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
@@ -43,8 +44,8 @@ export function setPremiumState(has) {
   store.dispatch({type: actionTypes.PREMIUM_SET, has});
 }
 
-export function showSubscriptionRequest(target = 'none') {
-  actions.setPopout(<SubscriptionBox target={target} />);
+export function showSubscriptionRequest(target = 'none', opts = {}) {
+  actions.setPopout(<SubscriptionBox target={target} opts={opts} />);
   utils.statReachGoal('premium_box');
 }
 
@@ -56,6 +57,7 @@ export function buyPremium(type = 'premium', target = 'none') {
       setPremiumState(true);
       setTimeout(() => showFeatureBox(true), 100);
       utils.statReachGoal('premium_target_' + target);
+      ab.statEvent(store.getState().userId, ab.Groups.likes_premium, 'buy');
     }).catch((isFailed) => {
       if (isFailed) {
         actions.showError();
@@ -69,6 +71,7 @@ export function buyPremium(type = 'premium', target = 'none') {
       actions.loaderSuccess();
       setTimeout(() => showFeatureBox(true), 100);
       utils.statReachGoal('premium_target_' + target);
+      ab.statEvent(store.getState().userId, ab.Groups.likes_premium, 'buy');
     }).catch(() => actions.showError());
   }
   utils.statReachGoal('premium_continue');
