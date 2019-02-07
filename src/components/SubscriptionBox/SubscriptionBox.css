@@ -107,10 +107,13 @@
   background-image: url('../../asset/premium_invisible_40.png');
 }
 .SubscriptionBox__item_icon.messages {
-  background-image: url('../../asset/settings_feedback_40.svg');
+  background-image: url('../../asset/premium_messages_40.svg');
 }
 .SubscriptionBox__item_icon.fav {
   background-image: url('../../asset/premium_fav_40.svg');
+}
+.SubscriptionBox__item_icon.skip_match {
+  background-image: url('../../asset/settings_feedback_40.svg');
 }
 .SubscriptionBox__item_caption {
   margin-left: 12px;

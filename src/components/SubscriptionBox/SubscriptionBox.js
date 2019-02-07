@@ -32,7 +32,7 @@ export default class SubscriptionBox extends PureComponent {
         <div className="SubscriptionBox__cont">
           <div className="SubscriptionBox__icon"/>
           <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
-          <div className="SubscriptionBox__caption">Активируйте Знакомства «Премиум» и наслаждайтесь дополнительными возможностями!</div>
+          <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
           <div className="SubscriptionBox__items">
             {this._renderItems()}
           </div>
@@ -78,6 +78,7 @@ export default class SubscriptionBox extends PureComponent {
 
     return [
       {type: 'likes', label: likesLabel},
+      {type: 'skip_match', label: 'Пишите сообщения без взаимной симпатии'},
       {type: 'cancel_action', label: 'Отмените свое «нет» в «Карточках»'},
       {type: 'messages', label: 'Пусть ваши сообщения читают в первую очередь'},
       //{type: 'invisible', label: 'Станьте невидимкой'},

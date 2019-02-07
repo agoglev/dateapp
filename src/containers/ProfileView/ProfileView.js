@@ -1,7 +1,7 @@
 import './ProfileView.css';
 
 import React, { Component } from 'react';
-import { Panel, PanelHeader, HeaderButton, Button, Gallery, IOS, platform } from '@vkontakte/vkui';
+import { Panel, PanelHeader, HeaderButton, Button, Gallery, IOS, platform, FormStatus } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as cardsActions from '../../actions/cards';
 import * as activityActions from '../../actions/activity';
@@ -10,7 +10,7 @@ import BaseComponent from '../../BaseComponent';
 import Cards from '../Main/Cards';
 import * as pages from "../../constants/pages";
 import Icon24Message from '@vkontakte/icons/dist/24/message';
-import * as api from '../../services/api';
+import * as payments from "../../actions/payments";
 
 export default class ProfileView extends BaseComponent {
   render() {
@@ -88,7 +88,7 @@ export default class ProfileView extends BaseComponent {
           {this._renderInfo()}
         </div>
         <div className="profile_view_about">{user.about}</div>
-        {this.data.fromLikes === true && <div className="profile_view_actions_info">Нажмите на сердечко, чтобы создать чат!</div>}
+        {this.data.fromLikes === true && <FormStatus>Нажмите на сердечко, чтобы создать чат!</FormStatus>}
         <div className="profile_view_buttons">
           {this._renderButtons()}
         </div>
@@ -167,7 +167,7 @@ export default class ProfileView extends BaseComponent {
     return (
       <div className="profile_view_footer">
         {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
-        {this.data.isLiked && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
+        {(this.data.isLiked && isFromLikes) || (!isFromLikes) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
         {!this.data.isLiked && <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />}
       </div>
     )
@@ -243,7 +243,11 @@ export default class ProfileView extends BaseComponent {
   };
 
   _footerMessageButtonDidPress = () => {
-    actions.openChat(this.data.user.id);
+    if (this.props.state.hasPremium || this.data.fromLikes === true) {
+      actions.openChat(this.data.user.id);
+    } else {
+      payments.showSubscriptionRequest('skip_match');
+    }
   };
 
   _favButtonDidPress = () => {

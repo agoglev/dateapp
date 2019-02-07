@@ -273,7 +273,8 @@ export default class Activity extends BaseComponent {
             before={<Avatar style={{ background: 'var(--destructive)' }} size={28}><Icon16Like fill="var(--white)" /></Avatar>}
             description={`Вы понравились ${utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}`}
             onClick={() => {
-              if (this.props.state.hasPremium) {
+              const state = this.props.state;
+              if (this.props.state.hasPremium || state.usersInfo[state.userId].gender === 1) {
                 actions.openLikes();
               } else {
                 const abGroup = ab.group(this.props.state.userId, ab.Groups.likes_premium);
