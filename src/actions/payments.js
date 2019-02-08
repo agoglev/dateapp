@@ -47,6 +47,7 @@ export function setPremiumState(has) {
 export function showSubscriptionRequest(target = 'none', opts = {}) {
   actions.setPopout(<SubscriptionBox target={target} opts={opts} />);
   utils.statReachGoal('premium_box');
+  utils.statReachGoal('premium_box_' + target);
 }
 
 export function buyPremium(type = 'premium', target = 'none') {
