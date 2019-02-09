@@ -77,7 +77,7 @@ export default class SubscriptionBox extends PureComponent {
     const likesLabel = opts.likesCount ? `Вы понравились ${utils.gram(opts.likesCount, ['человеку', 'людям', 'людям'])}. Узнайте, кто они!` : 'Узнайте, кому вы понравились';
 
     return [
-      //{type: 'likes', label: likesLabel},
+      {type: 'likes', label: likesLabel},
       {type: 'skip_match', label: 'Пишите сообщения без взаимной симпатии'},
       {type: 'cancel_action', label: 'Отмените свое «нет» в «Карточках»'},
       {type: 'messages', label: 'Пусть ваши сообщения читают в первую очередь'},
