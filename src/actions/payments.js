@@ -58,7 +58,7 @@ export function buyPremium(type = 'premium', target = 'none') {
       setPremiumState(true);
       setTimeout(() => showFeatureBox(true), 100);
       utils.statReachGoal('premium_target_' + target);
-      ab.statEvent(store.getState().userId, ab.Groups.likes_premium, 'buy');
+      fetchRates();
     }).catch((isFailed) => {
       if (isFailed) {
         actions.showError();
@@ -72,7 +72,7 @@ export function buyPremium(type = 'premium', target = 'none') {
       actions.loaderSuccess();
       //setTimeout(() => showFeatureBox(true), 100);
       utils.statReachGoal('premium_target_' + target);
-      ab.statEvent(store.getState().userId, ab.Groups.likes_premium, 'buy');
+      fetchRates();
     }).catch(() => actions.showError());
   }
   utils.statReachGoal('premium_continue');
@@ -136,11 +136,13 @@ export function showFeatureBox(isSale = false) {
           } else {
             actions.loaderHide();
           }
+          fetchRates();
         });
       } else {
         actions.vkPay(productType).then(() => {
           actions.loaderSuccess();
           activityActions.loadFeaturedUsers();
+          fetchRates();
         }).catch(() => actions.showError());
       }
 
@@ -191,5 +193,11 @@ function wantToTalkSuccess() {
   ]);
   actions.showAlert('Успешно!', msg, 'Закрыть', {
     skipCancelButton: true
+  });
+}
+
+export function fetchRates() {
+  api.method(api.methods.rates).then(({rates}) => {
+    setPrices(rates);
   });
 }
