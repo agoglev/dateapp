@@ -9,6 +9,7 @@ import NotificationsPermission from '../components/NotificationsPermission/Notif
 import * as activityActions from "./activity";
 import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
 import ImHistory from "../containers/Modals/ImHistory";
+import SkipMatchBox from "../components/SkipMatchBox/SkipMatchBox";
 
 export let hasPremium = false;
 
@@ -200,4 +201,8 @@ export function fetchRates() {
   api.method(api.methods.rates).then(({rates}) => {
     setPrices(rates);
   });
+}
+
+export function showSkipMathcBox(user) {
+  actions.setPopout(<SkipMatchBox user={user} />);
 }

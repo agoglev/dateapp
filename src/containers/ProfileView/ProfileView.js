@@ -246,7 +246,7 @@ export default class ProfileView extends BaseComponent {
     if (this.props.state.hasPremium || this.data.fromLikes === true) {
       actions.openChat(this.data.user.id);
     } else {
-      payments.showSubscriptionRequest('skip_match');
+      payments.showSkipMathcBox(this.data.user);
     }
   };
 
