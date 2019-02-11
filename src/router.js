@@ -136,6 +136,12 @@ export const routes = [
     name: pages.PREMIUM,
     path: pages.PREMIUM,
     view: 'modal'
+  },
+
+  {
+    name: pages.INVITES,
+    path: pages.INVITES,
+    view: 'invites'
   }
 ];
 

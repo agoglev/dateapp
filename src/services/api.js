@@ -117,7 +117,9 @@ export const methods = {
   favorites: 'favorites',
   saveGeo: 'save_geo',
   imNotifyEnable: 'im_notify_enable',
-  rates: 'rates'
+  rates: 'rates',
+  invites: 'invites',
+  invitesBuyProduct: 'invites_buy_product'
 };
 
 let vkRequestId = 0;

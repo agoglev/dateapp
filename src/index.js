@@ -26,6 +26,10 @@ const queryStr = window.location.search;
 window.queryStr = queryStr;
 window.path = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
+const hashParams = new URLSearchParams(String(window.location.hash).substr(1));
+if (hashParams.get('ref')) {
+  window.refId = hashParams.get('ref');
+}
 
 window.vkPlatform = urlParams.get('vk_platform');
 if (urlParams.get('vk_platform') === 'web2' || urlParams.get('vk_platform') === 'desktop_web' || urlParams.get('platform') === 'web') {

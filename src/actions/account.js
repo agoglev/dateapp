@@ -96,6 +96,7 @@ export function createAccount(photos) {
         is_dg: window.isDG ? 1 : 0,
         vk_url: window.initialUrl,
         is_ios: utils.isIOS() ? 1 : 0,
+        ref_id: window.refId,
         ...JoinInfo
       })
       .then((resp) => {
@@ -296,4 +297,23 @@ export function geoFailed() {
 export function imNotifyEnable() {
   actions.hideImNotifyRequest();
   api.method(api.methods.imNotifyEnable);
+}
+
+export function loadInvites() {
+  actions.setDataMulti({isLoading: true, isFailed: false}, pages.INVITES);
+  api.method(api.methods.invites)
+    .then((resp) => actions.setDataMulti({...resp}, pages.INVITES))
+    .catch(() => actions.setData('isFailed', true, pages.INVITES))
+    .then(() => actions.setData('isLoading', false, pages.INVITES));
+}
+
+export function invitesBuyProduct(type) {
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.invitesBuyProduct, {
+      type
+    }).then((resp) => {
+      actions.setDataMulti({...resp}, pages.INVITES);
+      resolve();
+    }).catch((err) => reject(err));
+  });
 }

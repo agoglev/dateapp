@@ -4,7 +4,7 @@ import store from '../store';
 import * as actions from './index';
 import * as api from '../services/api';
 import * as utils from "../utils";
-import * as ab from "../utils/ab_test";
+import * as UI from '@vkontakte/vkui';
 import NotificationsPermission from '../components/NotificationsPermission/NotificationsPermission';
 import * as activityActions from "./activity";
 import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
@@ -123,7 +123,16 @@ export function showFeatureBox(isSale = false) {
     caption={text}
     type="likes"
     button={btnText}
-    buttonCaption={buttonCaption}
+    buttonCaption={
+      <UI.Button
+        size="xl"
+        level="secondary"
+        style={{marginTop: 10}}
+        onClick={() => {
+          actions.setPopout();
+          setTimeout(() => actions.openInvites(), 300)
+        }}
+      >Получить бесплатно</UI.Button>}
     onClick={() => {
       actions.loaderShow();
 

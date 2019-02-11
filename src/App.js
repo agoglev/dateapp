@@ -31,6 +31,7 @@ import Stats from "./containers/Stats/Stats";
 import Moder from "./containers/Moder/Moder";
 import Notify from "./containers/Notify/Notify";
 import Premium from "./containers/Premium/Premium";
+import Invites from "./containers/Invites/Invites";
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
@@ -170,6 +171,9 @@ class App extends React.Component {
         <View activePanel={state.activePanels.filters} id="filters" header={this._getBaseHeader('filters')}>
           <Filters id={pages.FILTERS} state={state} />
         </View>
+        <View activePanel={state.activePanels.invites} id="invites" header={this._getBaseHeader('invites')}>
+          <Invites id={pages.INVITES} state={state} />
+        </View>
         <View activePanel={state.activePanels.modal} id="modal" header={this._getBaseHeader('modal')}>
           <ProfileView id={pages.PROFILE} state={state} />
           <EditProfile id={pages.EDIT_PROFILE} state={state} />
@@ -249,6 +253,8 @@ class App extends React.Component {
         return <GiftSend id={pages.GIFT_SEND} state={state} />;
       case pages.PREMIUM:
         return <Premium id={pages.PREMIUM} state={state} />;
+      case pages.INVITES:
+        return <Invites id={pages.INVITES} state={state} />;
       default:
         return false;
     }

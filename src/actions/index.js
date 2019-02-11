@@ -512,3 +512,13 @@ export function openLiveChat() {
 export function hideImNotifyRequest() {
   store.dispatch({type: actionTypes.IM_NOTIFY_SET, enabled: true});
 }
+
+export function openInvites() {
+  let params = {
+    isLoading: true,
+    points: null
+  };
+
+  go(pages.INVITES, params);
+  accountActions.loadInvites();
+}
