@@ -65,7 +65,13 @@ export default class Profile extends Component {
         </Group>
         <Group>
           <List>
-            <Cell before={<Icon24Share />} onClick={() => actions.openInvites()}>Пригласить друзей</Cell>
+            <Cell before={<Icon24Share />} onClick={() => {
+              if (window.isDG) {
+                this._shareApp();
+              } else {
+                actions.openInvites();
+              }
+            }}>Пригласить друзей</Cell>
             {this.props.state.isModer && <Cell expandable before={<Icon24Settings />} onClick={() => actions.openModer()}>Модерация</Cell>}
             <Cell expandable before={<Icon24Filter />} onClick={() => actions.openFilters()} indicator={this._renderFiltersLabel()}>Интересуют</Cell>
             <Cell expandable before={<Icon24Notification />} onClick={() => actions.openNotify()}>Уведомления</Cell>

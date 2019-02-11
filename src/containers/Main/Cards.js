@@ -10,6 +10,7 @@ import * as utils from '../../utils';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
 import Header from '../../components/proxy/Header';
 import Tooltip from '../../components/Tooltip/Tooltip';
+import {showNotification} from "../../actions/push";
 
 let skippedLikes = {};
 
@@ -58,6 +59,13 @@ export default class Cards extends Component {
     document.addEventListener('touchmove', this._disableScroll);
 
     utils.statReachGoal('page_cards');
+
+    if (!window.cardsSwipeRightTipShown) {
+      window.cardsSwipeRightTipShown = true;
+      showNotification('swipe_right', 'Сделайте 50 свайпов в право, чтобы найти пару!', '', {
+        timeout: 6000
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -512,6 +520,13 @@ export default class Cards extends Component {
       }
 
       utils.statReachGoal('card_like');
+
+      window.cardsSwipeRightCount = (window.cardsSwipeRightCount || 0) + 1;
+      if (window.cardsSwipeRightCount === 10 || window.cardsSwipeRightCount === 30) {
+        showNotification('swipe_right', `Продолжайте, осталось ${50 - window.cardsSwipeRightCount} свайпов!`, '', {
+          timeout: 3000
+        });
+      }
     } else {
       utils.statReachGoal('card_dislike');
     }

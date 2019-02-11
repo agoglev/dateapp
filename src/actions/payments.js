@@ -124,7 +124,7 @@ export function showFeatureBox(isSale = false) {
     type="likes"
     button={btnText}
     buttonCaption={
-      <UI.Button
+      window.isDG ? null : <UI.Button
         size="xl"
         level="secondary"
         style={{marginTop: 10}}
