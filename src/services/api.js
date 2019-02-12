@@ -127,6 +127,9 @@ let vkRequestCallbacks = {};
 export function vk(method, params = {}) {
   return new Promise((resolve, reject) => {
     if (window.isDG) {
+      if (!window.VK || !window.VK.api) {
+        return reject();
+      }
       window.VK.api(method, params, (resp) => {
         if (resp.response) {
           resolve(resp.response);

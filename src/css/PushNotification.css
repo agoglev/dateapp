@@ -16,6 +16,9 @@
 .PushNotification.hasShadow {
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.16);
 }
+body.desktop .PushNotification {
+  right: 248px;
+}
 @keyframes PushNotification__anim {
   from {
     transform: translateY(-115%);

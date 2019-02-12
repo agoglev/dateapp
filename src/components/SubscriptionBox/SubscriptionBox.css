@@ -1,14 +1,10 @@
 .SubscriptionBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: var(--background_content);
   width: 100%;
   height: 100%;
   animation: SubscriptionBox_anim 250ms ease-in-out;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
-  padding: 20px 0;
   box-sizing: border-box;
 }
 @keyframes SubscriptionBox_anim {
@@ -26,6 +22,7 @@
   left: 16px;
   width: 24px;
   height: 24px;
+  z-index: 100;
 }
 .SubscriptionBox__close svg {
   color: var(--text_primary);
@@ -36,7 +33,7 @@
   padding: 0 32px;
   max-width: 375px;
   width: 100%;
-  margin: 0 auto;
+  margin: 46px auto 0;
   flex: 0 0 auto;
 }
 .SubscriptionBox__icon {
@@ -130,6 +127,7 @@
 .SubscriptionBox__pay_buttons {
   display: flex;
   flex: 0 0 auto;
+  margin-top: 20px;
 }
 .SubscriptionBox__pay_buttons .Button {
   margin-left: 8px;
@@ -203,4 +201,48 @@
   border-radius: 8px;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+.SubscriptionBox__slide {
+  height: 150px;
+  outline: none;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.SubscriptionBox__slide__icon {
+  width: 64px;
+  height: 64px;
+  background: no-repeat center / contain;
+}
+.SubscriptionBox__slide.likes .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_likes_40.svg');
+}
+.SubscriptionBox__slide.cancel_action .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_undo_40.svg');
+}
+.SubscriptionBox__slide.super_likes .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_superlikes_40.svg');
+}
+.SubscriptionBox__slide.gifts .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_gifts_40.svg');
+}
+.SubscriptionBox__slide.invisible .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_invisible_40.png');
+}
+.SubscriptionBox__slide.messages .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_messages_40.svg');
+}
+.SubscriptionBox__slide.fav .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/premium_fav_40.svg');
+}
+.SubscriptionBox__slide.skip_match .SubscriptionBox__slide__icon {
+  background-image: url('../../asset/settings_feedback_40.svg');
+}
+.SubscriptionBox__slide__label {
+  font-size: 16px;
+  color: var(--text_primary);
+  margin-top: 16px;
+  text-align: center;
+  padding: 0 16px;
 }

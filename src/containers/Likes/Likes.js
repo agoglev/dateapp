@@ -125,7 +125,7 @@ export default class Likes extends BaseComponent {
       <div className="Likes__premium">
         <div className="Likes__premium__title">Вы понравились {label}!</div>
         <div className="Likes__premium__caption">Найдите их в «Карточках» или разблокируйте доступ прямо сейчас.</div>
-        <Button size="xl" level="1" onClick={() => payments.showSubscriptionRequest('likes')}>Разблокировать</Button>
+        <Button size="xl" level="1" onClick={() => payments.showSubscriptionRequest('likes', {likesCount: this.data.count})}>Разблокировать</Button>
       </div>
     )
   }

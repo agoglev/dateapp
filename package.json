@@ -34,6 +34,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.6",
+    "react-slick": "^0.23.2",
     "redux": "^3.6.0",
     "router5": "^4.5.2",
     "slick-carousel": "^1.8.1",

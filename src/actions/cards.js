@@ -223,7 +223,7 @@ export function initTips() {
         fillSystemCards();
       }
     }*/
-  });
+  }).catch(() => console.log('initTips failed'));
 }
 
 function getSortTip() {
