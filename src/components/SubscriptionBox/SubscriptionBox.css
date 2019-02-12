@@ -203,8 +203,8 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.SubscriptionBox__slider {
-  overflow: hidden;
+.SubscriptionBox__slider .slick-next {
+  display: none !important;
 }
 .SubscriptionBox__slide {
   height: 150px;

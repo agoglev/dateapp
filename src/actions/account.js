@@ -28,7 +28,8 @@ export function init(token = false) {
     is_ios: utils.isIOS() ? 1 : 0
   })
     .then(initMethodHandler)
-    .catch(() => {
+    .catch((err) => {
+      console.log('ERROR', err.message, err);
     store.dispatch({
       type: actionTypes.APP_INITED,
       needJoin: true
@@ -145,7 +146,7 @@ function initMethodHandler(resp) {
         if (utils.distance(parseInt(location.lat, 10), parseInt(location.long, 10), resp.loc.lat, resp.loc.long, 'K') >= 2) {
           cardsActions.loadCards(true);
         }
-      });
+      }).catch(() => console.log('getGeodata failed'));
     }
   }
 }

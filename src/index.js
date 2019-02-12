@@ -137,7 +137,7 @@ function render() {
 // for debug
 if (utils.isDev() && utils.isInspectOpen()) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
-  accountActions.init(window._DEBUG_TOKEN);
+  //accountActions.init(window._DEBUG_TOKEN);
 }
 
 window.adsEmpty = () => {
@@ -146,7 +146,6 @@ window.adsEmpty = () => {
 
 if (urlToken) {
   window.isDG = true;
-  accountActions.init(urlToken);
 
   let scope = 0;
   if (urlParams && urlParams.get) {
@@ -161,11 +160,8 @@ if (urlToken) {
 
 if (window.isDG) {
   window.onload = () => {
-    window.VK.init(function () {
-      Proxy.init('direct_games');
-    }, function () {
-      document.body.innerHTML = 'Ошибка';
-    }, '5.87', queryStr);
+    Proxy.init('direct_games');
+    accountActions.init(urlToken);
     render();
   };
 } else {

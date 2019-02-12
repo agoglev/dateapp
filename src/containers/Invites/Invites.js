@@ -131,7 +131,7 @@ export default class Invites extends BaseComponent {
   };
 
   _inviteDidPress = () => {
-    connect.send('VKWebAppShare', {link: `https://vk.com/app6682509#ref=${this.props.state.userId}`});
+    connect.send('VKWebAppShare', {message: 'Найдите свою вторую половинку в приложении ВКонтакте! 😍', link: `https://vk.com/app6682509#ref=${this.props.state.userId}`});
   };
 
   _load = () => {
