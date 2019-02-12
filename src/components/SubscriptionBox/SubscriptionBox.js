@@ -57,7 +57,7 @@ export default class SubscriptionBox extends PureComponent {
               <div className="SubscriptionBox__pay_button__buy">Активировать</div>
             </div>
           </div>
-          <Button
+          {window.isDG ? null : <Button
             size="l"
             level="tertiary"
             style={{marginTop: 12}}
@@ -65,7 +65,7 @@ export default class SubscriptionBox extends PureComponent {
               actions.setPopout();
               setTimeout(() => actions.openInvites(), 300)
             }}
-          >Получить бесплатно</Button>
+          >Получить бесплатно</Button>}
         </div>
       </div>
     )
@@ -137,7 +137,7 @@ export default class SubscriptionBox extends PureComponent {
     };
 
     return (
-      <Slider {...settings}>
+      <Slider className="SubscriptionBox__slider" {...settings}>
         {slides}
       </Slider>
     )

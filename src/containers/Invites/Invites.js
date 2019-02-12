@@ -63,7 +63,7 @@ export default class Invites extends BaseComponent {
               </div>
               <div className="Invites__link" onClick={this._copyLink}>
                 <div className="Invites__link-title">Ваша ссылка:</div>
-                <div className="Invites__link-value">https://vk.com/date_app#ref={this.props.state.userId}</div>
+                <div className="Invites__link-value">https://vk.com/app6682509#ref={this.props.state.userId}</div>
               </div>
               <div className="Invites__button">
                 <UI.Button onClick={this._inviteDidPress}>Пригласить друзей</UI.Button>
@@ -124,14 +124,14 @@ export default class Invites extends BaseComponent {
   }
 
   _copyLink = () => {
-    utils.copyToClipboard(`https://vk.com/date_app#ref=${this.props.state.userId}`);
+    utils.copyToClipboard(`https://vk.com/app6682509#ref=${this.props.state.userId}`);
     actions.showAlert('Информация', 'Ссылка скопирована!', 'OK', {
       skipCancelButton: true
     });
   };
 
   _inviteDidPress = () => {
-    connect.send('VKWebAppShare', {link: `https://vk.com/date_app#ref=${this.props.state.userId}`});
+    connect.send('VKWebAppShare', {link: `https://vk.com/app6682509#ref=${this.props.state.userId}`});
   };
 
   _load = () => {

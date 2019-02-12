@@ -6,6 +6,7 @@
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   box-sizing: border-box;
+  padding-top: env(safe-area-inset-top);
 }
 @keyframes SubscriptionBox_anim {
   from {
@@ -200,6 +201,9 @@
   line-height: 16px;
   border-radius: 8px;
   text-overflow: ellipsis;
+  overflow: hidden;
+}
+.SubscriptionBox__slider {
   overflow: hidden;
 }
 .SubscriptionBox__slide {
