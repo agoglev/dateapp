@@ -1,6 +1,7 @@
 import './SubscriptionBox.css';
 import React, { PureComponent } from 'react';
-import Icon24Cancel from '@vkontakte/icons/dist/24/back';
+import Icon24Back from '@vkontakte/icons/dist/24/back';
+import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import * as actions from '../../actions';
 import { Button } from '@vkontakte/vkui';
 import * as paymentsActions from '../../actions/payments';
@@ -37,35 +38,37 @@ export default class SubscriptionBox extends PureComponent {
 
     return (
       <div className="SubscriptionBox">
-        <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
-        {this._renderItems()}
-        <div className="SubscriptionBox__cont">
-          <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
-          <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
-          <div className="SubscriptionBox__pay_buttons">
-            <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('day')}>
-              <div className="SubscriptionBox__pay_button__title">День</div>
-              <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
-              <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
-              <div className="SubscriptionBox__pay_button__buy">Активировать</div>
+        <div className="SubscriptionBox__cont-wrap">
+          <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}>{window.isDesktop ? <Icon24Cancel /> : <Icon24Back />}</div>
+          {this._renderItems()}
+          <div className="SubscriptionBox__cont">
+            <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
+            <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
+            <div className="SubscriptionBox__pay_buttons">
+              <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('day')}>
+                <div className="SubscriptionBox__pay_button__title">День</div>
+                <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
+                <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
+                <div className="SubscriptionBox__pay_button__buy">Активировать</div>
+              </div>
+              <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
+                <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
+                <div className="SubscriptionBox__pay_button__title">Месяц</div>
+                <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
+                <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
+                <div className="SubscriptionBox__pay_button__buy">Активировать</div>
+              </div>
             </div>
-            <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
-              <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
-              <div className="SubscriptionBox__pay_button__title">Месяц</div>
-              <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
-              <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
-              <div className="SubscriptionBox__pay_button__buy">Активировать</div>
-            </div>
+            {window.isDG ? null : <Button
+              size="l"
+              level="tertiary"
+              style={{marginTop: 12}}
+              onClick={() => {
+                actions.setPopout();
+                setTimeout(() => actions.openInvites(), 300)
+              }}
+            >Получить бесплатно</Button>}
           </div>
-          {window.isDG ? null : <Button
-            size="l"
-            level="tertiary"
-            style={{marginTop: 12}}
-            onClick={() => {
-              actions.setPopout();
-              setTimeout(() => actions.openInvites(), 300)
-            }}
-          >Получить бесплатно</Button>}
         </div>
       </div>
     )

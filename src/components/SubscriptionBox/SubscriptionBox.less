@@ -9,6 +9,23 @@
   overflow-y: auto;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top);
+
+  body.desktop & {
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+body.desktop .SubscriptionBox__cont-wrap {
+  background: var(--background_content);
+  border-radius: @border-radius;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding-bottom: 16px;
 }
 
 @keyframes SubscriptionBox_anim {
@@ -27,6 +44,11 @@
   left: 16px;
   .size(24px);
   z-index: 100;
+  cursor: pointer;
+
+  body.desktop & {
+    left: calc(100% - 16px - 24px);
+  }
 
   svg {
     color: var(--text_primary);
@@ -150,7 +172,7 @@
 .SubscriptionBox__pay_buttons {
   display: flex;
   flex: 0 0 auto;
-  margin-top: 20px;
+  margin-top: 40px;
 
   .Button {
     margin-left: 8px;
@@ -240,6 +262,27 @@
 
   .slick-next {
     display: none !important;
+    right: 8px;
+  }
+
+  .slick-prev {
+    display: none !important;
+    left: 8px;
+  }
+
+  body.desktop & {
+    .slick-next, .slick-prev {
+      display: block !important;
+      .size(26px);
+      z-index: 100;
+
+      &:before {
+        color: var(--accent);
+        font-size: 26px;
+        line-height: 26px;
+        text-align: center;
+      }
+    }
   }
 }
 
