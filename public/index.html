@@ -27,13 +27,18 @@
         } else {
           script.src = 'https://vk.com/js/api/mobile_sdk.js?3';
         }
+        if (location.href.match('6379407')) { // is direct games
+          window.yaID = 52371646;
+				} else {
+          window.yaID = 50682085;
+				}
         document.getElementById('vk_js').appendChild(script);
 
         (function (d, w, c) {
           (w[c] = w[c] || []).push(function() {
             try {
               w.yaCounter50682085 = new Ya.Metrika2({
-                id:50682085,
+                id: window.yaID,
                 clickmap:false,
                 trackLinks:false,
                 accurateTrackBounce:false

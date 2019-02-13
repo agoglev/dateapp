@@ -6,15 +6,14 @@
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   box-sizing: border-box;
+  padding: 0 10px;
   padding-top: env(safe-area-inset-top);
-}
-body.desktop .SubscriptionBox {
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body.desktop .SubscriptionBox__cont-wrap {
+.SubscriptionBox__cont-wrap {
   background: var(--background_content);
   border-radius: 8px;
   overflow: hidden;
@@ -34,15 +33,11 @@ body.desktop .SubscriptionBox__cont-wrap {
 .SubscriptionBox__close {
   position: absolute;
   top: 16px;
-  top: calc(env(safe-area-inset-top) + 16px);
-  left: 16px;
+  right: 16px;
   width: 24px;
   height: 24px;
   z-index: 100;
   cursor: pointer;
-}
-body.desktop .SubscriptionBox__close {
-  left: calc(100% - 16px - 24px);
 }
 .SubscriptionBox__close svg {
   color: var(--text_primary);

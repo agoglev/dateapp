@@ -39,7 +39,7 @@ export default class SubscriptionBox extends PureComponent {
     return (
       <div className="SubscriptionBox">
         <div className="SubscriptionBox__cont-wrap">
-          <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}>{window.isDesktop ? <Icon24Cancel /> : <Icon24Back />}</div>
+          <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
           {this._renderItems()}
           <div className="SubscriptionBox__cont">
             <div className="SubscriptionBox__title">Знакомства «Премиум»</div>

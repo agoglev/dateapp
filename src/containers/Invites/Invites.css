@@ -1,0 +1,38 @@
+.Invites__points {
+  text-align: center;
+}
+.Invites__points-count {
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--text_primary);
+  line-height: 38px;
+}
+.Invites__points-caption {
+  color: var(--text_secondary);
+  font-size: 16px;
+  margin-top: 6px;
+  line-height: 18px;
+}
+.Invites__link {
+  margin-top: 20px;
+  text-align: center;
+  background: var(--background_light);
+  border-radius: 8px;
+  padding: 10px;
+}
+.Invites__link-title {
+  color: var(--text_secondary);
+  font-size: 16px;
+  line-height: 18px;
+}
+.Invites__link-value {
+  color: var(--text_primary);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 8px;
+  line-height: 18px;
+}
+.Invites__button {
+  text-align: center;
+  margin-top: 18px;
+}

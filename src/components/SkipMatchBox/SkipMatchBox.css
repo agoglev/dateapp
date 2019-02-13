@@ -1,0 +1,5 @@
+.skip_match_box .skip_match_photo {
+  border-radius: 64px;
+  overflow: hidden;
+  background: no-repeat center / cover;
+}
