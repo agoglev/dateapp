@@ -52,8 +52,15 @@ export function showSubscriptionRequest(target = 'none', opts = {}) {
 }
 
 export function buyPremium(type = 'premium', target = 'none') {
-  actions.loaderShow();
-  if (window.isDG) {
+  if (!window.isOK) {
+    actions.loaderShow();
+  }
+
+  if (window.isOK) {
+    window.okPayRequestType = type;
+    let key = type === 'premium_month' ? 'premium' : 'premiumDay';
+    window.FAPI.UI.showPayment('Знакомства «Премиум»', '', type, Prices[key].rubles, null, null, 'ok', 'true');
+  } else if (window.isDG) {
     api.showOrderBox(type).then(() => {
       actions.loaderSuccess();
       setPremiumState(true);
@@ -124,7 +131,7 @@ export function showFeatureBox(isSale = false) {
     type="likes"
     button={btnText}
     buttonCaption={
-      window.isDG ? null : <UI.Button
+      window.isDG || window.isOK ? null : <UI.Button
         size="xl"
         level="secondary"
         style={{marginTop: 10}}
@@ -134,9 +141,14 @@ export function showFeatureBox(isSale = false) {
         }}
       >Получить бесплатно</UI.Button>}
     onClick={() => {
-      actions.loaderShow();
+      if (!window.isOK) {
+        actions.loaderShow();
+      }
 
-      if (window.isDG) {
+      if (window.isOK) {
+        window.okPayRequestType = 'feature';
+        window.FAPI.UI.showPayment('Больше посетителей', '', 'feature', Prices.feature.rubles, null, null, 'ok', 'true');
+      } else if (window.isDG) {
         api.showOrderBox(productType).then(() => {
           actions.loaderSuccess();
           activityActions.loadFeaturedUsers();
@@ -215,3 +227,19 @@ export function fetchRates() {
 export function showSkipMathcBox(user) {
   actions.setPopout(<SkipMatchBox user={user} />);
 }
+
+window.API_callback = (method, result, data) => {
+  console.log('API_callback', method, result, data);
+
+  if (method === 'showPayment') {
+    if (result === 'ok') {
+      actions.loaderSuccess();
+      if (window.okPayRequestType === 'feature') {
+        activityActions.loadFeaturedUsers();
+      } else if (window.okPayRequestType === 'premium') {
+        setPremiumState(true);
+      }
+    } else {
+    }
+  }
+};

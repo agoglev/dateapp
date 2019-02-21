@@ -7,7 +7,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "cross-env HOST=10.0.0.103 PORT=3000 HTTPS=true react-scripts start",
+    "start": "cross-env HOST=192.168.1.66 PORT=3000 HTTPS=true react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],
@@ -37,6 +37,7 @@
     "react-slick": "^0.23.2",
     "redux": "^3.6.0",
     "router5": "^4.5.2",
+    "router5-plugin-persistent-params": "^7.0.1",
     "slick-carousel": "^1.8.1",
     "url-search-params-polyfill": "^5.0.0"
   }

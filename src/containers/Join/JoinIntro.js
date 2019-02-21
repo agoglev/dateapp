@@ -38,7 +38,7 @@ export default class JoinIntro extends BaseComponent {
             <Button size="xl" level="1" onClick={this._buttonDidPress}>Создать анкету</Button>
           </Div>
         </Group>
-        {!window.isDesktop && <div>
+        {!window.isDesktop && !window.isOK && <div>
           <Button level="3" component="a"
                   href="https://vk.me/dateapp" before={<Icon24Message />} target="_blank">Сообщить о проблеме</Button>
           <Button level="3" component="a"
@@ -49,7 +49,34 @@ export default class JoinIntro extends BaseComponent {
   }
 
   _buttonDidPress = () => {
-    if (window.isDG) {
+    if (window.isOK) {
+      actions.loaderShow();
+      window.FAPI.Client.call({
+        fields: 'first_name,birthday,pic_max,gender',
+        method: 'users.getCurrentUser',
+        location_search: window.queryStr
+      }, (method, result, data) => {
+        actions.loaderHide();
+
+        if (!result) {
+          return actions.openJoinStep1();
+        }
+
+        let bdate = '';
+        if (result.birthdaySet) {
+          bdate = result.birthday.split('-').map((item) => parseInt(item, 10)).reverse().join('.');
+        }
+
+        accountActions.setupVkInfo({
+          sex: result.gender === 'male' ? 2 : 1,
+          first_name: result.first_name,
+          bdate,
+          pic_max: result.pic_max
+        });
+
+        actions.openJoinStep1();
+      });
+    } else if (window.isDG) {
       actions.loaderShow();
       api.vk('users.get', {
         fields: 'sex,bdate,country,city,photo_max'

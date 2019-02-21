@@ -17,6 +17,9 @@ import * as utils from './utils';
 import * as api from './services/api';
 import Cards from './containers/Main/Cards';
 import Proxy from './services/proxy_sdk/proxy';
+import persistentParamsPlugin from 'router5-plugin-persistent-params';
+
+window.isOK = !!window.location.href.match(/session_secret_key/);
 
 const url = window.location.href;
 if (url.indexOf('vk_') > -1) {
@@ -26,16 +29,25 @@ const queryStr = window.location.search;
 window.queryStr = queryStr;
 window.path = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
+window.urlParams = urlParams;
 const hashParams = new URLSearchParams(String(window.location.hash).substr(1));
 if (hashParams.get('ref')) {
   window.refId = hashParams.get('ref');
 }
 
 window.vkPlatform = urlParams.get('vk_platform');
-if (urlParams.get('vk_platform') === 'web2' || urlParams.get('vk_platform') === 'desktop_web' || urlParams.get('platform') === 'web') {
+if (urlParams.get('vk_platform') === 'web2' || urlParams.get('vk_platform') === 'desktop_web' || urlParams.get('platform') === 'web'
+  || (window.isOK && !urlParams.get('mob'))) {
   window.isDesktop = true;
   document.body.classList.add('desktop');
 }
+
+let persistentParams = {};
+for(let pair of urlParams.entries()) {
+  persistentParams[pair[0]] = pair[1];
+}
+
+router.usePlugin(persistentParamsPlugin(persistentParams));
 
 const urlToken = urlParams.get('access_token');
 const urlSign = urlParams.get('sign');
@@ -59,7 +71,9 @@ window.onerror = function handler(msg, file, line, col, err) {
   });
 };
 
-if (!urlToken) {
+if (window.isOK) {
+  //
+} else if (!urlToken) {
   Proxy.init('vk_apps');
 }
 
@@ -135,7 +149,7 @@ function render() {
 }
 
 // for debug
-if (utils.isDev() && utils.isInspectOpen()) {
+if (utils.isDev() && utils.isInspectOpen() && !window.isOK) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
   accountActions.init(window._DEBUG_TOKEN);
 }
@@ -144,7 +158,15 @@ window.adsEmpty = () => {
   store.dispatch({type: actionTypes.ADS_UPDATE, shown: false});
 };
 
-if (urlToken) {
+if (window.isOK) {
+  window.onload = () => {
+    Proxy.init('ok').then(() => {
+      accountActions.init();
+    }).catch((err) => {
+      console.log("FAIL", err)
+    });
+  };
+} else if (urlToken) {
   window.isDG = true;
 
   let scope = 0;

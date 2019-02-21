@@ -273,6 +273,14 @@ export function openJoinStep3() {
         needUpload: true
       };
     }
+  } else if (window.isOK) {
+    const vkUserInfo = store.getState().vkUserInfo;
+    if (vkUserInfo.pic_max) {
+      params.photos[0] = {
+        url: vkUserInfo.pic_max,
+        needUpload: true
+      };
+    }
   }
 
   go(pages.JOIN_STEP3, params);

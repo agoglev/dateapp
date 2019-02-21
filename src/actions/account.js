@@ -19,14 +19,21 @@ export function init(token = false) {
   if (token) {
     store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
   }
-  api.method(api.methods.init, {
+  let query = {
     vk_id: vkUserInfo.id,
     vk_sig: vkUserInfo.signed_user_id || '',
     vk_token: token || '',
     is_dg: window.isDG ? 1 : 0,
     vk_url: window.initialUrl,
     is_ios: utils.isIOS() ? 1 : 0
-  })
+  };
+
+  if (window.okSession) {
+    query.ok_session = window.okSession;
+    query.ok_secret = window.okSecretSession;
+  }
+
+  api.method(api.methods.init, query)
     .then(initMethodHandler)
     .catch((err) => {
       console.log('ERROR', err.message, err);
@@ -88,18 +95,26 @@ export function createAccount(photos) {
   actions.loaderShow();
   return new Promise((resolve, reject) => {
     const { vkUserInfo } = store.getState();
+
+    let query = {
+      vk_token: store.getState().vkAccessToken,
+      vk_id: vkUserInfo.id,
+      vk_sig: vkUserInfo.signed_user_id || '',
+      photos: photos.join(','),
+      is_dg: window.isDG ? 1 : 0,
+      vk_url: window.initialUrl,
+      is_ios: utils.isIOS() ? 1 : 0,
+      ref_id: window.refId,
+      ...JoinInfo
+    };
+
+    if (window.okSession) {
+      query.ok_session = window.okSession;
+      query.ok_secret = window.okSecretSession;
+    }
+
     api
-      .method(api.methods.createAccount, {
-        vk_token: store.getState().vkAccessToken,
-        vk_id: vkUserInfo.id,
-        vk_sig: vkUserInfo.signed_user_id || '',
-        photos: photos.join(','),
-        is_dg: window.isDG ? 1 : 0,
-        vk_url: window.initialUrl,
-        is_ios: utils.isIOS() ? 1 : 0,
-        ref_id: window.refId,
-        ...JoinInfo
-      })
+      .method(api.methods.createAccount, query)
       .then((resp) => {
         actions.loaderSuccess();
         initMethodHandler(resp);

@@ -22,7 +22,10 @@
 			<script type="text/javascript" >
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        if (location.href.match('6682509') || location.href.match(/platform\=web/)) {
+
+        if (window.location.href.match(/session_secret_key/)) {
+          script.src = 'https://api.ok.ru/js/fapi5.js?1';
+				} else if (location.href.match('6682509') || location.href.match(/platform\=web/)) {
           script.src = 'https://vk.com/js/api/xd_connection.js?2';
         } else {
           script.src = 'https://vk.com/js/api/mobile_sdk.js?3';

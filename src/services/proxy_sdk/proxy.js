@@ -1,5 +1,6 @@
 import VkApps from './vkapps';
 import DirectGames from './direct_games';
+import OK from './ok';
 
 let Platform = '';
 let Sdk;
@@ -15,9 +16,12 @@ export default {
       case 'direct_games':
         Sdk = DirectGames;
         break;
+      case 'ok':
+        Sdk = OK;
+        break;
     }
 
-    Sdk.init();
+    return Sdk.init();
   },
   allowMessagesFromGroup: (groupId, key = '') => Sdk.allowMessagesFromGroup(groupId, key),
   getGeodata: () => Sdk.getGeodata()
