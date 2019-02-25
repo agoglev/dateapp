@@ -65,18 +65,18 @@ export default class Profile extends Component {
         </Group>
         <Group>
           <List>
-            <Cell expandable before={<Icon24Share />} onClick={() => {
+            {!window.isOK && <Cell expandable before={<Icon24Share />} onClick={() => {
               if (window.isDG) {
                 this._shareApp();
               } else {
                 actions.openInvites();
               }
-            }}>Пригласить друзей</Cell>
+            }}>Пригласить друзей</Cell>}
             {this.props.state.isModer && <Cell expandable before={<Icon24Settings />} onClick={() => actions.openModer()}>Модерация</Cell>}
             <Cell expandable before={<Icon24Filter />} onClick={() => actions.openFilters()} indicator={this._renderFiltersLabel()}>Интересуют</Cell>
             <Cell expandable before={<Icon24Notification />} onClick={() => actions.openNotify()}>Уведомления</Cell>
-            <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>
-            <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>
+            {!window.isOK && <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>}
+            {!window.isOK && <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>}
             <Cell before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
           </List>
         </Group>

@@ -20,6 +20,7 @@ import Proxy from './services/proxy_sdk/proxy';
 import persistentParamsPlugin from 'router5-plugin-persistent-params';
 
 window.isOK = !!window.location.href.match(/session_secret_key/);
+window.isFromAdsLove = !!window.location.href.match(/ads_love/);
 
 const url = window.location.href;
 if (url.indexOf('vk_') > -1) {
@@ -195,3 +196,7 @@ window.onresize = () => {
 };
 
 utils.updateVkFrameHeight();
+
+if (window.isFromAdsLove) {
+  utils.statReachGoal('ads_ref_love');
+}
