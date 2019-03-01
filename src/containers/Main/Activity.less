@@ -76,6 +76,17 @@
     margin-left: 16px;
     background: @color-grey-bg no-repeat center/cover;
     flex: 0 0 auto;
+
+    &.likes {
+      background: var(--destructive);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .Icon {
+        transform: scale(1.4);
+      }
+    }
   }
 
   .im_dialog_photo_wrap {

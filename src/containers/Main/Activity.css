@@ -67,6 +67,15 @@
   background: #ebebeb no-repeat center / cover;
   flex: 0 0 auto;
 }
+.im_dialog .im_dialog_photo.likes {
+  background: var(--destructive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.im_dialog .im_dialog_photo.likes .Icon {
+  transform: scale(1.4);
+}
 .im_dialog .im_dialog_photo_wrap {
   width: 64px;
   height: 64px;

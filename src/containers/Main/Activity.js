@@ -51,7 +51,6 @@ export default class Activity extends BaseComponent {
           Активность
         </Header>
         {this._renderFeatured()}
-        {this._renderLikes()}
         <div id="yandex_rtb_R-A-159294-836" />
         <Group>
           {this._renderTabs()}
@@ -79,7 +78,10 @@ export default class Activity extends BaseComponent {
   _renderTabsContent() {
     switch (this.data.tab) {
       case 'chats':
-        return <div className="im_dialogs">{this._renderDialogs()}</div>;
+        return <div className="im_dialogs">
+          {this._renderLikes()}
+          {this._renderDialogs()}
+          </div>;
       case 'guests':
         return this._renderGuests();
       case 'fav':
@@ -266,6 +268,29 @@ export default class Activity extends BaseComponent {
     }
 
     return (
+      <div
+        className="im_dialog"
+        onClick={() => {
+          actions.openLikes();
+          utils.statReachGoal('likes_open_modal');
+        }}
+      >
+        <div className="im_dialog_cont_wrap">
+          <div className="im_dialog_photo likes">
+            <Icon24Like fill="var(--white)" />
+          </div>
+          <div className="im_dialog_cont">
+            <div className="im_dialog_name_wrap">
+              <div className="im_dialog_name">Вы понравились {utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}!</div>
+            </div>
+            <div className="im_dialog_message im_dialog_system">Посмотреть их</div>
+          </div>
+        </div>
+        <div className="im_dialog_separator" />
+      </div>
+    );
+
+    /*return (
       <Group>
         <List>
           <Cell
@@ -281,7 +306,7 @@ export default class Activity extends BaseComponent {
           </Cell>
         </List>
       </Group>
-    );
+    );*/
 
     //const likes = this.props.state.likes;
 
