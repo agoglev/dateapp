@@ -37,13 +37,13 @@ export default class Likes extends BaseComponent {
         <Header
           left={<UICloseButton />}
         >
-          Вы нравитесь
+          Симпатии
         </Header>
+        {this._renderPremium()}
         <div className={className}>
           {this._renderLikes()}
         </div>
         {this._renderLoadMoreButton()}
-        {this._renderPremium()}
       </div>
     )
   }
@@ -75,7 +75,10 @@ export default class Likes extends BaseComponent {
           key={like.user.id}
           onClick={() => this._likeDidPress(like)}
         >
-          <div className="Likes__user-row__cont" style={{backgroundImage: `url(${like.user.small_photo})`}}>
+          <div className="Likes__user-row__cont">
+            <div className="Likes__user-row__ava_wrap">
+              <div className="Likes__user-row__ava" style={{backgroundImage: `url(${like.user.small_photo})`}} />
+            </div>
             <div className="Likes__user-row__name-wrap">
               <div className="Likes__user-row__name">{like.user.name}</div>
             </div>
@@ -123,9 +126,10 @@ export default class Likes extends BaseComponent {
     //const btnText = window.isDG ? `Месяц за ${utils.gram(payments.Prices.premium.votes, ['голос', 'голоса', 'голосов'])}` : `Месяц за ${payments.Prices.premium.rubles}₽`;
     return (
       <div className="Likes__premium">
-        <div className="Likes__premium__title">Вы понравились {label}!</div>
-        <div className="Likes__premium__caption">Найдите их в «Карточках» или разблокируйте доступ прямо сейчас.</div>
-        <Button size="xl" level="1" onClick={() => payments.showSubscriptionRequest('likes', {likesCount: this.data.count})}>Разблокировать</Button>
+        <div className="Likes__premium_icon" />
+        <div className="Likes__premium__title">Вы им нравитесь</div>
+        <div className="Likes__premium__caption">Активируйте Знакомства «Премиум» и узнайте, кому вы понравились.</div>
+        <Button size="l" level="1" onClick={() => payments.showSubscriptionRequest('likes', {likesCount: this.data.count})}>Узнать сейчас!</Button>
       </div>
     )
   }
@@ -139,6 +143,9 @@ export default class Likes extends BaseComponent {
   };
 
   _likeDidPress = (like) => {
+    if (this._isNeedPay()) {
+      return payments.showSubscriptionRequest('likes', {likesCount: this.data.count});
+    }
     actions.openProfile(like.user, {fromLikes: true});
     if (like.unread) {
       activityActions.readLike(like.user.id);

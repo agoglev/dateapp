@@ -1,14 +1,18 @@
 @import "../../css/vars";
 
 .Likes__user_row {
-  width: ~"calc(33.3%)";
+  width: ~"calc(50%)";
   padding: 6px;
   float: left;
   box-sizing: border-box;
 
   body.desktop & {
-    width: ~"calc(25%)";
+    width: ~"calc(33.3%)";
   }
+}
+
+.Likes__items {
+  padding: 0 10px;
 }
 
 .Likes__user-row__cont {
@@ -16,6 +20,7 @@
   position: relative;
   background: @color-grey-bg no-repeat center/cover;
   border-radius: 8px;
+  overflow: hidden;
 
   &:after {
     content: '';
@@ -37,6 +42,24 @@
     top: 4px;
     right: 4px;
     z-index: 2;
+  }
+}
+
+.Likes__user-row__ava_wrap {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.Likes__user-row__ava {
+  background: @color-grey-bg no-repeat center/cover;
+  width: 100%;
+  padding-top: 100%;
+
+  .Likes__items.blur & {
+    filter: blur(10px);
   }
 }
 
@@ -104,43 +127,36 @@
   background: @color-pink;
 }
 
-.Likes__items {
-  &.blur {
-    filter: blur(15px);
-  }
-}
-
 .Likes__premium {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 50;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
-  padding: 200px 16px 0;
+  padding: 25px 16px;
   text-align: center;
-  min-height: 100vh;
 
   .Button {
     flex: 0 0 auto;
   }
 }
 
+.Likes__premium_icon {
+  background: url('../Main/asset/liked_24.svg') no-repeat center/cover;
+  .size(80px);
+  margin: 0 auto;
+}
+
 .Likes__premium__title {
   font-size: 20px;
-  color: @color-white;
+  color: @color-black;
   line-height: 24px;
   font-weight: 500;
+  margin-top: 24px;
 }
 
 .Likes__premium__caption {
   margin-top: 12px;
   font-size: 16px;
   line-height: 22px;
-  color: @color-white;
+  color: @color-grey;
   text-align: center;
   margin-bottom: 24px;
 }
