@@ -13,6 +13,7 @@ let sortTipShown = true;
 let needShowSortTip = false;
 
 let SystemCardsQueue = [];
+let isAdsLocked = false;
 
 export function loadCards(force = false) {
   return new Promise((resolve, reject) => {
@@ -35,7 +36,7 @@ export function loadCards(force = false) {
         }
 
         if (!adsLoaded) {
-          loadAds();
+          adsRotate();
         }
       }).catch((err) => {
         reject(err);
@@ -129,6 +130,7 @@ export function setReason(isLike) {
     if (!isLike) {
       addCardToDisliked(card);
     }
+    adsRotate();
   });
 }
 
@@ -274,21 +276,29 @@ export function resolveSystemCard() {
 }
 
 let adsLoaded = false;
-export function loadAds() {
-  adsLoaded = true;
-  if (window.isDG || true) {
+let adsRotateLastTs = 0;
+export function adsRotate() {
+  const now = new Date().getTime();
+  if (isAdsLocked || now - adsRotateLastTs < 3600) {
     return;
   }
-  api.method(api.methods.ads).then((ads) => {
+  isAdsLocked = true;
+  api.method(api.methods.ads, {
+    app_id: window.appId
+  }).then((ads) => {
     if (ads.length > 0) {
+      adsMarkedAsSeen = {};
       utils.statReachGoal('ads_got');
+    } else {
+      isAdsLocked = false;
     }
 
+    adsRotateLastTs = now;
     for (let i = 0; i < ads.length; i++) {
       SystemCardsQueue.push(ads[i]);
     }
     fillSystemCards();
-  });
+  }).catch(() => isAdsLocked = false);
 }
 
 function fillSystemCards() {
@@ -304,7 +314,7 @@ function fillSystemCards() {
     if (cards[i].system) {
       count = 0;
     }
-    if (count === 5) {
+    if (count === 3) {
       count = 0;
       newCards.splice(i + offset, 0, SystemCardsQueue.shift());
       offset++;
@@ -323,7 +333,7 @@ function fillSystemCards() {
 
 let adsMarkedAsSeen = {};
 export function markAdAsSeen(id, isClick) {
-  if (adsMarkedAsSeen[id] && !isClick) {
+  if (adsMarkedAsSeen[id]) {
     return;
   }
   adsMarkedAsSeen[id] = true;

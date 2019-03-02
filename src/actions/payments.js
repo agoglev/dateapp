@@ -78,7 +78,7 @@ export function buyPremium(type = 'premium', target = 'none') {
     actions.vkPay(type).then(() => {
       setPremiumState(true);
       actions.loaderSuccess();
-      //setTimeout(() => showFeatureBox(true), 100);
+      setTimeout(() => showFeatureBox(true), 100);
       utils.statReachGoal('premium_target_' + target);
       fetchRates();
     }).catch(() => actions.showError());
