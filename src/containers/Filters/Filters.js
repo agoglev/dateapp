@@ -24,15 +24,8 @@ export default class Filters extends BaseComponent {
     const info = this.props.state.usersInfo[this.props.state.userId];
     const cityName = ` (${info.city_name})` || '';
 
-    return (
-      <div>
-        <Header
-          left={<UICloseButton />}
-        >
-          Интересуют
-        </Header>
-        <FormLayout>
-          <div top="Пол">
+    /*
+    <div top="Пол">
             <Checkbox
               name="type"
               checked={this.data.woman}
@@ -44,6 +37,16 @@ export default class Filters extends BaseComponent {
               onChange={(e) => this.setData('man', e.target.checked ? 1 : 0)}
             >Мужчины</Checkbox>
           </div>
+     */
+
+    return (
+      <div>
+        <Header
+          left={<UICloseButton />}
+        >
+          Интересуют
+        </Header>
+        <FormLayout>
           <div top="Возраст" bottom={this._renderLabel()}>
             <RangeSlider
               min={17}

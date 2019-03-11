@@ -37,10 +37,6 @@ export default class Search extends BaseComponent {
       {
         id: 'girls',
         text: 'Девушки'
-      },
-      {
-        id: 'all',
-        text: 'Все'
       }
     ];
 
