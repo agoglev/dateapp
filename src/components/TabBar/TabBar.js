@@ -99,16 +99,21 @@ export default class TabBar extends Component {
   }
 
   _renderLinks() {
-    const links = [{
+    let links = [{
       title: 'Сообщество',
-      href: 'https://vk.com/dateapp'
-    }, {
-      title: 'Сообщить о проблеме',
-      href: 'https://vk.com/board160479731'
-    }, {
-      title: 'Связаться с разработчиками',
-      href: 'https://vk.me/dateapp'
+      href: window.isOK ? 'https://ok.ru/group/59095003234338' : 'https://vk.com/dateapp'
     }];
+
+    if (!window.isOK) {
+      links.push({
+        title: 'Сообщить о проблеме',
+        href: 'https://vk.com/board160479731'
+      });
+      links.push({
+        title: 'Связаться с разработчиками',
+        href: 'https://vk.me/dateapp'
+      });
+    }
     return links.map((link, i) => {
       return (
         <a key={i} href={link.href} target="_blank" className="TabBar__link">{link.title}</a>

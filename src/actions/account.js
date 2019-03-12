@@ -105,6 +105,7 @@ export function createAccount(photos) {
       vk_url: window.initialUrl,
       is_ios: utils.isIOS() ? 1 : 0,
       ref_id: window.refId,
+      group_id: window.GroupId,
       ...JoinInfo
     };
 
