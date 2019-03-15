@@ -24,5 +24,6 @@ export default {
     return Sdk.init();
   },
   allowMessagesFromGroup: (groupId, key = '') => Sdk.allowMessagesFromGroup(groupId, key),
-  getGeodata: () => Sdk.getGeodata()
+  getGeodata: () => Sdk.getGeodata(),
+  showSubscriptionBox: (item, action = 'create', subscription_id = 1) => Sdk.showSubscriptionBox(item, action, subscription_id)
 };

@@ -18,6 +18,39 @@ export default class SubscriptionBox extends PureComponent {
   }
 
   render() {
+    return (
+      <div className="SubscriptionBox">
+        <div className="SubscriptionBox__cont-wrap">
+          <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
+          {this._renderItems()}
+          <div className="SubscriptionBox__cont">
+            <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
+            <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
+            {this._renderBuyButtons()}
+            {window.isDG ? null : <Button
+              size="l"
+              level="tertiary"
+              style={{marginTop: 12}}
+              onClick={() => {
+                actions.setPopout();
+                setTimeout(() => actions.openInvites(), 300)
+              }}
+            >Получить бесплатно</Button>}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  _renderBuyButtons() {
+    if (window.isDG && window.isDesktop) {
+      return (
+        <div style={{marginTop: 26}}>
+          <Button size="xl" onClick={() => this._rateDidPress('subscription')}>Попробовать бесплатно</Button>
+        </div>
+      )
+    }
+
     let prices;
     if (window.isDG) {
       prices = {
@@ -37,38 +70,19 @@ export default class SubscriptionBox extends PureComponent {
     const vkPayInfo = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
 
     return (
-      <div className="SubscriptionBox">
-        <div className="SubscriptionBox__cont-wrap">
-          <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
-          {this._renderItems()}
-          <div className="SubscriptionBox__cont">
-            <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
-            <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
-            <div className="SubscriptionBox__pay_buttons">
-              <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('day')}>
-                <div className="SubscriptionBox__pay_button__title">День</div>
-                <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
-                <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
-                <div className="SubscriptionBox__pay_button__buy">Активировать</div>
-              </div>
-              <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
-                <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
-                <div className="SubscriptionBox__pay_button__title">Месяц</div>
-                <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
-                <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
-                <div className="SubscriptionBox__pay_button__buy">Активировать</div>
-              </div>
-            </div>
-            {window.isDG ? null : <Button
-              size="l"
-              level="tertiary"
-              style={{marginTop: 12}}
-              onClick={() => {
-                actions.setPopout();
-                setTimeout(() => actions.openInvites(), 300)
-              }}
-            >Получить бесплатно</Button>}
-          </div>
+      <div className="SubscriptionBox__pay_buttons">
+        <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('day')}>
+          <div className="SubscriptionBox__pay_button__title">День</div>
+          <div className="SubscriptionBox__pay_button__price">{prices.day}</div>
+          <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
+          <div className="SubscriptionBox__pay_button__buy">Активировать</div>
+        </div>
+        <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
+          <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
+          <div className="SubscriptionBox__pay_button__title">Месяц</div>
+          <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
+          <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
+          <div className="SubscriptionBox__pay_button__buy">Активировать</div>
         </div>
       </div>
     )

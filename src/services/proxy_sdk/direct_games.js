@@ -14,6 +14,22 @@ function bindEvents() {
       promises.allowMessagesFromGroup.reject();
     }
   });
+
+  VK.addCallback('onSubscriptionCancel', () => {
+    if (promises.subscriptionBox) {
+      promises.subscriptionBox.reject();
+    }
+  });
+  VK.addCallback('onSubscriptionFail', () => {
+    if (promises.subscriptionBox) {
+      promises.subscriptionBox.reject();
+    }
+  });
+  VK.addCallback('onSubscriptionSuccess', () => {
+    if (promises.subscriptionBox) {
+      promises.subscriptionBox.resolve();
+    }
+  });
 }
 
 export default {
@@ -38,6 +54,13 @@ export default {
   getGeodata() {
     return new Promise((resolve, reject) => {
       reject();
+    });
+  },
+
+  showSubscriptionBox(item, action, subscription_id) {
+    return new Promise((resolve, reject) => {
+      promises.subscriptionBox = {resolve, reject};
+      window.VK.callMethod('showSubscriptionBox', action, {item, subscription_id});
     });
   }
 }

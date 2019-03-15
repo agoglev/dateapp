@@ -10,6 +10,7 @@ import * as activityActions from "./activity";
 import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
 import ImHistory from "../containers/Modals/ImHistory";
 import SkipMatchBox from "../components/SkipMatchBox/SkipMatchBox";
+import Proxy from '../services/proxy_sdk/proxy';
 
 export let hasPremium = false;
 
@@ -56,7 +57,14 @@ export function buyPremium(type = 'premium', target = 'none') {
     actions.loaderShow();
   }
 
-  if (window.isOK) {
+  if (window.isDG && window.isDesktop) {
+    Proxy.showSubscriptionBox('month').then(() => {
+      actions.loaderSuccess();
+      setPremiumState(true);
+      setTimeout(() => showFeatureBox(true), 100);
+      utils.statReachGoal('premium_target_' + target);
+    }).catch(() => actions.showError());
+  } else if (window.isOK) {
     window.okPayRequestType = type;
     let key = type === 'premium_month' ? 'premium' : 'premiumDay';
     window.FAPI.UI.showPayment('Знакомства «Премиум»', '', type, Prices[key].rubles, null, null, 'ok', 'true');
