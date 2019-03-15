@@ -43,14 +43,6 @@ export default class SubscriptionBox extends PureComponent {
   }
 
   _renderBuyButtons() {
-    if (window.isDG && window.isDesktop) {
-      return (
-        <div style={{marginTop: 26}}>
-          <Button size="xl" onClick={() => this._rateDidPress('subscription')}>Попробовать бесплатно</Button>
-        </div>
-      )
-    }
-
     let prices;
     if (window.isDG) {
       prices = {
@@ -61,12 +53,22 @@ export default class SubscriptionBox extends PureComponent {
       };
     } else {
       prices = {
-        day: utils.gram(paymentsActions.Prices.premiumDay.rubles * 2, ['рубль', 'рубля', 'рублей']),
+        day: utils.gram(paymentsActions.Prices.premiumDay.rubles * 2 , ['рубль', 'рубля', 'рублей']),
         daySale: utils.gram(paymentsActions.Prices.premiumDay.rubles, ['рубль', 'рубля', 'рублей']),
         month: utils.gram(paymentsActions.Prices.premiumMonth.rubles * 2, ['рубль', 'рубля', 'рублей']),
         monthSale: utils.gram(paymentsActions.Prices.premiumMonth.rubles, ['рубль', 'рубля', 'рублей'])
       };
     }
+
+    if (window.isDG && window.isDesktop) {
+      return (
+        <div style={{marginTop: 26}}>
+          <Button size="xl" onClick={() => this._rateDidPress('subscription')}>Попробовать бесплатно</Button>
+          <div className="VKPay_info">3 дня бесплатно, дальше — {prices.month} в месяц</div>
+        </div>
+      )
+    }
+
     const vkPayInfo = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
 
     return (
