@@ -19,7 +19,8 @@ import Cards from './containers/Main/Cards';
 import Proxy from './services/proxy_sdk/proxy';
 import persistentParamsPlugin from 'router5-plugin-persistent-params';
 
-window.isOK = !!window.location.href.match(/session_secret_key/);
+window.isNative = !!window.location.hash.match(/native/);
+window.isOK = !window.isNative && !!window.location.href.match(/session_secret_key/);
 window.isFromAdsLove = !!window.location.href.match(/ads_love/);
 
 const url = window.location.href;
@@ -151,7 +152,7 @@ function render() {
 }
 
 // for debug
-if (utils.isDev() && utils.isInspectOpen() && !window.isOK) {
+if (utils.isDev() && utils.isInspectOpen() && !window.isOK && !window.isNative) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
   accountActions.init(window._DEBUG_TOKEN);
 }
@@ -169,7 +170,7 @@ if (window.isOK) {
     });
   };
 } else if (urlToken) {
-  window.isDG = true;
+  window.isDG = !window.isNative;
 
   let scope = 0;
   if (urlParams && urlParams.get) {
@@ -182,7 +183,11 @@ if (window.isOK) {
   accountActions.init();
 }
 
-if (window.isDG) {
+if (window.isNative) {
+  accountActions.init(urlToken);
+  Proxy.init('vk_apps');
+  render();
+} else if (window.isDG) {
   window.onload = () => {
     Proxy.init('direct_games');
     accountActions.init(urlToken);

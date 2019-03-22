@@ -60,11 +60,11 @@ export default class SubscriptionBox extends PureComponent {
       };
     }
 
-    if (window.isDG && window.isDesktop) {
+    if (window.isDG && window.isDesktop && false) {
       return (
         <div style={{marginTop: 26}}>
           <Button size="xl" onClick={() => this._rateDidPress('subscription')}>Попробовать бесплатно</Button>
-          <div className="VKPay_info">3 дня бесплатно, дальше — {prices.month} в месяц</div>
+          <div className="VKPay_info">3 дня бесплатно, дальше — {prices.monthSale} в месяц</div>
         </div>
       )
     }

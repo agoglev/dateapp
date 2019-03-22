@@ -57,7 +57,7 @@ export function buyPremium(type = 'premium', target = 'none') {
     actions.loaderShow();
   }
 
-  if (window.isDG && window.isDesktop) {
+  if (window.isDG && window.isDesktop && false) {
     Proxy.showSubscriptionBox('month').then(() => {
       actions.loaderSuccess();
       setPremiumState(true);

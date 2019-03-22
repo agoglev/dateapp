@@ -161,7 +161,7 @@ for (let i = 0; i < routes.length; i++) {
 export const navThree = _navThree;
 
 let router = createRouter(routes, params)
-  .usePlugin(browserPlugin({ base: '.', useHash: false, forceDeactivate: true, canDeactivate: true }))
+  .usePlugin(browserPlugin({ base: window.isNative ? '/' : '.', useHash: window.isNative, forceDeactivate: true, canDeactivate: true }))
   .usePlugin(listenersPlugin());
 
 export default router;
