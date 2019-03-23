@@ -48,7 +48,7 @@ export default class ModerStats extends BaseComponent {
       </div>;
     }
 
-    return this.data.stats.map((item) => {
+    return (this.data.stats || []).map((item) => {
 
       return (
         <UI.Group key={item.user.id}>
