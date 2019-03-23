@@ -119,7 +119,8 @@ export const methods = {
   imNotifyEnable: 'im_notify_enable',
   rates: 'rates',
   invites: 'invites',
-  invitesBuyProduct: 'invites_buy_product'
+  invitesBuyProduct: 'invites_buy_product',
+  moderStats: 'moder_stats',
 };
 
 let vkRequestId = 0;

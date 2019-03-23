@@ -75,3 +75,22 @@ function setReport(newData) {
     }
   }
 }
+
+export function loadStats() {
+  actions.setDataMulti({
+    isLoading: true,
+    isFailed: false
+  }, pages.MODER_STATS);
+
+  api.method(api.methods.moderStats).then(({stats}) => {
+    actions.setDataMulti({
+      isLoading: false,
+      stats
+    }, pages.MODER_STATS);
+  }).catch(() => {
+    actions.setDataMulti({
+      isLoading: false,
+      isFailed: true
+    }, pages.MODER_STATS);
+  });
+}

@@ -29,6 +29,7 @@ import Likes from './containers/Likes/Likes';
 import LiveChat from "./containers/DateChats/LiveChat";
 import Stats from "./containers/Stats/Stats";
 import Moder from "./containers/Moder/Moder";
+import ModerStats from "./containers/Moder/ModerStats";
 import Notify from "./containers/Notify/Notify";
 import Premium from "./containers/Premium/Premium";
 import Invites from "./containers/Invites/Invites";
@@ -180,6 +181,7 @@ class App extends React.Component {
           <LiveChat id={pages.LIVE_CHAT} state={state} />
           <Stats id={pages.STATS} state={state} />
           <Moder id={pages.MODER} state={state} />
+          <ModerStats id={pages.MODER_STATS} state={state} />
           <Notify id={pages.NOTIFY} state={state} />
           <Gifts id={pages.GIFTS} state={state} />
           <GiftSend id={pages.GIFT_SEND} state={state} />
@@ -245,6 +247,8 @@ class App extends React.Component {
         return <Stats id={pages.STATS} state={state} />;
       case pages.MODER:
         return <Moder id={pages.MODER} state={state} />;
+      case pages.MODER_STATS:
+        return <ModerStats id={pages.MODER_STATS} state={state} />;
       case pages.NOTIFY:
         return <Notify id={pages.NOTIFY} state={state} />;
       case pages.GIFTS:

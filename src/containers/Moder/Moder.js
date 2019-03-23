@@ -3,10 +3,12 @@ import './Moder.css';
 import React from 'react';
 import BaseComponent from '../../BaseComponent';
 import Header from '../../components/proxy/Header';
-import { Panel, Group, Spinner, Button, Search, Tabs, TabsItem, HorizontalScroll } from '@vkontakte/vkui';
+import { Panel, Group, Spinner, Button, Search, Tabs, TabsItem, HorizontalScroll, Div } from '@vkontakte/vkui';
 import UICloseButton from '../../components/UI/UICloseButton';
 import * as moderActions from '../../actions/moder';
 import * as utils from '../../utils';
+import * as actions from "../../actions";
+import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 
 export default class Moder extends BaseComponent {
   render() {
@@ -16,6 +18,7 @@ export default class Moder extends BaseComponent {
 
     return (
       <Panel id={this.props.id}>
+        <Div style={{paddingBottom: 4}}><Button before={<Icon24Poll/>} size="xl" onClick={() => actions.openModerStats()}>Статистика</Button></Div>
         {this._renderCont()}
       </Panel>
     )
@@ -35,9 +38,8 @@ export default class Moder extends BaseComponent {
   }
 
   _renderContent() {
-    return (
-      <div>
-        <Search onChange={this._searchReports} />
+    /*
+     <Search onChange={this._searchReports} />
         <Group>
           <Tabs type="buttons">
             <HorizontalScroll>
@@ -47,6 +49,10 @@ export default class Moder extends BaseComponent {
             </HorizontalScroll>
           </Tabs>
         </Group>
+     */
+
+    return (
+      <div>
         {this._renderRows()}
         {!this.data.isLoading && !this.data.isFailed && <div className="Likes__load-more-wrap" onClick={this._load}>
           <div className="Likes__load-more">Обновить</div>

@@ -142,6 +142,12 @@ export const routes = [
     name: pages.INVITES,
     path: pages.INVITES,
     view: 'invites'
+  },
+
+  {
+    name: pages.MODER_STATS,
+    path: pages.MODER_STATS,
+    view: 'modal'
   }
 ];
 

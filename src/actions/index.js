@@ -295,7 +295,18 @@ export function openModer() {
   };
 
   go(pages.MODER, params);
-  moderActions.loadReports('template');
+  moderActions.loadReports();
+}
+
+export function openModerStats() {
+  let params = {
+    isLoading: true,
+    isFailed: false,
+    stats: []
+  };
+
+  go(pages.MODER_STATS, params);
+  moderActions.loadStats();
 }
 
 export function openNotify() {
