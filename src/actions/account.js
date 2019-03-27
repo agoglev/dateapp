@@ -164,6 +164,11 @@ function initMethodHandler(resp) {
         }
       }).catch(() => console.log('getGeodata failed'));
     }
+
+    const chatId = parseInt(window.hashParams.get('chat_id'), 10) || 0;
+    if (chatId > 0) {
+      actions.openChat(chatId);
+    }
   }
 }
 
