@@ -11,6 +11,7 @@ import SubscriptionBox from '../components/SubscriptionBox/SubscriptionBox';
 import ImHistory from "../containers/Modals/ImHistory";
 import SkipMatchBox from "../components/SkipMatchBox/SkipMatchBox";
 import Proxy from '../services/proxy_sdk/proxy';
+import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
 export let hasPremium = false;
 
@@ -121,16 +122,57 @@ export function showFeatureBox(isSale = false) {
     btnText = window.isDG ? `Получить за ${utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов'])}` : `Получить за ${Prices.feature.rubles}₽`;
   }
 
-  let text = 'Окажитесь на виду у всех — разместите анкету над сообщениями';
+  const state = store.getState();
+  const user = state.usersInfo[state.userId];
+  let text = utils.genderText(user.gender, [
+    'Вашу анкету увидят тысячи девушек',
+    'Вашу анкету увидят тысячи парней'
+  ]);
   if (isSale) {
     const oldPrice = window.isDG ? utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов']) : `${Prices.feature.rubles}₽`;
     text = <span>
-      <div>Окажитесь на виду у всех — разместите анкету над сообщениями</div>
+      <div>{text}</div>
       <div style={{marginTop: '20px', color: '#000'}}>Получите услугу со скидкой <b>50%</b> только сейчас! Старая цена <b>{oldPrice}</b></div>
     </span>;
   }
 
   const buttonCaption = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
+
+  let photos;
+  if (user.gender === 1) {
+    photos = [
+      require('../asset/promo/man_1.jpg'),
+      require('../asset/promo/man_2.jpg'),
+      require('../asset/promo/man_3.jpg'),
+      require('../asset/promo/man_4.jpg'),
+    ];
+  } else {
+    photos = [
+      require('../asset/promo/1.jpg'),
+      require('../asset/promo/2.jpg'),
+      require('../asset/promo/3.jpg'),
+      require('../asset/promo/4.jpg'),
+      require('../asset/promo/5.jpg'),
+    ];
+  }
+  const randItem = Math.floor(Math.random() * (photos.length - 1));
+  const selectedPhotos = photos.splice(randItem, 2);
+
+  actions.setPopout(<div className="FeatureBox">
+    <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
+    <div className="FeatureBox__photos">
+      <div className="FeatureBox__photo first" style={{backgroundImage: `url(${selectedPhotos[0]})`}} />
+      <div className="FeatureBox__photo user" style={{backgroundImage: `url(${user.small_photo})`}} />
+      <div className="FeatureBox__photo last" style={{backgroundImage: `url(${selectedPhotos[1]})`}} />
+    </div>
+    <div className="FeatureBox__title">Больше посетителей</div>
+    <div className="FeatureBox__caption">{text}</div>
+    <UI.Button size="l" style={{marginTop: 24}} onClick={() => {
+      featureBuy(isSale);
+      actions.setPopout();
+    }}>{btnText}</UI.Button>
+  </div>);
+  return;
 
   const productType = isSale ? 'feature_sale' : 'feature';
   actions.setPopout(<NotificationsPermission
@@ -181,6 +223,39 @@ export function showFeatureBox(isSale = false) {
   />);
 
   utils.statReachGoal('feature_btn');
+}
+
+function featureBuy(isSale) {
+  if (!window.isOK) {
+    actions.loaderShow();
+  }
+
+  const productType = isSale ? 'feature_sale' : 'feature';
+
+  if (window.isOK) {
+    window.okPayRequestType = 'feature';
+    window.FAPI.UI.showPayment('Больше посетителей', '', 'feature', Prices.feature.rubles, null, null, 'ok', 'true');
+  } else if (window.isDG) {
+    api.showOrderBox(productType).then(() => {
+      actions.loaderSuccess();
+      activityActions.loadFeaturedUsers();
+    }).catch((isFailed) => {
+      if (isFailed) {
+        actions.showError();
+      } else {
+        actions.loaderHide();
+      }
+      fetchRates();
+    });
+  } else {
+    actions.vkPay(productType).then(() => {
+      actions.loaderSuccess();
+      activityActions.loadFeaturedUsers();
+      fetchRates();
+    }).catch(() => actions.showError());
+  }
+
+  utils.statReachGoal('feature_buy_btn');
 }
 
 export function showWantToTalkBox() {

@@ -165,7 +165,7 @@
 .profile_view_about {
   line-height: 24px;
   font-size: 16px;
-  color: #1a1a1a;
+  color: var(--text_primary);
 }
 .profile_view_about:empty {
   display: none;
