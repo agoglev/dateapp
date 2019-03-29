@@ -38,6 +38,12 @@ if (hashParams.get('ref')) {
 window.hashParams = hashParams;
 window.GroupId = parseInt(window.urlParams.get('vk_group_id'), 10);
 
+if (window.isNative) {
+  window.appToken = urlParams.get('app_token') || '';
+} else {
+  window.appToken = '';
+}
+
 window.vkPlatform = urlParams.get('vk_platform');
 if (urlParams.get('vk_platform') === 'web2' || urlParams.get('vk_platform') === 'desktop_web' || urlParams.get('platform') === 'web'
   || (window.isOK && !urlParams.get('mob'))) {

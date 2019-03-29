@@ -464,3 +464,17 @@ body.desktop {
   margin-top: 18px;
   line-height: 20px;
 }
+
+.FeatureBox__close {
+  position: absolute;
+  top: 16px;
+  margin-top: env(safe-area-inset-top);
+  left: 16px;
+  .size(24px);
+  z-index: 100;
+  cursor: pointer;
+
+  svg {
+    color: var(--text_primary);
+  }
+}

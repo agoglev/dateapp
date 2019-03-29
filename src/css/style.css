@@ -377,3 +377,16 @@ body.desktop .FormLayout {
   margin-top: 18px;
   line-height: 20px;
 }
+.FeatureBox__close {
+  position: absolute;
+  top: 16px;
+  margin-top: env(safe-area-inset-top);
+  left: 16px;
+  width: 24px;
+  height: 24px;
+  z-index: 100;
+  cursor: pointer;
+}
+.FeatureBox__close svg {
+  color: var(--text_primary);
+}

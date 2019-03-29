@@ -8,6 +8,7 @@ import * as utils from '../../utils/index';
 import connect from '@vkontakte/vkui-connect';
 import Header from '../../components/proxy/Header';
 import * as payments from '../../actions/payments';
+import * as native from '../../services/native';
 
 import Icon24Settings from '@vkontakte/icons/dist/24/settings';
 import Icon24Filter from '@vkontakte/icons/dist/24/filter';
@@ -16,6 +17,7 @@ import Icon24Share from '@vkontakte/icons/dist/24/share';
 import Icon24Users from '@vkontakte/icons/dist/24/users';
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon24User from '@vkontakte/icons/dist/24/user';
+import Icon24UserOutgoing from '@vkontakte/icons/dist/24/user_outgoing';
 
 export default class Profile extends Component {
   componentDidMount() {
@@ -78,6 +80,7 @@ export default class Profile extends Component {
             {!window.isOK && <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>}
             {!window.isOK && <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>}
             <Cell before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
+            {window.isNative && <Cell before={<Icon24UserOutgoing />} onClick={this._logoutDidPress}>Выйти</Cell>}
           </List>
         </Group>
         {this._renderDev()}
@@ -85,6 +88,12 @@ export default class Profile extends Component {
       </div>
     )
   }
+
+  _logoutDidPress = () => {
+    actions.showAlert('Выход', 'Вы действительно хотите выйти?', 'Да, выйти').then(() => {
+      native.logout(true);
+    });
+  };
 
   _renderDev() {
     if (this.props.state.userId !== 1 && this.props.state.userId !== 3) {

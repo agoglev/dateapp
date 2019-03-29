@@ -159,7 +159,7 @@ export function showFeatureBox(isSale = false) {
   const selectedPhotos = photos.splice(randItem, 2);
 
   actions.setPopout(<div className="FeatureBox">
-    <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
+    <div className="FeatureBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
     <div className="FeatureBox__photos">
       <div className="FeatureBox__photo first" style={{backgroundImage: `url(${selectedPhotos[0]})`}} />
       <div className="FeatureBox__photo user" style={{backgroundImage: `url(${user.small_photo})`}} />

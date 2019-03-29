@@ -9,6 +9,7 @@ import realTimeInit from '../services/realtime';
 import * as payments from './payments';
 import * as searchActions from './search';
 import proxy from "../services/proxy_sdk/proxy";
+import * as native from '../services/native';
 
 export let JoinInfo = {};
 export let searchFilters = {};
@@ -25,7 +26,8 @@ export function init(token = false) {
     vk_token: token || '',
     is_dg: window.isDG ? 1 : 0,
     vk_url: window.initialUrl,
-    is_ios: utils.isIOS() ? 1 : 0
+    is_ios: utils.isIOS() ? 1 : 0,
+    app_token: window.appToken
   };
 
   if (window.okSession) {
@@ -37,12 +39,13 @@ export function init(token = false) {
     .then(initMethodHandler)
     .catch((err) => {
       console.log('ERROR', err.message, err);
-    store.dispatch({
-      type: actionTypes.APP_INITED,
-      needJoin: true
+      store.dispatch({
+        type: actionTypes.APP_INITED,
+        needJoin: true
+      });
+      actions.setTab('error');
+      native.logout();
     });
-    actions.setTab('error');
-  });
 }
 
 export function setupVkInfo(info) {
@@ -106,6 +109,7 @@ export function createAccount(photos) {
       is_ios: utils.isIOS() ? 1 : 0,
       ref_id: window.refId,
       group_id: window.GroupId,
+      app_token: window.appToken,
       ...JoinInfo
     };
 
@@ -169,6 +173,8 @@ function initMethodHandler(resp) {
     if (chatId > 0) {
       actions.openChat(chatId);
     }
+
+    native.saveToken(resp.token);
   }
 }
 

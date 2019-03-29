@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 import connect from '@vkontakte/vkui-connect';
 import * as utils from '../utils';
 import * as actions from '../actions';
-//import connect from '@vkontakte/vkui-connect-mock';
+import * as native from './native';
 
 const API_ENTRY = 'https://dev.kphp.net/api.php';
 
@@ -32,6 +32,8 @@ export function method(name, params = {}) {
 
           if (json.error.code === 'works') {
             store.dispatch({type: actionTypes.WORKS});
+          } else if (json.error.code === 'auth') {
+            native.logout();
           }
         } else {
           resolve(json.response);
