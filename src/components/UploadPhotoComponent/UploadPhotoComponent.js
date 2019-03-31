@@ -5,6 +5,7 @@ import * as actions from "../../actions";
 import * as loadImage from "blueimp-load-image";
 import * as api from "../../services/api";
 import * as pages from "../../constants/pages";
+import * as native from '../../services/native';
 
 export default class UploadPhotoComponent extends BaseComponent {
   componentDidMount() {
@@ -26,8 +27,12 @@ export default class UploadPhotoComponent extends BaseComponent {
 
       return (
         <div className={classNames} key={i} onClick={(e) => {
-          if (e.target.className !== 'profile_edit_photo_delete' && !window.isDesktop && !window.isOK) {
-            this._selectPhotoSheet(i)
+          if (e.target.className !== 'profile_edit_photo_delete' && !window.isDesktop && !window.isOK && !window.isNative) {
+            if (window.isNative) {
+              this._selectPhotoSheetNative(i);
+            } else {
+              this._selectPhotoSheet(i);
+            }
           }
         }}>
           <div className="profile_edit_photo_cont">
@@ -35,7 +40,7 @@ export default class UploadPhotoComponent extends BaseComponent {
             <div className="profile_edit_photo_index">{i + 1}</div>
             <div className="profile_edit_photo_delete" onClick={() => this.removePhoto(i)} />
             <div className="profile_edit_photo_loader" />
-            {(window.isDesktop || window.isOK) && <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
+            {(window.isDesktop || window.isOK || window.isNative) && <input className="profile_edit_photo_input" type="file" accept="image/*" onChange={(e) => {
               actions.setPopout();
               this.photoDidSelect(i, e.target.files[0]);
             }} />}
@@ -143,6 +148,18 @@ export default class UploadPhotoComponent extends BaseComponent {
     }
 
     actions.showActionSheet(items, 'Загрузка фотографии');
+  };
+
+  _selectPhotoSheetNative = (i) => {
+    native.selectPhoto((base64) => this._nativePhotoDidSelect(i, base64));
+  };
+
+  _nativePhotoDidSelect = (i, uri) => {
+    fetch(uri)
+      .then(res => res.blob())
+      .then((res) => {
+        this.photoDidSelect(i, res);
+    }).catch(() => actions.showAlert('Ошибка', 'Обновите версию Android'));
   };
 
   _selectVkPhoto(i) {

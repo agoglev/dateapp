@@ -123,6 +123,7 @@ export const methods = {
   invites: 'invites',
   invitesBuyProduct: 'invites_buy_product',
   moderStats: 'moder_stats',
+  nativePurchase: 'native_purchase'
 };
 
 let vkRequestId = 0;

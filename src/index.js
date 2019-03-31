@@ -17,6 +17,7 @@ import * as api from './services/api';
 import Cards from './containers/Main/Cards';
 import Proxy from './services/proxy_sdk/proxy';
 import persistentParamsPlugin from 'router5-plugin-persistent-params';
+import * as native from './services/native';
 
 window.isNative = !!window.location.hash.match(/native/);
 window.isOK = !window.isNative && !!window.location.href.match(/session_secret_key/);
@@ -190,9 +191,11 @@ if (window.isOK) {
 }
 
 if (window.isNative) {
-  accountActions.init(urlToken);
-  Proxy.init('vk_apps');
-  render();
+  window.onload = () => {
+    accountActions.init(urlToken);
+    Proxy.init('vk_apps');
+    render();
+  };
 } else if (window.isDG) {
   window.onload = () => {
     Proxy.init('direct_games');
@@ -211,4 +214,8 @@ utils.updateVkFrameHeight();
 
 if (window.isFromAdsLove) {
   utils.statReachGoal('ads_ref_love');
+}
+
+if (window.isNative) {
+  native.listen();
 }

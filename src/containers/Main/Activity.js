@@ -90,6 +90,10 @@ export default class Activity extends BaseComponent {
   }
 
   _renderStatsButton() {
+    if (window.isNative) {
+      return null;
+    }
+
     return (
       <HeaderButton onClick={() => actions.openStats()}>
         <Icon24Poll />

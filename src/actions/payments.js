@@ -12,6 +12,7 @@ import ImHistory from "../containers/Modals/ImHistory";
 import SkipMatchBox from "../components/SkipMatchBox/SkipMatchBox";
 import Proxy from '../services/proxy_sdk/proxy';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
+import * as native from '../services/native';
 
 export let hasPremium = false;
 
@@ -58,7 +59,14 @@ export function buyPremium(type = 'premium', target = 'none') {
     actions.loaderShow();
   }
 
-  if (window.isDG && window.isDesktop && false) {
+  if (window.isNative) {
+    actions.loaderShow();
+    native.purchase(type).then(() => {
+      actions.loaderSuccess();
+      setPremiumState(true);
+      utils.statReachGoal('premium_target_' + target);
+    }).catch(() => actions.showError());
+  } else if (window.isDG && window.isDesktop && false) {
     Proxy.showSubscriptionBox('month').then(() => {
       actions.loaderSuccess();
       setPremiumState(true);
@@ -232,7 +240,12 @@ function featureBuy(isSale) {
 
   const productType = isSale ? 'feature_sale' : 'feature';
 
-  if (window.isOK) {
+  if (window.isNative) {
+    native.purchase('feature').then(() => {
+      actions.loaderSuccess();
+      activityActions.loadFeaturedUsers();
+    }).catch(() => actions.showError());
+  } else if (window.isOK) {
     window.okPayRequestType = 'feature';
     window.FAPI.UI.showPayment('Больше посетителей', '', 'feature', Prices.feature.rubles, null, null, 'ok', 'true');
   } else if (window.isDG) {

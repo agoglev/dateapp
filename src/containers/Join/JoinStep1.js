@@ -49,6 +49,7 @@ export default class JoinStep1 extends BaseComponent {
             getRef={(ref) => this.genderRef = ref}
             defaultValue={parseInt(accountActions.JoinInfo.gender || state.vkUserInfo.sex, 10)}
           >
+            <option value="0">Не выбран</option>
             <option value="1">Женский</option>
             <option value="2">Мужской</option>
           </Select>
@@ -68,6 +69,10 @@ export default class JoinStep1 extends BaseComponent {
 
     if (!name) {
       return actions.showError('Введите ваше имя');
+    }
+
+    if (!gender) {
+      return actions.showError('Выбирите Ваш пол');
     }
 
     accountActions.fillJoinInfo({

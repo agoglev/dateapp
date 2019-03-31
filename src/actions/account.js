@@ -110,6 +110,7 @@ export function createAccount(photos) {
       ref_id: window.refId,
       group_id: window.GroupId,
       app_token: window.appToken,
+      tmp_token: window.tmpToken,
       ...JoinInfo
     };
 
@@ -146,6 +147,7 @@ function initMethodHandler(resp) {
     isImNotifyEnabled: resp.isImNotifyEnabled
   });
   if (resp.need_join) {
+    window.tmpToken = resp.tmp_token || '';
     actions.setTab('join');
   } else {
     actions.setUser(resp.user);
