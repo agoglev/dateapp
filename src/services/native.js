@@ -5,6 +5,9 @@ let selectPhotohandler;
 let purchaseHandler;
 
 export function sendEvent(type, data = {}) {
+  if (!window.isNative) {
+    return;
+  }
   window.ReactNativeWebView.postMessage(JSON.stringify({
     type,
     data
@@ -37,12 +40,8 @@ export function listen() {
 
     switch (event.type) {
       case 'purchase_success':
-        selectPhotohandler(event.data);
-        selectPhotohandler = null;
-        break;
-      case 'image_selected':
         if (purchaseHandler) {
-          purchaseHandler.resolve(event.data.transaction);
+          purchaseHandler.resolve(event.transaction);
           purchaseHandler = null;
         }
         break;

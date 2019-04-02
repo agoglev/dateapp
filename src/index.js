@@ -38,6 +38,10 @@ if (hashParams.get('ref')) {
 }
 window.hashParams = hashParams;
 window.GroupId = parseInt(window.urlParams.get('vk_group_id'), 10);
+window.adsCompany = hashParams.get('ads') || '';
+if (window.isFromAdsLove) {
+  window.adsCompany = 'app_guests';
+}
 
 if (window.isNative) {
   window.appToken = urlParams.get('app_token') || '';
@@ -211,6 +215,10 @@ window.onresize = () => {
 };
 
 utils.updateVkFrameHeight();
+
+if (window.adsCompany) {
+  utils.statReachGoal(`external_ads_${window.adsCompany}`);
+}
 
 if (window.isFromAdsLove) {
   utils.statReachGoal('ads_ref_love');
