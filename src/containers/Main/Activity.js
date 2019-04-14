@@ -90,7 +90,7 @@ export default class Activity extends BaseComponent {
   }
 
   _renderStatsButton() {
-    if (window.isNative) {
+    if (window.isNative || !utils.isPaymentsEnabled()) {
       return null;
     }
 
@@ -238,7 +238,9 @@ export default class Activity extends BaseComponent {
 
     */
 
-    res.unshift(this._renderFeatureAddButton());
+    if (utils.isPaymentsEnabled()) {
+      res.unshift(this._renderFeatureAddButton());
+    }
 
     return res;
   }
@@ -504,12 +506,12 @@ export default class Activity extends BaseComponent {
 
       const className = utils.classNames({
         im_dialog: true,
-        hidden: user.is_inbox_fav && !this.props.state.hasPremium
+        hidden: user.is_inbox_fav && !this.props.state.hasPremium && utils.isPaymentsEnabled()
       });
 
       return (
         <div className={className} key={guest.id} onClick={(e) => {
-          if (user.is_inbox_fav && !this.props.state.hasPremium) {
+          if (user.is_inbox_fav && !this.props.state.hasPremium && utils.isPaymentsEnabled()) {
             payments.showSubscriptionRequest('fav');
           } else if (!e.target.classList.contains('im_dialog_fav')) {
             actions.openChat(guest.id)

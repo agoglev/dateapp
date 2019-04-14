@@ -174,6 +174,10 @@ export function isIOS() {
   return !!navigator.platform && /ipad|iphone|ipod/.test(navigator.platform.toLowerCase()) || window.vkPlatform === 'mobile_iphone';
 }
 
+export function isPaymentsEnabled() {
+  return !isIOS();
+}
+
 export function canAuthWithSig() {
   return false;
   if (isAndroid()) {

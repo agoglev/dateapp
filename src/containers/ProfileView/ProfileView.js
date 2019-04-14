@@ -167,7 +167,7 @@ export default class ProfileView extends BaseComponent {
     return (
       <div className="profile_view_footer">
         {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
-        {(this.data.isLiked && isFromLikes) || (!isFromLikes) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
+        {(utils.isPaymentsEnabled() || this.props.state.hasPremium) && ((this.data.isLiked && isFromLikes) || (!isFromLikes)) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
         {!this.data.isLiked && <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />}
       </div>
     )

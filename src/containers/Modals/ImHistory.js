@@ -187,7 +187,7 @@ export default class ImHistory extends BaseComponent {
             <div className="im_send_photo_button">
               <input type="file" onChange={this._photoDidSelect}/>
             </div>
-            {!window.isDesktop && !window.isDG && !window.isNative && <div className="im_send_gift_button" onClick={() => actions.openGifts(this.peerId)} />}
+            {!window.isDesktop && !window.isDG && !window.isNative && utils.isPaymentsEnabled() && <div className="im_send_gift_button" onClick={() => actions.openGifts(this.peerId)} />}
             <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
           </div>
         </div>

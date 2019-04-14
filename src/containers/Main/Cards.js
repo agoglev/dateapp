@@ -471,7 +471,7 @@ export default class Cards extends Component {
       return cardsActions.resolveSystemCard();
     }
 
-    if (isFromCancelActionCards && isLike && !paymentsActions.hasPremium) {
+    if (isFromCancelActionCards && isLike && !paymentsActions.hasPremium && utils.isPaymentsEnabled()) {
       setTimeout(() => paymentsActions.showSubscriptionRequest('cancel_action'), 300);
       return;
     }

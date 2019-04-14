@@ -28,7 +28,6 @@ export default class Profile extends Component {
 
   render() {
     const userInfo = this.props.state.usersInfo[this.props.state.userId];
-    const premiumLable = this.props.state.hasPremium ? <div className="notification_caption grey">Активирован</div> : <div className="notification_caption">Активировать</div>;
 
     return (
       <div ref="wrap">
@@ -49,20 +48,7 @@ export default class Profile extends Component {
                 onClick={() => actions.openEditProfile()}
               >Редактировать</div>
             </div>
-            <div className="notification payments_profile_block" onClick={() => {
-              if (!this.props.state.hasPremium) {
-                payments.showSubscriptionRequest('profile');
-              } else {
-                actions.openPremium();
-              }
-            }}>
-              <div className="notification_photo" />
-              <div className="notification_cont">
-                <div className="notification_title">Знакомства «Премиум»</div>
-                {premiumLable}
-              </div>
-              {!this.props.state.hasPremium && <div className="notification_close" />}
-            </div>
+            {this._renderPremium()}
           </div>
         </Group>
         <Group>
@@ -85,6 +71,30 @@ export default class Profile extends Component {
         </Group>
         {this._renderDev()}
         <div className="profile_copyright">The Dating Service © 2018</div>
+      </div>
+    )
+  }
+
+  _renderPremium() {
+    if (!utils.isPaymentsEnabled() && !this.props.state.hasPremium) {
+      return null;
+    }
+
+    const premiumLable = this.props.state.hasPremium ? <div className="notification_caption grey">Активирован</div> : <div className="notification_caption">Активировать</div>;
+    return (
+      <div className="notification payments_profile_block" onClick={() => {
+        if (!this.props.state.hasPremium) {
+          payments.showSubscriptionRequest('profile');
+        } else {
+          actions.openPremium();
+        }
+      }}>
+        <div className="notification_photo" />
+        <div className="notification_cont">
+          <div className="notification_title">Знакомства «Премиум»</div>
+          {premiumLable}
+        </div>
+        {!this.props.state.hasPremium && <div className="notification_close" />}
       </div>
     )
   }
