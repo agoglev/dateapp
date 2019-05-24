@@ -80,6 +80,7 @@ export default class Activity extends BaseComponent {
       case 'chats':
         return <div className="im_dialogs">
           {this._renderLikes()}
+          {this._renderRoulette()}
           {this._renderDialogs()}
           </div>;
       case 'guests':
@@ -555,4 +556,25 @@ export default class Activity extends BaseComponent {
       actions.loaderSuccess();
     }).catch((err) => actions.showError(err.message));
   };
+
+  _renderRoulette() {
+    if (this.data.isLoading || window.isNative) {
+      return null;
+    }
+
+    return (
+      <a href="https://vk.com/rouletka" target="_blank" className="im_dialog" style={{textDecoration: 'none', display: 'block'}} onClick={() => utils.statReachGoal('roulette')}>
+        <div className="im_dialog_cont_wrap">
+          <div className="im_dialog_photo" style={{backgroundImage: `url(https://sun1-17.userapi.com/c853520/v853520764/16493/1kk9RMjnJVo.jpg?ava=1)`}} />
+          <div className="im_dialog_cont">
+            <div className="im_dialog_name_wrap">
+              <div className="im_dialog_name">Рулетка</div>
+            </div>
+            <div className="im_dialog_message">Общение с незнакомцами</div>
+          </div>
+        </div>
+        <div className="im_dialog_separator" />
+      </a>
+    )
+  }
 }

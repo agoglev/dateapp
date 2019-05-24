@@ -52,10 +52,6 @@
     animation: cards_item_swipe_tip_anim 1s ease-in-out;
   }
 
-  &.ads {
-    background: @color-grey-bg no-repeat center/cover;
-  }
-
   &:after {
     content: '';
     display: block;
@@ -66,6 +62,14 @@
     height: 100%;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.32));
     z-index: 2;
+  }
+
+  &.ads {
+    background: @color-grey-bg no-repeat center/cover;
+  }
+
+  &.ads:after {
+    display: none;
   }
 
   &.system {

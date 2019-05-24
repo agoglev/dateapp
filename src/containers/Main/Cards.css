@@ -23,9 +23,6 @@
 .Cards__item.swipeTip {
   animation: cards_item_swipe_tip_anim 1s ease-in-out;
 }
-.Cards__item.ads {
-  background: #ebebeb no-repeat center / cover;
-}
 .Cards__item:after {
   content: '';
   display: block;
@@ -36,6 +33,12 @@
   height: 100%;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.32));
   z-index: 2;
+}
+.Cards__item.ads {
+  background: #ebebeb no-repeat center / cover;
+}
+.Cards__item.ads:after {
+  display: none;
 }
 .Cards__item.system {
   display: flex;

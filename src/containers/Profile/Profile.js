@@ -53,7 +53,7 @@ export default class Profile extends Component {
         </Group>
         <Group>
           <List>
-            {!window.isOK && <Cell expandable before={<Icon24Share />} onClick={() => {
+            {!window.isOK && utils.isPaymentsEnabled() && <Cell expandable before={<Icon24Share />} onClick={() => {
               if (window.isDG) {
                 this._shareApp();
               } else {
