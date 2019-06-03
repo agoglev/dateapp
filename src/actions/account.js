@@ -166,7 +166,7 @@ function initMethodHandler(resp) {
       payments.setPrices(resp.payments_rates);
     }
 
-    if (resp.loc) {
+    if (resp.loc && !resp.user.deactivated) {
       proxy.getGeodata().then((location) => {
         if (utils.distance(parseInt(location.lat, 10), parseInt(location.long, 10), resp.loc.lat, resp.loc.long, 'K') >= 2) {
           cardsActions.loadCards(true);

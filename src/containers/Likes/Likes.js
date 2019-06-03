@@ -5,7 +5,6 @@ import { Panel, Spinner, Button } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as activityActions from '../../actions/activity';
 import * as utils from '../../utils/index';
-import * as pages from "../../constants/pages";
 import BaseComponent from '../../BaseComponent';
 import UICloseButton from '../../components/UI/UICloseButton';
 import * as payments from '../../actions/payments';
@@ -95,7 +94,7 @@ export default class Likes extends BaseComponent {
 
     return (
       <div className="Likes__load-more-wrap" onClick={this._loadMore}>
-        <div className="Likes__load-more">{this.data.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+        <Button size="xl">{this.data.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</Button>
       </div>
     )
   }

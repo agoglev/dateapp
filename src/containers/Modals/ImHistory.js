@@ -168,7 +168,7 @@ export default class ImHistory extends BaseComponent {
     return (
       <div className={formClassName}>
         <div className="im_send_form_cont">
-              <textarea
+              <input
                 ref="input"
                 className="im_send_form_text_area"
                 placeholder="Ваше сообщение…"

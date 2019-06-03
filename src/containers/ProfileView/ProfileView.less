@@ -208,6 +208,7 @@
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--background_content) 30%);
   position: fixed;
   bottom: 0;
+  z-index: 100;
 
   body.desktop & {
     width: @modal-width;
@@ -310,6 +311,11 @@ body[scheme="client_dark"] {
   text-align: center;
   color: var(--accent);
   padding: 13px 0;
+  transition: opacity 150ms ease-in-out;
+
+  &:active {
+    opacity: 0.6;
+  }
 
   &:first-child {
     border: 0;

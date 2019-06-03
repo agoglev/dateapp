@@ -185,6 +185,7 @@
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--background_content) 30%);
   position: fixed;
   bottom: 0;
+  z-index: 100;
 }
 body.desktop .profile_view_footer {
   width: 450px;
@@ -271,6 +272,10 @@ body[scheme="client_dark"] .profile_view_footer {
   text-align: center;
   color: var(--accent);
   padding: 13px 0;
+  transition: opacity 150ms ease-in-out;
+}
+.profile_view_button:active {
+  opacity: 0.6;
 }
 .profile_view_button:first-child {
   border: 0;

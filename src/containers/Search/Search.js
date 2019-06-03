@@ -211,7 +211,7 @@ export default class Search extends BaseComponent {
 
     return (
       <div className="Likes__load-more-wrap" onClick={this._loadMore}>
-        <div className="Likes__load-more">{this.data.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+        <Button size="xl">{this.data.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</Button>
       </div>
     )
   }

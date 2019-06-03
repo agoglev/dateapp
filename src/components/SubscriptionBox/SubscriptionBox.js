@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import * as actions from '../../actions';
-import { Button } from '@vkontakte/vkui';
+import { Button, PopoutWrapper } from '@vkontakte/vkui';
 import * as paymentsActions from '../../actions/payments';
 import * as utils from "../../utils";
 import Slider from 'react-slick';
@@ -19,26 +19,28 @@ export default class SubscriptionBox extends PureComponent {
 
   render() {
     return (
-      <div className="SubscriptionBox">
-        <div className="SubscriptionBox__cont-wrap">
-          <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
-          {this._renderItems()}
-          <div className="SubscriptionBox__cont">
-            <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
-            <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
-            {this._renderBuyButtons()}
-            {window.isDG ? null : <Button
-              size="l"
-              level="tertiary"
-              style={{marginTop: 12}}
-              onClick={() => {
-                actions.setPopout();
-                setTimeout(() => actions.openInvites(), 300)
-              }}
-            >Получить бесплатно</Button>}
+      <PopoutWrapper v="center" h="center">
+        <div className="SubscriptionBox">
+          <div className="SubscriptionBox__cont-wrap">
+            <div className="SubscriptionBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
+            {this._renderItems()}
+            <div className="SubscriptionBox__cont">
+              <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
+              <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
+              {this._renderBuyButtons()}
+              {window.isDG ? null : <Button
+                size="l"
+                level="tertiary"
+                style={{marginTop: 12}}
+                onClick={() => {
+                  actions.setPopout();
+                  setTimeout(() => actions.openInvites(), 300)
+                }}
+              >Получить бесплатно</Button>}
+            </div>
           </div>
         </div>
-      </div>
+      </PopoutWrapper>
     )
   }
 
