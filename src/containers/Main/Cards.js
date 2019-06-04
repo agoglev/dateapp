@@ -12,6 +12,12 @@ import Header from '../../components/proxy/Header';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import {showNotification} from "../../actions/push";
 
+const Purpose = [
+  'Найти новых друзей',
+  'Общаться',
+  'Пойти на свидание'
+];
+
 let skippedLikes = {};
 
 let isFromCancelActionCards = false;
@@ -239,6 +245,28 @@ export default class Cards extends Component {
         nameComponents.push(utils.getUsrAge(card.age_ts));
       }
 
+      let captionVariants = [];
+
+      let captionComponents = [];
+      if (card.education) {
+        captionComponents.push(<div key="education" className="Cards__item__caption_row education">{card.education}</div>);
+      }
+      if (card.job) {
+        captionComponents.push(<div key="job" className="Cards__item__caption_row job">{card.job}</div>);
+      }
+
+      if (captionComponents.length > 0) {
+        captionVariants.push(captionComponents);
+      }
+
+      const purpose = parseInt(card.purpose, 10);
+      if (purpose > 0) {
+        captionVariants.push(`Хочу ${Purpose[purpose - 1].toLowerCase()}`);
+      }
+
+      const photosActiveIndex = this.state.activePhotos[card.id] || 0;
+      let captionIndex = captionVariants.length > 1 && photosActiveIndex > 0 ? 1 : 0;
+
       return (
         <div
           className={className}
@@ -247,7 +275,10 @@ export default class Cards extends Component {
         >
           {this._renderCardPhotos(card.id, card.photos)}
           <div className="Cards__item--footer">
-            <div className="Cards__item--footer-name">{nameComponents.join(', ')}</div>
+            <div className="Cards__item--footer-info">
+              <div className="Cards__item--footer-name">{nameComponents.join(', ')}</div>
+              <div className="Cards__item--footer-caption">{captionVariants[captionIndex]}</div>
+            </div>
             <div className="Cards__item--footer-info-ic" />
           </div>
         </div>

@@ -66,7 +66,10 @@ router.usePlugin(persistentParamsPlugin(persistentParams));
 const urlToken = urlParams.get('access_token');
 const urlSign = urlParams.get('sign');
 window.urlToken = urlToken;
-window.appId = parseInt(urlParams.get('api_id'), 10);
+window.appId = parseInt(urlParams.get('api_id'), 10) || false;
+if (!window.appId) {
+  window.appId = parseInt(urlParams.get('vk_app_id'), 10);
+}
 const isNeedFeature = window.location.hash.indexOf('feature') > -1;
 
 if (isNeedFeature) {
@@ -101,13 +104,12 @@ VkConnect.subscribe((e) => {
   switch (e.detail.type) {
     case 'VKWebAppGetClientVersionResult':
       actions.setVersion(data.platform, data.version);
-      connect.send('VKWebAppGetUserInfo', {});
       if (!window.isDesktop) {
-        connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
+        connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: ''});
       }
       break;
     case 'VKWebAppAccessTokenReceived':
-      if (!window.isDesktop) {
+      if (!window.isDesktop && window.isDG) {
         accountActions.init(data.access_token);
       }
       api.hadnleAccessTokenEventSuccess(data.access_token);
@@ -151,6 +153,7 @@ VkConnect.subscribe((e) => {
       console.log(e.detail.type);
   }
 });
+connect.send('VKWebAppGetUserInfo', {});
 connect.send("VKWebAppGetClientVersion", {});
 
 function render() {
@@ -163,7 +166,8 @@ function render() {
 }
 
 // for debug
-if (utils.isDev() && utils.isInspectOpen() && !window.isOK && !window.isNative) {
+const isDebug = utils.isDev() && utils.isInspectOpen();
+if (isDebug && !window.isOK && !window.isNative) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
   accountActions.init(window._DEBUG_TOKEN);
 }
@@ -190,8 +194,8 @@ if (window.isOK) {
 
   window.isDGNotifiEnabled = scope & 1 === 1;
   window.isDGMessagesBlocked = parseInt(urlParams.get('is_messages_blocked'), 10);
-} else if (urlSign && window.isDesktop) {
-  accountActions.init();
+} else if (urlSign && window.isDesktop || !window.isDG) {
+  !isDebug && accountActions.init();
 }
 
 if (window.isNative) {
