@@ -105,8 +105,8 @@ export default class Search extends BaseComponent {
             </FormLayout>
           </div>
         </HeaderContext>
+        {this._renderGeoNotification()}
         <div className="Likes__items clear_fix">
-          {this._renderGeoNotification()}
           {this._renderItems()}
         </div>
         {this._renderLoadMoreButton()}

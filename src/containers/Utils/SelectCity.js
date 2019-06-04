@@ -65,6 +65,10 @@ export default class SelectCity extends BaseComponent {
       return <Div>Произошла ошибка</Div>;
     }
 
+    if (this.state.cities.length === 0) {
+      return <div className="Likes__empty">Ничего не найдено</div>
+    }
+
     return (
       <List>
         {this._renderCities()}

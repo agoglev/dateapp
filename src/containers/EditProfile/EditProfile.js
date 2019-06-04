@@ -130,6 +130,10 @@ export default class EditProfile extends UploadPhotoComponent {
       return actions.showError('Введите ваше имя');
     }
 
+    if (name.match(/\d/)) {
+      return actions.showError('Имя не должно содержать цифры!');
+    }
+
     for (let i in this.data.photos) {
       const photo = this.data.photos[i];
       if (photo.isUploading) {

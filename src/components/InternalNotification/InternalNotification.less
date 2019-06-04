@@ -3,8 +3,9 @@
 .InternalNotification {
   display: flex;
   padding: 12px;
-  background: @color-white;
+  background: var(--background_content);
   border-bottom: 1px solid var(--separator_common);
+  margin: 16px 0 8px;
 }
 
 .InternalNotification__icon {
@@ -12,9 +13,11 @@
   .size(42px);
   background: no-repeat center/contain;
   margin-right: 12px;
+  color: var(--text_primary);
 
-  &.geo {
-    background-image: url('../../asset/section_geo_16.svg');
+  svg {
+    transform: scale(2.625);
+    transform-origin: left top;
   }
 }
 
@@ -26,13 +29,13 @@
   font-size: 18px;
   line-height: 21px;
   font-weight: bold;
-  color: @color-black;
+  color: var(--text_primary);
 }
 
 .InternalNotification__text {
   font-size: 16px;
   line-height: 24px;
-  color: @color-grey;
+  color: var(--text_secondary);
   margin-top: 8px;
   margin-bottom: 12px;
 }
