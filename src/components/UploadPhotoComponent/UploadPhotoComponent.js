@@ -133,7 +133,7 @@ export default class UploadPhotoComponent extends BaseComponent {
   _selectPhotoSheet = (i) => {
     let items = [
       {
-        title: 'Из профиля ВК',
+        title: 'Из профиля VK',
         onClick: () => this._selectVkPhoto(i)
       }
     ];

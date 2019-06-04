@@ -15,14 +15,6 @@ import InternalNotification from "../../components/InternalNotification/Internal
 import Proxy from '../../services/proxy_sdk/proxy';
 
 export default class Search extends BaseComponent {
-  constructor() {
-    super();
-
-    this.state = {
-      filtersOpened: false
-    }
-  }
-
   componentDidMount() {
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
     searchActions.init();
@@ -71,23 +63,33 @@ export default class Search extends BaseComponent {
                 top="Местоположение"
                 bottom={<span>Вы можете изменить город в <span className="Link" onClick={() => {
                   actions.openEditProfile();
+                  this.setData('filtersChanged', true);
                   return false;
                 }}>редактировании анкеты</span></span>}
                 placeholder="Не выбран"
-                onClick={() => actions.openEditProfile()}
+                onClick={() => {
+                  actions.openEditProfile();
+                  this.setData('filtersChanged', true);
+                }}
               >{cityName}</SelectMimicry>
               <div top="Меня интересуют">
                 <SegmentedControl
                   selected={this.data.filterGender}
                   items={genders}
-                  onSelect={(gender) => this.setData('filterGender', gender)}
+                  onSelect={(gender) => {
+                    this.setData('filterGender', gender);
+                    this.setData('filtersChanged', true);
+                  }}
                 />
               </div>
               <div top="Показывать">
                 <SegmentedControl
                   selected={this.data.filterSort}
                   items={sortBy}
-                  onSelect={(sort) => this.setData('filterSort', sort)}
+                  onSelect={(sort) => {
+                    this.setData('filterSort', sort);
+                    this.setData('filtersChanged', true);
+                  }}
                 />
               </div>
               <div top="Возраст" bottom={this._renderFiltersLabel()}>
@@ -98,6 +100,7 @@ export default class Search extends BaseComponent {
                   onChange={(val) => {
                     this.setData('ageFrom', val[0]);
                     this.setData('ageTo', val[1]);
+                    this.setData('filtersChanged', true);
                   }}
                   value={[this.data.ageFrom, this.data.ageTo]}
                 />
@@ -122,7 +125,7 @@ export default class Search extends BaseComponent {
     return (
       <InternalNotification
         title="Доступ к геолокации"
-        text="Разрешить доступ к геолокации, чтобы видеть людей рядом с вами"
+        text="Разрешить доступ к геолокации, чтобы видеть людей рядом с Вами"
         icon="geo"
         extra={<Button onClick={this._geoAccessButtonDidPress}>Разрешить</Button>}
       />
@@ -181,12 +184,17 @@ export default class Search extends BaseComponent {
 
   _toggleFilters = () => {
     if (this.data.filtersOpened) {
-      actions.loaderShow();
-      accountActions.saveSearchFilters(this.data.filterGender, this.data.filterSort, this.data.ageFrom, this.data.ageTo).then(() => {
-        this._load();
-        actions.loaderSuccess();
+      if (this.data.filtersChanged) {
+        actions.loaderShow();
+        accountActions.saveSearchFilters(this.data.filterGender, this.data.filterSort, this.data.ageFrom, this.data.ageTo).then(() => {
+          this._load();
+          actions.loaderSuccess();
+          this.setData('filtersOpened', false);
+        }).catch(() => actions.showError());
+        this.setData('filtersChanged', false);
+      } else {
         this.setData('filtersOpened', false);
-      }).catch(() => actions.showError());
+      }
     } else {
       this.setData('filtersOpened', true);
     }

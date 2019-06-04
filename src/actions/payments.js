@@ -166,20 +166,22 @@ export function showFeatureBox(isSale = false) {
   const randItem = Math.floor(Math.random() * (photos.length - 1));
   const selectedPhotos = photos.splice(randItem, 2);
 
-  actions.setPopout(<div className="FeatureBox">
-    <div className="FeatureBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
-    <div className="FeatureBox__photos">
-      <div className="FeatureBox__photo first" style={{backgroundImage: `url(${selectedPhotos[0]})`}} />
-      <div className="FeatureBox__photo user" style={{backgroundImage: `url(${user.small_photo})`}} />
-      <div className="FeatureBox__photo last" style={{backgroundImage: `url(${selectedPhotos[1]})`}} />
+  actions.setPopout(<UI.PopoutWrapper>
+    <div className="FeatureBox">
+      <div className="FeatureBox__close" onClick={() => actions.setPopout()}><Icon24Cancel /></div>
+      <div className="FeatureBox__photos">
+        <div className="FeatureBox__photo first" style={{backgroundImage: `url(${selectedPhotos[0]})`}} />
+        <div className="FeatureBox__photo user" style={{backgroundImage: `url(${user.small_photo})`}} />
+        <div className="FeatureBox__photo last" style={{backgroundImage: `url(${selectedPhotos[1]})`}} />
+      </div>
+      <div className="FeatureBox__title">Больше посетителей</div>
+      <div className="FeatureBox__caption">{text}</div>
+      <UI.Button size="l" style={{marginTop: 24}} onClick={() => {
+        featureBuy(isSale);
+        actions.setPopout();
+      }}>{btnText}</UI.Button>
     </div>
-    <div className="FeatureBox__title">Больше посетителей</div>
-    <div className="FeatureBox__caption">{text}</div>
-    <UI.Button size="l" style={{marginTop: 24}} onClick={() => {
-      featureBuy(isSale);
-      actions.setPopout();
-    }}>{btnText}</UI.Button>
-  </div>);
+  </UI.PopoutWrapper>);
   return;
 
   const productType = isSale ? 'feature_sale' : 'feature';

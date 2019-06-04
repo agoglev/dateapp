@@ -28,6 +28,9 @@ export default class EditProfile extends UploadPhotoComponent {
   }
 
   _renderContent() {
+    if (!this.data.photos) {
+      return null;
+    }
     return (
       <div>
         <Header

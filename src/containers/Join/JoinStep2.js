@@ -35,7 +35,7 @@ export default class JoinStep1 extends BaseComponent {
         <Header
           left={<UIBackButton />}
         >
-          Откуда вы?
+          Откуда Вы?
         </Header>
         <FormLayout>
           <SelectMimicry
