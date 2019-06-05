@@ -41,7 +41,7 @@ export default class Gifts extends BaseComponent {
         <div
           key={gift.id}
           className="Gifts__item"
-          onClick={() => actions.openGiftSend(this.data.userId, gift)}
+          onClick={() => actions.openGiftSend(this.data.userId, gift, this.data.target)}
         >
           <div className="Gifts__item__img" style={{backgroundImage: `url(${gift.url})`}} />
         </div>

@@ -383,3 +383,53 @@ body[scheme="client_dark"] {
 .profile_view_extra_info_item_value {
   margin-left: 6px;
 }
+
+.ProfileView__gifts {
+  border-radius: @border-radius;
+  background: var(--background_page);
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--text_primary);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-top: 16px;
+
+  &:before {
+    content: '';
+    display: block;
+    .size(100px);
+    background: url(https://dateapp.ru/gifts/100.png) no-repeat center/contain;
+    position: absolute;
+    bottom: -40px;
+    left: -30px;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    .size(100px);
+    background: url(https://dateapp.ru/gifts/102.png) no-repeat center/contain;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+}
+
+.ProfileView__gifts__label {
+  font-size: 15px;
+}
+
+.ProfileView__gifts__button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: @border-radius;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 16px;
+}

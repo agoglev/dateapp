@@ -90,6 +90,7 @@ export default class ProfileView extends BaseComponent {
         <div className="profile_view_about">{user.about}</div>
         {this._renderExtraInfo()}
         {this.data.fromLikes === true && <FormStatus>Нажмите на сердечко, чтобы создать чат!</FormStatus>}
+        {this._renderGifts()}
         <div className="profile_view_buttons">
           {this._renderButtons()}
         </div>
@@ -333,5 +334,18 @@ export default class ProfileView extends BaseComponent {
         5: 'Курю время от времени'
       }
     };
+  }
+
+  _renderGifts() {
+    const user = this.data.user;
+    if (!user || user.id === this.props.state.userId) {
+      return null;
+    }
+    return (
+      <div className="ProfileView__gifts" onClick={() => actions.openGifts(user.id, 'profile')}>
+        <div className="ProfileView__gifts__label">Начните знакомство с подарка!</div>
+        <div className="ProfileView__gifts__button">Отправить подарок</div>
+      </div>
+    )
   }
 }

@@ -103,7 +103,7 @@ export function buyPremium(type = 'premium', target = 'none') {
   utils.statReachGoal('premium_continue');
 }
 
-export function buyGift(giftId, userId, message) {
+export function buyGift(giftId, userId, message, target) {
   actions.vkPay(`gift`, {
     gift_id: giftId,
     user_id: userId,
@@ -112,7 +112,9 @@ export function buyGift(giftId, userId, message) {
     actions.loaderSuccess();
     window.history.back();
     setTimeout(() => {
-      window.history.back();
+      if (target !== 'im_history') {
+        window.history.back();
+      }
 
       setTimeout(() => {
         activityActions.addGiftMessage(userId, giftId, message);

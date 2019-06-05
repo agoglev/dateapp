@@ -96,7 +96,7 @@ export default class GiftSend extends BaseComponent {
   _sendButtonDidPress = () => {
     const gift = this.props.state.gifts.filter((gift) => gift.available)[this.data.slideIndex];
     const giftId = gift ? gift.id : this.data.gift.id;
-    paymentsActions.buyGift(giftId, this.data.userId, this.data.message.trim());
+    paymentsActions.buyGift(giftId, this.data.userId, this.data.message.trim(), this.data.target);
   };
 
   _didResize = () => {

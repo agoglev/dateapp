@@ -186,7 +186,7 @@ export default class ImHistory extends BaseComponent {
             <div className="im_send_photo_button">
               <input type="file" onChange={this._photoDidSelect}/>
             </div>
-            {!window.isDesktop && !window.isDG && !window.isNative && utils.isPaymentsEnabled() && <div className="im_send_gift_button" onClick={() => actions.openGifts(this.peerId)} />}
+            {!window.isNative && utils.isPaymentsEnabled() && <div className="im_send_gift_button" onClick={() => actions.openGifts(this.peerId)} />}
             <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
           </div>
         </div>
@@ -258,20 +258,25 @@ export default class ImHistory extends BaseComponent {
     return messages.map((message) => {
 
       if (message.system === SystemMessageType.match) {
-        /*const caption = utils.genderText(peer.gender, [
-          `{name} лайкнул вас, а вы лайкнули его`,
-          `{name} лайкнула вас, а вы лайкнули её`
-        ]).replace('{name}', peer.name).replace('<br/>', "\n")*/
-        const caption = utils.genderText(peer.gender, [
-          `Почему бы не отправить ему подарок?`,
-          `Почему бы не отправить ей подарок?`
-        ]);
+        let caption = '', gifts = '';
 
-        const gifts = this.props.state.gifts.filter((gift) => [103, 100, 102].indexOf(gift.id) > -1).map((gift) => {
-          return <div className="Im__suggest_gift" key={gift.id} onClick={() => actions.openGiftSend(this.peerId, gift)}>
-            <div className="Im__suggest_gift__image" style={{backgroundImage: `url(${gift.url})`}} />
-          </div>
-        });
+        if (utils.isPaymentsEnabled()) {
+          caption = utils.genderText(peer.gender, [
+            `Почему бы не отправить ему подарок?`,
+            `Почему бы не отправить ей подарок?`
+          ]);
+
+          gifts = this.props.state.gifts.filter((gift) => [103, 100, 102].indexOf(gift.id) > -1).map((gift) => {
+            return <div className="Im__suggest_gift" key={gift.id} onClick={() => actions.openGiftSend(this.peerId, gift, 'im_history')}>
+              <div className="Im__suggest_gift__image" style={{backgroundImage: `url(${gift.url})`}} />
+            </div>
+          });
+        } else {
+          caption = utils.genderText(peer.gender, [
+            `{name} лайкнул вас, а вы лайкнули его`,
+            `{name} лайкнула вас, а вы лайкнули её`
+          ]).replace('{name}', peer.name).replace('<br/>', "\n")
+        }
 
         return (
           <div className="im_history_match" key={message.id}>
@@ -282,9 +287,9 @@ export default class ImHistory extends BaseComponent {
             </div>
             <div className="im_history_match_title">Вы понравились друг другу</div>
             <div className="im_history_match_caption">{caption}</div>
-            <div className="Im__suggest_gifts">
+            {utils.isPaymentsEnabled() && <div className="Im__suggest_gifts">
               {gifts}
-            </div>
+            </div>}
           </div>
         )
       }

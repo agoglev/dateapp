@@ -320,9 +320,10 @@ export function openNotify() {
   accountActions.loadNotifySettings();
 }
 
-export function openGifts(userId) {
+export function openGifts(userId, target = '') {
   let params = {
-    userId
+    userId,
+    target
   };
 
   go(pages.GIFTS, params);
@@ -337,7 +338,7 @@ export function openPremium() {
   go(pages.PREMIUM, params);
 }
 
-export function openGiftSend(userId, gift) {
+export function openGiftSend(userId, gift, target = '') {
   let gifts = store.getState().gifts.filter((gift) => gift.available);
   let slideIndex = 0;
   for (let i = 0; i < gifts.length; i++) {
@@ -351,7 +352,8 @@ export function openGiftSend(userId, gift) {
     userId,
     gift,
     slideIndex,
-    message: ''
+    message: '',
+    target
   };
 
   go(pages.GIFT_SEND, params);
