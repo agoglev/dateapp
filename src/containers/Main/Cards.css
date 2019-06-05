@@ -85,26 +85,26 @@
 .Cards__photo {
   position: absolute;
   z-index: 1;
-  background: no-repeat center / cover;
+  background: rgba(26, 26, 26, 0.92) no-repeat center / cover;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: none;
+  opacity: 0;
 }
 .Cards__photo.active {
-  display: block;
+  opacity: 1;
 }
 .Cards__item--footer {
-  height: 56px;
+  min-height: 56px;
   display: flex;
   align-items: center;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  box-sizing: border-box;
   padding: 0 16px;
+  box-sizing: border-box;
   z-index: 3;
   justify-content: space-between;
 }
@@ -129,8 +129,8 @@
   line-height: 16px;
   font-size: 14px;
   color: #fff;
-  margin-top: 2px;
-  margin-bottom: 6px;
+  margin-top: 4px;
+  margin-bottom: 8px;
 }
 .Cards__item--footer-caption:empty {
   display: none;
