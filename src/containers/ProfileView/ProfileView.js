@@ -260,7 +260,6 @@ export default class ProfileView extends BaseComponent {
   };
 
   _renderExtraInfo() {
-    const user = this.data.user || {};
     const extra = this.data.extra || {};
     const maps = this._renderMapExtraInfo();
 
