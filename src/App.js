@@ -23,6 +23,7 @@ import SelectCity from './containers/Utils/SelectCity';
 import ImHistory from './containers/Modals/ImHistory';
 import ProfileView from './containers/ProfileView/ProfileView';
 import EditProfile from './containers/EditProfile/EditProfile';
+import EditExtraInfo from './containers/EditProfile/EditExtraInfo';
 import Filters from './containers/Filters/Filters';
 import VkPhotos from './containers/VkPhotos/VkPhotos';
 import Likes from './containers/Likes/Likes';
@@ -178,6 +179,7 @@ class App extends React.Component {
         <View activePanel={state.activePanels.modal} id="modal" header={this._getBaseHeader('modal')}>
           <ProfileView id={pages.PROFILE} state={state} />
           <EditProfile id={pages.EDIT_PROFILE} state={state} />
+          <EditExtraInfo id={pages.EDIT_EXTRA_INFO} state={state} />
           <LiveChat id={pages.LIVE_CHAT} state={state} />
           <Stats id={pages.STATS} state={state} />
           <Moder id={pages.MODER} state={state} />
@@ -259,6 +261,8 @@ class App extends React.Component {
         return <Premium id={pages.PREMIUM} state={state} />;
       case pages.INVITES:
         return <Invites id={pages.INVITES} state={state} />;
+      case pages.EDIT_EXTRA_INFO:
+        return <EditExtraInfo id={pages.EDIT_EXTRA_INFO} state={state} />;
       default:
         return false;
     }

@@ -73,6 +73,12 @@ export const routes = [
   },
 
   {
+    name: pages.EDIT_EXTRA_INFO,
+    path: pages.EDIT_EXTRA_INFO,
+    view: 'modal'
+  },
+
+  {
     name: pages.FILTERS,
     path: pages.FILTERS,
     view: 'filters'

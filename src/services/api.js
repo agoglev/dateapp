@@ -81,6 +81,7 @@ export const methods = {
   cardsReport: 'cards_report',
   likesAction: 'likes_action',
   edit: 'edit',
+  editExtra: 'edit_extra',
   saveFilters: 'save_filters',
   deleteAccount: 'delete_account',
   restoreAccount: 'restore_account',

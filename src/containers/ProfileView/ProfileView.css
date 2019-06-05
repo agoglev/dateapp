@@ -311,3 +311,26 @@ body[scheme="client_dark"] .profile_view_footer {
 .profile_view_fav_btn.unfav {
   background-image: url('../../asset/unfav_24.svg');
 }
+.profile_view_extra_info_items {
+  margin: 8px 0 16px;
+}
+.profile_view_extra_info_item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 42px;
+  background: var(--background_page);
+  font-size: 14px;
+  line-height: 18px;
+  border-radius: 21px;
+  margin: 8px 10px 0 0;
+}
+.profile_view_extra_info_item:last-child {
+  margin-right: 0;
+}
+.profile_view_extra_info_item_label {
+  font-weight: 500;
+}
+.profile_view_extra_info_item_value {
+  margin-left: 6px;
+}

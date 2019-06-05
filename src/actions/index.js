@@ -541,3 +541,24 @@ export function openInvites() {
   go(pages.INVITES, params);
   accountActions.loadInvites();
 }
+
+export function openExtraInfoEdit(type) {
+  const state = store.getState();
+  const userInfo = state.usersInfo[state.userId] || {};
+  const extra = userInfo.extra || {};
+
+  const data = {
+    type,
+    children: parseInt(extra.children, 10) || 0,
+    alcohol: parseInt(extra.alcohol, 10) || 0,
+    home: parseInt(extra.home, 10) || 0,
+    relations: parseInt(extra.relations, 10) || 0,
+    gender: parseInt(extra.gender, 10) || 0,
+    smoke: parseInt(extra.smoke, 10) || 0,
+  };
+
+  go(pages.EDIT_EXTRA_INFO, {
+    value: data[type],
+    ...data
+  });
+}

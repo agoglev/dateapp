@@ -31,6 +31,7 @@ export const GIFTS = 'gifts';
 export const GIFT_SEND = 'gift_send';
 export const PREMIUM = 'premium';
 export const INVITES = 'invites';
+export const EDIT_EXTRA_INFO = 'edit_extra_info';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';

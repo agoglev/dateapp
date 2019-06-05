@@ -88,6 +88,7 @@ export default class ProfileView extends BaseComponent {
           {this._renderInfo()}
         </div>
         <div className="profile_view_about">{user.about}</div>
+        {this._renderExtraInfo()}
         {this.data.fromLikes === true && <FormStatus>Нажмите на сердечко, чтобы создать чат!</FormStatus>}
         <div className="profile_view_buttons">
           {this._renderButtons()}
@@ -257,4 +258,81 @@ export default class ProfileView extends BaseComponent {
       this.setData({isFavorite: !this.data.isFavorite});
     }).catch((err) => actions.showError(err.message));
   };
+
+  _renderExtraInfo() {
+    const user = this.data.user || {};
+    const extra = this.data.extra || {};
+    const maps = this._renderMapExtraInfo();
+
+    let items = [];
+    if (extra.children > 0) {
+      items.push(['Дети', maps.children[extra.children]]);
+    }
+    if (extra.gender > 0) {
+      items.push(['Ориентация', maps.gender[extra.gender]]);
+    }
+    if (extra.relations > 0) {
+      items.push(['Отношения', maps.relations[extra.relations]]);
+    }
+    if (extra.home > 0) {
+      items.push(['Я живу', maps.home[extra.home]]);
+    }
+    if (extra.alcohol > 0) {
+      items.push(['Алкоголь', maps.alcohol[extra.alcohol]]);
+    }
+
+    return (
+      <div className="profile_view_extra_info_items">
+        {items.map(([label, value], i) => {
+          return <div className="profile_view_extra_info_item" key={i}>
+            <div className="profile_view_extra_info_item_label">{label}:</div>
+            <div className="profile_view_extra_info_item_value">{value}</div>
+          </div>
+        })}
+      </div>
+    )
+  }
+
+  _renderMapExtraInfo() {
+    const user = this.data.user || {};
+    return {
+      children: {
+          1: 'Уже взрослые',
+          2: 'Уже есть',
+          3: 'Нет, никогда',
+          4: 'Когда-нибудь',
+      },
+      alcohol: {
+        1: 'Выпиваю в компании',
+        2: 'Не пью',
+        3: 'Не приемлю',
+        4: 'Много пью'
+      },
+      home: {
+        1: 'Отдельно',
+        2: 'В общежитии',
+        3: 'С родителями',
+        4: 'Со второй половиной',
+        5: 'С соедями'
+      },
+      relations: {
+        1: 'Все сложно',
+        2: user.gender === 1 ? 'Свободна' : 'Свободен',
+        3: user.gender === 1 ? 'Занята' : 'Занят',
+      },
+      gender: {
+        1: 'Би',
+        2: user.gender === 1 ? 'Лесби' : 'Гей',
+        3: 'Спросите меня',
+        4: 'Гетеро',
+      },
+      smoke: {
+        1: user.gender === 1 ? 'Заядлая курильщица' : 'Заядлый курильщик',
+        2: 'Категорически против курения',
+        3: 'Не курю',
+        4: 'Курю за компанию',
+        5: 'Курю время от времени'
+      }
+    };
+  }
 }

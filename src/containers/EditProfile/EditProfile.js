@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, PanelHeader, FormLayout, Input, Select, SelectMimicry, FixedLayout, Button, Textarea, Checkbox } from '@vkontakte/vkui';
+import { Panel, PanelHeader, FormLayout, Input, Select, SelectMimicry, FixedLayout, Button, Textarea, Checkbox, Group, List, Cell } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as utils from '../../utils/index';
 import * as pages from "../../constants/pages";
@@ -96,12 +96,112 @@ export default class EditProfile extends UploadPhotoComponent {
             value={this.data.about}
             onChange={(e) => this.setData('about', e.target.value)}
           />
+          <Group title="Дополнительная информация">
+            <List>
+              <Cell expandable onClick={() => actions.openExtraInfoEdit('children')} indicator={this._infoIndicatorMapping('children')}>Дети</Cell>
+              <Cell expandable onClick={() => actions.openExtraInfoEdit('alcohol')} indicator={this._infoIndicatorMapping('alcohol')}>Алкоголь</Cell>
+              <Cell expandable onClick={() => actions.openExtraInfoEdit('home')} indicator={this._infoIndicatorMapping('home')}>Я живу</Cell>
+              <Cell expandable onClick={() => actions.openExtraInfoEdit('relations')} indicator={this._infoIndicatorMapping('relations')}>Отношения</Cell>
+              <Cell expandable onClick={() => actions.openExtraInfoEdit('gender')} indicator={this._infoIndicatorMapping('gender')}>Ориентация</Cell>
+              <Cell expandable onClick={() => actions.openExtraInfoEdit('smoke')} indicator={this._infoIndicatorMapping('smoke')}>Курение</Cell>
+            </List>
+          </Group>
           <FixedLayout vertical="bottom" className="Join__footer_btn_wrap">
-            <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: 16}}>Сохранить</Button>
+            <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: '16px 12px'}}>Сохранить</Button>
           </FixedLayout>
         </FormLayout>
       </div>
     )
+  }
+
+  _infoIndicatorMapping(type) {
+    const userInfo = this.props.state.usersInfo[this.props.state.userId] || {};
+    switch (type) {
+      case 'children': {
+        const children = parseInt(userInfo.extra.children, 10);
+        if (children === 1 || children === 2) {
+          return 'Есть';
+        } else if (children === 3 || children === 4) {
+          return 'Нет';
+        } else {
+          return 'Выбрать';
+        }
+      }
+
+      case 'alcohol': {
+        const alcohol = parseInt(userInfo.extra.alcohol, 10);
+        if (alcohol === 1) {
+          return 'За компанию';
+        } else if (alcohol === 2 || alcohol === 3) {
+          return 'Нет';
+        } else if (alcohol === 4) {
+          return 'Да';
+        } else {
+          return 'Выбрать';
+        }
+      }
+
+      case 'home': {
+        const home = parseInt(userInfo.extra.home, 10);
+        if (home === 1) {
+          return userInfo.gender === 1 ? 'Одна' : 'Один';
+        } else if (home === 2) {
+          return 'В общежитии';
+        } else if (home === 3) {
+          return 'С родителями';
+        } else if (home === 4) {
+          return 'Со второй половиной';
+        } else if (home === 5) {
+          return 'С соседями';
+        } else {
+          return 'Выбрать';
+        }
+      }
+
+      case 'relations': {
+        const relations = parseInt(userInfo.extra.relations, 10);
+        if (relations === 1) {
+          return 'Все сложно';
+        } else if (relations === 2) {
+          return userInfo.gender === 1 ? 'Свободна' : 'Свободен';
+        } else if (relations === 3) {
+          return userInfo.gender === 1 ? 'Занята' : 'Занят';
+        } else {
+          return 'Выбрать';
+        }
+      }
+
+      case 'gender': {
+        const gender = parseInt(userInfo.extra.gender, 10);
+        if (gender === 1) {
+          return 'Би';
+        } else if (gender === 2) {
+          return userInfo.gender === 1 ? 'Лесби' : 'Гей';
+        } else if (gender === 3) {
+          return 'Спросите меня';
+        } else if (gender === 4) {
+          return 'Гетеро';
+        } else {
+          return 'Выбрать';
+        }
+      }
+
+      case 'smoke': {
+        const smoke = parseInt(userInfo.extra.smoke, 10);
+
+        if (smoke === 1) {
+          return 'Да';
+        } else if (smoke === 2 || smoke === 3) {
+          return 'Нет';
+        } else if (smoke === 4) {
+          return 'За компанию';
+        } else if (smoke === 5) {
+          return 'Иногда';
+        } else {
+          return 'Выбрать';
+        }
+      }
+    }
   }
 
   _renderCity() {

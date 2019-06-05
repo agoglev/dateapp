@@ -296,7 +296,8 @@ export function loadFullProfile(profileId) {
     actions.setData({
       isLoading: false,
       isLiked: info.is_liked,
-      isFavorite: info.is_favorite
+      isFavorite: info.is_favorite,
+      extra: info.extra
     }, pages.PROFILE);
   }).catch(() => {
     actions.setData({
