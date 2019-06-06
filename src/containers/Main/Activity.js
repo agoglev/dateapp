@@ -17,11 +17,12 @@ import BaseComponent from '../../BaseComponent';
 
 let skipFeatureAnim = false;
 export default class Activity extends BaseComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      isLoadingMore: false
+      isLoadingMore: false,
+      isNeedShowFeatureSuggestion: props.state.isNeedShowFeatureSuggestion,
     };
   }
 
@@ -40,6 +41,17 @@ export default class Activity extends BaseComponent {
     if (!window.isDG) {
       //utils.initYAActivityBlock();
     }
+
+    if (this.state.isNeedShowFeatureSuggestion) {
+      this.featureSuggestTimer = setTimeout(() => {
+        this.setState({isNeedShowFeatureSuggestion: false});
+      }, 5000);
+      actions.featureSuggestionShown();
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.featureSuggestTimer);
   }
 
   render() {
@@ -200,10 +212,15 @@ export default class Activity extends BaseComponent {
 
     utils.statReachGoal('feature_block_view');
 
+    const className = utils.classNames({
+      live_feed_featured: true,
+      animated: this.featureSuggestTimer > 0,
+    });
+
     return (
       <div>
         <div className="live_feed_featured_helper" />
-        <div className="live_feed_featured" style={{top: `${utils.getHeaderHeight()}px`}}>
+        <div className={className} style={{top: `${utils.getHeaderHeight()}px`}}>
           {this._renderFeaturedRows(users)}
         </div>
       </div>
@@ -211,19 +228,23 @@ export default class Activity extends BaseComponent {
   }
 
   _renderFeaturedRows(users) {
-    let res = users.map((user, i) => {
-      return (
-        <div
-          className="live_feed_featured_item"
-          key={i}
-          onClick={() => actions.openProfile(user, {fromFeature: true})}
-        >
-          <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}}>
-            <div className="live_feed_featured_item_name">{user.name}</div>
+    let res = [];
+
+    if (!this.state.isNeedShowFeatureSuggestion) {
+      res = users.map((user, i) => {
+        return (
+          <div
+            className="live_feed_featured_item"
+            key={i}
+            onClick={() => actions.openProfile(user, {fromFeature: true})}
+          >
+            <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}}>
+              <div className="live_feed_featured_item_name">{user.name}</div>
+            </div>
           </div>
-        </div>
-      )
-    });
+        )
+      });
+    }
 
     //let curUser = this.props.state.usersInfo[this.props.state.userId];
     /*res.unshift(<div
@@ -241,6 +262,13 @@ export default class Activity extends BaseComponent {
 
     if (utils.isPaymentsEnabled()) {
       res.unshift(this._renderFeatureAddButton());
+    }
+
+    if (this.state.isNeedShowFeatureSuggestion) {
+      res.push(<div className="Feature__suggest" key="suggest" onClick={this._featureDidPress}>
+        <div className="Feature__suggest__title">Разместите свою анкету здесь</div>
+        <div className="Feature__suggest__caption">И вас точно заметят!</div>
+      </div>);
     }
 
     return res;

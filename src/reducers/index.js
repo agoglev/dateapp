@@ -38,7 +38,8 @@ const initialState = {
   hasLikesBadge: false,
   isFeatureTTShown: false,
   hasPremium: false,
-  pushNotifications: []
+  pushNotifications: [],
+  isNeedShowFeatureSuggestion: false
 };
 
 export let navHistory = [];
@@ -126,8 +127,13 @@ export default function reducer(state = initialState, action) {
         needTokenMessage: false,
         hasPremium: action.hasPremium,
         isModer: action.isModer,
-        isImNotifyEnabled: action.isImNotifyEnabled
+        isImNotifyEnabled: action.isImNotifyEnabled,
+        isNeedShowFeatureSuggestion: action.isNeedShowFeatureSuggestion
       });
+    }
+
+    case actionTypes.FEATURE_SUGGESTION_SHOWN: {
+      return Object.assign({}, state, {isNeedShowFeatureSuggestion: false});
     }
 
     case actionTypes.PREMIUM_SET: {

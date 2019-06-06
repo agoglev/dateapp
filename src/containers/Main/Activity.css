@@ -739,6 +739,21 @@ body.desktop .live_feed_featured {
   text-align: center;
   transform: translateZ(0);
 }
+.live_feed_featured.animated .live_feed_featured_item {
+  animation: live_feed_featured_item_anim 250ms ease-in-out forwards;
+  opacity: 0;
+  will-change: transform;
+}
+@keyframes live_feed_featured_item_anim {
+  from {
+    opacity: 0;
+    transform: translateX(50px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
 .live_feed_featured_item_photo {
   background: #ebebeb no-repeat center / cover;
   width: 64px;
@@ -854,4 +869,35 @@ body.desktop .live_feed_featured {
 .Im__suggest_gift__image {
   padding-top: 100%;
   background: no-repeat center / contain;
+}
+.Feature__suggest {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 16px;
+  animation: Feature__suggest__anim 250ms ease-in-out forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+@keyframes Feature__suggest__anim {
+  from {
+    opacity: 0;
+    transform: translate(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+.Feature__suggest__title {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text_primary);
+}
+.Feature__suggest__caption {
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--text_secondary);
+  margin-top: 6px;
 }

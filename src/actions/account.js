@@ -147,7 +147,8 @@ function initMethodHandler(resp) {
     hasBadge: resp.hasBadge,
     hasPremium: resp.hasPremium,
     isModer: resp.isModer || false,
-    isImNotifyEnabled: resp.isImNotifyEnabled
+    isImNotifyEnabled: resp.isImNotifyEnabled,
+    isNeedShowFeatureSuggestion: !!resp.isNeedShowFeatureSuggestion,
   });
   if (resp.need_join) {
     window.tmpToken = resp.tmp_token || '';

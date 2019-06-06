@@ -564,3 +564,8 @@ export function openExtraInfoEdit(type) {
     ...data
   });
 }
+
+export function featureSuggestionShown() {
+  store.dispatch({type: actionTypes.FEATURE_SUGGESTION_SHOWN});
+  api.method(api.methods.featureSuggestionSeen);
+}
