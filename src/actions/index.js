@@ -13,7 +13,7 @@ import * as activityActions from "./activity";
 import * as moderActions from "./moder";
 import * as liveChatsActions from "./live_chats";
 import * as utils from "../utils";
-import { navHistory } from '../reducers';
+import * as payments from "./payments";
 
 const osname = platform();
 
@@ -568,4 +568,27 @@ export function openExtraInfoEdit(type) {
 export function featureSuggestionShown() {
   store.dispatch({type: actionTypes.FEATURE_SUGGESTION_SHOWN});
   api.method(api.methods.featureSuggestionSeen);
+}
+
+export function publishStory() {
+  api.requestAccessToken('stories').then(() => {
+    api.vk('stories.getPhotoUploadServer', {
+      add_to_news: 1,
+      link_text: 'open',
+      link_url: 'https://vk.com/app6682509#story'
+    }).then((res) => {
+      api.method(api.methods.publishStory, {
+        url: res.upload_url,
+      }).then((ret) => {
+        if (ret.got_premium) {
+          payments.setPremiumState(true);
+          showAlert('История опубликована', 'Вы получили премиум на одни сутки!');
+          store.dispatch({type: actionTypes.SET_PROMO_BITS, bits: store.getState().promoBits + payments.PromoBits.story});
+          utils.statReachGoal('promo_story_publish');
+        } else {
+          loaderSuccess();
+        }
+      }).catch((err) => showError(err.message));
+    });
+  });
 }

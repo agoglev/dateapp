@@ -125,7 +125,8 @@ export const methods = {
   invitesBuyProduct: 'invites_buy_product',
   moderStats: 'moder_stats',
   nativePurchase: 'native_purchase',
-  featureSuggestionSeen: 'feature_suggestion_seen'
+  featureSuggestionSeen: 'feature_suggestion_seen',
+  publishStory: 'publish_story'
 };
 
 let vkRequestId = 0;
@@ -250,14 +251,14 @@ function _orderBoxCallback(status) {
 }
 
 let accessTokenPromise = false;
-export function requestAccessToken() {
+export function requestAccessToken(scope = false) {
   return new Promise((resolve, reject) => {
     const state = store.getState();
-    if (state.vkAccessToken) {
+    if (state.vkAccessToken && !scope) {
       return resolve(state.vkAccessToken);
     }
     accessTokenPromise = {resolve, reject};
-    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
+    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: scope || ''});
   });
 }
 

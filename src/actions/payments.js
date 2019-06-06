@@ -16,6 +16,10 @@ import * as native from '../services/native';
 
 export let hasPremium = false;
 
+export const PromoBits = {
+  story: 1 << 0,
+};
+
 export let Prices = {
   premium: {
     votes: 10,
@@ -343,3 +347,9 @@ window.API_callback = (method, result, data) => {
     }
   }
 };
+
+export function hasPromo() {
+  const { promoBits } = store.getState();
+
+  return !(promoBits & PromoBits.story);
+}

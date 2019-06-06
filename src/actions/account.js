@@ -149,6 +149,7 @@ function initMethodHandler(resp) {
     isModer: resp.isModer || false,
     isImNotifyEnabled: resp.isImNotifyEnabled,
     isNeedShowFeatureSuggestion: !!resp.isNeedShowFeatureSuggestion,
+    promo_bits: resp.promo_bits
   });
   if (resp.need_join) {
     window.tmpToken = resp.tmp_token || '';

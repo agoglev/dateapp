@@ -28,19 +28,30 @@ export default class SubscriptionBox extends PureComponent {
               <div className="SubscriptionBox__title">Знакомства «Премиум»</div>
               <div className="SubscriptionBox__caption">Получите набор опций, которые помогут знакомиться успешнее</div>
               {this._renderBuyButtons()}
-              {window.isDG ? null : <Button
-                size="l"
-                level="tertiary"
-                style={{marginTop: 12}}
-                onClick={() => {
-                  actions.setPopout();
-                  setTimeout(() => actions.openInvites(), 300)
-                }}
-              >Получить бесплатно</Button>}
+              {this._freeButton()}
             </div>
           </div>
         </div>
       </PopoutWrapper>
+    )
+  }
+
+  _freeButton() {
+    if (!paymentsActions.hasPromo()) {
+      return null;
+    }
+
+    return (
+      <Button
+        size="l"
+        level="tertiary"
+        style={{marginTop: 12}}
+        onClick={() => {
+          actions.showAlert('Бесплатный премиум', <span>Опубликуйте историю и получите «Премиум» <b>на сутки</b> бесплатно!</span>, 'Опубликовать')
+            .then(() => actions.publishStory())
+            .catch(() => console.log('canceled'));
+        }}
+      >Получить бесплатно</Button>
     )
   }
 
