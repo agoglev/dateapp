@@ -538,6 +538,7 @@ export default class ImHistory extends BaseComponent {
       actions.setPopout();
       activityActions.sendMessage(this.peerId, '', sticker);
       ImHistory.scrollToBottom();
+      utils.statReachGoal('sticker_send');
     } else {
       let message = '';
       let button = '';
@@ -557,6 +558,8 @@ export default class ImHistory extends BaseComponent {
         default:
           return actions.showAlert('Ошибка', 'Попробуйте перезапустить приложение');
       }
+
+      utils.statReachGoal('sticker_task');
 
       actions.showAlert('Откройте стикер', <span>Выполните задание, чтобы открыть этот стикер: <i>{message}</i></span>, button).then(() => {
         let promise = false;
@@ -580,6 +583,7 @@ export default class ImHistory extends BaseComponent {
           if (data.result || data.post_id) {
             accountActions.openSticker(sticker.mask);
             setTimeout(() => actions.showAlert('Успех', 'Вы открыли новый стикер!', 'ОК', {skipCancelButton: true}), 500);
+            utils.statReachGoal('sticker_open');
           }
         });
       });
