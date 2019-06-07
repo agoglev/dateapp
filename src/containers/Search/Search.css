@@ -1,3 +1,24 @@
 .Search__filters {
   background: var(--background_content);
 }
+.Search__promote_feature {
+  position: relative;
+  background: var(--background_content);
+  border-radius: 8px;
+  float: left;
+  width: calc(100% - 10px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 20px;
+  margin: 5px;
+}
+.Search__promote_feature__caption {
+  font-size: 15px;
+  margin-top: 40px;
+  line-height: 20px;
+  color: var(--text_primary);
+  text-align: center;
+  margin-bottom: 16px;
+}

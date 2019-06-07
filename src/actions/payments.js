@@ -139,8 +139,8 @@ export function showFeatureBox(isSale = false) {
   const state = store.getState();
   const user = state.usersInfo[state.userId];
   let text = utils.genderText(user.gender, [
-    'Вашу анкету увидят тысячи девушек',
-    'Вашу анкету увидят тысячи парней'
+    'Разместите анкету над сообщениями и Вас увидят тысячи девушек!',
+    'Разместите анкету над сообщениями и Вас увидят тысячи парней!'
   ]);
   if (isSale) {
     const oldPrice = window.isDG ? utils.gram(Prices.feature.votes, ['голос', 'голоса', 'голосов']) : `${Prices.feature.rubles}₽`;
@@ -352,4 +352,35 @@ export function hasPromo() {
   const { promoBits } = store.getState();
 
   return !(promoBits & PromoBits.story);
+}
+
+let promoteFeatureIndex = 0;
+export function promoteFeature() {
+  const featuresKeys = Object.keys(features());
+  if (!featuresKeys.length) {
+    return false;
+  }
+  const feature = featuresKeys[promoteFeatureIndex % featuresKeys.length];
+  promoteFeatureIndex++;
+  return features()[feature];
+}
+
+export function features() {
+  let ret = {
+    feature: {
+      caption: 'Поднимитесь на первое место, и вас заметит больше девушек.',
+      button: 'Подняться на 1-е место',
+      onClick: () => showFeatureBox()
+    }
+  };
+
+  if (!hasPremium) {
+    ret.premium = {
+      caption: 'Посещайте профили инкогнито с Знакомства «Премиум»',
+      button: 'Получить «Премиум»',
+      onClick: () => showSubscriptionRequest('promote')
+    };
+  }
+
+  return ret;
 }

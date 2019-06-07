@@ -376,6 +376,7 @@ body.desktop .FormLayout {
   font-size: 16px;
   margin-top: 18px;
   line-height: 20px;
+  padding: 0 16px;
 }
 .FeatureBox__close {
   position: absolute;

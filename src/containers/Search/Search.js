@@ -5,6 +5,7 @@ import { HeaderButton, HeaderContext, FormLayout, Button, SelectMimicry, RangeSl
 import * as actions from '../../actions/index';
 import * as searchActions from '../../actions/search';
 import * as accountActions from '../../actions/account';
+import * as paymentsActions from '../../actions/payments';
 import * as utils from '../../utils/index';
 import BaseComponent from '../../BaseComponent';
 import Icon24Filter from '@vkontakte/icons/dist/24/filter';
@@ -15,9 +16,18 @@ import InternalNotification from "../../components/InternalNotification/Internal
 import Proxy from '../../services/proxy_sdk/proxy';
 
 export default class Search extends BaseComponent {
+  constructor() {
+    super();
+
+    this.state = {
+      promoteFeature: false
+    };
+  }
+
   componentDidMount() {
     this.refs['wrap'].style.paddingBottom = (utils.getTabBarHeight() + 16) + 'px';
     searchActions.init();
+    this._updatePromoteFeature();
   }
 
   render() {
@@ -152,12 +162,13 @@ export default class Search extends BaseComponent {
     }
 
     const now = Math.floor(new Date().getTime() / 1000);
-    return this.data.users.map((user) => {
+    return this.data.users.map((user, i) => {
       const className = utils.classNames({
         Likes__user_row: true,
       });
       const isOnline = now - user.last_update < 60 * 15;
-      return (
+
+      let ret = [
         <div
           className={className}
           key={user.id}
@@ -170,7 +181,13 @@ export default class Search extends BaseComponent {
             </div>
           </div>
         </div>
-      )
+      ];
+
+      if (i === 7) {
+        ret.push(this._renderPromoteFeature());
+      }
+
+      return ret;
     });
   }
 
@@ -236,4 +253,51 @@ export default class Search extends BaseComponent {
     this.setData({isGeoNotifyShown: false});
     Proxy.getGeodata();
   };
+
+  _updatePromoteFeature() {
+    this.setState({promoteFeature: paymentsActions.promoteFeature()});
+  }
+
+  _renderPromoteFeature() {
+    if (!this.state.promoteFeature) {
+      return null;
+    }
+
+    const user = this.props.state.usersInfo[this.props.state.userId];
+
+    let photos;
+    if (user.gender === 1) {
+      photos = [
+        require('../../asset/promo/man_1.jpg'),
+        require('../../asset/promo/man_2.jpg'),
+        require('../../asset/promo/man_3.jpg'),
+        require('../../asset/promo/man_4.jpg'),
+      ];
+    } else {
+      photos = [
+        require('../../asset/promo/1.jpg'),
+        require('../../asset/promo/2.jpg'),
+        require('../../asset/promo/3.jpg'),
+        require('../../asset/promo/4.jpg'),
+        require('../../asset/promo/5.jpg'),
+      ];
+    }
+    const randItem = Math.floor(Math.random() * (photos.length - 1));
+    const selectedPhotos = photos.splice(randItem, 2);
+
+    return (
+      <div className="Search__promote_feature" key="promote" onClick={() => {
+        this.state.promoteFeature.onClick();
+        this._updatePromoteFeature();
+      }}>
+        <div className="FeatureBox__photos">
+          <div className="FeatureBox__photo first" style={{backgroundImage: `url(${selectedPhotos[0]})`}} />
+          <div className="FeatureBox__photo user" style={{backgroundImage: `url(${user.small_photo})`}} />
+          <div className="FeatureBox__photo last" style={{backgroundImage: `url(${selectedPhotos[1]})`}} />
+        </div>
+        <div className="Search__promote_feature__caption">{this.state.promoteFeature.caption}</div>
+        <Button size="l">{this.state.promoteFeature.button}</Button>
+      </div>
+    )
+  }
 }

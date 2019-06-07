@@ -47,7 +47,7 @@ export default class SubscriptionBox extends PureComponent {
         level="tertiary"
         style={{marginTop: 12}}
         onClick={() => {
-          actions.showAlert('Бесплатный премиум', <span>Опубликуйте историю и получите «Премиум» <b>на сутки</b> бесплатно!</span>, 'Опубликовать')
+          actions.showAlert('Бесплатный «Премиум»', <span>Опубликуйте историю и получите «Премиум» <b>на сутки</b> бесплатно!</span>, 'Опубликовать')
             .then(() => actions.publishStory())
             .catch(() => console.log('canceled'));
         }}
