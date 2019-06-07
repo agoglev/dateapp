@@ -224,6 +224,12 @@ body.desktop .im_history {
 .im_message_wrap.failed {
   background: rgba(230, 57, 115, 0.1);
 }
+.ImHistory__sticker {
+  width: 200px;
+  height: 200px;
+  background: no-repeat center / contain;
+  margin-right: -20px;
+}
 .im_message {
   font-size: 16px;
   padding: 12px 16px;
@@ -248,10 +254,15 @@ body.desktop .im_history {
   width: 256px;
   padding-top: 16px;
 }
-.im_message_wrap.photo .im_message {
+.im_message_wrap.photo .im_message,
+.im_message_wrap.sticker .im_message {
   padding: 0;
   max-width: 100%;
   overflow: hidden;
+}
+.im_message_wrap.sticker .im_message {
+  background: transparent;
+  opacity: 1;
 }
 .im_message_wrap.emoji .im_message {
   background: none;
@@ -484,7 +495,8 @@ body.desktop .im_send_form {
   display: none;
 }
 .im_send_photo_button,
-.im_send_gift_button {
+.im_send_gift_button,
+.im_send_sticker_button {
   width: 48px;
   height: 48px;
   position: relative;
@@ -493,13 +505,20 @@ body.desktop .im_send_form {
   overflow: hidden;
 }
 .im_send_photo_button input,
-.im_send_gift_button input {
+.im_send_gift_button input,
+.im_send_sticker_button input {
   opacity: 0;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
+}
+.im_send_sticker_button {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .im_send_gift_button {
   background-image: url('asset/toolbar_gift_24.svg');
@@ -898,4 +917,40 @@ body.desktop .live_feed_featured_wrap {
   font-size: 16px;
   line-height: 22px;
   color: var(--text_primary);
+}
+.StickersKeyboard {
+  background: var(--background_content);
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+  padding-bottom: 26px;
+}
+.StickersKeyboard__title {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--text_primary);
+  text-align: center;
+  padding: 14px 0;
+}
+.StickersKeyboard__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 14px 16px;
+}
+.StickersKeyboard__stickers {
+  display: flex;
+  flex-wrap: wrap;
+}
+.StickersKeyboard__sticker {
+  width: 33.3%;
+  opacity: 0.5;
+}
+.StickersKeyboard__sticker.available {
+  opacity: 1;
+}
+.StickersKeyboard__sticker__image {
+  padding-top: 100%;
+  background: no-repeat center / contain;
 }

@@ -126,7 +126,8 @@ export const methods = {
   moderStats: 'moder_stats',
   nativePurchase: 'native_purchase',
   featureSuggestionSeen: 'feature_suggestion_seen',
-  publishStory: 'publish_story'
+  publishStory: 'publish_story',
+  openSticker: 'open_sticker',
 };
 
 let vkRequestId = 0;

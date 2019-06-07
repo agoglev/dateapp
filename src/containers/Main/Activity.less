@@ -260,6 +260,12 @@
   }
 }
 
+.ImHistory__sticker {
+  .size(200px);
+  background: no-repeat center/contain;
+  margin-right: -20px;
+}
+
 .im_message {
   font-size: 16px;
   padding: 12px 16px;
@@ -286,10 +292,15 @@
     padding-top: 16px;
   }
 
-  .im_message_wrap.photo & {
+  .im_message_wrap.photo &, .im_message_wrap.sticker & {
     padding: 0;
     max-width: 100%;
     overflow: hidden;
+  }
+
+  .im_message_wrap.sticker & {
+    background: transparent;
+    opacity: 1;
   }
 
   .im_message_wrap.emoji & {
@@ -554,7 +565,8 @@
 }
 
 .im_send_photo_button,
-.im_send_gift_button {
+.im_send_gift_button,
+.im_send_sticker_button {
   .size(48px);
   position: relative;
   background: url('./asset/toolbar_photo_24.svg') no-repeat center;
@@ -568,6 +580,13 @@
     top: 0;
     left: 0;
   }
+}
+
+.im_send_sticker_button {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .im_send_gift_button {
@@ -1029,4 +1048,47 @@
   font-size: 16px;
   line-height: 22px;
   color: var(--text_primary);
+}
+
+.StickersKeyboard {
+  background: var(--background_content);
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+  padding-bottom: 26px;
+}
+
+.StickersKeyboard__title {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--text_primary);
+  text-align: center;
+  padding: 14px 0;
+}
+
+.StickersKeyboard__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 14px 16px;
+}
+
+.StickersKeyboard__stickers {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.StickersKeyboard__sticker {
+  width: 33.3%;
+  opacity: 0.5;
+
+  &.available {
+    opacity: 1;
+  }
+}
+
+.StickersKeyboard__sticker__image {
+  padding-top: 100%;
+  background: no-repeat center/contain;
 }

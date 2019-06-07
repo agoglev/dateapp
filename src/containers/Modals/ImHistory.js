@@ -1,5 +1,6 @@
 import React from 'react';
 import { Panel, PanelHeader, HeaderContext, Button, Spinner, List, Cell, PanelHeaderContent } from '@vkontakte/vkui';
+import * as UI from '@vkontakte/vkui';
 import ReactDOM from 'react-dom';
 import * as activityActions from '../../actions/activity';
 import * as utils from '../../utils';
@@ -8,6 +9,7 @@ import * as giftsActions from '../../actions/gifts';
 import * as actions from '../../actions';
 import * as accountActions from '../../actions/account';
 import Proxy from '../../services/proxy_sdk/proxy';
+import connectPromise from '@vkontakte/vkui-connect-promise';
 
 import {SystemMessageType} from "../../actions/activity";
 import {markAsSeen} from "../../actions/activity";
@@ -15,9 +17,13 @@ import UIBackButton from '../../components/UI/UIBackButton';
 import InternalNotification from "../../components/InternalNotification/InternalNotification";
 
 import Icon24User from '@vkontakte/icons/dist/24/user';
+import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import Icon24Delete from '@vkontakte/icons/dist/24/delete';
 import Icon24Block from '@vkontakte/icons/dist/24/do_not_disturb';
 import Icon16Dropdown from '@vkontakte/icons/dist/16/dropdown';
+import Icon24Smile from '@vkontakte/icons/dist/24/smile';
+import Icon24Gift from '@vkontakte/icons/dist/24/gift';
+import Icon24Attach from '@vkontakte/icons/dist/24/attachments';
 
 import Header from '../../components/proxy/Header';
 
@@ -167,26 +173,32 @@ export default class ImHistory extends BaseComponent {
     return (
       <div className={formClassName}>
         <div className="im_send_form_cont">
-              <input
-                ref="input"
-                className="im_send_form_text_area"
-                placeholder="Ваше сообщение…"
-                onChange={this._formValueChanged}
-                onKeyDown={this._formKeyUp}
-                onFocus={() => {
-                  this.setState({hasFocus: true});
-                  setTimeout(() => ImHistory.scrollToBottom(), 500);
-                }}
-                onBlur={() => {
-                  this.setState({hasFocus: false});
-                  setTimeout(() => ImHistory.scrollToBottom(), 200);
-                }}
-              />
+          <input
+            ref="input"
+            className="im_send_form_text_area"
+            placeholder="Ваше сообщение…"
+            onChange={this._formValueChanged}
+            onKeyDown={this._formKeyUp}
+            onFocus={() => {
+              this.setState({hasFocus: true});
+              setTimeout(() => ImHistory.scrollToBottom(), 500);
+            }}
+            onBlur={() => {
+              this.setState({hasFocus: false});
+              setTimeout(() => ImHistory.scrollToBottom(), 200);
+            }}
+          />
           <div className="im_send_form_buttons">
-            <div className="im_send_photo_button">
+            <div className="im_send_sticker_button">
+              <Icon24Attach fill={'var(--accent)'} />
               <input type="file" onChange={this._photoDidSelect}/>
             </div>
-            {!window.isNative && utils.isPaymentsEnabled() && <div className="im_send_gift_button" onClick={() => actions.openGifts(this.peerId)} />}
+            {!window.isNative && utils.isPaymentsEnabled() && <div className="im_send_sticker_button" onClick={() => actions.openGifts(this.peerId)}>
+              <Icon24Gift fill={'var(--accent)'} />
+            </div>}
+            {!window.isNative && <div className="im_send_sticker_button" onClick={this._openStickers}>
+              <Icon24Smile fill={'var(--accent)'} />
+            </div>}
             <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
           </div>
         </div>
@@ -311,6 +323,7 @@ export default class ImHistory extends BaseComponent {
 
       let hasGift = false;
       let hasPhoto = false;
+      let hasSticker = false;
       const giftId = parseInt(message.kludges.gift_id, 10);
       if (message.system === SystemMessageType.gift || giftId > 0) {
         hasGift = true;
@@ -327,6 +340,11 @@ export default class ImHistory extends BaseComponent {
           <div className="im_history_photo_helper"
                style={{paddingTop: `${photo_height / photo_width * 100}%`, backgroundImage: `url(${photo_url}`}} />
         </div>
+      } else if (message.kludges.sticker_id > 0) {
+        hasSticker = true;
+        text = (
+          <div className="ImHistory__sticker" onClick={this._openStickers} style={{backgroundImage: `url(${message.kludges.sticker_url})`}} />
+        )
       }
 
       const className = utils.classNames({
@@ -335,6 +353,7 @@ export default class ImHistory extends BaseComponent {
         inbox: message.inbox,
         gift: hasGift,
         photo: hasPhoto,
+        sticker: hasSticker,
         failed: message.isFailed,
         unread: message.unread
       });
@@ -486,5 +505,84 @@ export default class ImHistory extends BaseComponent {
     Proxy.allowMessagesFromGroup(160479731).then(() => {
       accountActions.imNotifyEnable();
     });
+  }
+
+  _openStickers = () => {
+    actions.setPopout(
+      <UI.PopoutWrapper v="bottom" h="center">
+        <div className="StickersKeyboard">
+          <div className="StickersKeyboard__title">Стикеры</div>
+          <div className="StickersKeyboard__close" onClick={() => actions.setPopout()}>
+            <Icon24Cancel fill="var(--text_secondary)" />
+          </div>
+          <div className="StickersKeyboard__stickers">
+            {this.props.state.stickers.map((sticker, i) => {
+              const className = utils.classNames({
+                StickersKeyboard__sticker: true,
+                available: this.props.state.stickersMask & sticker.mask || sticker.available
+              });
+              return (
+                <div key={i} className={className} onClick={() => this._clickSticker(sticker)}>
+                  <div className="StickersKeyboard__sticker__image" style={{backgroundImage: `url(${sticker.url})`}} />
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </UI.PopoutWrapper>
+    );
+  };
+
+  _clickSticker(sticker) {
+    if (sticker.available || this.props.state.stickersMask & sticker.mask) {
+      actions.setPopout();
+      activityActions.sendMessage(this.peerId, '', sticker);
+      ImHistory.scrollToBottom();
+    } else {
+      let message = '';
+      let button = '';
+      switch (sticker.task) {
+        case 'follow_public':
+          message = 'Подпишитесь на сообщество Знакомств';
+          button = 'Подписаться';
+          break;
+        case 'share':
+          message = 'Поделитесь сервисом с друзьями';
+          button = 'Поделиться';
+          break;
+        case 'favorite':
+          message = 'Добавьте сервис в «Избранные»';
+          button = 'Добавить';
+          break;
+        default:
+          return actions.showAlert('Ошибка', 'Попробуйте перезапустить приложение');
+      }
+
+      actions.showAlert('Откройте стикер', <span>Выполните задание, чтобы открыть этот стикер: <i>{message}</i></span>, button).then(() => {
+        let promise = false;
+        switch (sticker.task) {
+          case 'follow_public':
+            promise = connectPromise.send('VKWebAppJoinGroup', {group_id: 160479731});
+            break;
+          case 'share':
+            promise = connectPromise.send('VKWebAppShare', {});
+            break;
+          case 'favorite':
+            promise = connectPromise.send('VKWebAppAddToFavorites', {});
+            break;
+        }
+
+        if (!promise) {
+          return;
+        }
+
+        promise.then(({data}) => {
+          if (data.result || data.post_id) {
+            accountActions.openSticker(sticker.mask);
+            setTimeout(() => actions.showAlert('Успех', 'Вы открыли новый стикер!', 'ОК', {skipCancelButton: true}), 500);
+          }
+        });
+      });
+    }
   }
 }

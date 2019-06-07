@@ -584,7 +584,7 @@ export function publishStory() {
         if (ret.got_premium) {
           loaderHide();
           payments.setPremiumState(true);
-          showAlert('История опубликована', 'Вы получили премиум на одни сутки!');
+          showAlert('История опубликована', 'Вы получили премиум на одни сутки!', 'OK', {skipCancelButton: true});
           store.dispatch({type: actionTypes.SET_PROMO_BITS, bits: store.getState().promoBits + payments.PromoBits.story});
           utils.statReachGoal('promo_story_publish');
         } else {

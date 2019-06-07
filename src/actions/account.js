@@ -149,7 +149,9 @@ function initMethodHandler(resp) {
     isModer: resp.isModer || false,
     isImNotifyEnabled: resp.isImNotifyEnabled,
     isNeedShowFeatureSuggestion: !!resp.isNeedShowFeatureSuggestion,
-    promo_bits: resp.promo_bits
+    promo_bits: resp.promo_bits,
+    stickers: resp.stickers,
+    stickersMask: resp.stickers_mask
   });
   if (resp.need_join) {
     window.tmpToken = resp.tmp_token || '';
@@ -351,5 +353,16 @@ export function invitesBuyProduct(type) {
       actions.setDataMulti({...resp}, pages.INVITES);
       resolve();
     }).catch((err) => reject(err));
+  });
+}
+
+export function openSticker(sticker) {
+  const mask = store.getState().stickersMask;
+  if (!(mask & sticker)) {
+    store.dispatch({type: actionTypes.SET_STICKERS_MASK, mask: mask + sticker});
+  }
+
+  api.method(api.methods.openSticker, {
+    sticker
   });
 }

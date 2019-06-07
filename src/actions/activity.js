@@ -149,21 +149,27 @@ export function addGiftMessage(peerId, giftId, text) {
   addMessage(peerId, msg);
 }
 
-export function sendMessage(peerId, text) {
+export function sendMessage(peerId, text, sticker = false) {
   const msgId = new Date().getTime();
-  const msg = {
+  let msg = {
     id: msgId,
     text,
     add_date: msgId,
     isSending: true,
     kludges: {},
-    unread: 1
+    unread: 1,
   };
+  if (sticker) {
+    msg.kludges.sticker_id = sticker.id;
+    msg.kludges.sticker_url = sticker.url;
+  }
+
   addMessage(peerId, msg);
 
   api.method(api.methods.sendMessage, {
     peer_id: peerId,
-    text: text
+    text: text,
+    sticker: sticker ? sticker.id : 0
   })
     .then((peer) => {
       actions.setUser(peer);

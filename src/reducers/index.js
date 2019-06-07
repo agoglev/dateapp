@@ -41,6 +41,8 @@ const initialState = {
   pushNotifications: [],
   isNeedShowFeatureSuggestion: false,
   promoBits: 0,
+  stickers: [],
+  stickersMask: 0
 };
 
 export let navHistory = [];
@@ -130,7 +132,9 @@ export default function reducer(state = initialState, action) {
         isModer: action.isModer,
         isImNotifyEnabled: action.isImNotifyEnabled,
         isNeedShowFeatureSuggestion: action.isNeedShowFeatureSuggestion,
-        promoBits: action.promo_bits
+        promoBits: action.promo_bits,
+        stickers: action.stickers,
+        stickersMask: action.stickersMask
       });
     }
 
@@ -140,6 +144,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.SET_PROMO_BITS: {
       return Object.assign({}, state, {promoBits: action.bits});
+    }
+
+    case actionTypes.SET_STICKERS_MASK: {
+      return Object.assign({}, state, {stickersMask: action.mask});
     }
 
     case actionTypes.PREMIUM_SET: {
