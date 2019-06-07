@@ -40,6 +40,14 @@ export let Prices = {
   wantToTalk: {
     votes: 3,
     rubles: 21
+  },
+  premiumWeek: {
+    votes: 3,
+    rubles: 21
+  },
+  premiumMonth: {
+    votes: 3,
+    rubles: 21
   }
 };
 
