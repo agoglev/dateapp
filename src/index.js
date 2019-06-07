@@ -232,6 +232,6 @@ if (window.isNative) {
   native.listen();
 }
 
-if (window.location.href.match(/story/)) {
+if (url.match(/story/)) {
   utils.statReachGoal('promo_story_click');
 }

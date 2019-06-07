@@ -266,8 +266,7 @@ export default class Activity extends BaseComponent {
 
     if (this.state.isNeedShowFeatureSuggestion) {
       res.push(<div className="Feature__suggest" key="suggest" onClick={this._featureDidPress}>
-        <div className="Feature__suggest__title">Разместите свою анкету здесь</div>
-        <div className="Feature__suggest__caption">И вас точно заметят!</div>
+        <div className="Feature__suggest__title">Разместите анкету здесь,<br />и вас точно заметят!</div>
       </div>);
     }
 
