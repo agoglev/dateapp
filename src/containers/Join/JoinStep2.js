@@ -65,9 +65,15 @@ export default class JoinStep1 extends BaseComponent {
     )
   }
 
-  continueButtonDidPress = () => {
+  continueButtonDidPress = (force = false) => {
     const country = this.data.country || {};
     const city = this.data.city || {};
+
+    if (!city.id && !force) {
+      actions.showAlert('Вы не выбрали город', 'Вы не будите показываться другим пользователями приложения, вы действительно хотите продолжить?', 'Да, продолжить').then(() => {
+        this.continueButtonDidPress(true);
+      }).catch(() => console.log('canceled'));
+    }
 
     accountActions.fillJoinInfo({
       country: country.id,

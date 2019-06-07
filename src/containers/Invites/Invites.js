@@ -52,27 +52,35 @@ export default class Invites extends BaseComponent {
 
 
     const points = parseInt(this.data.points, 10);
+    const res = (
+      <div>
+        <UI.Group description="Приглашайте друзей, чтобы зарабатывать баллы, 1 друг зарегистрированный по вашей ссылке — 1 балл">
+          <UI.Div>
+            <div className="Invites__points">
+              <div className="Invites__points-count">{points}</div>
+              <div className="Invites__points-caption">{utils.gram(points, ['балл', 'балла', 'баллов'], true)}</div>
+            </div>
+            <div className="Invites__link" onClick={this._copyLink}>
+              <div className="Invites__link-title">Ваша ссылка:</div>
+              <div className="Invites__link-value">https://vk.com/app6682509#ref={this.props.state.userId}</div>
+            </div>
+            <div className="Invites__button">
+              <UI.Button onClick={this._inviteDidPress}>Пригласить друзей</UI.Button>
+            </div>
+          </UI.Div>
+        </UI.Group>
+        {this._renderProducts()}
+        {this._renderFriends()}
+      </div>
+    );
+
+    if (window.isDesktop) {
+      return res;
+    }
+
     return (
       <UI.PullToRefresh onRefresh={this._load} isFetching={this.data.isLoading}>
-        <div>
-          <UI.Group description="Приглашайте друзей, чтобы зарабатывать баллы, 1 друг зарегистрированный по вашей ссылке — 1 балл">
-            <UI.Div>
-              <div className="Invites__points">
-                <div className="Invites__points-count">{points}</div>
-                <div className="Invites__points-caption">{utils.gram(points, ['балл', 'балла', 'баллов'], true)}</div>
-              </div>
-              <div className="Invites__link" onClick={this._copyLink}>
-                <div className="Invites__link-title">Ваша ссылка:</div>
-                <div className="Invites__link-value">https://vk.com/app6682509#ref={this.props.state.userId}</div>
-              </div>
-              <div className="Invites__button">
-                <UI.Button onClick={this._inviteDidPress}>Пригласить друзей</UI.Button>
-              </div>
-            </UI.Div>
-          </UI.Group>
-          {this._renderProducts()}
-          {this._renderFriends()}
-        </div>
+        {res}
       </UI.PullToRefresh>
     )
   }

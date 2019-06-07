@@ -22,6 +22,7 @@ import * as native from './services/native';
 window.isNative = !!window.location.hash.match(/native/);
 window.isOK = !window.isNative && !!window.location.href.match(/session_secret_key/);
 window.isFromAdsLove = !!window.location.href.match(/ads_love/);
+window.isPromoStory = !!window.location.href.match(/story/);
 
 const url = window.location.href;
 if (url.indexOf('vk_') > -1) {
@@ -29,6 +30,7 @@ if (url.indexOf('vk_') > -1) {
 }
 const queryStr = window.location.search;
 window.queryStr = queryStr;
+window.locHash = window.location.hash;
 window.path = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 window.urlParams = urlParams;
@@ -228,10 +230,11 @@ if (window.isFromAdsLove) {
   utils.statReachGoal('ads_ref_love');
 }
 
+if (window.isPromoStory) {
+  utils.statReachGoal('promo_story_click');
+}
+
 if (window.isNative) {
   native.listen();
 }
 
-if (url.match(/story/)) {
-  utils.statReachGoal('promo_story_click');
-}

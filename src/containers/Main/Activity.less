@@ -796,29 +796,34 @@
   width: 100%;
 }
 
+.live_feed_featured_wrap {
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--separator_common);
+  transform: translateZ(0);
+  background: var(--background_content);
+  height: 84px;
+
+  body.desktop & {
+    right: @menu-width;
+  }
+}
+
 .live_feed_featured {
-  padding: 10px;
+  padding: 10px 10px 40px 10px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  height: 84px;
-  background: var(--background_content);
-  border-bottom: 1px solid var(--separator_common);
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  transform: translateZ(0);
+  height: 84px + 40px;
   //padding-left: 6px;
   //animation: live_feed_featured_anim 200ms ease-in-out forwards;
   //animation-delay: 1.5s;
-
-  body.desktop & {
-    right: @menu-width;
-  }
 
   //&.live_feed_featured {
     //animation: none;

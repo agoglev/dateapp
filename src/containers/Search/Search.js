@@ -259,7 +259,7 @@ export default class Search extends BaseComponent {
   }
 
   _renderPromoteFeature() {
-    if (!this.state.promoteFeature) {
+    if (!this.state.promoteFeature || !utils.isPaymentsEnabled()) {
       return null;
     }
 

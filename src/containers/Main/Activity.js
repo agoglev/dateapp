@@ -220,8 +220,10 @@ export default class Activity extends BaseComponent {
     return (
       <div>
         <div className="live_feed_featured_helper" />
-        <div className={className} style={{top: `${utils.getHeaderHeight()}px`}}>
-          {this._renderFeaturedRows(users)}
+        <div className="live_feed_featured_wrap" style={{top: `${utils.getHeaderHeight()}px`}}>
+          <div className={className}>
+            {this._renderFeaturedRows(users)}
+          </div>
         </div>
       </div>
     )

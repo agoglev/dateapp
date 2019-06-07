@@ -572,6 +572,7 @@ export function featureSuggestionShown() {
 
 export function publishStory() {
   api.requestAccessToken('stories').then(() => {
+    loaderShow();
     api.vk('stories.getPhotoUploadServer', {
       add_to_news: 1,
       link_text: 'open',
@@ -581,6 +582,7 @@ export function publishStory() {
         url: res.upload_url,
       }).then((ret) => {
         if (ret.got_premium) {
+          loaderHide();
           payments.setPremiumState(true);
           showAlert('История опубликована', 'Вы получили премиум на одни сутки!');
           store.dispatch({type: actionTypes.SET_PROMO_BITS, bits: store.getState().promoBits + payments.PromoBits.story});
@@ -589,6 +591,6 @@ export function publishStory() {
           loaderSuccess();
         }
       }).catch((err) => showError(err.message));
-    });
+    }).catch(() => showError());
   });
 }
