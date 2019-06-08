@@ -62,7 +62,15 @@ export default class GiftSend extends BaseComponent {
             <div top="Получатель">
               <Cell before={<Avatar src={peer.small_photo} />}>{peer.name}</Cell>
             </div>
-            <Textarea placeholder="Напишите сообщение" value={this.data.message} onChange={(e) => this.setData('message', e.target.value)} />
+            <div bottom="Максимум 200 символов">
+              <Textarea
+                placeholder="Напишите сообщение"
+                value={this.data.message}
+                onChange={(e) => this.setData('message', e.target.value)}
+                onFocus={() => setTimeout(() => window.scrollBy(0, document.body.scrollHeight), 1000)}
+                maxLength={200}
+              />
+            </div>
             <FixedLayout vertical="bottom" style={{backgroundColor: '#fff', position: 'relative', zIndex: 1000}}>
               <Button size="xl" level="1" onClick={this._sendButtonDidPress} style={{margin: 16}}>Отправить подарок</Button>
             </FixedLayout>

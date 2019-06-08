@@ -135,6 +135,8 @@
 }
 .im_dialog .im_dialog_system {
   color: #5181b8;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .im_dialog .im_dialog_name,
 .im_dialog .im_dialog_message {
@@ -966,4 +968,9 @@ body.desktop .live_feed_featured_wrap {
 .StickersKeyboard__sticker__image {
   padding-top: 100%;
   background: no-repeat center / contain;
+}
+.im_history_name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }

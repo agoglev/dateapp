@@ -166,7 +166,7 @@ export default class Search extends BaseComponent {
       const className = utils.classNames({
         Likes__user_row: true,
       });
-      const isOnline = now - user.last_update < 60 * 15;
+      const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 15;
 
       let ret = [
         <div

@@ -289,7 +289,7 @@ export default class EditProfile extends UploadPhotoComponent {
       window.history.back();
     }).catch(() => {
       actions.loaderHide();
-      actions.showError('Произошла ошибка!');
+      actions.showError();
     });
   };
 }

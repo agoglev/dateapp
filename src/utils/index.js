@@ -92,9 +92,11 @@ export function getTabBarHeight() {
   return height + helperHeight;
 }
 
+let lastHeaderHeight = 0;
 export function getHeaderHeight() {
   const el = document.querySelector(window.isDesktop ? '.App__desktop__header' : '.View__header');
-  let height = el ? el.offsetHeight : 0;
+  let height = el ? el.offsetHeight : lastHeaderHeight;
+  lastHeaderHeight = height;
   return height;
 }
 
@@ -103,6 +105,7 @@ export function genderText(gender, variants) { // gender 2 is female
 }
 
 export function dateFormatShort(ts) {
+  ts = convertTimezone(ts);
   const curDate = new Date();
   const dt = Math.floor((curDate.getTime() - ts) / 1000);
   const days = Math.floor(dt / 86400);
@@ -315,10 +318,20 @@ export function isObject(e) {
   return "[object Object]" === Object.prototype.toString.call(e);
 }
 
+export function convertTimezone(ts) {
+  let newTs = ts;
+  const timezoneOffset = new Date().getTimezoneOffset();
+  const timezoneDiff = (-3 * 60) - timezoneOffset;
+  newTs += (timezoneDiff * 60) * 1000;
+  return newTs;
+}
+
 export function lastUpdateFormat(ts) {
-  const tDate = new Date(ts);
+  let newTs = convertTimezone(ts);
+
+  const tDate = new Date(newTs);
   const curDate = new Date();
-  const dt = Math.floor((curDate.getTime() - ts) / 1000);
+  const dt = Math.floor((curDate.getTime() - newTs) / 1000);
   const days = Math.floor(dt / 86400);
 
   let h = tDate.getHours();
@@ -336,7 +349,7 @@ export function lastUpdateFormat(ts) {
   } else if (days === 1) {
     return `вчера в ${h}:${m}`;
   } else {
-    const date = new Date(ts);
+    const date = new Date(newTs);
 
     const months = ["Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября", "Ноября","Декабря"];
 

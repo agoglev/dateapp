@@ -1,16 +1,18 @@
 import './ProfileView.css';
 
 import React, { Component } from 'react';
-import { Panel, PanelHeader, HeaderButton, Button, Gallery, IOS, platform, FormStatus } from '@vkontakte/vkui';
+import { Panel, HeaderButton, Button, Gallery, IOS, platform, FormStatus } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as cardsActions from '../../actions/cards';
 import * as activityActions from '../../actions/activity';
 import * as utils from '../../utils/index';
 import BaseComponent from '../../BaseComponent';
 import Cards from '../Main/Cards';
-import * as pages from "../../constants/pages";
 import Icon24Message from '@vkontakte/icons/dist/24/message';
+import Icon24Like from '@vkontakte/icons/dist/24/like';
+import Icon24LikeOutline from '@vkontakte/icons/dist/24/like_outline';
 import * as payments from "../../actions/payments";
+import UIBackButton from '../../components/UI/UIBackButton';
 
 export default class ProfileView extends BaseComponent {
   render() {
@@ -27,6 +29,8 @@ export default class ProfileView extends BaseComponent {
 
   _renderContent() {
     const slideHeight = window.isDesktop ? 540 : window.innerWidth * 1.45;
+    const backSize = utils.getHeaderHeight();
+
 
     return (
       <div className="profile_view">
@@ -42,7 +46,9 @@ export default class ProfileView extends BaseComponent {
             {this._renderPhotos()}
           </Gallery>
         </div>
-        <div className="profile_view_hide" onClick={() => window.history.back()} />
+        <div className="profile_view_hide" style={{width: backSize, height: backSize}} onClick={() => window.history.back()}>
+          <UIBackButton />
+        </div>
         {this._renderInfoWrap()}
         {this._renderFooter()}
       </div>
@@ -160,6 +166,10 @@ export default class ProfileView extends BaseComponent {
   }
 
   _renderFooter() {
+    if (this.data.hideControls) {
+      return null;
+    }
+
     const user = this.data.user || {};
     if (user.id === this.props.state.userId || this.data.fromHistory === true) {
       return null;
@@ -170,7 +180,12 @@ export default class ProfileView extends BaseComponent {
       <div className="profile_view_footer">
         {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
         {(utils.isPaymentsEnabled() || this.props.state.hasPremium) && ((this.data.isLiked && isFromLikes) || (!isFromLikes)) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
-        {!this.data.isLiked && <div className="profile_view_footer_item like" onClick={this._footerLikeButtonDidPress} />}
+        {!this.data.isLiked && <div className="profile_view_footer_item" onClick={this._footerLikeButtonDidPress}>
+          <Icon24LikeOutline />
+        </div>}
+        {this.data.isLiked && <div className="profile_view_footer_item" onClick={this._unlike}>
+          <Icon24Like />
+        </div>}
       </div>
     )
   }
@@ -187,6 +202,15 @@ export default class ProfileView extends BaseComponent {
     });
   };
 
+  _unlike = () => {
+    actions.loaderShow();
+    activityActions.unlike(this.data.user.id).then(() => {
+      actions.loaderHide();
+      this.setData('isLiked', false);
+      utils.statReachGoal('dislike');
+    }).catch(() => actions.showError());
+  };
+
   _footerDislikeButtonDidPress = () => {
     if (this.data.fromLikes === true) {
       actions.loaderShow();
@@ -195,10 +219,7 @@ export default class ProfileView extends BaseComponent {
           window.history.back();
           actions.loaderSuccess();
           utils.statReachGoal('dislike');
-        }).catch(() => {
-          actions.loaderHide();
-          actions.showError('Произошла ошибка');
-        });
+        }).catch(() => actions.showError());
     } else {
       window.history.back();
       setTimeout(() => {
@@ -219,6 +240,8 @@ export default class ProfileView extends BaseComponent {
           } else {
             window.history.back();
           }
+
+          this.setData('isLiked', true);
 
           if (isFeature) {
             actions.loaderHide();

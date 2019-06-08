@@ -99,7 +99,7 @@ export default class ImHistory extends BaseComponent {
           left={<UIBackButton />}
         >
           {isLoading ? 'Loading..' : <PanelHeaderContent status={this._renderOnline()} aside={<Icon16Dropdown />} onClick={this.toggleContext}>
-            {peer.name}
+            <div className="im_history_name">{peer.name}</div>
           </PanelHeaderContent>}
         </Header>
         <HeaderContext opened={this.state.contextOpened} onClose={this.toggleContext}>
@@ -237,7 +237,7 @@ export default class ImHistory extends BaseComponent {
 
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
-      const date = new Date(message.add_date);
+      const date = new Date(utils.convertTimezone(message.add_date));
       const timeKey = `${date.getDate()}_${date.getMonth()}_${date.getFullYear()}`;
 
       if (timeKey === lastTimeKey) {
@@ -306,7 +306,7 @@ export default class ImHistory extends BaseComponent {
         )
       }
 
-      const date = new Date(message.add_date);
+      const date = new Date(utils.convertTimezone(message.add_date));
 
       let hours = date.getHours();
       if (hours < 10) {
@@ -520,7 +520,7 @@ export default class ImHistory extends BaseComponent {
             {this.props.state.stickers.map((sticker, i) => {
               const className = utils.classNames({
                 StickersKeyboard__sticker: true,
-                available: this.props.state.stickersMask & sticker.mask || sticker.available
+                available: this.props.state.stickersMask & sticker.mask || sticker.available || window.isNative
               });
               return (
                 <div key={i} className={className} onClick={() => this._clickSticker(sticker)}>
@@ -537,7 +537,7 @@ export default class ImHistory extends BaseComponent {
   };
 
   _clickSticker(sticker) {
-    if (sticker.available || this.props.state.stickersMask & sticker.mask) {
+    if (sticker.available || this.props.state.stickersMask & sticker.mask || window.isNative) {
       actions.setPopout();
       activityActions.sendMessage(this.peerId, '', sticker);
       ImHistory.scrollToBottom();
@@ -582,13 +582,24 @@ export default class ImHistory extends BaseComponent {
           return;
         }
 
+        let success = () => {
+          accountActions.openSticker(sticker.mask);
+          setTimeout(() => actions.showAlert('Успех', 'Вы открыли новый стикер!', 'ОК', {skipCancelButton: true}), 500);
+          utils.statReachGoal('sticker_open');
+        };
+
         promise.then(({data}) => {
-          if (data.result || data.post_id) {
-            accountActions.openSticker(sticker.mask);
-            setTimeout(() => actions.showAlert('Успех', 'Вы открыли новый стикер!', 'ОК', {skipCancelButton: true}), 500);
-            utils.statReachGoal('sticker_open');
+          actions.showAlert('Here', JSON.stringify(data));
+          if (data.result || data.post_id || data) {
+            success();
           }
+        }).catch((err) => {
+          actions.showAlert('err', JSON.stringify(err));
         });
+
+        if (utils.isAndroid()) {
+          setTimeout(() => success(), 3000);
+        }
       });
     }
   }

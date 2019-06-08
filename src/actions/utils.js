@@ -37,7 +37,7 @@ export function loadCities(countryId, q, fast = false) {
         }).then((resp) => {
           resolve([resp, q]);
           Cities[countryId][q] = resp;
-        }).catch(reject);
+        }).catch(() => reject());
       }, fast ? 0 : 1000);
     }
   });

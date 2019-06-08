@@ -194,7 +194,7 @@ export default class Cards extends Component {
       const className = utils.classNames({
         Cards__item: true,
         swipeTip: isActive && this.state.swipeTip,
-        online: now - card.last_update < 60 * 10
+        online: now - utils.convertTimezone(card.last_update) < 60 * 10
       });
 
       const rotate = isActive ? this.state.rotate : 0;
@@ -419,31 +419,27 @@ export default class Cards extends Component {
 
       setTimeout(() => {
         this._setReason(isLike);
-        this.setState({
-          rotate: 0,
-          diff: 0,
-          isAnimating: false,
-          likeButtonDiff: 0,
-          likeButtonScale: 1,
-          dislikeButtonDiff: 0,
-          dislikeButtonScale: 1,
-        });
+        this._resetMovingStyles();
       }, 200);
     } else {
-      this.setState({
-        rotate: 0,
-        diff: 0,
-        isMoving: false,
-        likeButtonDiff: 0,
-        likeButtonScale: 1,
-        dislikeButtonDiff: 0,
-        dislikeButtonScale: 1,
-      });
+      this._resetMovingStyles();
 
       if (!this.cancelTap) {
         this._handleTap(event);
       }
     }
+  };
+
+  _resetMovingStyles = () => {
+    this.setState({
+      rotate: 0,
+      diff: 0,
+      isAnimating: false,
+      likeButtonDiff: 0,
+      likeButtonScale: 1,
+      dislikeButtonDiff: 0,
+      dislikeButtonScale: 1,
+    });
   };
 
   _handleTap(event) {
@@ -462,7 +458,10 @@ export default class Cards extends Component {
     if (target.classList.contains('Cards__item__vip')) {
       paymentsActions.showSubscriptionRequest();
     } else if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
-      actions.openProfile(this.props.state.cards[0], {fromCards: true});
+      actions.openProfile(this.props.state.cards[0], {
+        fromCards: true,
+        hideControls: isFromCancelActionCards && !paymentsActions.hasPremium && utils.isPaymentsEnabled()
+      });
     } else {
       const width = window.isDesktop ? window.innerWidth - 240 : window.innerWidth;
       const isNext = this.startX > width / 2;
@@ -542,7 +541,7 @@ export default class Cards extends Component {
 
     }).catch((card) => {
         this._restoreCard(card, isLike);
-        actions.showError('Произошла ошибка');
+        actions.showError();
       });
 
     if (isLike) {
@@ -638,7 +637,10 @@ export default class Cards extends Component {
     actions.showAlert('Показать снова', 'Все карточки, которые вы уже видели будут показаны снова, вы действительно хотите увидеть их?', 'Да, показать').then(() => {
       actions.loaderShow();
       cardsActions.clearSeenCards()
-        .then(() => actions.loaderSuccess())
+        .then(() => {
+          actions.loaderSuccess();
+          this._resetMovingStyles();
+        })
         .catch(() => actions.showError());
     });
   };

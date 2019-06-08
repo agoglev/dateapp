@@ -42,7 +42,8 @@ const initialState = {
   isNeedShowFeatureSuggestion: false,
   promoBits: 0,
   stickers: [],
-  stickersMask: 0
+  stickersMask: 0,
+  navHistory: []
 };
 
 export let navHistory = [];
@@ -76,7 +77,8 @@ export default function reducer(state = initialState, action) {
           [nextView]: action.to.name
         }),
         error: false,
-        globalLoader: false
+        globalLoader: false,
+        navHistory
       };
 
       if (nextView !== state.activeView) {
@@ -90,8 +92,8 @@ export default function reducer(state = initialState, action) {
         newState.pageData[action.to.name] = {};
       }
 
-      if (!isBack) {
-        newState.pageData[action.to.name] = Object.assign({}, newState.pageData[action.to.name], action.to.params);
+      if (!isBack || [pages.PROFILE].indexOf(action.to.name) > -1) {
+        newState.pageData[action.to.name] = Object.assign({}, /*newState.pageData[action.to.name],*/ action.to.params);
       }
 
       return Object.assign({}, state, newState);

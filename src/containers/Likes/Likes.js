@@ -6,7 +6,7 @@ import * as actions from '../../actions/index';
 import * as activityActions from '../../actions/activity';
 import * as utils from '../../utils/index';
 import BaseComponent from '../../BaseComponent';
-import UICloseButton from '../../components/UI/UICloseButton';
+import UIBackButton from '../../components/UI/UIBackButton';
 import * as payments from '../../actions/payments';
 import Header from '../../components/proxy/Header';
 
@@ -34,7 +34,7 @@ export default class Likes extends BaseComponent {
     return (
       <div>
         <Header
-          left={<UICloseButton />}
+          left={<UIBackButton />}
         >
           Симпатии
         </Header>

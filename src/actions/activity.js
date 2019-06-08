@@ -431,6 +431,16 @@ export function likeAction(userId, action, fromFeature) {
   });
 }
 
+export function unlike(userId) {
+  return new Promise((resolve, reject) => {
+    api.method(api.methods.likesAction, {
+      user_id: userId,
+      action: 0,
+      unlike: 1
+    }).then(() => resolve()).catch(reject);
+  });
+}
+
 export function clearHistory(peerId) {
   return new Promise((resolve, reject) => {
     api.method(api.methods.clearHistory, {

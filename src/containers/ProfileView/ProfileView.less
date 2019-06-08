@@ -18,17 +18,20 @@
 }
 
 .profile_view_hide {
-  background: url('./asset/close_shadow_24@2x.png') no-repeat center;
-  background-size: 36px;
-  padding: 10px;
-  .size(36px);
   position: fixed;
   top: 0;
-  left: 0;
+  left: 4px;
   z-index: 1000;
-  padding-top: 64px;
-  padding-top: calc(44px + constant(safe-area-inset-top));
-  padding-top: calc(44px + env(safe-area-inset-top));
+  top: calc(env(safe-area-inset-top));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+
+  svg {
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+  }
 }
 
 .profile_view_photos_wrap {
@@ -226,6 +229,10 @@ body[scheme="client_dark"] {
   position: relative;
   box-shadow: 0 0 20px 3px rgba(0,0,0,0.1);
   background: var(--background_light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
 
   &:after {
     .size(24px);
@@ -235,10 +242,6 @@ body[scheme="client_dark"] {
     left: 50%;
     transform: translate(-50%, -50%);
     background: no-repeat center/contain;
-  }
-
-  &.like:after {
-    background-image: url('./asset/ic_liked.svg');
   }
 
   &.dislike:after {

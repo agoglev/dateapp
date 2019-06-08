@@ -14,6 +14,7 @@ import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 import Icon16Like from '@vkontakte/icons/dist/16/like';
 import BaseComponent from '../../BaseComponent';
+import {convertTimezone} from "../../utils";
 
 let skipFeatureAnim = false;
 export default class Activity extends BaseComponent {
@@ -166,7 +167,7 @@ export default class Activity extends BaseComponent {
         }
       }
 
-      const isOnline = now - user.last_update < 60 * 10;
+      const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 10;
 
       const className = utils.classNames({
         im_dialog: true,
@@ -471,7 +472,7 @@ export default class Activity extends BaseComponent {
         `заходила ${dateStr}`
       ]);
 
-      const isOnline = now - user.last_update < 60 * 10;
+      const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 10;
 
       return (
         <div className="im_dialog" key={guest.id} onClick={() => actions.openChat(guest.id)}>
@@ -532,7 +533,7 @@ export default class Activity extends BaseComponent {
       } else {
         text = <div className="im_dialog_system">у вас в «Избранных»</div>;
       }
-      const isOnline = now - user.last_update < 60 * 10;
+      const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 10;
 
       const className = utils.classNames({
         im_dialog: true,

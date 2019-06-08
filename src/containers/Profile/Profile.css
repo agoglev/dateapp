@@ -60,6 +60,9 @@
   height: 1px;
   background: var(--separator_alpha);
 }
+.profile_button:first-child:after {
+  display: none;
+}
 .profile_button_icon {
   width: 40px;
   height: 40px;

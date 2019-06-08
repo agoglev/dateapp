@@ -368,7 +368,8 @@ export function openProfile(user, opts = {}) {
     fromHistory: opts.fromHistory || false,
     fromSearch: opts.fromSearch || false,
     fromCards: opts.fromCards || false,
-    fromFeature: opts.fromFeature || false
+    fromFeature: opts.fromFeature || false,
+    hideControls: opts.hideControls || false
   };
 
   go(pages.PROFILE, params);

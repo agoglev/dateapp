@@ -6,10 +6,11 @@
 }
 .Graph__cont svg {
   position: relative;
-  z-index: 10;
+  z-index: 8;
 }
 .Graph__cont path {
   stroke: #5181b8;
+  z-index: 8;
 }
 .Graph__separator {
   position: absolute;
@@ -17,7 +18,7 @@
   height: 100%;
   top: 0;
   background: var(--separator_alpha);
-  z-index: 1;
+  z-index: 10;
   transition: background 150ms ease-in-out;
   transform: translateX(-50%);
 }
