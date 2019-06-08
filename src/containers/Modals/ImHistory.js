@@ -196,7 +196,7 @@ export default class ImHistory extends BaseComponent {
             {!window.isNative && utils.isPaymentsEnabled() && <div className="im_send_sticker_button" onClick={() => actions.openGifts(this.peerId)}>
               <Icon24Gift fill={'var(--accent)'} />
             </div>}
-            {!window.isNative && <div className="im_send_sticker_button" onClick={this._openStickers}>
+            {<div className="im_send_sticker_button badge" onClick={this._openStickers}>
               <Icon24Smile fill={'var(--accent)'} />
             </div>}
             <div className={sendBtnClassName} ref="sendBtn">Отправить</div>

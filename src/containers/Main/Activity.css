@@ -519,6 +519,19 @@ body.desktop .im_send_form {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+.im_send_sticker_button.badge:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #e63973;
 }
 .im_send_gift_button {
   background-image: url('asset/toolbar_gift_24.svg');

@@ -587,6 +587,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  &.badge:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    .circle(4px);
+    border: 2px solid @color-white;
+    background: @color-red;
+  }
 }
 
 .im_send_gift_button {
