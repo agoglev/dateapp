@@ -126,6 +126,21 @@
   background: #30bf78;
   margin-left: 8px;
 }
+.Cards__item__vip {
+  color: #ffd580;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid #ffd580;
+  border-radius: 8px;
+  padding: 0 8px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+}
 .Cards__item--footer-caption {
   line-height: 16px;
   font-size: 14px;

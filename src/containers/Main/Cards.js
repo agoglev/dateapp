@@ -276,7 +276,7 @@ export default class Cards extends Component {
           {this._renderCardPhotos(card.id, card.photos)}
           <div className="Cards__item--footer">
             <div className="Cards__item--footer-info">
-              <div className="Cards__item--footer-name">{nameComponents.join(', ')}</div>
+              <div className="Cards__item--footer-name">{nameComponents.join(', ')} {card.vip && <div className="Cards__item__vip">VIP</div>}</div>
               <div className="Cards__item--footer-caption">{captionVariants[captionIndex]}</div>
             </div>
             <div className="Cards__item--footer-info-ic" />
@@ -459,7 +459,9 @@ export default class Cards extends Component {
       return;
     }
 
-    if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
+    if (target.classList.contains('Cards__item__vip')) {
+      paymentsActions.showSubscriptionRequest();
+    } else if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
       actions.openProfile(this.props.state.cards[0], {fromCards: true});
     } else {
       const width = window.isDesktop ? window.innerWidth - 240 : window.innerWidth;

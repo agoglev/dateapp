@@ -531,6 +531,8 @@ export default class ImHistory extends BaseComponent {
         </div>
       </UI.PopoutWrapper>
     );
+
+    utils.statReachGoal('stickers_keyboard');
   };
 
   _clickSticker(sticker) {
