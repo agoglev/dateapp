@@ -379,6 +379,11 @@ export function features() {
       caption: 'Поднимитесь на первое место, и вас заметит больше девушек.',
       button: 'Подняться на 1-е место',
       onClick: () => showFeatureBox()
+    },
+    wantToTalk: {
+      caption: 'Расскажите всем, что вы онлайн и хотите общаться.',
+      button: 'Рассказать',
+      onClick: () => showWantToTalkBox()
     }
   };
 

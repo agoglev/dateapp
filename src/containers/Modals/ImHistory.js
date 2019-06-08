@@ -342,8 +342,9 @@ export default class ImHistory extends BaseComponent {
         </div>
       } else if (message.kludges.sticker_id > 0) {
         hasSticker = true;
+        let url = message.kludges.sticker_url.url || message.kludges.sticker_url;
         text = (
-          <div className="ImHistory__sticker" onClick={this._openStickers} style={{backgroundImage: `url(${message.kludges.sticker_url})`}} />
+          <div className="ImHistory__sticker" onClick={this._openStickers} style={{backgroundImage: `url(${url})`}} />
         )
       }
 
