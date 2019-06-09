@@ -113,6 +113,8 @@ export function buyPremium(type = 'premium', target = 'none') {
     }).catch((error) => {
       if (error) {
         actions.showError();
+      } else {
+        actions.loaderHide();
       }
     });
   }
@@ -140,6 +142,8 @@ export function buyGift(giftId, userId, message, target) {
   }).catch((error) => {
     if (error) {
       actions.showError();
+    } else {
+      actions.loaderHide();
     }
   });
 }
@@ -250,6 +254,8 @@ export function showFeatureBox(isSale = false) {
         }).catch((error) => {
           if (error) {
             actions.showError();
+          } else {
+            actions.loaderHide();
           }
         });
       }
@@ -296,6 +302,8 @@ function featureBuy(isSale) {
     }).catch((error) => {
       if (error) {
         actions.showError();
+      } else {
+        actions.loaderHide();
       }
     });
   }
@@ -332,6 +340,8 @@ export function showWantToTalkBox() {
         }).catch((error) => {
           if (error) {
             actions.showError();
+          } else {
+            actions.loaderHide();
           }
         });
       }

@@ -157,46 +157,44 @@ class App extends React.Component {
     }
 
     return (
-      <UI.ConfigProvider>
-        <UI.Root activeView={state.activeView} popout={this.props.state.popout}>
-          <View activePanel={state.activePanels.base} id="base" header={this._getBaseHeader('base')}>
-            <Main id={pages.MAIN} state={state} />
-            <Likes id={pages.LIKES} state={state} />
-            <ImHistory id={pages.IM_HISTORY} state={state} />
-          </View>
-          <UI.View activePanel={state.activePanels.join} id="join">
-            <JoinStep1 id={pages.JOIN_STEP1} state={state} />
-            <JoinStep2 id={pages.JOIN_STEP2} state={state} />
-            <JoinStep3 id={pages.JOIN_STEP3} state={state} />
-          </UI.View>
-          <View activePanel={state.activePanels.filters} id="filters" header={this._getBaseHeader('filters')}>
-            <Filters id={pages.FILTERS} state={state} />
-          </View>
-          <View activePanel={state.activePanels.invites} id="invites" header={this._getBaseHeader('invites')}>
-            <Invites id={pages.INVITES} state={state} />
-          </View>
-          <View activePanel={state.activePanels.modal} id="modal" header={this._getBaseHeader('modal')}>
-            <ProfileView id={pages.PROFILE} state={state} />
-            <EditProfile id={pages.EDIT_PROFILE} state={state} />
-            <EditExtraInfo id={pages.EDIT_EXTRA_INFO} state={state} />
-            <LiveChat id={pages.LIVE_CHAT} state={state} />
-            <Stats id={pages.STATS} state={state} />
-            <Moder id={pages.MODER} state={state} />
-            <ModerStats id={pages.MODER_STATS} state={state} />
-            <Notify id={pages.NOTIFY} state={state} />
-            <Gifts id={pages.GIFTS} state={state} />
-            <GiftSend id={pages.GIFT_SEND} state={state} />
-            <Premium id={pages.PREMIUM} state={state} />
-          </View>
-          <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
-            <VkPhotos id={pages.VK_PHOTOS} state={state} />
-          </View>
-          <View activePanel={state.activePanels.utils} id="utils">
-            <SelectCountry id={pages.SELECT_COUNTRY} state={state} />
-            <SelectCity id={pages.SELECT_CITY} state={state} />
-          </View>
-        </UI.Root>
-      </UI.ConfigProvider>
+      <UI.Root activeView={state.activeView} popout={this.props.state.popout}>
+        <View activePanel={state.activePanels.base} id="base" header={this._getBaseHeader('base')}>
+          <Main id={pages.MAIN} state={state} />
+          <Likes id={pages.LIKES} state={state} />
+          <ImHistory id={pages.IM_HISTORY} state={state} />
+        </View>
+        <UI.View activePanel={state.activePanels.join} id="join">
+          <JoinStep1 id={pages.JOIN_STEP1} state={state} />
+          <JoinStep2 id={pages.JOIN_STEP2} state={state} />
+          <JoinStep3 id={pages.JOIN_STEP3} state={state} />
+        </UI.View>
+        <View activePanel={state.activePanels.filters} id="filters" header={this._getBaseHeader('filters')}>
+          <Filters id={pages.FILTERS} state={state} />
+        </View>
+        <View activePanel={state.activePanels.invites} id="invites" header={this._getBaseHeader('invites')}>
+          <Invites id={pages.INVITES} state={state} />
+        </View>
+        <View activePanel={state.activePanels.modal} id="modal" header={this._getBaseHeader('modal')}>
+          <ProfileView id={pages.PROFILE} state={state} />
+          <EditProfile id={pages.EDIT_PROFILE} state={state} />
+          <EditExtraInfo id={pages.EDIT_EXTRA_INFO} state={state} />
+          <LiveChat id={pages.LIVE_CHAT} state={state} />
+          <Stats id={pages.STATS} state={state} />
+          <Moder id={pages.MODER} state={state} />
+          <ModerStats id={pages.MODER_STATS} state={state} />
+          <Notify id={pages.NOTIFY} state={state} />
+          <Gifts id={pages.GIFTS} state={state} />
+          <GiftSend id={pages.GIFT_SEND} state={state} />
+          <Premium id={pages.PREMIUM} state={state} />
+        </View>
+        <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
+          <VkPhotos id={pages.VK_PHOTOS} state={state} />
+        </View>
+        <View activePanel={state.activePanels.utils} id="utils">
+          <SelectCountry id={pages.SELECT_COUNTRY} state={state} />
+          <SelectCity id={pages.SELECT_CITY} state={state} />
+        </View>
+      </UI.Root>
     );
 	}
 

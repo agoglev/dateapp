@@ -66,7 +66,7 @@ export default class Search extends BaseComponent {
         >
           {this.data.filtersOpened ? 'Фильтры' : (window.isDG ? 'Люди' : 'Люди рядом')}
         </Header>
-        <HeaderContext opened={this.data.filtersOpened} onClose={this._toggleFilters}>
+        <HeaderContext opened={this.data.filtersOpened} onClose={this._toggleFilters} style={{zIndex: 100}}>
           <div className="Search__filters">
             <FormLayout>
               <SelectMimicry

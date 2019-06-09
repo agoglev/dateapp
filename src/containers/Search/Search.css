@@ -1,4 +1,5 @@
 .Search__filters {
+  background: #fff;
   background: var(--background_content);
 }
 .Search__promote_feature {

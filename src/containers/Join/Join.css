@@ -84,7 +84,9 @@
   padding-top: 100%;
   position: relative;
   border-radius: 8px;
-  background: var(--background_light) url('assest/add.svg') no-repeat center;
+  background: url('assest/add.svg') no-repeat center;
+  background-color: #fff;
+  background-color: var(--background_light);
   background-size: 24px;
 }
 body.desktop .profile_edit_photos .profile_edit_photo_cont {
