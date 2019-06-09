@@ -69,7 +69,7 @@ export default class Cards extends Component {
     if (!window.cardsSwipeRightTipShown) {
       window.cardsSwipeRightTipShown = true;
       showNotification('swipe_right', 'Сделайте 50 свайпов вправо, чтобы найти пару!', '', {
-        timeout: 12000
+        timeout: 3000
       });
     }
   }
@@ -556,7 +556,7 @@ export default class Cards extends Component {
       window.cardsSwipeRightCount = (window.cardsSwipeRightCount || 0) + 1;
       if (window.cardsSwipeRightCount === 10 || window.cardsSwipeRightCount === 30) {
         showNotification('swipe_right', `Продолжайте, осталось ${50 - window.cardsSwipeRightCount} свайпов!`, '', {
-          timeout: 6000
+          timeout: 5000
         });
       }
     } else {

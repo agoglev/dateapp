@@ -325,6 +325,9 @@ export default class ProfileView extends BaseComponent {
     if (extra.alcohol > 0) {
       items.push(['Алкоголь', maps.alcohol[extra.alcohol]]);
     }
+    if (extra.smoke > 0) {
+      items.push(['Курение', maps.smoke[extra.smoke]]);
+    }
 
     return (
       <div className="profile_view_extra_info_items">

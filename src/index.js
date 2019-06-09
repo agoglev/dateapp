@@ -107,13 +107,14 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppGetClientVersionResult':
       actions.setVersion(data.platform, data.version);
       if (!window.isDesktop) {
-        connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: ''});
+        //connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: ''});
       }
       break;
     case 'VKWebAppAccessTokenReceived':
       if (!window.isDesktop && window.isDG) {
         accountActions.init(data.access_token);
       }
+      store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token: data.access_token});
       api.hadnleAccessTokenEventSuccess(data.access_token);
       break;
     case 'VKWebAppAccessTokenFailed':
@@ -156,7 +157,7 @@ VkConnect.subscribe((e) => {
   }
 });
 connect.send('VKWebAppGetUserInfo', {});
-connect.send("VKWebAppGetClientVersion", {});
+connect.send('VKWebAppGetClientVersion', {});
 
 function render() {
   ReactDOM.render(

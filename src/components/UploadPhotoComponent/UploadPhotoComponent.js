@@ -72,7 +72,6 @@ export default class UploadPhotoComponent extends BaseComponent {
         const loadingImage = loadImage(
           file,
           (canvas) => {
-            console.log('canvas', canvas.width, canvas.height);
             if (canvas.width < 200 || canvas.height < 200) {
               setTimeout(() => {
                 actions.showAlert('Ошибка', 'Размер фото должен быть более 200px по высоте и ширине.', 'OK', {

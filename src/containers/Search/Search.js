@@ -250,8 +250,10 @@ export default class Search extends BaseComponent {
   };
 
   _geoAccessButtonDidPress = () => {
-    this.setData({isGeoNotifyShown: false});
-    Proxy.getGeodata();
+    //this.setData({isGeoNotifyShown: false});
+    Proxy.getGeodata().then(() => {
+      this.setData({isGeoNotifyShown: false});
+    });
   };
 
   _updatePromoteFeature() {

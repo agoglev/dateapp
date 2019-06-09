@@ -127,6 +127,15 @@ export function dateFormatShort(ts) {
 
 export function proccessImage(file) {
   return new Promise((resolve, reject) => {
+
+    if (file.size > 15 * 1024 * 1024) {
+      return reject('file_size');
+    }
+
+    if (file.type.substr(0, 5) !== 'image') {
+      return reject('bad_type');
+    }
+
     loadImage.parseMetaData(file, (data) => {
       let orientation = 0;
       if (data.exif) {
@@ -135,6 +144,10 @@ export function proccessImage(file) {
       const loadingImage = loadImage(
         file,
         (canvas) => {
+          if (canvas.width < 200 || canvas.height < 200) {
+            return reject('image_size');
+          }
+
           const base64data = canvas.toDataURL('image/jpeg');
           const blobBin = atob(base64data.split(',')[1]);
           let array = [];

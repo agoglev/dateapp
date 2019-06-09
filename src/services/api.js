@@ -259,7 +259,7 @@ export function requestAccessToken(scope = false) {
       return resolve(state.vkAccessToken);
     }
     accessTokenPromise = {resolve, reject};
-    connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: scope || ''});
+    connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
   });
 }
 

@@ -25,8 +25,8 @@ body.desktop #root {
   left: 0;
   z-index: 1000;
   right: 0;
-  background: #fff;
-  color: #5181b8;
+  background: var(--background_light);
+  color: var(--text_primary);
   font-size: 16px;
   padding: 10px;
   box-sizing: border-box;

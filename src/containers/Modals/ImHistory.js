@@ -192,7 +192,7 @@ export default class ImHistory extends BaseComponent {
           <div className="im_send_form_buttons">
             <div className="im_send_sticker_button">
               <Icon24Attach fill={'var(--accent)'} />
-              <input type="file" onChange={this._photoDidSelect}/>
+              <input type="file" onChange={this._photoDidSelect} accept="image/*" />
             </div>
             {!window.isNative && utils.isPaymentsEnabled() && <div className="im_send_sticker_button" onClick={() => actions.openGifts(this.peerId)}>
               <Icon24Gift fill={'var(--accent)'} />
@@ -462,6 +462,20 @@ export default class ImHistory extends BaseComponent {
     utils.proccessImage(file).then((photo) => {
       activityActions.sendPhotoMessage(this.peerId, photo);
       ImHistory.scrollToBottom(true);
+    }).catch((code) => {
+      switch (code) {
+        case 'file_size':
+          actions.showError('Максимальный размер фото 15МБ');
+          break;
+        case 'bad_type':
+          actions.showError('Выбирите изображение');
+          break;
+        case 'image_size':
+          actions.showAlert('Ошибка', 'Размер фото должен быть более 200px по высоте и ширине.', 'OK', {
+            skipCancelButton: true
+          });
+          break;
+      }
     });
   };
 
@@ -549,7 +563,7 @@ export default class ImHistory extends BaseComponent {
     if (sticker.available || this.props.state.stickersMask & sticker.mask || window.isNative) {
       actions.setPopout();
       activityActions.sendMessage(this.peerId, '', sticker);
-      ImHistory.scrollToBottom();
+      setTimeout(() => ImHistory.scrollToBottom(), 100);
       utils.statReachGoal('sticker_send');
     } else {
       let message = '';
