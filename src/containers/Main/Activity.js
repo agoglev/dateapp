@@ -1,7 +1,7 @@
 import './Activity.css';
 
 import React, { Component } from 'react';
-import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton, Tabs, TabsItem, Avatar, List } from '@vkontakte/vkui';
+import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton, Tabs, TabsItem, Avatar, List, FixedLayout } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -228,12 +228,14 @@ export default class Activity extends BaseComponent {
 
     return (
       <div>
-        <div className="live_feed_featured_helper" />
-        <div className="live_feed_featured_wrap" style={{top: `${utils.getHeaderHeight()}px`}}>
-          <div className={className} ref="featured_scroll">
-            {this._renderFeaturedRows(users)}
+        <FixedLayout>
+          <div className="live_feed_featured_wrap">
+            <div className={className} ref="featured_scroll">
+              {this._renderFeaturedRows(users)}
+            </div>
           </div>
-        </div>
+        </FixedLayout>
+        <div className="live_feed_featured_helper" />
       </div>
     )
   }

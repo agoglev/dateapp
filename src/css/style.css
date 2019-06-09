@@ -398,3 +398,6 @@ body.desktop .FormLayout {
 .PanelHeaderContent__children span {
   overflow: hidden;
 }
+.FixedLayout {
+  max-width: 100%;
+}

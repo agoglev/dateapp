@@ -56,7 +56,7 @@ export default class Filters extends BaseComponent {
               value={[this.data.ageFrom, this.data.ageTo]}
             />
           </div>
-          <div top="Дальность поиска" bottom={<span>Вы можете изменить город в <span className="Link" onClick={() => {
+          {info.city_name && <div top="Дальность поиска" bottom={<span>Вы можете изменить город в <span className="Link" onClick={() => {
             actions.openEditProfile();
             return false;
           }}>редактировании анкеты</span></span>}>
@@ -70,7 +70,7 @@ export default class Filters extends BaseComponent {
               checked={!this.data.onlyCity}
               onChange={(e) => this.setData('onlyCity', false)}
             >Вся область</Radio>
-          </div>
+          </div>}
           <Button size="xl" level="1" onClick={this._saveButtonDidPress}  style={{margin: 16}}>Сохранить</Button>
         </FormLayout>
       </div>
