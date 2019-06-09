@@ -131,7 +131,7 @@ export default class SubscriptionBox extends PureComponent {
 
   _renderItems() {
     const opts = this.props.opts || {};
-    const likesLabel = opts.likesCount ? `Вы понравились ${utils.gram(opts.likesCount, ['человеку', 'людям', 'людям'])}. Узнайте, кто они!` : 'Узнайте, кому вы понравились';
+    const likesLabel = opts.likesCount ? `Вы понравились ${utils.gram(opts.likesCount, ['человеку', 'людям', 'людям'])}. Узнайте, кто они!` : 'Узнайте, кому Вы понравились';
 
     const items = [
       {type: 'likes', label: likesLabel},

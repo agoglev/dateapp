@@ -308,7 +308,7 @@ export function showWantToTalkBox() {
   const buttonCaption = window.isDG ? null : <div className="VKPay_info">Безопасный платеж через <div className="VKPay_icon" /></div>;
   actions.setPopout(<NotificationsPermission
     title="Больше сообщений"
-    caption="Пусть все знают, что вы онлайн и хотите общаться!"
+    caption="Пусть все знают, что Вы онлайн и хотите общаться!"
     type="share"
     button={btnText}
     buttonCaption={buttonCaption}
@@ -396,12 +396,12 @@ export function promoteFeature() {
 export function features() {
   let ret = {
     feature: {
-      caption: 'Поднимитесь на первое место, и вас заметит больше девушек.',
+      caption: 'Поднимитесь на первое место, и Вас заметит больше девушек.',
       button: 'Подняться на 1-е место',
       onClick: () => showFeatureBox()
     },
     wantToTalk: {
-      caption: 'Расскажите всем, что вы онлайн и хотите общаться.',
+      caption: 'Расскажите всем, что Вы онлайн и хотите общаться.',
       button: 'Рассказать',
       onClick: () => showWantToTalkBox()
     }

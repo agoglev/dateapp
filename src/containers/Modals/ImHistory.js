@@ -466,7 +466,7 @@ export default class ImHistory extends BaseComponent {
 
   _deleteHistory = () => {
     this.setState({contextOpened: false});
-    actions.showAlert('Удаление переписки', 'Удалив историю сообщений, вы больше не сможете найти данного пользователя. Все равно удалить?', 'Да, удалить', {
+    actions.showAlert('Удаление переписки', 'Удалив историю сообщений, Вы больше не сможете найти данного пользователя. Все равно удалить?', 'Да, удалить', {
       okStyle: 'destructive'
     }).then(() => {
         actions.loaderShow();
@@ -591,12 +591,11 @@ export default class ImHistory extends BaseComponent {
         };
 
         promise.then(({data}) => {
-          actions.showAlert('Here', JSON.stringify(data));
           if (data.result || data.post_id || data) {
             success();
           }
-        }).catch((err) => {
-          actions.showAlert('err', JSON.stringify(err));
+        }).catch(() => {
+
         });
 
         if (utils.isAndroid()) {

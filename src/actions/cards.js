@@ -364,8 +364,8 @@ function showMatchBox(from) {
   const me = state.usersInfo[state.userId];
 
   const caption = utils.genderText(from.gender, [
-    <span>{from.name} лайкнул вас,<br/>а вы лайкнули его</span>,
-    <span>{from.name} лайкнула вас,<br/>а вы лайкнули её</span>
+    <span>{from.name} лайкнул вас,<br/>а Вы лайкнули его</span>,
+    <span>{from.name} лайкнула вас,<br/>а Вы лайкнули её</span>
   ]);
 
   actions.setPopout(<div className="match_box_wrap">

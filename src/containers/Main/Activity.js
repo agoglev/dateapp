@@ -23,7 +23,7 @@ export default class Activity extends BaseComponent {
 
     this.state = {
       isLoadingMore: false,
-      isNeedShowFeatureSuggestion: props.state.isNeedShowFeatureSuggestion,
+      isNeedShowFeatureSuggestion: utils.isPaymentsEnabled() && props.state.isNeedShowFeatureSuggestion,
     };
   }
 
@@ -181,7 +181,7 @@ export default class Activity extends BaseComponent {
         premium: dialog.premium === true
       });
 
-      const badge = dialog.badge > 0 ? dialog.badge : 1;
+      const badge = dialog.badge > 0 ? dialog.badge : false;
       const favClassName = utils.classNames({
         im_dialog_fav: true,
         active: dialog.is_fav || false
@@ -280,7 +280,7 @@ export default class Activity extends BaseComponent {
 
     if (this.state.isNeedShowFeatureSuggestion) {
       res.push(<div className="Feature__suggest" key="suggest" onClick={this._featureDidPress}>
-        <div className="Feature__suggest__title">Разместите анкету здесь,<br />и вас точно заметят!</div>
+        <div className="Feature__suggest__title">Разместите анкету здесь,<br />и Вас точно заметят!</div>
       </div>);
     }
 
@@ -538,11 +538,11 @@ export default class Activity extends BaseComponent {
       let text;
       if (user.is_inbox_fav) {
         text = <div className="im_dialog_system">{utils.genderText(user.gender, [
-          'добавил вас в «Избранные»',
-          'добавила вас в «Избранные»'
+          'добавил Вас в «Избранные»',
+          'добавила Вас в «Избранные»'
         ])}</div>;
       } else {
-        text = <div className="im_dialog_system">у вас в «Избранных»</div>;
+        text = <div className="im_dialog_system">у Вас в «Избранных»</div>;
       }
       const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 10;
 

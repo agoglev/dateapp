@@ -68,7 +68,7 @@ export default class Cards extends Component {
 
     if (!window.cardsSwipeRightTipShown) {
       window.cardsSwipeRightTipShown = true;
-      showNotification('swipe_right', 'Сделайте 50 свайпов в право, чтобы найти пару!', '', {
+      showNotification('swipe_right', 'Сделайте 50 свайпов вправо, чтобы найти пару!', '', {
         timeout: 12000
       });
     }

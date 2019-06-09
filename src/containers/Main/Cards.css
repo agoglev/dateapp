@@ -425,8 +425,9 @@ body.desktop .Cards {
   color: #fff;
   padding-left: 24px;
   position: relative;
-  margin-left: 10px;
+  margin-right: 10px;
   display: inline-block;
+  margin-top: 6px;
 }
 .Cards__item__caption_row:first-child {
   margin-left: 0;

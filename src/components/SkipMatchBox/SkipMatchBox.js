@@ -13,7 +13,7 @@ export default class SkipMatchBox extends PureComponent {
           <div className="permissions_close" onClick={() => actions.setPopout()} />
           <div className="permissions_modal_icon skip_match_photo" style={{backgroundImage: `url(${user.big_photo})`}} />
           <div className="permissions_modal_title">{user.name}</div>
-          <div className="permissions_caption">Вам нужен Знакомства «Премиум», чтобы написать сообщение недожидаясь взаимного лайка!</div>
+          <div className="permissions_caption">Вам нужен Знакомства «Премиум», чтобы написать сообщение, не дожидаясь взаимного лайка!</div>
           <div>
             <Button size="xl" level="1" style={{marginTop: 24}} onClick={() => {
               actions.setPopout();
