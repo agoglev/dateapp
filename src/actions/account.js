@@ -113,6 +113,8 @@ export function createAccount(photos) {
       tmp_token: window.tmpToken,
       ...JoinInfo
     };
+    query.country = JoinInfo.countryId;
+    query.city = JoinInfo.cityId;
     if (window.adsCompany) {
       query.ads_company = window.adsCompany;
     }

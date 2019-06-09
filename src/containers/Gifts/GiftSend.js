@@ -71,7 +71,7 @@ export default class GiftSend extends BaseComponent {
                 maxLength={200}
               />
             </div>
-            <FixedLayout vertical="bottom" style={{backgroundColor: '#fff', position: 'relative', zIndex: 1000}}>
+            <FixedLayout vertical="bottom" style={{backgroundColor: 'var(--background_content)', position: 'relative', zIndex: 1000}}>
               <Button size="xl" level="1" onClick={this._sendButtonDidPress} style={{margin: 16}}>Отправить подарок</Button>
             </FixedLayout>
           </FormLayout>

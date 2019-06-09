@@ -49,10 +49,10 @@ export function load() {
       resolve();
 
       checkFeatureTT();
-    }).catch(() => {
+    }).catch((err) => {
       actions.setData({
         isLoading: false,
-        isFailed: true
+        isFailed: err.message
       }, pages.ACTIVITY);
       reject();
     });
@@ -570,10 +570,10 @@ export function loadGuests() {
       guests,
       guestsNextFrom: next_from
     }, pages.ACTIVITY);
-  }).catch(() => {
+  }).catch((err) => {
     actions.setData({
       isLoadingGuests: false,
-      isFailedGuests: true
+      isFailedGuests: err.message
     }, pages.ACTIVITY);
   });
 }
@@ -625,10 +625,10 @@ export function loadFav() {
       favorites,
       favNextFrom: next_from
     }, pages.ACTIVITY);
-  }).catch(() => {
+  }).catch((err) => {
     actions.setData({
       isLoadingFav: false,
-      isFailedFav: true
+      isFailedFav: err.message
     }, pages.ACTIVITY);
   });
 }

@@ -15,6 +15,24 @@ import * as payments from "../../actions/payments";
 import UIBackButton from '../../components/UI/UIBackButton';
 
 export default class ProfileView extends BaseComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      slideHeight: 0,
+    };
+  }
+
+  componentDidMount() {
+    this._updateSlideHeight();
+
+    window.addEventListener('resize', this._updateSlideHeight);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._updateSlideHeight);
+  }
+
   render() {
     if (window.isDesktop) {
       return this._renderContent();
@@ -28,9 +46,7 @@ export default class ProfileView extends BaseComponent {
   }
 
   _renderContent() {
-    const slideHeight = window.isDesktop ? 540 : window.innerWidth * 1.45;
     const backSize = utils.getHeaderHeight();
-
 
     return (
       <div className="profile_view">
@@ -40,14 +56,14 @@ export default class ProfileView extends BaseComponent {
           <Gallery
             slideWidth="100%"
             align="center"
-            style={{ height: slideHeight }}
+            style={{ height: this.state.slideHeight }}
             bullets="light"
           >
             {this._renderPhotos()}
           </Gallery>
         </div>
         <div className="profile_view_hide" style={{width: backSize, height: backSize}} onClick={() => window.history.back()}>
-          <UIBackButton />
+          <UIBackButton skipAction />
         </div>
         {this._renderInfoWrap()}
         {this._renderFooter()}
@@ -195,7 +211,7 @@ export default class ProfileView extends BaseComponent {
     actions.loaderShow();
     cardsActions.report(user.id).then(() => {
       actions.loaderSuccess();
-      window.history.back();
+      setTimeout(() => window.history.back(), 1000);
     }).catch(() => {
       actions.loaderHide();
       actions.showError('Произошла ошибка');
@@ -231,6 +247,7 @@ export default class ProfileView extends BaseComponent {
   _footerLikeButtonDidPress = () => {
     const isFeature = this.data.fromFeature === true;
     const isSearch = this.data.fromSearch === true;
+    const isLikes = this.data.fromLikes === true;
     if (this.data.fromLikes === true || isFeature || isSearch) {
       actions.loaderShow();
       activityActions.likeAction(this.data.user.id, 'like', isFeature || isSearch)
@@ -245,12 +262,17 @@ export default class ProfileView extends BaseComponent {
 
           if (isFeature) {
             actions.loaderHide();
-            actions.showAlert('Лайк поставлен!', 'Дождитесь взаимного лайка, чтобы начать общаться.', 'Ок', {
-              skipCancelButton: true
-            });
+            setTimeout(() => {
+              actions.showAlert('Лайк поставлен!', 'Дождитесь взаимного лайка, чтобы начать общаться.', 'Ок', {
+                skipCancelButton: true
+              });
+            }, 500);
             utils.statReachGoal('feature_like');
           } else if (isSearch) {
             this.setData('isLiked', true);
+          } else if (isLikes) {
+            actions.loaderHide();
+            setTimeout(() => actions.openChat(this.data.user.id), 1000);
           } else {
             actions.loaderSuccess();
             utils.statReachGoal('like');
@@ -371,4 +393,11 @@ export default class ProfileView extends BaseComponent {
       </div>
     )
   }
+
+  _updateSlideHeight = () => {
+    console.log('resize');
+    this.setState({
+      slideHeight: window.isDesktop ? 540 : window.innerWidth * 1.45
+    });
+  };
 }

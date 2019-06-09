@@ -76,8 +76,10 @@ export default class JoinStep1 extends BaseComponent {
     }
 
     accountActions.fillJoinInfo({
-      country: country.id,
-      city: city.id,
+      country,
+      countryId: country.id,
+      city,
+      cityId: city.id
     });
     actions.openJoinStep3();
   };

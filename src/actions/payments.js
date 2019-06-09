@@ -110,7 +110,11 @@ export function buyPremium(type = 'premium', target = 'none') {
       setTimeout(() => showFeatureBox(true), 100);
       utils.statReachGoal('premium_target_' + target);
       fetchRates();
-    }).catch(() => actions.showError());
+    }).catch((error) => {
+      if (error) {
+        actions.showError();
+      }
+    });
   }
   utils.statReachGoal('premium_continue');
 }
@@ -133,7 +137,11 @@ export function buyGift(giftId, userId, message, target) {
         ImHistory.scrollToBottom();
       }, 1000);
     }, 10);
-  }).catch(() => actions.showError());
+  }).catch((error) => {
+    if (error) {
+      actions.showError();
+    }
+  });
 }
 
 export function showFeatureBox(isSale = false) {
@@ -239,7 +247,11 @@ export function showFeatureBox(isSale = false) {
           actions.loaderSuccess();
           activityActions.loadFeaturedUsers();
           fetchRates();
-        }).catch(() => actions.showError());
+        }).catch((error) => {
+          if (error) {
+            actions.showError();
+          }
+        });
       }
 
       utils.statReachGoal('feature_buy_btn');
@@ -281,7 +293,11 @@ function featureBuy(isSale) {
       actions.loaderSuccess();
       activityActions.loadFeaturedUsers();
       fetchRates();
-    }).catch(() => actions.showError());
+    }).catch((error) => {
+      if (error) {
+        actions.showError();
+      }
+    });
   }
 
   utils.statReachGoal('feature_buy_btn');
@@ -313,7 +329,11 @@ export function showWantToTalkBox() {
         actions.vkPay('want_to_talk').then(() => {
           actions.loaderHide();
           wantToTalkSuccess();
-        }).catch(() => actions.showError());
+        }).catch((error) => {
+          if (error) {
+            actions.showError();
+          }
+        });
       }
     }}
   />);

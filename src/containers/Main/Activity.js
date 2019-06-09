@@ -49,6 +49,13 @@ export default class Activity extends BaseComponent {
       }, 5000);
       actions.featureSuggestionShown();
     }
+
+    setTimeout(() => {
+      if (this.refs['featured_scroll']) {
+        this.refs['featured_scroll'].scrollLeft = this.data.featuredScroll;
+        this.setData('featuredScroll', 0);
+      }
+    }, 100);
   }
 
   componentWillUnmount() {
@@ -124,7 +131,7 @@ export default class Activity extends BaseComponent {
 
     if (this.data.isFailed) {
       return <div className="Activity__failed">
-        <div className="Activity__failed_msg">Произошла ошибка</div>
+        <div className="Activity__failed_msg">Произошла ошибка ({this.data.isFailed})</div>
         <Button size="l" onClick={this._load}>Повторить</Button>
       </div>;
     }
@@ -174,11 +181,12 @@ export default class Activity extends BaseComponent {
         premium: dialog.premium === true
       });
 
-      const badge = dialog.badge > 0 ? dialog.badge : false;
+      const badge = dialog.badge > 0 ? dialog.badge : 1;
       const favClassName = utils.classNames({
         im_dialog_fav: true,
         active: dialog.is_fav || false
       });
+
 
       return (
         <div className={className} key={dialog.id} onClick={(e) => {
@@ -222,7 +230,7 @@ export default class Activity extends BaseComponent {
       <div>
         <div className="live_feed_featured_helper" />
         <div className="live_feed_featured_wrap" style={{top: `${utils.getHeaderHeight()}px`}}>
-          <div className={className}>
+          <div className={className} ref="featured_scroll">
             {this._renderFeaturedRows(users)}
           </div>
         </div>
@@ -239,7 +247,10 @@ export default class Activity extends BaseComponent {
           <div
             className="live_feed_featured_item"
             key={i}
-            onClick={() => actions.openProfile(user, {fromFeature: true})}
+            onClick={() => {
+              this.setData('featuredScroll', this.refs['featured_scroll'].scrollLeft);
+              actions.openProfile(user, {fromFeature: true});
+            }}
           >
             <div className="live_feed_featured_item_photo" style={{backgroundImage: `url(${user.small_photo})`}}>
               <div className="live_feed_featured_item_name">{user.name}</div>
@@ -450,7 +461,7 @@ export default class Activity extends BaseComponent {
 
     if (this.data.isFailedGuests) {
       return <div className="Activity__failed">
-        <div className="Activity__failed_msg">Произошла ошибка</div>
+        <div className="Activity__failed_msg">Произошла ошибка ({this.data.isFailedGuests})</div>
         <Button size="l" onClick={() => activityActions.loadGuests()}>Повторить</Button>
       </div>;
     }
@@ -508,7 +519,7 @@ export default class Activity extends BaseComponent {
 
     if (this.data.isFailedFav) {
       return <div className="Activity__failed">
-        <div className="Activity__failed_msg">Произошла ошибка</div>
+        <div className="Activity__failed_msg">Произошла ошибка ({this.data.isFailedFav})</div>
         <Button size="l" onClick={this.loadFav}>Повторить</Button>
       </div>;
     }
@@ -588,7 +599,7 @@ export default class Activity extends BaseComponent {
   };
 
   _renderRoulette() {
-    if (this.data.isLoading || window.isNative) {
+    if (this.data.isLoading || window.isNative || true) {
       return null;
     }
 

@@ -64,4 +64,5 @@
   flex: 0 0 auto;
   margin-top: 12px;
   text-align: center;
+  color: var(--text_primary);
 }

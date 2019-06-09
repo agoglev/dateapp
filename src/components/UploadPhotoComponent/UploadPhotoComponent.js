@@ -72,6 +72,16 @@ export default class UploadPhotoComponent extends BaseComponent {
         const loadingImage = loadImage(
           file,
           (canvas) => {
+            console.log('canvas', canvas.width, canvas.height);
+            if (canvas.width < 200 || canvas.height < 200) {
+              setTimeout(() => {
+                actions.showAlert('Ошибка', 'Размер фото должен быть более 200px по высоте и ширине.', 'OK', {
+                  skipCancelButton: true
+                });
+              }, 500);
+              return;
+            }
+
             const base64data = canvas.toDataURL('image/jpeg');
             const blobBin = atob(base64data.split(',')[1]);
             let array = [];
@@ -210,7 +220,7 @@ export default class UploadPhotoComponent extends BaseComponent {
       })
       .catch((err) => {
         actions.loaderHide();
-        actions.showError('Не удалось получить фотографии: ' + JSON.stringify(err));
+        actions.showError('Не удалось получить фотографии');
       })
   }
 

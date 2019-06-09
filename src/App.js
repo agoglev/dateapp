@@ -161,6 +161,7 @@ class App extends React.Component {
         <UI.Root activeView={state.activeView} popout={this.props.state.popout}>
           <View activePanel={state.activePanels.base} id="base" header={this._getBaseHeader('base')}>
             <Main id={pages.MAIN} state={state} />
+            <Likes id={pages.LIKES} state={state} />
             <ImHistory id={pages.IM_HISTORY} state={state} />
           </View>
           <UI.View activePanel={state.activePanels.join} id="join">
@@ -168,9 +169,6 @@ class App extends React.Component {
             <JoinStep2 id={pages.JOIN_STEP2} state={state} />
             <JoinStep3 id={pages.JOIN_STEP3} state={state} />
           </UI.View>
-          <View activePanel={state.activePanels.likes} id="likes" header={this._getBaseHeader('likes')}>
-            <Likes id={pages.LIKES} state={state} />
-          </View>
           <View activePanel={state.activePanels.filters} id="filters" header={this._getBaseHeader('filters')}>
             <Filters id={pages.FILTERS} state={state} />
           </View>

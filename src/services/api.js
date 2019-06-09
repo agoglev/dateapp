@@ -42,7 +42,7 @@ export function method(name, params = {}) {
             updateOnline();
           }
         }
-      }).catch((err) => reject({http: true, message: err.message}));
+      }).catch((err) => reject({http: true, message: 'Проверьте ваше соединение с интернетом.'}));
   });
 }
 

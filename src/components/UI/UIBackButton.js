@@ -9,7 +9,7 @@ const osname = platform();
 export default class UIBackButton extends PureComponent {
   render() {
     return (
-      <HeaderButton onClick={() => window.history.back()}>
+      <HeaderButton onClick={() => !this.props.skipAction && window.history.back()}>
         {osname === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
       </HeaderButton>
     )

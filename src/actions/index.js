@@ -241,18 +241,25 @@ export function openStats() {
   utils.statReachGoal('stats_page');
 }
 
-export function openJoinStep1() {
-  go(pages.JOIN_STEP1);
+export function openJoinStep1(user) {
+  user.photo = user.photo_max_orig || user.photo_max;
+  go(pages.JOIN_STEP1, user);
 }
 
 export function openJoinStep2() {
   const vkUserInfo = store.getState().vkUserInfo;
 
   let params = {};
-  if (vkUserInfo.country) {
+
+  if (accountActions.JoinInfo.country) {
+    params.country = accountActions.JoinInfo.country;
+  } else if (vkUserInfo.country) {
     params.country = vkUserInfo.country;
   }
-  if (vkUserInfo.city) {
+
+  if (accountActions.JoinInfo.city) {
+    params.city = accountActions.JoinInfo.city;
+  } else if (vkUserInfo.city) {
     params.city = vkUserInfo.city;
   }
 
@@ -264,8 +271,8 @@ export function openJoinStep3() {
     photos: {}
   };
 
+  const vkUserInfo = store.getState().vkUserInfo;
   if (window.isDG) {
-    const vkUserInfo = store.getState().vkUserInfo;
     const photoUrl = vkUserInfo.photo_max ? vkUserInfo.photo_max : vkUserInfo.photo_200;
     if (photoUrl && photoUrl.indexOf('camera_') === -1 && photoUrl.indexOf('/images/') === -1) {
       params.photos[0] = {
@@ -278,6 +285,14 @@ export function openJoinStep3() {
     if (vkUserInfo.pic_max) {
       params.photos[0] = {
         url: vkUserInfo.pic_max,
+        needUpload: true
+      };
+    }
+  } else if (vkUserInfo && vkUserInfo.photo_max_orig) {
+    const photoUrl = vkUserInfo.photo_max_orig;
+    if (photoUrl && photoUrl.indexOf('camera_') === -1 && photoUrl.indexOf('/images/') === -1) {
+      params.photos[0] = {
+        url: photoUrl,
         needUpload: true
       };
     }
@@ -504,12 +519,12 @@ export function vkPay(type, extraFields = {}) {
   });
 }
 
-export function resolveVkPayRequest(status) {
+export function resolveVkPayRequest(status, error = false) {
   if (vkPayPromise) {
     if (status) {
       vkPayPromise.resolve();
     } else {
-      vkPayPromise.reject();
+      vkPayPromise.reject(error);
     }
   }
   vkPayPromise = false;

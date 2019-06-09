@@ -87,29 +87,40 @@ export default class JoinIntro extends BaseComponent {
           this._autoReg(user);
         } else {
           actions.loaderHide();
-          setTimeout(actions.openJoinStep1, 100);
+          setTimeout(() => {
+            actions.openJoinStep1(user);
+          }, 100);
         }
       }).catch((err) => actions.showError(err.message));
     } else {
-      actions.openJoinStep1();
+      const user = this.props.state.vkUserInfo;
+      if (user && this._isCanAutoReg(user)) {
+        actions.loaderShow();
+        this._autoReg(user);
+      } else {
+        actions.openJoinStep1(user);
+      }
     }
   };
 
   _isCanAutoReg(user) {
+    let photo = user.photo_max_orig || user.photo_max;
+    if (photo.indexOf('camera_') > -1 || photo.indexOf('/images/') > -1) {
+      photo = false;
+    }
+
     return (
       user.first_name &&
       user.bdate &&
       user.sex &&
       user.country &&
       user.city &&
-      user.photo_max &&
-      user.photo_max.indexOf('camera_') === -1 &&
-      user.photo_max.indexOf('/images/') === -1
+      photo
     );
   }
 
   _autoReg(user) {
-    this._uploadPhoto(user.photo_max).then((photoHash) => {
+    this._uploadPhoto(user.photo_max_orig || user.photo_max).then((photoHash) => {
       const bdate = (user.bdate || '').split('.').map((item) => parseInt(item, 10));
       const day = bdate[0] || 0;
       const month = Math.max(0, (bdate[1] - 1)) || 0;
@@ -121,8 +132,10 @@ export default class JoinIntro extends BaseComponent {
         day,
         month,
         year,
-        country: user.country ? user.country.id : 0,
-        city: user.city ? user.city.id : 0
+        country: user.country ? user.country : 0,
+        countryId: user.country ? user.country.id : 0,
+        city: user.city ? user.city : 0,
+        cityId: user.city ? user.city.id : 0
       });
       accountActions.createAccount([photoHash]);
     }).catch((err) => actions.showError(err.message));

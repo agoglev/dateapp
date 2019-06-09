@@ -25,8 +25,7 @@ export default class JoinStep1 extends BaseComponent {
   }
 
   _renderContent() {
-    const { state } = this.props;
-    const bdate = (state.vkUserInfo.bdate || '').split('.').map((item) => parseInt(item, 10));
+    const bdate = (this.data.bdate || '').split('.').map((item) => parseInt(item, 10));
     const day = bdate[0] || 0;
     const month = Math.max(0, (bdate[1] - 1)) || 0;
     const year = bdate[2] || 0;
@@ -38,23 +37,26 @@ export default class JoinStep1 extends BaseComponent {
         >
           Общее
         </Header>
-        <FormLayout>
+        <FormLayout TagName="div">
           <Input
             top="Имя"
-            defaultValue={state.vkUserInfo.first_name}
+            defaultValue={this.data.first_name}
             getRef={(ref) => this.nameRef = ref}
+            onChange={(e) => this.setData('first_name', e.target.value)}
+            maxLength={60}
           />
           <Select
             top="Пол"
             getRef={(ref) => this.genderRef = ref}
-            defaultValue={parseInt(accountActions.JoinInfo.gender || state.vkUserInfo.sex, 10)}
+            defaultValue={this.data.sex}
+            onChange={(e) => this.setData('sex', parseInt(e.target.value, 10))}
           >
             <option value="0">Не выбран</option>
             <option value="1">Женский</option>
             <option value="2">Мужской</option>
           </Select>
           <div top="Дата рождения">
-            <UiBirthDay ref="birthday" day={day} month={month} year={year}/>
+            <UiBirthDay ref="birthday" day={day} month={month} year={year} onChange={(date) => this.setData('bdate', `${date.day}.${date.month + 1}.${date.year}`)}/>
           </div>
           <Button size="xl" level="1" onClick={this.continueButtonDidPress}>Далее</Button>
         </FormLayout>
@@ -63,12 +65,18 @@ export default class JoinStep1 extends BaseComponent {
   }
 
   continueButtonDidPress = () => {
-    const name = utils.stripHTML(this.nameRef.value.trim());
-    const gender = parseInt(this.genderRef.value, 10);
-    const birthdays = this.refs['birthday'].getData();
+    const name = utils.stripHTML(this.data.first_name.trim());
+    const gender = parseInt(this.data.sex, 10);
+    const birthdays = this.data.bdate;
 
     if (!name) {
       return actions.showError('Введите ваше имя');
+    }
+
+    if (!name.match(/^[a-zа-я]+$/i)) {
+      return actions.showAlert('Не верное имя', <span>У нас принято использовать <b>настоящее имя</b>, написанное русскими или латинскими буквами. Например: Анна, Иван, Anna, Ivan.</span>, 'OK', {
+        skipCancelButton: true
+      });
     }
 
     if (!gender) {

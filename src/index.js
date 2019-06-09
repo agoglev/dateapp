@@ -140,7 +140,7 @@ VkConnect.subscribe((e) => {
       actions.resolveVkPayRequest(result.status);
       break;
     case 'VKWebAppOpenPayFormFailed':
-      actions.resolveVkPayRequest(false);
+      actions.resolveVkPayRequest(false, true);
       break;
     case 'VKWebAppGeodataResult':
       accountActions.saveGeo(data);

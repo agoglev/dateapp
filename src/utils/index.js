@@ -319,7 +319,7 @@ export function isObject(e) {
 }
 
 export function convertTimezone(ts) {
-  let newTs = ts;
+  let newTs = parseInt(ts, 10);
   const timezoneOffset = new Date().getTimezoneOffset();
   const timezoneDiff = (-3 * 60) - timezoneOffset;
   newTs += (timezoneDiff * 60) * 1000;

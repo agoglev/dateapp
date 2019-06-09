@@ -38,7 +38,10 @@ export default class EditProfile extends UploadPhotoComponent {
         >
           Редактирование
         </Header>
-        <FormLayout style={{paddingBottom: 77}}>
+        <FormLayout TagName="div" style={{paddingBottom: 77}} onSubmit={(e) => {
+          e.preventDefault();
+          return false;
+        }}>
           <div style={{padding: '0 6px'}} top="Фотографии" bottom="Загрузите свои настоящие фотографии">
             <div className="profile_edit_photos">
               {this._renderPhotos()}
@@ -48,6 +51,7 @@ export default class EditProfile extends UploadPhotoComponent {
             top="Имя"
             value={this.data.name}
             onChange={(e) => this.setData('name', e.target.value)}
+            maxLength={60}
           />
           <div top="Дата рождения">
             <UiBirthDay
@@ -85,16 +89,19 @@ export default class EditProfile extends UploadPhotoComponent {
             top="Работа"
             value={this.data.job}
             onChange={(e) => this.setData('job', e.target.value)}
+            maxLength={150}
           />
           <Input
             top="Образование"
             value={this.data.education}
             onChange={(e) => this.setData('education', e.target.value)}
+            maxLength={150}
           />
           <Textarea
             top="О себе"
             value={this.data.about}
             onChange={(e) => this.setData('about', e.target.value)}
+            maxLength={400}
           />
           <Group title="Дополнительная информация">
             <List>
@@ -220,6 +227,13 @@ export default class EditProfile extends UploadPhotoComponent {
 
   _saveButtonDidPress = () => {
     const name = utils.stripHTML(this.data.name.trim());
+
+    if (!name.match(/^[a-zа-я]+$/i)) {
+      return actions.showAlert('Не верное имя', <span>У нас принято использовать <b>настоящее имя</b>, написанное русскими или латинскими буквами. Например: Анна, Иван, Anna, Ivan.</span>, 'OK', {
+        skipCancelButton: true
+      });
+    }
+
     const gender = this.data.gender;
     const birthdays = this.data.birthday;
     const country = this.data.country || {};

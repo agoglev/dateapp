@@ -179,6 +179,7 @@ export default class ImHistory extends BaseComponent {
             placeholder="Ваше сообщение…"
             onChange={this._formValueChanged}
             onKeyDown={this._formKeyUp}
+            maxLength={200}
             onFocus={() => {
               this.setState({hasFocus: true});
               setTimeout(() => ImHistory.scrollToBottom(), 500);
@@ -247,6 +248,7 @@ export default class ImHistory extends BaseComponent {
         groups.push({
           key: timeKey,
           date,
+          ts: message.add_date,
           items: [message]
         });
       }
@@ -255,7 +257,7 @@ export default class ImHistory extends BaseComponent {
     return groups.map(group => {
       return (
         <div key={group.key}>
-          <div className="im_date">{utils.dateFormatShort(group.date)}</div>
+          <div className="im_date">{utils.dateFormatShort(group.ts)}</div>
           <div>{this._renderMessages(group.items)}</div>
         </div>
       )
