@@ -5,6 +5,7 @@ textarea {
 }
 body {
   min-height: 100vh;
+  background: var(--background_content);
 }
 body.desktop {
   background: #ebebeb;

@@ -1,5 +1,6 @@
 .Invites__points {
   text-align: center;
+  user-select: none;
 }
 .Invites__points-count {
   font-size: 36px;

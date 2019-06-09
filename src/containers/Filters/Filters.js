@@ -78,14 +78,16 @@ export default class Filters extends BaseComponent {
   }
 
   _renderLabel() {
-    if (this.data.ageFrom < 18 && this.data.ageTo > 54) {
+    const from = parseInt(this.data.ageFrom, 10) || 0;
+    const to = parseInt(this.data.ageTo, 10) || 0;
+    if (from < 18 && to > 54) {
       return 'все';
-    } else if (this.data.ageFrom < 18) {
-      return `до ${this.data.ageTo}`;
+    } else if (from < 18) {
+      return `до ${to}`;
     } else if (this.data.ageTo > 54) {
-      return `от ${this.data.ageFrom}`;
+      return `от ${from}`;
     } else {
-      return `от ${this.data.ageFrom} до ${this.data.ageTo}`;
+      return `от ${from} до ${to}`;
     }
   }
 

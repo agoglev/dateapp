@@ -445,8 +445,15 @@ export default class ImHistory extends BaseComponent {
         }, 2000);
 
         this.setData('isFirstShow', false);
-      }).catch(() => {
-      this.setState({isLoading: false, isFailed: true});
+      }).catch((err) => {
+        if (err.code === 'not_found') {
+          window.history.back();
+          setTimeout(() => {
+            actions.showAlert('Ошибка', err.message);
+          }, 500);
+        } else {
+          this.setState({isLoading: false, isFailed: true});
+        }
     });
   };
 

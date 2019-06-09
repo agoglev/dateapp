@@ -93,7 +93,11 @@ export default function reducer(state = initialState, action) {
       }
 
       if (!isBack || [pages.PROFILE].indexOf(action.to.name) > -1) {
-        newState.pageData[action.to.name] = Object.assign({}, /*newState.pageData[action.to.name],*/ action.to.params);
+        if ([pages.ACTIVITY, pages.SEARCH, pages.MAIN].indexOf(action.to.name) > -1) {
+          newState.pageData[action.to.name] = Object.assign({}, newState.pageData[action.to.name], action.to.params);
+        } else {
+          newState.pageData[action.to.name] = Object.assign({}, /*newState.pageData[action.to.name],*/ action.to.params);
+        }
       }
 
       return Object.assign({}, state, newState);

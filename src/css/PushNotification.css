@@ -1,6 +1,7 @@
 .PushNotification {
   position: fixed;
   border-radius: 8px;
+  background-color: #fff;
   background-color: var(--background_light);
   display: flex;
   align-items: center;
