@@ -468,7 +468,7 @@ export default class ImHistory extends BaseComponent {
           actions.showError('Максимальный размер фото 15МБ');
           break;
         case 'bad_type':
-          actions.showError('Выбирите изображение');
+          actions.showError('Выберите изображение');
           break;
         case 'image_size':
           actions.showAlert('Ошибка', 'Размер фото должен быть более 200px по высоте и ширине.', 'OK', {
@@ -619,7 +619,7 @@ export default class ImHistory extends BaseComponent {
 
         });
 
-        if (utils.isAndroid()) {
+        if (utils.isAndroid() && sticker.task === 'favorite') {
           setTimeout(() => success(), 3000);
         }
       });

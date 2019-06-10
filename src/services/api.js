@@ -1,6 +1,7 @@
 import store from '../store';
 import * as actionTypes from '../actions/actionTypes';
 import connect from '@vkontakte/vkui-connect';
+import connectPromise from '@vkontakte/vkui-connect-promise';
 import * as utils from '../utils';
 import * as actions from '../actions';
 import * as native from './native';
@@ -254,12 +255,23 @@ function _orderBoxCallback(status) {
 let accessTokenPromise = false;
 export function requestAccessToken(scope = false) {
   return new Promise((resolve, reject) => {
-    const state = store.getState();
-    if (state.vkAccessToken && !scope) {
-      return resolve(state.vkAccessToken);
+    // const state = store.getState();
+    // if (state.vkAccessToken && !scope) {
+    //   return resolve(state.vkAccessToken);
+    // }
+
+    if (window.isNative) {
+      accessTokenPromise = {resolve, reject};
+      connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
+    } else {
+      connectPromise.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''}).then(({data}) => {
+        if (data.access_token) {
+          resolve(data.access_token);
+        } else {
+          reject();
+        }
+      }).catch(() => reject());
     }
-    accessTokenPromise = {resolve, reject};
-    connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
   });
 }
 

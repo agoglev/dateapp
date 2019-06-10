@@ -103,14 +103,7 @@ class App extends React.Component {
 	      <div
           className={className}
           key={notification.id}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            notification.onClick &&  notification.onClick();
-          }}
-          onTouchStart={(e) => {
-            e.preventDefault();
-            notification.onClick &&  notification.onClick();
-          }}
+          onClick={notification.onClick}
         >
           <div className="PushNotification__icon" style={{backgroundImage: `url(${notification.iconSrc})`}} />
           <div className="PushNotification__cont">

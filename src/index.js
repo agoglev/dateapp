@@ -119,6 +119,7 @@ VkConnect.subscribe((e) => {
       break;
     case 'VKWebAppAccessTokenFailed':
       api.hadnleAccessTokenEventFailed();
+      store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token: false});
       //store.dispatch({type: actionTypes.VK_FAILED});
       break;
     case 'VKWebAppGetUserInfoResult':

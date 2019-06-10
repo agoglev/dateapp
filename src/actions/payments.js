@@ -406,11 +406,13 @@ export function promoteFeature() {
 export function features() {
   let ret = {
     feature: {
+      icon: require('../asset/premium_messages_40.svg'),
       caption: 'Поднимитесь на первое место, и Вас заметит больше девушек.',
       button: 'Подняться на 1-е место',
       onClick: () => showFeatureBox()
     },
     wantToTalk: {
+      icon: require('../asset/settings_feedback_40.svg'),
       caption: 'Расскажите всем, что Вы онлайн и хотите общаться.',
       button: 'Рассказать',
       onClick: () => showWantToTalkBox()
@@ -419,6 +421,8 @@ export function features() {
 
   if (!hasPremium) {
     ret.premium = {
+      icon: require('../asset/premium_fav_40.svg'),
+      type: 'premium',
       caption: 'Посещайте профили инкогнито с Знакомства «Премиум»',
       button: 'Получить «Премиум»',
       onClick: () => showSubscriptionRequest('promote')

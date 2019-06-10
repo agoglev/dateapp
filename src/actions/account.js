@@ -172,13 +172,13 @@ function initMethodHandler(resp) {
       payments.setPrices(resp.payments_rates);
     }
 
-    if (resp.loc && !resp.user.deactivated) {
-      proxy.getGeodata().then((location) => {
-        if (utils.distance(parseInt(location.lat, 10), parseInt(location.long, 10), resp.loc.lat, resp.loc.long, 'K') >= 2) {
-          cardsActions.loadCards(true);
-        }
-      }).catch(() => console.log('getGeodata failed'));
-    }
+    // if (resp.loc && !resp.user.deactivated) {
+    //   proxy.getGeodata().then((location) => {
+    //     if (utils.distance(parseInt(location.lat, 10), parseInt(location.long, 10), resp.loc.lat, resp.loc.long, 'K') >= 2) {
+    //       cardsActions.loadCards(true);
+    //     }
+    //   }).catch(() => console.log('getGeodata failed'));
+    // }
 
     const chatId = parseInt(window.hashParams.get('chat_id'), 10) || 0;
     if (chatId > 0) {

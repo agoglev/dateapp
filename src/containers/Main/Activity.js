@@ -6,15 +6,11 @@ import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
 import * as utils from '../../utils';
-import * as ab from '../../utils/ab_test';
-import * as pages from '../../constants/pages';
 import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Header from '../../components/proxy/Header';
 import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
-import Icon16Like from '@vkontakte/icons/dist/16/like';
 import BaseComponent from '../../BaseComponent';
-import {convertTimezone} from "../../utils";
 
 let skipFeatureAnim = false;
 export default class Activity extends BaseComponent {
@@ -23,6 +19,7 @@ export default class Activity extends BaseComponent {
 
     this.state = {
       isLoadingMore: false,
+      promoteFeature: false,
       isNeedShowFeatureSuggestion: utils.isPaymentsEnabled() && props.state.isNeedShowFeatureSuggestion,
     };
   }
@@ -56,6 +53,8 @@ export default class Activity extends BaseComponent {
         this.setData('featuredScroll', 0);
       }
     }, 100);
+
+    this._updatePromoteFeature();
   }
 
   componentWillUnmount() {
@@ -147,7 +146,7 @@ export default class Activity extends BaseComponent {
     }
 
     const now = Math.floor(new Date().getTime() / 1000);
-    return dialogs.map((dialog) => {
+    let res = dialogs.map((dialog) => {
       const user = this.props.state.usersInfo[dialog.user.id];
       if (!user) {
         return null;
@@ -210,6 +209,14 @@ export default class Activity extends BaseComponent {
         </div>
       )
     });
+
+    if (res.length > 2) {
+      res.splice(2, 0, this._renderPromoteFeature());
+    } else {
+      res.push(this._renderPromoteFeature());
+    }
+
+    return res;
   }
 
   _renderFeatured() {
@@ -228,11 +235,9 @@ export default class Activity extends BaseComponent {
 
     return (
       <div>
-        <FixedLayout>
-          <div className="live_feed_featured_wrap">
-            <div className={className} ref="featured_scroll">
-              {this._renderFeaturedRows(users)}
-            </div>
+        <FixedLayout className="live_feed_featured_wrap">
+          <div className={className} ref="featured_scroll">
+            {this._renderFeaturedRows(users)}
           </div>
         </FixedLayout>
         <div className="live_feed_featured_helper" />
@@ -618,6 +623,33 @@ export default class Activity extends BaseComponent {
         </div>
         <div className="im_dialog_separator" />
       </a>
+    )
+  }
+
+  _updatePromoteFeature() {
+    this.setState({promoteFeature: payments.promoteFeature()});
+  }
+
+  _renderPromoteFeature() {
+    if (!this.state.promoteFeature || !utils.isPaymentsEnabled()) {
+      return null;
+    }
+
+    return (
+      <div
+        className="im_dialog"
+        key="promote"
+        onClick={() => {
+          this.state.promoteFeature.onClick();
+          this._updatePromoteFeature();
+        }}
+      >
+        <div className="im_dialog_cont_wrap">
+          <div className="im_dialog_photo" style={{backgroundImage: `url(${this.state.promoteFeature.icon})`}} />
+          <div className="Activity__promote_feature__caption">{this.state.promoteFeature.caption}</div>
+        </div>
+        <div className="im_dialog_separator" />
+      </div>
     )
   }
 }

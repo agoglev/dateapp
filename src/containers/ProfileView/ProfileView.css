@@ -88,7 +88,7 @@
 .profile_view_name {
   font-size: 22px;
   font-weight: bold;
-  color: #1a1a1a;
+  color: var(--text_primary);
   line-height: 25px;
 }
 .profile_view_name:empty {

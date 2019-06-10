@@ -1,5 +1,6 @@
 .Graph {
   padding: 16px 30px 36px 30px;
+  overflow: hidden;
 }
 .Graph__cont {
   position: relative;
