@@ -166,6 +166,8 @@ export default class Activity extends BaseComponent {
           default:
             if (dialog.message.kludges.photo_url) {
               text = 'Фотография';
+            } else if (dialog.message.kludges.sticker_id) {
+                text = 'Стикер';
             } else {
               text = dialog.message.text;
             }
@@ -452,6 +454,10 @@ export default class Activity extends BaseComponent {
   }
 
   _setTab(tab) {
+    if (tab === this.data.tab) {
+      return;
+    }
+
     this.setData({tab});
 
     if (tab === 'guests') {

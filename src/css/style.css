@@ -401,3 +401,11 @@ body.desktop .FormLayout {
 .FixedLayout {
   max-width: 100%;
 }
+.PanelHeaderContent__status {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+.slick-dots li button:before {
+  color: var(--text_primary) !important;
+}

@@ -9,7 +9,7 @@ import * as paymentsActions from '../../actions/payments';
 import * as utils from '../../utils/index';
 import BaseComponent from '../../BaseComponent';
 import Icon24Filter from '@vkontakte/icons/dist/24/filter';
-import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
+import Icon24Done from '@vkontakte/icons/dist/24/done';
 import SegmentedControl from "../../components/SegmentedControl/SegmentedControl";
 import Header from '../../components/proxy/Header';
 import InternalNotification from "../../components/InternalNotification/InternalNotification";
@@ -58,7 +58,7 @@ export default class Search extends BaseComponent {
     ];
 
     const info = this.props.state.usersInfo[this.props.state.userId];
-    const cityName = String(info.city_name).length > 0 ? `${info.city_name}` : '';
+    const cityName = info.city_id > 0 ? `${info.city_name}` : '';
     return (
       <div ref="wrap">
         <Header
@@ -194,7 +194,7 @@ export default class Search extends BaseComponent {
   _renderFiltersButton() {
     return (
       <HeaderButton onClick={this._toggleFilters}>
-        {this.data.filtersOpened ? <Icon24Cancel /> : <Icon24Filter />}
+        {this.data.filtersOpened ? <Icon24Done /> : <Icon24Filter />}
       </HeaderButton>
     )
   }
