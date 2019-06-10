@@ -175,6 +175,9 @@ export function handleMethodResult(requestId, response) {
 }
 
 export function handleMethodError(error) {
+  if (error.error_reason) {
+    error = error.error_reason;
+  }
   if (error.request_params) {
     let requestId = false;
     for (let i = 0; i < error.request_params.length; i++) {
@@ -252,6 +255,8 @@ function _orderBoxCallback(status) {
   _orderBoxPromise = false;
 }
 
+let requestTokenHandlers = [];
+
 let accessTokenPromise = false;
 export function requestAccessToken(scope = false) {
   return new Promise((resolve, reject) => {
@@ -260,32 +265,25 @@ export function requestAccessToken(scope = false) {
     //   return resolve(state.vkAccessToken);
     // }
 
-    if (window.isNative) {
-      accessTokenPromise = {resolve, reject};
-      connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
-    } else {
-      connectPromise.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''}).then(({data}) => {
-        if (data.access_token) {
-          resolve(data.access_token);
-        } else {
-          reject();
-        }
-      }).catch(() => reject());
-    }
+    requestTokenHandlers.push({resolve, reject});
+    connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
   });
 }
 
 export function hadnleAccessTokenEventSuccess(token) {
-  if (accessTokenPromise) {
-    accessTokenPromise.resolve(token);
-    store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
-    accessTokenPromise = false;
+  store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
+  for (let i = 0; i < requestTokenHandlers.length; i++) {
+    const promise = requestTokenHandlers[i];
+    promise.resolve(token);
   }
+  requestTokenHandlers = [];
 }
 
 export function hadnleAccessTokenEventFailed() {
-  if (accessTokenPromise) {
-    accessTokenPromise.reject();
-    accessTokenPromise = false;
+  store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token: false});
+  for (let i = 0; i < requestTokenHandlers.length; i++) {
+    const promise = requestTokenHandlers[i];
+    promise.reject();
   }
+  requestTokenHandlers = [];
 }

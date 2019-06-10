@@ -114,12 +114,10 @@ VkConnect.subscribe((e) => {
       if (!window.isDesktop && window.isDG) {
         accountActions.init(data.access_token);
       }
-      store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token: data.access_token});
       api.hadnleAccessTokenEventSuccess(data.access_token);
       break;
     case 'VKWebAppAccessTokenFailed':
       api.hadnleAccessTokenEventFailed();
-      store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token: false});
       //store.dispatch({type: actionTypes.VK_FAILED});
       break;
     case 'VKWebAppGetUserInfoResult':
