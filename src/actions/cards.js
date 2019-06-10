@@ -13,6 +13,7 @@ let sortTipShown = true;
 let needShowSortTip = false;
 
 let SystemCardsQueue = [];
+export let cancelledCards = {};
 let isAdsLocked = false;
 
 export function loadCards(force = false) {

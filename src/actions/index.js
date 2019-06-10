@@ -587,12 +587,13 @@ export function featureSuggestionShown() {
 }
 
 export function publishStory() {
-  api.requestAccessToken('stories').then(() => {
+  api.requestAccessToken('stories', false).then((token) => {
     loaderShow();
     api.vk('stories.getPhotoUploadServer', {
       add_to_news: 1,
       link_text: 'open',
-      link_url: 'https://vk.com/app6682509#story'
+      link_url: 'https://vk.com/app6682509#story',
+      access_token: token
     }).then((res) => {
       api.method(api.methods.publishStory, {
         url: res.upload_url,

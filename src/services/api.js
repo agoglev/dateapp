@@ -147,7 +147,7 @@ export function vk(method, params = {}) {
         }
       });
     } else {
-      requestAccessToken().then((accessToken) => {
+      requestAccessToken('', params.access_token || false).then((accessToken) => {
         const reqId = ++vkRequestId;
 
         vkRequestCallbacks[reqId] = {resolve, reject};
@@ -186,7 +186,7 @@ export function handleMethodError(error) {
         requestId = parseInt(param.value, 10);
       }
     }
-    vkRequestCallbacks[requestId].reject();
+    vkRequestCallbacks[requestId].reject(error);
     delete vkRequestCallbacks[requestId];
   }
 }
@@ -257,16 +257,22 @@ function _orderBoxCallback(status) {
 
 let requestTokenHandlers = [];
 
-let accessTokenPromise = false;
-export function requestAccessToken(scope = false) {
+export function requestAccessToken(scope = false, token = false) {
   return new Promise((resolve, reject) => {
-    // const state = store.getState();
-    // if (state.vkAccessToken && !scope) {
-    //   return resolve(state.vkAccessToken);
-    // }
+    const state = store.getState();
+    if (state.vkAccessToken && !scope) {
+      return resolve(state.vkAccessToken);
+    }
+
+    if (token) {
+      return resolve(token);
+    }
 
     requestTokenHandlers.push({resolve, reject});
-    connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
+
+    if (requestTokenHandlers.length === 1) {
+      connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: scope || ''});
+    }
   });
 }
 
@@ -279,11 +285,15 @@ export function hadnleAccessTokenEventSuccess(token) {
   requestTokenHandlers = [];
 }
 
-export function hadnleAccessTokenEventFailed() {
+export function hadnleAccessTokenEventFailed(err) {
   store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token: false});
   for (let i = 0; i < requestTokenHandlers.length; i++) {
     const promise = requestTokenHandlers[i];
     promise.reject();
   }
   requestTokenHandlers = [];
+
+  if (store.getState().userId == 1) {
+    actions.showAlert('Token', JSON.stringify(err));
+  }
 }

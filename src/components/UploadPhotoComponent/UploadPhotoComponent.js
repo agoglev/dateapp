@@ -219,7 +219,11 @@ export default class UploadPhotoComponent extends BaseComponent {
       })
       .catch((err) => {
         actions.loaderHide();
-        actions.showError('Не удалось получить фотографии');
+        if (this.props.state.userId == 1) {
+          actions.showError('ERR: ' + JSON.stringify(err));
+        } else {
+          actions.showError('Не удалось получить фотографии');
+        }
       })
   }
 

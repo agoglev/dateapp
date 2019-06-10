@@ -16,7 +16,7 @@
   font-size: 22px;
   font-weight: bold;
   line-height: 25px;
-  color: #1a1a1a;
+  color: var(--text_primary);
 }
 .profile_edit_button {
   border: 1px solid #5181b8;

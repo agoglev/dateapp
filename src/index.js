@@ -106,19 +106,34 @@ VkConnect.subscribe((e) => {
   switch (e.detail.type) {
     case 'VKWebAppGetClientVersionResult':
       actions.setVersion(data.platform, data.version);
-      if (!window.isDesktop) {
-        //connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: ''});
-      }
+      //if (!window.isDesktop) {
+        connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: 'stories,notifications'});
+      //}
       break;
     case 'VKWebAppAccessTokenReceived':
-      if (!window.isDesktop && window.isDG) {
-        accountActions.init(data.access_token);
+      let scope = data.scope.split(',');
+      let scopeMap = {};
+      for (let i = 0; i < scope.length; i++) {
+        scopeMap[scope[i].trim()] = true;
       }
-      api.hadnleAccessTokenEventSuccess(data.access_token);
+
+      if (scopeMap.stories) {
+        if (!accountActions.inited) {
+          accountActions.init(data.access_token);
+        }
+        api.hadnleAccessTokenEventSuccess(data.access_token);
+      } else {
+        api.hadnleAccessTokenEventFailed(e.detail);
+        if (!accountActions.inited) {
+          store.dispatch({type: actionTypes.VK_FAILED});
+        }
+      }
       break;
     case 'VKWebAppAccessTokenFailed':
-      api.hadnleAccessTokenEventFailed();
-      //store.dispatch({type: actionTypes.VK_FAILED});
+      api.hadnleAccessTokenEventFailed(e.detail);
+      if (!accountActions.inited) {
+        store.dispatch({type: actionTypes.VK_FAILED});
+      }
       break;
     case 'VKWebAppGetUserInfoResult':
       accountActions.setupVkInfo(data);
@@ -197,7 +212,7 @@ if (window.isOK) {
   window.isDGNotifiEnabled = scope & 1 === 1;
   window.isDGMessagesBlocked = parseInt(urlParams.get('is_messages_blocked'), 10);
 } else if (urlSign && window.isDesktop || !window.isDG) {
-  !isDebug && accountActions.init();
+  //!isDebug && accountActions.init();
 }
 
 if (window.isNative) {

@@ -144,6 +144,12 @@ export default function reducer(state = initialState, action) {
       });
     }
 
+    case actionTypes.APP_INITED_RESET: {
+      return Object.assign({}, state, {
+        appInited: false,
+      });
+    }
+
     case actionTypes.FEATURE_SUGGESTION_SHOWN: {
       return Object.assign({}, state, {isNeedShowFeatureSuggestion: false});
     }

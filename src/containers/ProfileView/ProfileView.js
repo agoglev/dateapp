@@ -1,7 +1,7 @@
 import './ProfileView.css';
 
 import React, { Component } from 'react';
-import { Panel, HeaderButton, Button, Gallery, IOS, platform, FormStatus } from '@vkontakte/vkui';
+import { Panel, HeaderButton, Button, Gallery, IOS, platform, FormStatus, FixedLayout } from '@vkontakte/vkui';
 import * as actions from '../../actions/index';
 import * as cardsActions from '../../actions/cards';
 import * as activityActions from '../../actions/activity';
@@ -19,7 +19,7 @@ export default class ProfileView extends BaseComponent {
     super(props);
 
     this.state = {
-      slideHeight: 0,
+      slideHeight: window.isDesktop ? 540 : window.innerWidth * 1.45,
     };
   }
 
@@ -46,8 +46,6 @@ export default class ProfileView extends BaseComponent {
   }
 
   _renderContent() {
-    const backSize = utils.getHeaderHeight();
-
     return (
       <div className="profile_view">
         <div className="profile_view_photos_arrow prev" />
@@ -193,16 +191,18 @@ export default class ProfileView extends BaseComponent {
     const isFromCards = this.data.fromCards === true;
     const isFromLikes = this.data.fromLikes === true;
     return (
-      <div className="profile_view_footer">
-        {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
-        {(utils.isPaymentsEnabled() || this.props.state.hasPremium) && ((this.data.isLiked && isFromLikes) || (!isFromLikes)) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
-        {!this.data.isLiked && <div className="profile_view_footer_item" onClick={this._footerLikeButtonDidPress}>
-          <Icon24LikeOutline />
-        </div>}
-        {this.data.isLiked && <div className="profile_view_footer_item" onClick={this._unlike}>
-          <Icon24Like />
-        </div>}
-      </div>
+      <FixedLayout vertical="bottom">
+        <div className="profile_view_footer">
+          {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
+          {(utils.isPaymentsEnabled() || this.props.state.hasPremium) && ((this.data.isLiked && isFromLikes) || (!isFromLikes)) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}
+          {!this.data.isLiked && <div className="profile_view_footer_item" onClick={this._footerLikeButtonDidPress}>
+            <Icon24LikeOutline />
+          </div>}
+          {this.data.isLiked && <div className="profile_view_footer_item" onClick={this._unlike}>
+            <Icon24Like />
+          </div>}
+        </div>
+      </FixedLayout>
     )
   }
 
@@ -398,7 +398,6 @@ export default class ProfileView extends BaseComponent {
   }
 
   _updateSlideHeight = () => {
-    console.log('resize');
     this.setState({
       slideHeight: window.isDesktop ? 540 : window.innerWidth * 1.45
     });

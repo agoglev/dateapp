@@ -16,10 +16,10 @@ export default class PlaceholderNeedToken extends PureComponent {
   }
 
   _restoreButtonDidPress = () => {
-    if (utils.canAuthWithSig()) {
-      connect.send('VKWebAppGetUserInfo', {});
-    } else {
-      connect.send('VKWebAppGetAuthToken', {app_id: 6682509, scope: ''});
-    }
+    //if (utils.canAuthWithSig()) {
+    //  connect.send('VKWebAppGetUserInfo', {});
+    //} else {
+      connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: 'stories,notifications'});
+    //}
   };
 }

@@ -20,7 +20,6 @@ const Purpose = [
 
 let skippedLikes = {};
 
-let isFromCancelActionCards = false;
 export default class Cards extends Component {
 
   static shared = null;
@@ -460,7 +459,7 @@ export default class Cards extends Component {
     } else if (target.classList.contains('Cards__item--footer') || target.closest('.Cards__item--footer')) {
       actions.openProfile(this.props.state.cards[0], {
         fromCards: true,
-        hideControls: isFromCancelActionCards && !paymentsActions.hasPremium && utils.isPaymentsEnabled()
+        hideControls: cardsActions.cancelledCards[card.id] && !paymentsActions.hasPremium && utils.isPaymentsEnabled()
       });
     } else {
       const width = window.isDesktop ? window.innerWidth - 240 : window.innerWidth;
@@ -503,12 +502,10 @@ export default class Cards extends Component {
       return cardsActions.resolveSystemCard();
     }
 
-    if (isFromCancelActionCards && isLike && !paymentsActions.hasPremium && utils.isPaymentsEnabled()) {
+    if (cardsActions.cancelledCards[card.id] && isLike && !paymentsActions.hasPremium && utils.isPaymentsEnabled()) {
       setTimeout(() => paymentsActions.showSubscriptionRequest('cancel_action'), 300);
       return;
     }
-
-    isFromCancelActionCards = false;
 
     if (!isLike && !cardsActions.dislikeTipShown) {
       actions.showAlert('Вы пропустили анкету', 'Вам действительно не понравился этот человек?', 'Да').then(() => {
@@ -537,6 +534,10 @@ export default class Cards extends Component {
       if (!isLike && card.is_like && !skippedLikes[card.id]) {
         skippedLikes[card.id] = true;
         this.setState({isLikeSkipped: true});
+      }
+
+      if (!isLike) {
+        cardsActions.cancelledCards[card.id] = true;
       }
 
     }).catch((card) => {
@@ -593,8 +594,6 @@ export default class Cards extends Component {
           this.setState({swipeTip: true});
         }, 4000);
       }
-
-      isFromCancelActionCards = false;
     }).catch((err) => {
       this.setState({isLoading: false, isFailed: err.message});
     });
@@ -629,7 +628,6 @@ export default class Cards extends Component {
     if (card) {
       this._restoreCard(card, false);
       utils.statReachGoal('cancel_action');
-      isFromCancelActionCards = true;
     }
   };
 

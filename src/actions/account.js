@@ -14,12 +14,14 @@ import * as native from '../services/native';
 export let JoinInfo = {};
 export let searchFilters = {};
 let defaultTab = 'cards';
+export let inited = false;
 
 export function init(token = false) {
   const { vkUserInfo } = store.getState();
   if (token) {
     store.dispatch({type: actionTypes.SET_VK_ACCESS_TOKEN, token});
   }
+  store.dispatch({type: actionTypes.APP_INITED_RESET});
   let query = {
     vk_id: vkUserInfo.id,
     vk_sig: vkUserInfo.signed_user_id || '',
@@ -155,6 +157,7 @@ function initMethodHandler(resp) {
     stickers: resp.stickers,
     stickersMask: resp.stickers_mask
   });
+  inited = true;
   if (resp.need_join) {
     window.tmpToken = resp.tmp_token || '';
     actions.setTab('join');
