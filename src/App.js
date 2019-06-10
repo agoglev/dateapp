@@ -187,9 +187,11 @@ class App extends React.Component {
           <Moder id={pages.MODER} state={state} />
           <ModerStats id={pages.MODER_STATS} state={state} />
           <Notify id={pages.NOTIFY} state={state} />
+          <Premium id={pages.PREMIUM} state={state} />
+        </View>
+        <View activePanel={state.activePanels.gifts} id="gifts">
           <Gifts id={pages.GIFTS} state={state} />
           <GiftSend id={pages.GIFT_SEND} state={state} />
-          <Premium id={pages.PREMIUM} state={state} />
         </View>
         <View activePanel={state.activePanels.vk_photos} id="vk_photos" header={this._getBaseHeader('vk_photos')}>
           <VkPhotos id={pages.VK_PHOTOS} state={state} />

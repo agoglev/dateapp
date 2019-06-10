@@ -5,7 +5,8 @@
   background: var(--background_content) !important;
 }
 .profile_view {
-  padding-bottom: 28px;
+  padding-bottom: 30px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 50px);
 }
 .profile_view_write_message_btn {
   margin-top: 18px;
@@ -183,6 +184,10 @@
 .profile_view.deactivated .profile_view_about {
   text-align: center;
   color: var(--text_placeholder);
+}
+.profile_view_footer__wrap {
+  bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 .profile_view_footer {
   width: 100%;

@@ -38,6 +38,7 @@
 .im_dialog {
   position: relative;
   transition: opacity 150ms ease-in-out;
+  user-select: none;
 }
 .im_dialog.premium:after {
   content: '';
@@ -131,7 +132,7 @@
   line-height: 16px;
   font-size: 14px;
   margin-top: 5px;
-  user-select: text;
+  user-select: none;
 }
 .im_dialog .im_dialog_system {
   color: #5181b8;
@@ -158,6 +159,7 @@
   align-self: center;
   color: #fff;
   font-weight: 500;
+  overflow: hidden;
 }
 .im_dialog .im_dialog_badge:empty {
   display: none;

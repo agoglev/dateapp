@@ -52,7 +52,7 @@ export default class Activity extends BaseComponent {
         this.refs['featured_scroll'].scrollLeft = this.data.featuredScroll;
         this.setData('featuredScroll', 0);
       }
-    }, 100);
+    });
 
     this._updatePromoteFeature();
   }
@@ -569,7 +569,11 @@ export default class Activity extends BaseComponent {
           if (user.is_inbox_fav && !this.props.state.hasPremium && utils.isPaymentsEnabled()) {
             payments.showSubscriptionRequest('fav');
           } else if (!e.target.classList.contains('im_dialog_fav')) {
-            actions.openChat(guest.id)
+            if (!user.liked && utils.isPaymentsEnabled() && !this.props.state.hasPremium) {
+              payments.showSkipMathcBox(user);
+            } else {
+              actions.openChat(user.id);
+            }
           }
         }}>
           <div className="im_dialog_cont_wrap">

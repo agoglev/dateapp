@@ -129,13 +129,13 @@ export const routes = [
   {
     name: pages.GIFTS,
     path: pages.GIFTS,
-    view: 'modal'
+    view: 'gifts'
   },
 
   {
     name: pages.GIFT_SEND,
     path: pages.GIFT_SEND,
-    view: 'modal'
+    view: 'gifts'
   },
 
   {

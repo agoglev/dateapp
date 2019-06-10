@@ -339,6 +339,7 @@ export function newMessageEventDidReceive(dialog) {
       '{name} написала вам сообщение'
     ]).replace('{name}', dialog.user.name);
     pushActions.showNotification('message', title, getMessagePreviewStr(dialog.message), {
+      iconSrc: dialog.user.small_photo,
       onClick: () => actions.openChat(peerId)
     });
   }

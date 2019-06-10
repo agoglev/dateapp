@@ -191,7 +191,7 @@ export default class ProfileView extends BaseComponent {
     const isFromCards = this.data.fromCards === true;
     const isFromLikes = this.data.fromLikes === true;
     return (
-      <FixedLayout vertical="bottom">
+      <FixedLayout vertical="bottom" className="profile_view_footer__wrap">
         <div className="profile_view_footer">
           {(isFromLikes || isFromCards) && <div className="profile_view_footer_item dislike" onClick={this._footerDislikeButtonDidPress} />}
           {(utils.isPaymentsEnabled() || this.props.state.hasPremium) && ((this.data.isLiked && isFromLikes) || (!isFromLikes)) && <div className="profile_view_footer_item message" onClick={this._footerMessageButtonDidPress}><Icon24Message /></div>}

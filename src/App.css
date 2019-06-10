@@ -55,6 +55,7 @@ body.desktop {
   max-height: 100%;
   box-sizing: border-box;
   padding-top: 48px;
+  min-height: 100%;
 }
 .App__modal.profile .App__modal__cont {
   padding-top: 0;

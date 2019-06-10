@@ -11,6 +11,7 @@ import Icon24Replay from '@vkontakte/icons/dist/24/replay';
 import Header from '../../components/proxy/Header';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import {showNotification} from "../../actions/push";
+import * as pushActions from "../../actions/push";
 
 const Purpose = [
   'Найти новых друзей',
@@ -275,7 +276,7 @@ export default class Cards extends Component {
           {this._renderCardPhotos(card.id, card.photos)}
           <div className="Cards__item--footer">
             <div className="Cards__item--footer-info">
-              <div className="Cards__item--footer-name">{nameComponents.join(', ')} {card.vip && <div className="Cards__item__vip">VIP</div>}</div>
+              <div className="Cards__item--footer-name">{nameComponents.join(', ')} {card.vip && utils.isPaymentsEnabled() && <div className="Cards__item__vip">VIP</div>}</div>
               <div className="Cards__item--footer-caption">{captionVariants[captionIndex]}</div>
             </div>
             <div className="Cards__item--footer-info-ic" />

@@ -260,7 +260,7 @@ let requestTokenHandlers = [];
 export function requestAccessToken(scope = false, token = false) {
   return new Promise((resolve, reject) => {
     const state = store.getState();
-    if (state.vkAccessToken && !scope) {
+    if (state.vkAccessToken) {
       return resolve(state.vkAccessToken);
     }
 

@@ -107,7 +107,7 @@ VkConnect.subscribe((e) => {
     case 'VKWebAppGetClientVersionResult':
       actions.setVersion(data.platform, data.version);
       //if (!window.isDesktop) {
-        connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: 'stories,notifications'});
+
       //}
       break;
     case 'VKWebAppAccessTokenReceived':
@@ -172,6 +172,7 @@ VkConnect.subscribe((e) => {
 });
 connect.send('VKWebAppGetUserInfo', {});
 connect.send('VKWebAppGetClientVersion', {});
+connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: 'stories,notifications'});
 
 function render() {
   ReactDOM.render(

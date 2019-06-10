@@ -404,10 +404,15 @@ export function promoteFeature() {
 }
 
 export function features() {
+  const state = store.getState();
+  const user = state.usersInfo[state.userId];
   let ret = {
     feature: {
       icon: require('../asset/premium_messages_40.svg'),
-      caption: 'Поднимитесь на первое место, и Вас заметит больше девушек.',
+      caption: utils.genderText(user.gender, [
+        'Поднимитесь на первое место, и Вас заметит больше девушек.',
+        'Поднимитесь на первое место, и Вас заметит больше парней.'
+      ]),
       button: 'Подняться на 1-е место',
       onClick: () => showFeatureBox()
     },

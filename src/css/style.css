@@ -317,7 +317,7 @@ body.desktop .FormLayout {
   background-image: url('../asset/arrow_16.svg');
 }
 .Premium__expire {
-  color: #7a7a7a;
+  color: var(--text_secondary);
   padding: 16px 16px 0;
 }
 .Premium__expire span {

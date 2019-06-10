@@ -25,6 +25,7 @@
   color: var(--text_secondary);
   font-size: 16px;
   line-height: 18px;
+  user-select: none;
 }
 .Invites__link-value {
   color: var(--text_primary);
