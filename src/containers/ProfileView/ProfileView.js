@@ -60,7 +60,7 @@ export default class ProfileView extends BaseComponent {
             {this._renderPhotos()}
           </Gallery>
         </div>
-        <div className="profile_view_hide" onClick={() => window.history.back()}>
+        <div className="profile_view_hide PanelHeader__left-in" onClick={() => window.history.back()}>
           <UIBackButton skipAction />
         </div>
         {this._renderInfoWrap()}
