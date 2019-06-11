@@ -321,7 +321,7 @@ body.desktop .FormLayout {
   padding: 16px 16px 0;
 }
 .Premium__expire span {
-  color: #1a1a1a;
+  color: var(--text_primary);
 }
 .FeatureBox {
   position: fixed;

@@ -398,14 +398,21 @@
   border-top: 1px solid var(--separator_alpha);
   background: var(--background_content);
   height: 97px;
-  position: fixed;
-  bottom: 0;
+  //position: fixed;
+  bottom: 0 !important;
   left: 0;
   right: 0;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: 0 !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+  transition: transform 150ms ease-in-out;
+  box-sizing: initial;
+
+  &.is_hidden {
+    transform: translateY(100%);
+  }
 
   &.is_focused {
-    padding-bottom: 0;
+    padding-bottom: 0 !important;
   }
 
   body.desktop & {

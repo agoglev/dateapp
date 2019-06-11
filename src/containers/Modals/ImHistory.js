@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, PanelHeader, HeaderContext, Button, Spinner, List, Cell, PanelHeaderContent } from '@vkontakte/vkui';
+import { Panel, PanelHeader, HeaderContext, Button, Spinner, List, Cell, PanelHeaderContent, FixedLayout, Tooltip } from '@vkontakte/vkui';
 import * as UI from '@vkontakte/vkui';
 import ReactDOM from 'react-dom';
 import * as activityActions from '../../actions/activity';
@@ -38,8 +38,11 @@ export default class ImHistory extends BaseComponent {
       isFailed: false,
       hasText: false,
       hasFocus: false,
-      contextOpened: false
+      contextOpened: false,
+      stickersTT: false
     };
+
+    activityActions.needShowStickersTT().then((stickersTT) => this.setState({stickersTT}));
   }
 
   componentDidMount() {
@@ -167,11 +170,12 @@ export default class ImHistory extends BaseComponent {
 
     const formClassName = utils.classNames({
       im_send_form: true,
-      is_focused: this.state.hasFocus
+      is_focused: this.state.hasFocus,
+      is_hidden: this.state.contextOpened
     });
 
     return (
-      <div className={formClassName}>
+      <FixedLayout className={formClassName}>
         <div className="im_send_form_cont">
           <input
             ref="input"
@@ -197,13 +201,23 @@ export default class ImHistory extends BaseComponent {
             {!window.isNative && utils.isPaymentsEnabled() && <div className="im_send_sticker_button" onClick={() => actions.openGifts(this.peerId)}>
               <Icon24Gift fill={'var(--accent)'} />
             </div>}
-            {<div className="im_send_sticker_button badge" onClick={this._openStickers}>
+            { <Tooltip
+              text="Попробуйте стикеры!"
+              isShown={this.state.stickersTT}
+              onClose={() => {
+                this.setState({ stickersTT: false });
+                activityActions.stickersTTShown();
+              }}
+              offsetX={-6}
+              offsetY={5}
+              alignY="top"
+            ><div className="im_send_sticker_button" onClick={this._openStickers}>
               <Icon24Smile fill={'var(--accent)'} />
-            </div>}
+            </div></Tooltip>}
             <div className={sendBtnClassName} ref="sendBtn">Отправить</div>
           </div>
         </div>
-      </div>
+      </FixedLayout>
     )
   }
 
@@ -415,7 +429,9 @@ export default class ImHistory extends BaseComponent {
          el.scrollTop = el.scrollHeight;
        }
       } else {
-        window.scrollBy(0, document.body.scrollHeight);
+        if (window.scrollY + document.body.offsetHeight < document.body.scrollHeight) {
+          window.scrollBy(0, document.body.scrollHeight);
+        }
       }
     };
     if (fast) {

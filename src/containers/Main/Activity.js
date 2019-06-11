@@ -1,7 +1,7 @@
 import './Activity.css';
 
-import React, { Component } from 'react';
-import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton, Tabs, TabsItem, Avatar, List, FixedLayout } from '@vkontakte/vkui';
+import React from 'react';
+import { Button, Spinner, Group, HorizontalScroll, Cell, HeaderButton, Tabs, TabsItem, Avatar, List, FixedLayout, Counter } from '@vkontakte/vkui';
 import * as actions from '../../actions';
 import * as activityActions from '../../actions/activity';
 import * as accountActions from '../../actions/account';
@@ -12,7 +12,6 @@ import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 import BaseComponent from '../../BaseComponent';
 
-let skipFeatureAnim = false;
 export default class Activity extends BaseComponent {
   constructor(props) {
     super(props);
@@ -182,7 +181,7 @@ export default class Activity extends BaseComponent {
         premium: dialog.premium === true
       });
 
-      const badge = dialog.badge > 0 ? dialog.badge : false;
+      const badge = dialog.badge > 0 ? dialog.badge : 1;
       const favClassName = utils.classNames({
         im_dialog_fav: true,
         active: dialog.is_fav || false
@@ -340,7 +339,7 @@ export default class Activity extends BaseComponent {
             <div className="im_dialog_name_wrap">
               <div className="im_dialog_name">Вы понравились {utils.gram(this.data.likesCount, ['человеку', 'людям', 'людям'])}!</div>
             </div>
-            <div className="im_dialog_message im_dialog_system">Посмотреть их</div>
+            <div className="im_dialog_message im_dialog_system">{this.data.likesCount > 1 ? 'Посмотреть их' : 'Посмотреть'}</div>
           </div>
         </div>
         <div className="im_dialog_separator" />

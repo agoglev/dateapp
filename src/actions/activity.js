@@ -736,3 +736,30 @@ export function newGuset(user) {
     });
   }
 }
+
+let _isStickersTTShown = false;
+export function needShowStickersTT() {
+  return new Promise((resolve) => {
+    if (_isStickersTTShown) {
+      return resolve(false);
+    }
+
+    api.vk('storage.get', {
+      key: 'activity_stickers_tt_shown'
+    }).then((resp) => {
+      if (parseInt(resp, 10) === 1) {
+        resolve(false);
+      } else {
+        resolve(true);
+      }
+    });
+  });
+}
+
+export function stickersTTShown() {
+  _isStickersTTShown = true;
+  api.vk('storage.set', {
+    key: 'activity_stickers_tt_shown',
+    value: 1,
+  });
+}
