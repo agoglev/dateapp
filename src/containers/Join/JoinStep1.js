@@ -73,7 +73,7 @@ export default class JoinStep1 extends BaseComponent {
       return actions.showError('Введите ваше имя');
     }
 
-    if (!name.match(/^[a-zа-я]+$/i)) {
+    if (!name.match(/^[a-zа-яё]+$/i)) {
       return actions.showAlert('Не верное имя', <span>У нас принято использовать <b>настоящее имя</b>, написанное русскими или латинскими буквами. Например: Анна, Иван, Anna, Ivan.</span>, 'OK', {
         skipCancelButton: true
       });

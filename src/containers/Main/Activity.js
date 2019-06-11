@@ -181,7 +181,7 @@ export default class Activity extends BaseComponent {
         premium: dialog.premium === true
       });
 
-      const badge = dialog.badge > 0 ? dialog.badge : 1;
+      const badge = dialog.badge > 0 ? dialog.badge : false;
       const favClassName = utils.classNames({
         im_dialog_fav: true,
         active: dialog.is_fav || false

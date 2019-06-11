@@ -367,9 +367,9 @@ export function lastUpdateFormat(ts) {
     const months = ["Января","Февраля","Марта","Апреля","Мая","Июня","Июля","Августа","Сентября","Октября", "Ноября","Декабря"];
 
     if (date.getFullYear() === curDate.getFullYear()) {
-      return date.getDate() + ' ' + months[date.getMonth()]
+      return date.getDate() + ' ' + months[date.getMonth()].toLowerCase()
     }
-    return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear()
+    return date.getDate() + ' ' + months[date.getMonth()].toLowerCase() + ' ' + date.getFullYear()
   }
 }
 

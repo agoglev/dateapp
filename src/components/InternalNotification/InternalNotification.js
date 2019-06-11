@@ -2,8 +2,8 @@ import './InternalNotification.css';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import * as utils from '../../utils';
 import SVG from 'react-inlinesvg';
+import { Group } from '@vkontakte/vkui';
 
 export default class InternalNotification extends PureComponent {
 
@@ -29,14 +29,16 @@ export default class InternalNotification extends PureComponent {
     } = this.props;
 
     return (
-      <div className="InternalNotification" style={style || {}}>
-        {icon && <div className="InternalNotification__icon"><SVG src={InternalNotification.icons[icon]} /></div>}
-        <div className="InternalNotification__cont">
-          <div className="InternalNotification__title">{title}</div>
-          <div className="InternalNotification__text">{text}</div>
-          {extra}
+      <Group style={style || {}}>
+        <div className="InternalNotification">
+          {icon && <div className="InternalNotification__icon"><SVG src={InternalNotification.icons[icon]} /></div>}
+          <div className="InternalNotification__cont">
+            <div className="InternalNotification__title">{title}</div>
+            <div className="InternalNotification__text">{text}</div>
+            {extra}
+          </div>
         </div>
-      </div>
+      </Group>
     )
   }
 }

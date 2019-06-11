@@ -37,7 +37,7 @@ export default class SubscriptionBox extends PureComponent {
   }
 
   _freeButton() {
-    if (!paymentsActions.hasPromo()) {
+    if (!paymentsActions.hasPromo() || true) {
       return null;
     }
 
@@ -96,13 +96,13 @@ export default class SubscriptionBox extends PureComponent {
           <div className="SubscriptionBox__pay_button__price sale">{prices.daySale}</div>
           <div className="SubscriptionBox__pay_button__buy">Получить</div>
         </div>
-        <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('week')}>
+        {/*<div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('week')}>
           <div className="SubscriptionBox__pay_button__badge red">популярно</div>
           <div className="SubscriptionBox__pay_button__title">Неделя</div>
           <div className="SubscriptionBox__pay_button__price">{prices.week}</div>
           <div className="SubscriptionBox__pay_button__price sale">{prices.weekSale}</div>
           <div className="SubscriptionBox__pay_button__buy">Получить</div>
-        </div>
+        </div>*/}
         <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
           <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
           <div className="SubscriptionBox__pay_button__title">Месяц</div>

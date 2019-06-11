@@ -113,10 +113,10 @@ export default class EditProfile extends UploadPhotoComponent {
               <Cell expandable onClick={() => actions.openExtraInfoEdit('smoke')} indicator={this._infoIndicatorMapping('smoke')}>Курение</Cell>
             </List>
           </Group>
-          <FixedLayout vertical="bottom" className="Join__footer_btn_wrap">
-            <Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: '16px 12px'}}>Сохранить</Button>
-          </FixedLayout>
         </FormLayout>
+        <FixedLayout vertical="bottom" className="Join__footer_btn_wrap">
+          <Button size="xl" level="1" onClick={this._saveButtonDidPress}>Сохранить</Button>
+        </FixedLayout>
       </div>
     )
   }
@@ -228,7 +228,7 @@ export default class EditProfile extends UploadPhotoComponent {
   _saveButtonDidPress = () => {
     const name = utils.stripHTML(this.data.name.trim());
 
-    if (!name.match(/^[a-zа-я]+$/i)) {
+    if (!name.match(/^[a-zа-яё]+$/i)) {
       return actions.showAlert('Не верное имя', <span>У нас принято использовать <b>настоящее имя</b>, написанное русскими или латинскими буквами. Например: Анна, Иван, Anna, Ivan.</span>, 'OK', {
         skipCancelButton: true
       });

@@ -30,10 +30,10 @@ export default class EditExtraInfo extends BaseComponent {
         </Header>
         <UI.FormLayout>
           {this._renderCont()}
-          <UI.FixedLayout vertical="bottom" className="Join__footer_btn_wrap">
-            <UI.Button size="xl" level="1" onClick={this._saveButtonDidPress} style={{margin: '16px 12px'}}>Сохранить</UI.Button>
-          </UI.FixedLayout>
         </UI.FormLayout>
+        <UI.FixedLayout vertical="bottom" className="Join__footer_btn_wrap">
+          <UI.Button size="xl" level="1" onClick={this._saveButtonDidPress}>Сохранить</UI.Button>
+        </UI.FixedLayout>
       </div>
     )
   }
