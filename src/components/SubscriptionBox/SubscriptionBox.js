@@ -37,7 +37,7 @@ export default class SubscriptionBox extends PureComponent {
   }
 
   _freeButton() {
-    if (!paymentsActions.hasPromo() || true) {
+    if (!paymentsActions.hasPromo()) {
       return null;
     }
 

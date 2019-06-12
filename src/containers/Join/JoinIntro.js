@@ -49,7 +49,14 @@ export default class JoinIntro extends BaseComponent {
   }
 
   _buttonDidPress = () => {
-    if (window.isOK) {
+    const user = this.props.state.vkUserInfo;
+    if (user && this._isCanAutoReg(user)) {
+      actions.loaderShow();
+      this._autoReg(user);
+    } else {
+      actions.openJoinStep1(user);
+    }
+/*    if (window.isOK) {
       actions.loaderShow();
       window.FAPI.Client.call({
         fields: 'first_name,birthday,pic_max,gender',
@@ -100,7 +107,7 @@ export default class JoinIntro extends BaseComponent {
       } else {
         actions.openJoinStep1(user);
       }
-    }
+    }*/
   };
 
   _isCanAutoReg(user) {
@@ -137,7 +144,7 @@ export default class JoinIntro extends BaseComponent {
         city: user.city ? user.city : 0,
         cityId: user.city ? user.city.id : 0
       });
-      accountActions.createAccount([photoHash]);
+      accountActions.createAccount([photoHash]).catch(() => actions.showError());
     }).catch((err) => actions.showError(err.message));
   }
 

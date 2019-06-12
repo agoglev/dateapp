@@ -203,10 +203,10 @@ body.desktop .profile_edit_photos .profile_edit_photo_cont {
 }
 .Join__footer_btn_wrap {
   background: var(--background_content);
-  height: 77px;
-  padding: 0 16px;
+  min-height: 77px;
+  box-sizing: border-box;
+  padding: 16px;
   display: flex;
-  align-items: center;
 }
 .Join__footer_btn_wrap .FixedLayout__in {
   flex: 1;

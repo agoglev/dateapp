@@ -292,8 +292,4 @@ export function hadnleAccessTokenEventFailed(err) {
     promise.reject();
   }
   requestTokenHandlers = [];
-
-  if (store.getState().userId == 1) {
-    actions.showAlert('Token', JSON.stringify(err));
-  }
 }
