@@ -50,12 +50,12 @@ export default class JoinIntro extends BaseComponent {
 
   _buttonDidPress = () => {
     const user = this.props.state.vkUserInfo;
-    if (user && this._isCanAutoReg(user)) {
-      actions.loaderShow();
-      this._autoReg(user);
-    } else {
+    //if (user && this._isCanAutoReg(user)) {
+      //actions.loaderShow();
+      //this._autoReg(user);
+    //} else {
       actions.openJoinStep1(user);
-    }
+    //}
 /*    if (window.isOK) {
       actions.loaderShow();
       window.FAPI.Client.call({
