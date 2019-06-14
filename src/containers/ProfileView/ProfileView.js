@@ -386,7 +386,7 @@ export default class ProfileView extends BaseComponent {
 
   _renderGifts() {
     const user = this.data.user;
-    if (!user || user.id === this.props.state.userId) {
+    if (!user || user.id === this.props.state.userId || !utils.isPaymentsEnabled()) {
       return null;
     }
     return (
