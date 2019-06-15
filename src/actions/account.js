@@ -29,7 +29,8 @@ export function init(token = false) {
     is_dg: window.isDG ? 1 : 0,
     vk_url: window.initialUrl,
     is_ios: utils.isIOS() ? 1 : 0,
-    app_token: window.appToken
+    app_token: window.appToken,
+    group_id: window.GroupId
   };
 
   if (window.okSession) {

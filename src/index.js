@@ -39,7 +39,8 @@ if (hashParams.get('ref')) {
   window.refId = hashParams.get('ref');
 }
 window.hashParams = hashParams;
-window.GroupId = parseInt(window.urlParams.get('vk_group_id'), 10);
+window.GroupId = parseInt(urlParams.get('vk_group_id'), 10) || 0;
+window.GroupRole = urlParams.get('vk_viewer_group_role') || 'none';
 window.adsCompany = hashParams.get('ads') || '';
 if (window.isFromAdsLove) {
   window.adsCompany = 'app_guests';
