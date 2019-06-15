@@ -498,7 +498,7 @@ export default class Activity extends BaseComponent {
       const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 10;
 
       return (
-        <div className="im_dialog" key={guest.id} onClick={() => actions.openChat(guest.id)}>
+        <div className="im_dialog" key={guest.id} onClick={() => actions.openProfile(guest)}>
           <div className="im_dialog_cont_wrap">
             <div className="im_dialog_photo" style={{backgroundImage: `url(${user.small_photo})`}} />
             <div className="im_dialog_cont">
