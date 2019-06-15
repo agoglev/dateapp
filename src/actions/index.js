@@ -313,6 +313,41 @@ export function openModer() {
   moderActions.loadReports();
 }
 
+export function openAdmin() {
+  loaderShow();
+  api.method(api.methods.partnerLoad, {
+    group_id: window.GroupId
+  }).then((resp) => {
+    let params = {
+      membersCount: resp.members,
+      membersCountInt: resp.members_int,
+      membersToday: resp.members_today,
+      membersTodayInt: resp.members_today_int,
+      canEnable: !!resp.can_enable,
+      enabled: !!resp.enabled,
+      canEnabledFrom: resp.can_enabled_from,
+      moneyTotal: resp.money_total,
+      moneyAvail: resp.money_avail,
+      moneyAvailInt: resp.money_avail_int,
+      moneyToday: resp.money_today,
+      canWithdrawal: resp.can_withdrawal,
+      withdrawalLimitMsg: resp.withdrawal_limit_msg,
+      hasWithdrawal: resp.has_withdrawal
+    };
+
+    go(pages.ADMIN, params);
+  }).catch(err => showError(err.message));
+}
+
+export function openAdminWithdrawal() {
+  loaderShow();
+  api.method(api.methods.partnerWithdrawalHistory, {
+    group_id: window.GroupId
+  }).then((history) => {
+    go(pages.ADMIN_WITHDRAWAL_HISTORY, { history });
+  }).catch(err => showError(err.message));
+}
+
 export function openModerStats() {
   let params = {
     isLoading: true,

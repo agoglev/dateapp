@@ -60,6 +60,7 @@ export default class Profile extends Component {
                 actions.openInvites();
               }
             }}>Пригласить друзей</Cell>}
+            {(window.GroupRole === 'admin' || utils.isDev()) && <Cell expandable before={<Icon24Settings />} onClick={() => actions.openAdmin()}>Админка</Cell>}
             {this.props.state.isModer && <Cell expandable before={<Icon24Settings />} onClick={() => actions.openModer()}>Модерация</Cell>}
             <Cell expandable before={<Icon24Filter />} onClick={() => actions.openFilters()} indicator={this._renderFiltersLabel()}>Интересуют</Cell>
             <Cell expandable before={<Icon24Notification />} onClick={() => actions.openNotify()}>Уведомления</Cell>

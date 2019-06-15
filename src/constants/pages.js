@@ -32,6 +32,8 @@ export const GIFT_SEND = 'gift_send';
 export const PREMIUM = 'premium';
 export const INVITES = 'invites';
 export const EDIT_EXTRA_INFO = 'edit_extra_info';
+export const ADMIN = 'ADMIN';
+export const ADMIN_WITHDRAWAL_HISTORY = 'ADMIN_WITHDRAWAL_HISTORY';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';

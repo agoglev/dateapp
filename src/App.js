@@ -34,6 +34,8 @@ import ModerStats from "./containers/Moder/ModerStats";
 import Notify from "./containers/Notify/Notify";
 import Premium from "./containers/Premium/Premium";
 import Invites from "./containers/Invites/Invites";
+import Admin from "./containers/Admin/Admin";
+import AdminWithdrawalHistory from "./containers/Admin/AdminWithdrawalHistory";
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
@@ -188,6 +190,8 @@ class App extends React.Component {
           <ModerStats id={pages.MODER_STATS} state={state} />
           <Notify id={pages.NOTIFY} state={state} />
           <Premium id={pages.PREMIUM} state={state} />
+          <Admin id={pages.ADMIN} state={state} />
+          <AdminWithdrawalHistory id={pages.ADMIN_WITHDRAWAL_HISTORY} state={state} />
         </View>
         <View activePanel={state.activePanels.gifts} id="gifts">
           <Gifts id={pages.GIFTS} state={state} />
@@ -267,6 +271,10 @@ class App extends React.Component {
         return <Invites id={pages.INVITES} state={state} />;
       case pages.EDIT_EXTRA_INFO:
         return <EditExtraInfo id={pages.EDIT_EXTRA_INFO} state={state} />;
+      case pages.ADMIN:
+        return <Admin id={pages.ADMIN} state={state} />;
+      case pages.ADMIN_WITHDRAWAL_HISTORY:
+        return <AdminWithdrawalHistory id={pages.ADMIN_WITHDRAWAL_HISTORY} state={state} />;
       default:
         return false;
     }

@@ -129,6 +129,10 @@ export const methods = {
   featureSuggestionSeen: 'feature_suggestion_seen',
   publishStory: 'publish_story',
   openSticker: 'open_sticker',
+  partnerLoad: 'partner_load',
+  partnerEnable: 'partner_enable',
+  partnerWithdrawal: 'partner_withdrawal',
+  partnerWithdrawalHistory: 'partner_withdrawal_history'
 };
 
 let vkRequestId = 0;

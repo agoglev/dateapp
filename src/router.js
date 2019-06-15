@@ -121,6 +121,18 @@ export const routes = [
   },
 
   {
+    name: pages.ADMIN,
+    path: pages.ADMIN,
+    view: 'modal'
+  },
+
+  {
+    name: pages.ADMIN_WITHDRAWAL_HISTORY,
+    path: pages.ADMIN_WITHDRAWAL_HISTORY,
+    view: 'modal'
+  },
+
+  {
     name: pages.NOTIFY,
     path: pages.NOTIFY,
     view: 'modal'
