@@ -60,7 +60,7 @@ export default class GiftSend extends BaseComponent {
           <div className="Gifts__send_price">{this._getPrice()}</div>
           <FormLayout style={{flex: '0 0 auto'}}>
             <div top="Получатель">
-              <Cell before={<Avatar src={peer.small_photo} />}>{peer.name}</Cell>
+              <Cell before={<div className="Gifts__send_ava" style={{backgroundImage: `url(${peer.small_photo})`}} />}>{peer.name}</Cell>
             </div>
             <div bottom="Максимум 200 символов">
               <Textarea

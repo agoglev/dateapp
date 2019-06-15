@@ -51,13 +51,6 @@
   width: 100%;
   padding-top: 100%;
 }
-.Gifts__send_ava {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  position: absolute;
-  z-index: 10;
-}
 .Gifts__send_price {
   font-size: 16px;
   line-height: 22px;
@@ -65,4 +58,12 @@
   margin-top: 12px;
   text-align: center;
   color: var(--text_primary);
+}
+.Gifts__send_ava {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: no-repeat center / cover;
+  flex: 0 0 auto;
+  margin-right: 12px;
 }
