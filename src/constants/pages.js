@@ -34,6 +34,7 @@ export const INVITES = 'invites';
 export const EDIT_EXTRA_INFO = 'edit_extra_info';
 export const ADMIN = 'ADMIN';
 export const ADMIN_WITHDRAWAL_HISTORY = 'ADMIN_WITHDRAWAL_HISTORY';
+export const MONETIZATION = 'MONETIZATION';
 
 export const LIKES = 'likes';
 export const POPOUT = 'popout';

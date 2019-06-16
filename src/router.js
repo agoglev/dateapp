@@ -133,6 +133,12 @@ export const routes = [
   },
 
   {
+    name: pages.MONETIZATION,
+    path: pages.MONETIZATION,
+    view: 'modal'
+  },
+
+  {
     name: pages.NOTIFY,
     path: pages.NOTIFY,
     view: 'modal'

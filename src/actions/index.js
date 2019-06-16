@@ -646,3 +646,7 @@ export function publishStory() {
     }).catch(() => showError());
   });
 }
+
+export function openMonetization() {
+  go(pages.MONETIZATION, {});
+}

@@ -57,8 +57,8 @@ export default class Admin extends BaseComponent {
           <UI.Div>Половина от покупок внутри сообщества — ваша.</UI.Div>
           {this._renderMonetization()}
         </UI.Group>
-        <UI.Group>
-          <UI.List title="Ссылки">
+        <UI.Group title="Ссылки">
+          <UI.List>
             <UI.Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp_monetization" target="_blank">Сообщество</UI.Cell>
             <UI.Cell expandable before={<Icon24Linked />} href="https://vk.com/@dateapp_monetization-info" target="_blank">Ответы на вопросы</UI.Cell>
           </UI.List>

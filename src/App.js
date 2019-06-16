@@ -36,6 +36,7 @@ import Premium from "./containers/Premium/Premium";
 import Invites from "./containers/Invites/Invites";
 import Admin from "./containers/Admin/Admin";
 import AdminWithdrawalHistory from "./containers/Admin/AdminWithdrawalHistory";
+import Monetization from "./containers/Admin/Monetization";
 
 import PlaceholderDeleted from './components/Placeholder/PlaceholderDeleted';
 import PlaceholderBanned from './components/Placeholder/PlaceholderBanned';
@@ -192,6 +193,7 @@ class App extends React.Component {
           <Premium id={pages.PREMIUM} state={state} />
           <Admin id={pages.ADMIN} state={state} />
           <AdminWithdrawalHistory id={pages.ADMIN_WITHDRAWAL_HISTORY} state={state} />
+          <Monetization id={pages.MONETIZATION} state={state} />
         </View>
         <View activePanel={state.activePanels.gifts} id="gifts">
           <Gifts id={pages.GIFTS} state={state} />
@@ -275,6 +277,8 @@ class App extends React.Component {
         return <Admin id={pages.ADMIN} state={state} />;
       case pages.ADMIN_WITHDRAWAL_HISTORY:
         return <AdminWithdrawalHistory id={pages.ADMIN_WITHDRAWAL_HISTORY} state={state} />;
+      case pages.MONETIZATION:
+        return <Monetization id={pages.MONETIZATION} state={state} />;
       default:
         return false;
     }
