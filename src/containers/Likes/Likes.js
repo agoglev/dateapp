@@ -153,11 +153,7 @@ export default class Likes extends BaseComponent {
 
   _isNeedPay() {
     const state = this.props.state;
-    if (state.hasPremium || this.data.isLoading || this.data.isFailed || !this.data.likes || !this.data.likes.length || !utils.isPaymentsEnabled() || utils.isDev()) {
-      return false;
-    }
-
-    if (state.usersInfo[state.userId].gender === 1) {
+    if (state.hasPremium || this.data.isLoading || this.data.isFailed || !this.data.likes || !this.data.likes.length || !utils.isPaymentsEnabled()) {
       return false;
     }
 

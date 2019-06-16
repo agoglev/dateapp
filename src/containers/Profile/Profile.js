@@ -68,7 +68,7 @@ export default class Profile extends Component {
             {!window.isOK && <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>}
             {!window.isOK && <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>}
             <Cell before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
-            {!window.isNative && window.GroupRole === 'none' && <Cell before={<Icon24Money />} onClick={() => actions.openMonetization()}>Есть свое сообщество?</Cell>}
+            {!window.isNative && (window.GroupRole === 'none' || window.GroupRole === 'member') && <Cell before={<Icon24Money />} onClick={() => actions.openMonetization()}>Есть свое сообщество?</Cell>}
             {window.isNative && <Cell before={<Icon24UserOutgoing />} onClick={this._logoutDidPress}>Выйти</Cell>}
           </List>
         </Group>
