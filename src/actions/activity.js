@@ -727,8 +727,8 @@ export function newGuset(user) {
   if (state.activeView === 'base') {
     actions.setUser(user);
     const title = utils.genderText(user.gender, [
-      '{name} посетил вашу анкету',
-      '{name} посетила вашу анкету'
+      '{name} посетил Вашу анкету',
+      '{name} посетила Вашу анкету'
     ]).replace('{name}', user.name);
     pushActions.showNotification('guest', title, 'Открыть', {
       onClick: () => actions.openProfile(user.id),

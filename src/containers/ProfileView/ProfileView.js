@@ -185,7 +185,7 @@ export default class ProfileView extends BaseComponent {
     }
 
     const user = this.data.user || {};
-    if (user.id === this.props.state.userId || this.data.fromHistory === true) {
+    if (user.id === this.props.state.userId || this.data.fromHistory === true || user.deactivated) {
       return null;
     }
     const isFromCards = this.data.fromCards === true;
