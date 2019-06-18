@@ -73,7 +73,9 @@ export default class SubscriptionBox extends PureComponent {
         week: utils.gram(paymentsActions.Prices.premiumWeek.rubles * 2 , ['рубль', 'рубля', 'рублей']),
         weekSale: utils.gram(paymentsActions.Prices.premiumWeek.rubles, ['рубль', 'рубля', 'рублей']),
         month: utils.gram(paymentsActions.Prices.premiumMonth.rubles * 2, ['рубль', 'рубля', 'рублей']),
-        monthSale: utils.gram(paymentsActions.Prices.premiumMonth.rubles, ['рубль', 'рубля', 'рублей'])
+        monthSale: utils.gram(paymentsActions.Prices.premiumMonth.rubles, ['рубль', 'рубля', 'рублей']),
+        year: utils.gram(paymentsActions.Prices.premiumYear.rubles * 2, ['рубль', 'рубля', 'рублей']),
+        yearSale: utils.gram(paymentsActions.Prices.premiumYear.rubles, ['рубль', 'рубля', 'рублей'])
       };
     }
 
@@ -104,10 +106,17 @@ export default class SubscriptionBox extends PureComponent {
           <div className="SubscriptionBox__pay_button__buy">Получить</div>
         </div>*/}
         <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
-          <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
+          <div className="SubscriptionBox__pay_button__badge red">хит</div>
           <div className="SubscriptionBox__pay_button__title">Месяц</div>
           <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
           <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
+          <div className="SubscriptionBox__pay_button__buy">Получить</div>
+        </div>
+        <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('year')}>
+          <div className="SubscriptionBox__pay_button__badge green">выгодно</div>
+          <div className="SubscriptionBox__pay_button__title">Год</div>
+          <div className="SubscriptionBox__pay_button__price">{prices.year}</div>
+          <div className="SubscriptionBox__pay_button__price sale">{prices.yearSale}</div>
           <div className="SubscriptionBox__pay_button__buy">Получить</div>
         </div>
       </div>
