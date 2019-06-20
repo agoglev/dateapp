@@ -47,7 +47,7 @@ export default class Monetization extends BaseComponent {
       <div>
       <UI.Group>
         <UI.Div>
-          Если у Вас есть сообщество, в котором вы администратор, то вы сможете заработать <b>50%</b> от покупок Ваших подписчиков в приложении.
+          Если у Вас есть сообщество, в котором вы администратор, то Вы сможете заработать <b>50%</b> от покупок Ваших подписчиков в приложении.
         </UI.Div>
         <UI.Div>
           <UI.Button size="xl" onClick={() => VkConnect.send('VKWebAppAddToCommunity', {})}>Подключить сообщество</UI.Button>
