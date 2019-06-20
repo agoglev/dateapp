@@ -26,6 +26,7 @@ import Icon24Gift from '@vkontakte/icons/dist/24/gift';
 import Icon24Attach from '@vkontakte/icons/dist/24/attachments';
 
 import Header from '../../components/proxy/Header';
+import VkConnect from "@vkontakte/vkui-connect/index";
 
 export default class ImHistory extends BaseComponent {
   constructor(props) {
@@ -352,7 +353,7 @@ export default class ImHistory extends BaseComponent {
       } else if (message.kludges.photo_url) {
         hasPhoto = true;
         const { photo_url, photo_width, photo_height } = message.kludges;
-        text = <div className="im_history_photo" style={{width: `${photo_width}px`}}>
+        text = <div className="im_history_photo" style={{width: `${photo_width}px`}} onClick={() => VkConnect.send('VKWebAppShowImages', {images: [photo_url]})}>
           <div className="im_history_photo_helper"
                style={{paddingTop: `${photo_height / photo_width * 100}%`, backgroundImage: `url(${photo_url}`}} />
         </div>
