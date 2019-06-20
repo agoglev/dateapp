@@ -6,7 +6,7 @@ import * as utils from '../utils';
 import * as actions from '../actions';
 import * as native from './native';
 
-const API_ENTRY = 'https://dev.kphp.net/api.php';
+const API_ENTRY = 'https://kphp.net/api.php';
 
 
 export function method(name, params = {}) {
@@ -19,7 +19,7 @@ export function method(name, params = {}) {
       form.append(k, params[k]);
     }
 
-    let apiEntry = utils.isDev() ? 'https://dev.kphp.net' : 'https://dateapp.ru';
+    let apiEntry = utils.isDev() ? 'https://kphp.net' : 'https://dateapp.ru';
 
     fetch(`${apiEntry}/api.php`, {
       method: 'POST',

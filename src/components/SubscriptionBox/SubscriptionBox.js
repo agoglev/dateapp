@@ -135,7 +135,7 @@ export default class SubscriptionBox extends PureComponent {
   _rateDidPress = (rate) => {
     const target = this.props.target;
     actions.setPopout();
-    paymentsActions.buyPremium(`premium_${rate}`, target);
+    setTimeout(() => paymentsActions.buyPremium(`premium_${rate}`, target), 100);
   };
 
   _renderItems() {

@@ -741,11 +741,30 @@ body.desktop .im_send_form {
 }
 .live_feed_featured_wrap {
   overflow: hidden;
-  border-bottom: 1px solid var(--separator_common);
   transform: translateZ(0);
   background: var(--background_content);
   height: 84px;
   width: 100%;
+}
+.live_feed_featured_wrap:after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: 1px;
+  content: '';
+  background: var(--separator_common);
+  bottom: 0;
+}
+@media (min-resolution: 2dppx) {
+  .live_feed_featured_wrap:after {
+    transform: scaleY(0.5);
+  }
+}
+@media (min-resolution: 3dppx) {
+  .live_feed_featured_wrap:after {
+    transform: scaleY(0.33);
+  }
 }
 body.desktop .live_feed_featured_wrap {
   right: 240px;

@@ -845,11 +845,16 @@
   //left: 0;
   //right: 0;
   //z-index: 100;
-  border-bottom: 1px solid var(--separator_common);
+  //border-bottom: 1px solid var(--separator_common);
   transform: translateZ(0);
   background: var(--background_content);
   height: 84px;
   width: 100%;
+
+
+  &:after {
+    .border-bottom();
+  }
 
   body.desktop & {
     right: @menu-width;
