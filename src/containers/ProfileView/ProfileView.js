@@ -13,6 +13,7 @@ import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Icon24LikeOutline from '@vkontakte/icons/dist/24/like_outline';
 import * as payments from "../../actions/payments";
 import UIBackButton from '../../components/UI/UIBackButton';
+import VkConnect from "@vkontakte/vkui-connect/index";
 
 export default class ProfileView extends BaseComponent {
   constructor(props) {
@@ -174,10 +175,17 @@ export default class ProfileView extends BaseComponent {
     const user = this.data.user || {photos: []};
     return user.photos.map((photo, i) => {
       return (
-        <div key={i} className="profile_view_photo" style={{backgroundImage: `url(${photo.photo400})`}} />
+        <div key={i} className="profile_view_photo" style={{backgroundImage: `url(${photo.photo400})`}} onClick={this._showNativePhotoView} />
       )
     });
   }
+
+  _showNativePhotoView = () => {
+    const user = this.data.user || {photos: []};
+    VkConnect.send('VKWebAppShowImages', {
+      images: user.photos.map(photo => photo.photo600)
+    });
+  };
 
   _renderFooter() {
     if (this.data.hideControls) {
