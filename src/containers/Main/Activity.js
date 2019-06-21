@@ -557,15 +557,16 @@ export default class Activity extends BaseComponent {
         text = <div className="im_dialog_system">у Вас в «Избранных»</div>;
       }
       const isOnline = now - utils.convertTimezone(user.last_update) < 60 * 10;
+      const isInbox = activityActions.inboxFavs[guest.id] === true;
 
       const className = utils.classNames({
         im_dialog: true,
-        hidden: user.is_inbox_fav && !this.props.state.hasPremium && utils.isPaymentsEnabled()
+        hidden: isInbox && !this.props.state.hasPremium && utils.isPaymentsEnabled()
       });
 
       return (
         <div className={className} key={guest.id} onClick={(e) => {
-          if (user.is_inbox_fav && !this.props.state.hasPremium && utils.isPaymentsEnabled()) {
+          if (isInbox && !this.props.state.hasPremium && utils.isPaymentsEnabled()) {
             payments.showSubscriptionRequest('fav');
           } else if (!e.target.classList.contains('im_dialog_fav')) {
             if (!user.liked && utils.isPaymentsEnabled() && !this.props.state.hasPremium) {
@@ -586,7 +587,7 @@ export default class Activity extends BaseComponent {
               </div>
               <div className="im_dialog_message">{text}</div>
             </div>
-            {!user.is_inbox_fav && <div className="im_dialog_fav active" onClick={() => activityActions.removeFromFav(guest.id)} />}
+            {!isInbox && <div className="im_dialog_fav active" onClick={() => activityActions.removeFromFav(guest.id)} />}
           </div>
           <div className="im_dialog_separator" />
         </div>

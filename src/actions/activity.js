@@ -13,6 +13,8 @@ export const SystemMessageType = {
   gift: 2
 };
 
+export let inboxFavs = {};
+
 export function load() {
   actions.setData({
     nextFrom: false,
@@ -620,6 +622,13 @@ export function loadFav() {
     newFav: false
   }, pages.ACTIVITY);
   api.method(api.methods.favorites).then(({favorites, next_from}) => {
+    for (let i = 0; i < favorites.length; i++) {
+      const item = favorites[i];
+      if (item.is_inbox_fav) {
+        inboxFavs[parseInt(item.id, 10)] = true;
+      }
+    }
+
     actions.setUsers(favorites);
     actions.setData({
       isLoadingFav: false,
