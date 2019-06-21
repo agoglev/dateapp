@@ -11,6 +11,7 @@ import * as partner from '../../actions/partner';
 
 import Icon24Linked from '@vkontakte/icons/dist/24/linked';
 import Icon24Users from '@vkontakte/icons/dist/24/users';
+import connect from "@vkontakte/vkui-connect/index";
 
 export default class Admin extends BaseComponent {
   render() {
@@ -62,6 +63,16 @@ export default class Admin extends BaseComponent {
             <UI.Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp_monetization" target="_blank">Сообщество</UI.Cell>
             <UI.Cell expandable before={<Icon24Linked />} href="https://vk.com/@dateapp_monetization-info" target="_blank">Ответы на вопросы</UI.Cell>
           </UI.List>
+        </UI.Group>
+        <UI.Group>
+          <UI.Div>
+            <UI.FormStatus title="Делитесь приложением" onClick={() => connect.send('VKWebAppShare', {link: `https://vk.com/app6682509_-${window.GroupId}`})}>
+              Расскажите своим подписчикам о приложении, чем больше людей заходит в сервис, тем больше Вы зарабатываете.
+              <div style={{marginTop: 10}}>
+                <UI.Button>Поделиться приложением</UI.Button>
+              </div>
+            </UI.FormStatus>
+          </UI.Div>
         </UI.Group>
       </div>
     );
