@@ -165,7 +165,7 @@ export default class Cards extends Component {
 
   _switchListToAll = () => {
     cardsActions.setCurrentList('all');
-    cardsActions.loadCards(true);
+    this._load();
   };
 
   _renderCancelAction() {

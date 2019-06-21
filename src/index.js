@@ -46,6 +46,10 @@ if (window.isFromAdsLove) {
   window.adsCompany = 'app_guests';
 }
 
+if (window.GroupId === 160479731) {
+  window.GroupId = 0;
+}
+
 if (window.isNative) {
   window.appToken = urlParams.get('app_token') || '';
 } else {
