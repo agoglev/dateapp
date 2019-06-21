@@ -127,15 +127,7 @@ export default class Cards extends Component {
             onClick={this._dislikeButtonDidPress}
             style={{transform: `translateX(${this.state.dislikeButtonDiff}px) scale(${this.state.dislikeButtonScale})`}}
           />
-          <div className="cards_empty im_history_empty">
-            <div className="im_history_empty_img" />
-            <div className="im_history_empty_title">Карточки закончились</div>
-            <div className="im_history_empty_text">Заходите попозже — наверняка кто-то еще захочет познакомиться</div>
-            <div className="im_history_empty_extra">
-              <div><Button size="l" onClick={this._clearHiddenCard}>Показать снова</Button></div>
-              <div style={{marginTop: '10px'}}><Button stretched size="l" level="secondary" onClick={() => actions.openFilters()}>Фильтры</Button></div>
-            </div>
-          </div>
+          {this._renderEmpty()}
           <div className="Cards__items" ref="items">
             {this._renderCards()}
           </div>
@@ -143,6 +135,38 @@ export default class Cards extends Component {
       </div>
     )
   }
+
+  _renderEmpty() {
+    if (cardsActions.getCurrentList() === 'community') {
+      return (
+        <div className="cards_empty im_history_empty">
+          <div className="im_history_empty_img" />
+          <div className="im_history_empty_title">Карточки закончились</div>
+          <div className="im_history_empty_text">Анкет из сообщества больше нет, попробуйте зайти позже или знакомьтесь с людьми из всего приложения.</div>
+          <div className="im_history_empty_extra">
+            <div><Button size="l" onClick={this._switchListToAll}>Показать всех</Button></div>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="cards_empty im_history_empty">
+        <div className="im_history_empty_img" />
+        <div className="im_history_empty_title">Карточки закончились</div>
+        <div className="im_history_empty_text">Заходите попозже — наверняка кто-то еще захочет познакомиться</div>
+        <div className="im_history_empty_extra">
+          <div><Button size="l" onClick={this._clearHiddenCard}>Показать снова</Button></div>
+          <div style={{marginTop: '10px'}}><Button stretched size="l" level="secondary" onClick={() => actions.openFilters()}>Фильтры</Button></div>
+        </div>
+      </div>
+    )
+  }
+
+  _switchListToAll = () => {
+    cardsActions.setCurrentList('all');
+    cardsActions.loadCards(true);
+  };
 
   _renderCancelAction() {
     if (this.props.state.dislikedCards.length === 0) {

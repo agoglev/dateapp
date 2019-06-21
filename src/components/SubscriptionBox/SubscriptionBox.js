@@ -1,6 +1,5 @@
 import './SubscriptionBox.css';
 import React, { PureComponent } from 'react';
-import Icon24Back from '@vkontakte/icons/dist/24/back';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import * as actions from '../../actions';
 import { Button, PopoutWrapper } from '@vkontakte/vkui';

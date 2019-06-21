@@ -16,13 +16,28 @@ let SystemCardsQueue = [];
 export let cancelledCards = {};
 let isAdsLocked = false;
 
+let list = null;
+export function getCurrentList() {
+  if (list === null) {
+    list = window.GroupId > 0 ? 'community' : 'all';
+  }
+  return list;
+}
+
+export function setCurrentList(newList) {
+  list = newList;
+}
+
 export function loadCards(force = false) {
   return new Promise((resolve, reject) => {
     let cards = store.getState().cards;
     if (cards.length > 0 && !force) {
       return resolve();
     }
-    api.method(api.methods.cardsGet, {})
+    api.method(api.methods.cardsGet, {
+      list: getCurrentList(),
+      group_id: window.GroupId
+    })
       .then((cards) => {
         actions.setUsers(cards);
         store.dispatch({type: actionTypes.CARDS_SET, cards});
