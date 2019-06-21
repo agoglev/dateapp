@@ -11,6 +11,7 @@ import Header from '../../components/proxy/Header';
 import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 import BaseComponent from '../../BaseComponent';
+import {favCanWrite} from "../../actions/activity";
 
 export default class Activity extends BaseComponent {
   constructor(props) {
@@ -569,7 +570,7 @@ export default class Activity extends BaseComponent {
           if (isInbox && !this.props.state.hasPremium && utils.isPaymentsEnabled()) {
             payments.showSubscriptionRequest('fav');
           } else if (!e.target.classList.contains('im_dialog_fav')) {
-            if (!user.liked && utils.isPaymentsEnabled() && !this.props.state.hasPremium) {
+            if (!activityActions.favCanWrite[guest.id] && utils.isPaymentsEnabled() && !this.props.state.hasPremium) {
               payments.showSkipMathcBox(user);
             } else {
               actions.openChat(user.id);

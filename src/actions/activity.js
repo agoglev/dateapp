@@ -14,6 +14,7 @@ export const SystemMessageType = {
 };
 
 export let inboxFavs = {};
+export let favCanWrite = {};
 
 export function load() {
   actions.setData({
@@ -621,13 +622,15 @@ export function loadFav() {
     isFailedFav: false,
     newFav: false
   }, pages.ACTIVITY);
-  api.method(api.methods.favorites).then(({favorites, next_from}) => {
+  api.method(api.methods.favorites).then(({favorites, next_from, can_write}) => {
     for (let i = 0; i < favorites.length; i++) {
       const item = favorites[i];
       if (item.is_inbox_fav) {
         inboxFavs[parseInt(item.id, 10)] = true;
       }
     }
+
+    favCanWrite = can_write;
 
     actions.setUsers(favorites);
     actions.setData({
