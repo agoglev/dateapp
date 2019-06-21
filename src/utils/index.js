@@ -164,7 +164,7 @@ export function proccessImage(file) {
         }, {
           canvas: true,
           orientation: orientation,
-          maxWidth: 600
+          maxWidth: 800
         }
       );
     });
