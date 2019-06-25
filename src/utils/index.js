@@ -4,6 +4,7 @@ import * as actionTypes from '../actions/actionTypes';
 import store from '../store';
 import Cards from '../containers/Main/Cards';
 import connect from '@vkontakte/vkui-connect';
+import moment from 'moment-timezone';
 
 export function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -333,10 +334,11 @@ export function isObject(e) {
 
 export function convertTimezone(ts) {
   let newTs = parseInt(ts, 10);
-  const timezoneOffset = new Date().getTimezoneOffset();
-  const timezoneDiff = (-3 * 60) - timezoneOffset;
-  newTs += (timezoneDiff * 60) * 1000;
-  return newTs;
+  return moment(newTs).tz('Europe/Moscow').unix() * 1000;
+  // const timezoneOffset = new Date().getTimezoneOffset();
+  // const timezoneDiff = (-3 * 60) - timezoneOffset;
+  // newTs += (timezoneDiff * 60) * 1000;
+  // return newTs;
 }
 
 export function lastUpdateFormat(ts) {

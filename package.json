@@ -30,6 +30,7 @@
     "core-js": "^2.5.7",
     "fbemitter": "^2.1.1",
     "gh-pages": "^2.0.1",
+    "moment-timezone": "^0.5.25",
     "promise-polyfill": "8.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
