@@ -43,6 +43,9 @@ export default class ImHistory extends BaseComponent {
       stickersTT: false
     };
 
+    this.filteredGifts = props.state.gifts.filter((gift) => [100, 102, 103, 106, 107].indexOf(gift.id) > -1);
+    this.filteredGifts.sort(() => Math.random() - 0.5);
+
     activityActions.needShowStickersTT().then((stickersTT) => this.setState({stickersTT}));
   }
 
@@ -295,7 +298,7 @@ export default class ImHistory extends BaseComponent {
             `Почему бы не отправить ей подарок?`
           ]);
 
-          gifts = this.props.state.gifts.filter((gift) => [106, 100, 102].indexOf(gift.id) > -1).map((gift) => {
+          gifts = this.filteredGifts.slice(0, 3).map((gift) => {
             return <div className="Im__suggest_gift" key={gift.id} onClick={() => actions.openGiftSend(this.peerId, gift, 'im_history')}>
               <div className="Im__suggest_gift__image" style={{backgroundImage: `url(${gift.url})`}} />
             </div>
