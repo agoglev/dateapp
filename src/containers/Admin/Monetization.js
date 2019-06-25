@@ -10,6 +10,7 @@ import * as utils from '../../utils';
 
 import Icon24Linked from '@vkontakte/icons/dist/24/linked';
 import Icon24Users from '@vkontakte/icons/dist/24/users';
+import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 export default class Monetization extends BaseComponent {
   constructor(props) {
@@ -47,7 +48,7 @@ export default class Monetization extends BaseComponent {
       <div>
       <UI.Group>
         <UI.Div>
-          Если у Вас есть сообщество, в котором вы администратор, то Вы сможете заработать <b>50%</b> от покупок Ваших подписчиков в приложении.
+          Партнерская программа, позволяющая получать <b>50%</b> от всех покупок совершенных Вашими подписчиками в приложении «Знакомства».
         </UI.Div>
         <UI.Div>
           <UI.Button size="xl" onClick={() => VkConnect.send('VKWebAppAddToCommunity', {})}>Подключить сообщество</UI.Button>
@@ -55,8 +56,9 @@ export default class Monetization extends BaseComponent {
       </UI.Group>
         <UI.Group title="Ссылки">
           <UI.List>
-            <UI.Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp_monetization" target="_blank">Сообщество</UI.Cell>
+            <UI.Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp_monetization" target="_blank">Помощь</UI.Cell>
             <UI.Cell expandable before={<Icon24Linked />} href="https://vk.com/@dateapp_monetization-info" target="_blank">Ответы на вопросы</UI.Cell>
+            <UI.Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp_monetization" target="_blank">Сообщество</UI.Cell>
           </UI.List>
         </UI.Group>
       </div>

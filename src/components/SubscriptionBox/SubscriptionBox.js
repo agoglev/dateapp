@@ -105,7 +105,7 @@ export default class SubscriptionBox extends PureComponent {
           <div className="SubscriptionBox__pay_button__buy">Получить</div>
         </div>*/}
         <div className="SubscriptionBox__pay_button" onClick={() => this._rateDidPress('month')}>
-          <div className="SubscriptionBox__pay_button__badge red">хит</div>
+          <div className="SubscriptionBox__pay_button__badge red">популярно</div>
           <div className="SubscriptionBox__pay_button__title">Месяц</div>
           <div className="SubscriptionBox__pay_button__price">{prices.month}</div>
           <div className="SubscriptionBox__pay_button__price sale">{prices.monthSale}</div>
