@@ -448,3 +448,21 @@ body.desktop .Cards {
 .Cards__item__caption_row.education:before {
   background-image: url('../../asset/ic_profile_education.svg');
 }
+.Cards__like_badge_wrap {
+  position: relative;
+}
+.Cards__like_badge {
+  position: relative;
+}
+.Cards__like_badge:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 2px solid var(--header_background);
+  border-radius: 50%;
+  background: #e63973;
+  top: 2px;
+  right: -2px;
+}

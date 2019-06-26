@@ -158,6 +158,7 @@ function initMethodHandler(resp) {
     stickers: resp.stickers,
     stickersMask: resp.stickers_mask
   });
+  actions.setData({likesCount: resp.hasLikesBadge ? 1 : 0}, pages.ACTIVITY);
   inited = true;
   if (resp.need_join) {
     window.tmpToken = resp.tmp_token || '';

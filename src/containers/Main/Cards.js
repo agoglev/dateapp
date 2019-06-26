@@ -8,10 +8,11 @@ import * as paymentsActions from '../../actions/payments';
 import * as actions from '../../actions';
 import * as utils from '../../utils';
 import Icon24Replay from '@vkontakte/icons/dist/24/replay';
+import Icon24Like from '@vkontakte/icons/dist/24/like_outline';
 import Header from '../../components/proxy/Header';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import {showNotification} from "../../actions/push";
-import * as pushActions from "../../actions/push";
+import * as pages from '../../constants/pages';
 
 const Purpose = [
   'Найти новых друзей',
@@ -170,6 +171,16 @@ export default class Cards extends Component {
 
   _renderCancelAction() {
     if (this.props.state.dislikedCards.length === 0) {
+      if (actions.getData(pages.ACTIVITY).likesCount > 0) {
+        return (
+          <HeaderButton key="cancel_action" onClick={() => {
+            actions.openLikes();
+            utils.statReachGoal('likes_open_modal');
+          }}>
+            <Icon24Like className="Cards__like_badge" />
+          </HeaderButton>
+        )
+      }
       return null;
     }
 
