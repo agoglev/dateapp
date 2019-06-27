@@ -42,7 +42,7 @@ export default class Admin extends BaseComponent {
   _renderCont() {
     return (
       <div>
-        <UI.Group title="Статистика">
+        <UI.Group title="Статистика" description="Учитываются пользователи, которые создали анкету.">
           <div className="Admin__stats">
             <div className="Admin__stats__row">
               <div className="Admin__stats__row__value">{this.data.membersCount}</div>
