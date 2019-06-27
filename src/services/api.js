@@ -7,12 +7,13 @@ import * as actions from '../actions';
 import * as native from './native';
 
 const API_ENTRY = 'https://kphp.net/api.php';
-
+const version = 2;
 
 export function method(name, params = {}) {
   params.token = store.getState().token;
   params.method = name;
   params.app_id = window.appId;
+  params.v = version;
   return new Promise((resolve, reject) => {
     const form = new FormData();
     for (let k in params) {

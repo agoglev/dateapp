@@ -7,6 +7,12 @@ import * as utils from '../utils';
 import * as pages from '../constants/pages';
 import ImHistory from "../containers/Modals/ImHistory";
 import * as pushActions from './push';
+import {loaderSuccess} from "./index";
+import {showError} from "./index";
+import {loaderShow} from "./index";
+import {loaderHide} from "./index";
+import {showAlert} from "./index";
+import * as payments from "./payments";
 
 export const SystemMessageType = {
   match: 1,
@@ -773,5 +779,33 @@ export function stickersTTShown() {
   api.vk('storage.set', {
     key: 'activity_stickers_tt_shown',
     value: 1,
+  });
+}
+
+export function publishStory() {
+  return new Promise((resolve, reject) => {
+    api.requestAccessToken('stories', false).then((token) => {
+      actions.loaderShow();
+      api.vk('stories.getPhotoUploadServer', {
+        add_to_news: 1,
+        link_text: 'open',
+        link_url: 'https://vk.com/app6682509#story',
+        access_token: token,
+        skip_premium: 1
+      }).then((res) => {
+        api.method(api.methods.publishStory, {
+          url: res.upload_url,
+        }).then(() => {
+          loaderHide();
+          resolve();
+        }).catch((err) => {
+          showError(err.message);
+          reject();
+        });
+      }).catch(() => {
+        showError();
+        reject();
+      });
+    });
   });
 }

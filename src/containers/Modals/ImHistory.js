@@ -601,6 +601,10 @@ export default class ImHistory extends BaseComponent {
           message = 'Добавьте сервис в «Избранные»';
           button = 'Добавить';
           break;
+        case 'story':
+          message = 'Опубликуйте историю';
+          button = 'Опубликовать';
+          break;
         default:
           return actions.showAlert('Ошибка', 'Попробуйте перезапустить приложение');
       }
@@ -618,6 +622,9 @@ export default class ImHistory extends BaseComponent {
             break;
           case 'favorite':
             promise = connectPromise.send('VKWebAppAddToFavorites', {});
+            break;
+          case 'story':
+            promise = activityActions.publishStory();
             break;
         }
 
