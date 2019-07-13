@@ -474,6 +474,11 @@ body.desktop {
   border: 1px solid @color-white;
   border-radius: 8px;
   margin-bottom: 16px;
+  transition: opacity 150ms ease-in-out;
+
+  &:active {
+    opacity: 0.7;
+  }
 
   &.white {
     color: @color-pink;

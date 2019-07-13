@@ -395,6 +395,10 @@ body.desktop .Cards {
   border: 1px solid #fff;
   border-radius: 8px;
   margin-bottom: 16px;
+  transition: opacity 150ms ease-in-out;
+}
+.match_box_button:active {
+  opacity: 0.7;
 }
 .match_box_button.white {
   color: #5181b8;

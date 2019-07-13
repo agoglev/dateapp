@@ -66,13 +66,6 @@ export default class Cards extends Component {
     document.addEventListener('touchmove', this._disableScroll);
 
     utils.statReachGoal('page_cards');
-
-    if (!window.cardsSwipeRightTipShown) {
-      window.cardsSwipeRightTipShown = true;
-      showNotification('swipe_right', 'Сделайте 50 свайпов вправо, чтобы найти пару!', '', {
-        timeout: 3000
-      });
-    }
   }
 
   componentWillUnmount() {

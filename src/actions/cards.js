@@ -4,6 +4,7 @@ import store from '../store';
 import * as actions from './index'
 import * as api from '../services/api';
 import * as utils from '../utils';
+import {showNotification} from "./push";
 
 export let dislikeTipShown = true;
 export let likeTipShown = true;
@@ -54,6 +55,14 @@ export function loadCards(force = false) {
         if (!adsLoaded) {
           adsRotate();
         }
+
+        if (cards.length > 0 && !window.cardsSwipeRightTipShown) {
+          window.cardsSwipeRightTipShown = true;
+          showNotification('swipe_right', 'Сделайте 50 свайпов вправо, чтобы найти пару!', '', {
+            timeout: 3000
+          });
+        }
+
       }).catch((err) => {
         reject(err);
     });
@@ -129,6 +138,10 @@ export function setReason(isLike) {
       .then(() => {
         resolve();
 
+        if (!isLike) {
+          addCardToDisliked(card);
+        }
+
         if (isLike && card.is_like) {
           showMatchBox(card);
         }
@@ -143,9 +156,6 @@ export function setReason(isLike) {
       })
       .catch(() => reject(card));
 
-    if (!isLike) {
-      addCardToDisliked(card);
-    }
     adsRotate();
   });
 }
@@ -380,8 +390,8 @@ function showMatchBox(from) {
   const me = state.usersInfo[state.userId];
 
   const caption = utils.genderText(from.gender, [
-    <span>{from.name} лайкнул вас,<br/>а Вы лайкнули его</span>,
-    <span>{from.name} лайкнула вас,<br/>а Вы лайкнули её</span>
+    <span>{from.name} лайкнул Вас,<br/>а Вы лайкнули его</span>,
+    <span>{from.name} лайкнула Вас,<br/>а Вы лайкнули её</span>
   ]);
 
   actions.setPopout(<div className="match_box_wrap">

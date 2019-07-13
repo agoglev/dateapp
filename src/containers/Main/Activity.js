@@ -425,9 +425,9 @@ export default class Activity extends BaseComponent {
 
       return (
         <div className="Likes__load-more-wrap" onClick={this._loadMore}>
-          <div className="Likes__load-more">{this.state.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+          <Button size="xl">{this.data.isLoadingMore ? 'Загрузка..' : 'Показать больше'}</Button>
         </div>
-      )
+      );
     } else if (this.data.tab === 'guests') {
       if (this.data.isLoadingGuests || this.data.isFailedGuests || !this.data.guestsNextFrom) {
         return null;
@@ -435,9 +435,9 @@ export default class Activity extends BaseComponent {
 
       return (
         <div className="Likes__load-more-wrap" onClick={this._loadMoreGuests}>
-          <div className="Likes__load-more">{this.state.isGuestsLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+          <Button size="xl">{this.data.isGuestsLoadingMore ? 'Загрузка..' : 'Показать больше'}</Button>
         </div>
-      )
+      );
     } else if (this.data.tab === 'fav') {
       if (this.data.isLoadingFav || this.data.isFailedFav || !this.data.favNextFrom) {
         return null;
@@ -445,9 +445,9 @@ export default class Activity extends BaseComponent {
 
       return (
         <div className="Likes__load-more-wrap" onClick={this._loadMoreFav}>
-          <div className="Likes__load-more">{this.state.isFavLoadingMore ? 'Загрузка..' : 'Показать больше'}</div>
+          <Button size="xl">{this.data.isFavLoadingMore ? 'Загрузка..' : 'Показать больше'}</Button>
         </div>
-      )
+      );
     } else {
       return null;
     }

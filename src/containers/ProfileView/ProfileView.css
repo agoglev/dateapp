@@ -90,6 +90,7 @@
   font-weight: bold;
   color: var(--text_primary);
   line-height: 25px;
+  padding-right: 38px;
 }
 .profile_view_name:empty {
   display: none;

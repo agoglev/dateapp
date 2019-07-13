@@ -229,7 +229,7 @@ export default class EditProfile extends UploadPhotoComponent {
     const name = utils.stripHTML(this.data.name.trim());
 
     if (!name.match(/^[a-zа-яё]+$/i)) {
-      return actions.showAlert('Не верное имя', <span>У нас принято использовать <b>настоящее имя</b>, написанное русскими или латинскими буквами. Например: Анна, Иван, Anna, Ivan.</span>, 'OK', {
+      return actions.showAlert('Неверное имя', <span>У нас принято использовать <b>настоящее имя</b>, написанное русскими или латинскими буквами. Например: Анна, Иван, Anna, Ivan.</span>, 'OK', {
         skipCancelButton: true
       });
     }
@@ -244,7 +244,7 @@ export default class EditProfile extends UploadPhotoComponent {
     const about = this.data.about;
 
     if (!name) {
-      return actions.showError('Введите ваше имя');
+      return actions.showError('Введите Ваше имя');
     }
 
     if (name.match(/\d/)) {
