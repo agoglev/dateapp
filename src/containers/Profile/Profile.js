@@ -19,6 +19,7 @@ import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon24User from '@vkontakte/icons/dist/24/user';
 import Icon24UserOutgoing from '@vkontakte/icons/dist/24/user_outgoing';
 import Icon24Money from '@vkontakte/icons/dist/24/money_circle';
+import Icon24Bug from '@vkontakte/icons/dist/24/bug';
 
 export default class Profile extends Component {
   componentDidMount() {
@@ -69,6 +70,7 @@ export default class Profile extends Component {
             {!window.isOK && <Cell expandable before={<Icon24Users />} href="https://vk.com/dateapp" target="_blank">Сообщество</Cell>}
             {!window.isOK && <Cell expandable before={<Icon24Message />} href="https://vk.me/dateapp" target="_blank">Сообщить о проблеме</Cell>}
             <Cell before={<Icon24User />} onClick={this._deleteAccountButtonDidPress}>Удалить анкету</Cell>
+            <Cell before={<Icon24Bug />} onClick={this.__showDeveloperMessage}>Разработчикам</Cell>
             {window.isNative && <Cell before={<Icon24UserOutgoing />} onClick={this._logoutDidPress}>Выйти</Cell>}
           </List>
         </Group>
@@ -165,6 +167,10 @@ export default class Profile extends Component {
     } else {
       connect.send('VKWebAppShare', {link: 'https://vk.com/app6682509'});
     }
+  };
+
+  __showDeveloperMessage = () => {
+    actions.showAlert('ReactJS / React Native разработчик', '');
   };
 }
 

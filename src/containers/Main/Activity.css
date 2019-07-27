@@ -347,6 +347,7 @@ body.desktop .im_history {
 }
 .im_send_form {
   border-top: 1px solid var(--separator_alpha);
+  background: #fff;
   background: var(--background_content);
   height: 97px;
   bottom: 0 !important;
@@ -958,6 +959,7 @@ body.desktop .live_feed_featured_wrap {
   color: var(--text_primary);
 }
 .StickersKeyboard {
+  background: #fff;
   background: var(--background_content);
   width: 100%;
   border-radius: 16px 16px 0 0;

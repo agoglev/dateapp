@@ -55,6 +55,7 @@ body.desktop .Error {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: #fff;
   background: var(--background_light);
   width: 104px;
   height: 104px;
