@@ -404,6 +404,10 @@ body.desktop .im_send_form {
   padding: 0 6px;
   width: 100%;
   box-sizing: border-box;
+  transition: opacity 150ms ease-in-out;
+}
+.im_send_form_buttons:active {
+  opacity: 0.7;
 }
 .im_send_form.multi .im_send_form_buttons {
   width: auto;

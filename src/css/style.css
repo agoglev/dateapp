@@ -29,6 +29,7 @@ span {
   left: 0;
   z-index: 1000;
   right: 0;
+  background: #fff;
   background: var(--background_light);
   color: var(--text_primary);
   font-size: 16px;
