@@ -12,6 +12,8 @@ import * as payments from "../../actions/payments";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 import BaseComponent from '../../BaseComponent';
 import {favCanWrite} from "../../actions/activity";
+import InternalNotification from "../../components/InternalNotification/InternalNotification";
+import Proxy from "../../services/proxy_sdk/proxy";
 
 export default class Activity extends BaseComponent {
   constructor(props) {
@@ -75,6 +77,7 @@ export default class Activity extends BaseComponent {
           {this._renderTabs()}
           {this._renderTabsContent()}
         </Group>
+        {this._renderImNotifyEnable()}
         {this._renderMoreButton()}
       </div>
     )
@@ -119,6 +122,28 @@ export default class Activity extends BaseComponent {
         <Icon24Poll />
       </HeaderButton>
     )
+  }
+
+  _renderImNotifyEnable() {
+    if (this.props.state.isImNotifyEnabled || this.data.isLoading || this.data.isFailed || this.data.tab !== 'chats') {
+      return null;
+    }
+
+    return (
+      <InternalNotification
+        key="notify_enable"
+        style={{padding: 0, marginBottom: '16px', paddingBottom: '10px', textAlign: 'center'}}
+        title="Доступ к уведомлениям"
+        text="Не пропустите взаимную симпатию, включите уведомления!"
+        extra={<Button onClick={this._enableNotifyDidPress}>Включить</Button>}
+      />
+    )
+  }
+
+  _enableNotifyDidPress() {
+    Proxy.allowMessagesFromGroup(160479731).then(() => {
+      accountActions.imNotifyEnable();
+    });
   }
 
   _renderDialogs() {
