@@ -66,7 +66,7 @@ export default class Admin extends BaseComponent {
         </UI.Group>
         <UI.Group>
           <UI.Div>
-            <UI.FormStatus title="Делитесь приложением" onClick={() => connect.send('VKWebAppShare', {link: `https://vk.com/app6682509_-${window.GroupId}`})}>
+            <UI.FormStatus title="Делитесь приложением" onClick={this.__shareButtonDidPress}>
               Расскажите своим подписчикам о приложении, чем больше людей заходит в сервис, тем больше Вы зарабатываете.
               <div style={{marginTop: 10}}>
                 <UI.Button>Поделиться приложением</UI.Button>
@@ -77,6 +77,11 @@ export default class Admin extends BaseComponent {
       </div>
     );
   }
+
+  __shareButtonDidPress = () => {
+    connect.send('VKWebAppShare', {link: `https://vk.com/app6682509_-${window.GroupId}`});
+    utils.statReachGoal('admin_share');
+  };
 
   _renderMonetization() {
     if (this.data.enabled) {
