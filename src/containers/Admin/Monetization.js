@@ -48,7 +48,7 @@ export default class Monetization extends BaseComponent {
       <div>
       <UI.Group>
         <UI.Div>
-          Партнерская программа, позволяющая получать <b>50%</b> от всех покупок совершенных Вашими подписчиками в приложении «Знакомства».
+          Партнерская программа, позволяющая получать <b>40%</b> от всех покупок совершенных Вашими подписчиками в приложении «Знакомства».
         </UI.Div>
         <UI.Div>
           <UI.Button size="xl" onClick={() => VkConnect.send('VKWebAppAddToCommunity', {})}>Подключить сообщество</UI.Button>
