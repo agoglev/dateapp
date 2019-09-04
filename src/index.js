@@ -4,6 +4,7 @@ import 'url-search-params-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import connect from '@vkontakte/vkui-connect';
+import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 import App from './App';
 import store from './store';
 import router  from './router';
@@ -179,12 +180,15 @@ connect.send('VKWebAppGetUserInfo', {});
 connect.send('VKWebAppGetClientVersion', {});
 connect.send('VKWebAppGetAuthToken', {app_id: window.appId, scope: 'stories,notifications'});
 
+const root = document.getElementById('root');
+mVKMiniAppsScrollHelper(root);
+
 function render() {
   ReactDOM.render(
     <Provider store={store}>
       <App store={store} router={router} />
     </Provider>,
-    document.getElementById('root')
+    root
   );
 }
 
