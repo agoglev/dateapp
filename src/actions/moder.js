@@ -94,3 +94,18 @@ export function loadStats() {
     }, pages.MODER_STATS);
   });
 }
+
+export function loadMessages(report) {
+  return new Promise((resolve, reject) => {
+    actions.loaderShow();
+    api.method(api.methods.reportMessages, {
+      user_id: report.user.id
+    }).then((messages) => {
+      actions.loaderHide();
+      resolve(messages);
+    }).catch(() => {
+      actions.showError();
+      reject();
+    });
+  });
+}

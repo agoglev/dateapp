@@ -11,6 +11,15 @@ import * as actions from "../../actions";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 
 export default class Moder extends BaseComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages: [],
+      messagesId: null,
+    };
+  }
+
   render() {
     if (window.isDesktop) {
       return this._renderCont();
@@ -107,10 +116,26 @@ export default class Moder extends BaseComponent {
               <Button onClick={() => this._skipButtonDidPress(report)}>Пропустить</Button>
               <Button onClick={() => this._banButtonDidPress(report)}>Заблокировать</Button>
             </div>
+            <div className="Moder__reports__item__actions">
+              {this.__renderMessages(report)}
+            </div>
           </div>
         </Group>
       )
     });
+  }
+
+  __renderMessages(report) {
+    if (this.state.messagesId !== report.id) {
+      return <Button onClick={() => this._lastMessages(report)}>Последние сообщения</Button>;
+    } else {
+      return (
+        <div>
+          {this.state.messages.map((row, i) => <div key={i}>{row.text}</div>)}
+          <Button onClick={() => this.setState({ messagesId: null, messages: [] })}>Скрыть</Button>
+        </div>
+      )
+    }
   }
 
   _renderPhotos(user) {
@@ -142,10 +167,21 @@ export default class Moder extends BaseComponent {
 
   _skipButtonDidPress(report) {
     moderActions.skipReport(report);
+    this.setState({ messagesId: null, messages: [] });
   }
 
   _banButtonDidPress(report) {
     moderActions.banReport(report);
+    this.setState({ messagesId: null, messages: [] });
+  }
+
+  _lastMessages(report) {
+    moderActions.loadMessages(report).then((messages) => {
+      this.setState({
+        messagesId: report.id,
+        messages
+      });
+    }).catch(() => console.log('err'));
   }
 
   _restoreButtonDidPress(report) {

@@ -194,7 +194,7 @@ function render() {
 
 // for debug
 const isDebug = utils.isDev() && utils.isInspectOpen();
-if (isDebug && !window.isOK && !window.isNative) {
+if (isDebug && !window.isOK && !window.isNative || true) {
   window._DEBUG_TOKEN = localStorage.getItem('_token');
   accountActions.init(window._DEBUG_TOKEN);
 }

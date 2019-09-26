@@ -112,6 +112,7 @@ export const methods = {
   reports: 'reports',
   skipReport: 'skip_report',
   banReport: 'ban_report',
+  reportMessages: 'report_messages',
   restoreReport: 'restore_report',
   notify: 'notify',
   notifySave: 'notify_save',
