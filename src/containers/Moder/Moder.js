@@ -3,12 +3,13 @@ import './Moder.css';
 import React from 'react';
 import BaseComponent from '../../BaseComponent';
 import Header from '../../components/proxy/Header';
-import { Panel, Group, Spinner, Button, Search, Tabs, TabsItem, HorizontalScroll, Div } from '@vkontakte/vkui';
+import { Panel, Group, Spinner, Button, Search, Tabs, TabsItem, HorizontalScroll, Div, Input, FormLayout } from '@vkontakte/vkui';
 import UICloseButton from '../../components/UI/UICloseButton';
 import * as moderActions from '../../actions/moder';
 import * as utils from '../../utils';
 import * as actions from "../../actions";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
+import Icon24Search from '@vkontakte/icons/dist/24/search';
 
 export default class Moder extends BaseComponent {
   constructor(props) {
@@ -17,6 +18,9 @@ export default class Moder extends BaseComponent {
     this.state = {
       messages: [],
       messagesId: null,
+      searchMode: false,
+      searchQuery: '',
+      searchLoading: false,
     };
   }
 
@@ -27,13 +31,40 @@ export default class Moder extends BaseComponent {
 
     return (
       <Panel id={this.props.id}>
-        <Div style={{paddingBottom: 4}}><Button before={<Icon24Poll/>} size="xl" onClick={() => actions.openModerStats()}>Статистика</Button></Div>
+        {!this.state.searchMode && <Div className="Moder__reports__top_buttons">
+          <Button before={<Icon24Poll/>} size="xl" onClick={() => actions.openModerStats()}>Статистика</Button>
+          <Button before={<Icon24Search/>} size="xl" onClick={() => this.setState({ searchMode: true })}>Поиск</Button>
+        </Div>}
         {this._renderCont()}
       </Panel>
     )
   }
 
   _renderCont() {
+    if (this.state.searchMode) {
+      return (
+        <div>
+          <Header
+            left={<UICloseButton />}
+          >
+            Поиск
+          </Header>
+          <FormLayout TagName="div" style={{paddingBottom: 77}} onSubmit={(e) => {
+            e.preventDefault();
+            return false;
+          }}>
+            <Input
+              placeholder="ID страницы"
+              value={this.state.searchQuery}
+              onChange={(e) => this.setState({ searchQuery: e.target.value })}
+            />
+            <Button size="xl" onClick={() => this.__search()}>Найти</Button>
+            {this.state.foundUser && this.__renderItem(this.state.foundUser)}
+          </FormLayout>
+        </div>
+      )
+    }
+
     return (
       <div>
         <Header
@@ -45,6 +76,17 @@ export default class Moder extends BaseComponent {
       </div>
     )
   }
+
+  __search = () => {
+    const id = parseInt(this.state.searchQuery.trim());
+    if (!id) {
+      return;
+    }
+
+    moderActions.loadUser(id).then((user) => {
+      this.setState({ foundUser: user });
+    });
+  };
 
   _renderContent() {
     /*
@@ -82,47 +124,49 @@ export default class Moder extends BaseComponent {
       </div>;
     }
 
-    return this.data.reports.map((report) => {
-      if (report.isSkipped || report.isBanned) {
-        const text = report.isSkipped ? `${report.user.name} пропущен(а)` : `${report.user.name} заблокирован(а)`;
-        return (
-          <Group key={report.user.id}>
-            <div className="Moder__reports__item_resolved">
-              <div>{text}</div>
-              <Button onClick={() => this._restoreButtonDidPress(report)}>Отменить</Button>
-            </div>
-          </Group>
-        )
-      }
+    return this.data.reports.map((report) => this.__renderItem(report));
+  }
 
-      let info = [];
-      if (report.user.education) {
-        info.push(`Образование: ${report.user.education}`);
-      }
-
-      if (report.user.job) {
-        info.push(`Работа: ${report.user.job}`);
-      }
-
+  __renderItem(report) {
+    if (report.isSkipped || report.isBanned) {
+      const text = report.isSkipped ? `${report.user.name} пропущен(а)` : `${report.user.name} заблокирован(а)`;
       return (
         <Group key={report.user.id}>
-          <div className="Moder__reports__item">
-            <div className="Moder__reports__item__photos clear_fix">{this._renderPhotos(report.user)}</div>
-            <div className="Moder__reports__item__name">{report.user.name}</div>
-            <div className="Moder__reports__item__about">{report.user.about}</div>
-            {info.length > 0 && <div className="Moder__reports__item__info">{info.join(', ')}</div>}
-            <div className="Moder__reports__item__summary"><b>Количество жалоб:</b> {report.reports_count}</div>
-            <div className="Moder__reports__item__actions">
-              <Button onClick={() => this._skipButtonDidPress(report)}>Пропустить</Button>
-              <Button onClick={() => this._banButtonDidPress(report)}>Заблокировать</Button>
-            </div>
-            <div className="Moder__reports__item__actions">
-              {this.__renderMessages(report)}
-            </div>
+          <div className="Moder__reports__item_resolved">
+            <div>{text}</div>
+            <Button onClick={() => this._restoreButtonDidPress(report)}>Отменить</Button>
           </div>
         </Group>
       )
-    });
+    }
+
+    let info = [];
+    if (report.user.education) {
+      info.push(`Образование: ${report.user.education}`);
+    }
+
+    if (report.user.job) {
+      info.push(`Работа: ${report.user.job}`);
+    }
+
+    return (
+      <Group key={report.user.id}>
+        <div className="Moder__reports__item">
+          <div className="Moder__reports__item__photos clear_fix">{this._renderPhotos(report.user)}</div>
+          <div className="Moder__reports__item__name">{report.user.name}</div>
+          <div className="Moder__reports__item__about">{report.user.about}</div>
+          {info.length > 0 && <div className="Moder__reports__item__info">{info.join(', ')}</div>}
+          <div className="Moder__reports__item__summary"><b>Количество жалоб:</b> {report.reports_count}</div>
+          <div className="Moder__reports__item__actions">
+            <Button onClick={() => this._skipButtonDidPress(report)}>Пропустить</Button>
+            <Button onClick={() => this._banButtonDidPress(report)}>Заблокировать</Button>
+          </div>
+          <div className="Moder__reports__item__actions">
+            {this.__renderMessages(report)}
+          </div>
+        </div>
+      </Group>
+    )
   }
 
   __renderMessages(report) {

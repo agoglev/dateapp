@@ -109,3 +109,18 @@ export function loadMessages(report) {
     });
   });
 }
+
+export function loadUser(id) {
+  return new Promise((resolve, reject) => {
+    actions.loaderShow();
+    api.method(api.methods.moderSearch, {
+      user_id: id,
+    }).then((resp) => {
+      actions.loaderHide();
+      resolve(resp);
+    }).catch(() => {
+      actions.showError();
+      reject();
+    });
+  });
+}
