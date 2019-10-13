@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import store from '../store';
 import * as actions from './index';
+import * as adsActions from './ads';
 import * as cardsActions from './cards';
 import * as api from '../services/api';
 import * as utils from '../utils';
@@ -191,6 +192,8 @@ function initMethodHandler(resp) {
     }
 
     native.saveToken(resp.token);
+
+    adsActions.load();
   }
 }
 

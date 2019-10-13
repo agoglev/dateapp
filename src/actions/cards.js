@@ -5,6 +5,7 @@ import * as actions from './index'
 import * as api from '../services/api';
 import * as utils from '../utils';
 import {showNotification} from "./push";
+import * as adsActions from "./ads";
 
 export let dislikeTipShown = true;
 export let likeTipShown = true;
@@ -302,29 +303,48 @@ export function resolveSystemCard() {
 }
 
 let adsLoaded = false;
-let adsRotateLastTs = 0;
+let adsRotateSwipeCount = 0;
 export function adsRotate() {
-  const now = new Date().getTime();
-  if (isAdsLocked || now - adsRotateLastTs < 3600) {
-    return;
+  for (let item of SystemCardsQueue) {
+    if (item.is_ad) {
+      return;
+    }
   }
-  isAdsLocked = true;
-  api.method(api.methods.ads, {
-    app_id: window.appId
-  }).then((ads) => {
-    if (ads.length > 0) {
-      adsMarkedAsSeen = {};
-      utils.statReachGoal('ads_got');
-    } else {
-      isAdsLocked = false;
-    }
 
-    adsRotateLastTs = now;
-    for (let i = 0; i < ads.length; i++) {
-      SystemCardsQueue.push(ads[i]);
+  adsRotateSwipeCount++;
+
+  if (adsRotateSwipeCount > 5) {
+    adsRotateSwipeCount = 0;
+
+    let ad = adsActions.getUnseenAd();
+    if (ad) {
+      ad.is_ad = true;
+      SystemCardsQueue.push(ad);
+      fillSystemCards();
     }
-    fillSystemCards();
-  }).catch(() => isAdsLocked = false);
+  }
+
+  // const now = new Date().getTime();
+  // if (isAdsLocked || now - adsRotateLastTs < 3600) {
+  //   return;
+  // }
+  // isAdsLocked = true;
+  // api.method(api.methods.ads, {
+  //   app_id: window.appId
+  // }).then((ads) => {
+  //   if (ads.length > 0) {
+  //     adsMarkedAsSeen = {};
+  //     utils.statReachGoal('ads_got');
+  //   } else {
+  //     isAdsLocked = false;
+  //   }
+  //
+  //   adsRotateLastTs = now;
+  //   for (let i = 0; i < ads.length; i++) {
+  //     SystemCardsQueue.push(ads[i]);
+  //   }
+  //   fillSystemCards();
+  // }).catch(() => isAdsLocked = false);
 }
 
 function fillSystemCards() {
@@ -340,7 +360,7 @@ function fillSystemCards() {
     if (cards[i].system) {
       count = 0;
     }
-    if (count === 3) {
+    if (count === 1) {
       count = 0;
       newCards.splice(i + offset, 0, SystemCardsQueue.shift());
       offset++;
@@ -357,24 +377,13 @@ function fillSystemCards() {
   }
 }
 
-let adsMarkedAsSeen = {};
 export function markAdAsSeen(id, isClick) {
-  if (adsMarkedAsSeen[id]) {
-    return;
-  }
-  adsMarkedAsSeen[id] = true;
-  api.method(api.methods.adsSeen, {
-    ad_id: id,
-    click: isClick ? 1 : 0
-  });
+  adsActions.cardsMarkAsSeen(id);
   if (isClick) {
-    let cards = store.getState().cards;
-    if (cards.length > 0 && cards[0].is_ad) {
-      setTimeout(() => shiftCard(), 1000);
-    }
+    adsActions.sendClick(id);
+  } else {
+    adsActions.sendSeen(id);
   }
-
-  utils.statReachGoal(isClick ? 'ads_click' : 'ads_skip');
 }
 
 export function resolveSwipeTip() {

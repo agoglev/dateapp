@@ -9,9 +9,9 @@ import * as utils from '../../utils';
 import Icon24Like from '@vkontakte/icons/dist/24/like';
 import Header from '../../components/proxy/Header';
 import * as payments from "../../actions/payments";
+import * as adsActions from "../../actions/ads";
 import Icon24Poll from '@vkontakte/icons/dist/24/poll';
 import BaseComponent from '../../BaseComponent';
-import {favCanWrite} from "../../actions/activity";
 import InternalNotification from "../../components/InternalNotification/InternalNotification";
 import Proxy from "../../services/proxy_sdk/proxy";
 
@@ -22,7 +22,7 @@ export default class Activity extends BaseComponent {
     this.state = {
       isLoadingMore: false,
       promoteFeature: false,
-      isNeedShowFeatureSuggestion: utils.isPaymentsEnabled() && props.state.isNeedShowFeatureSuggestion,
+      isNeedShowFeatureSuggestion: utils.isPaymentsEnabled() && props.state.isNeedShowFeatureSuggestion || props.state.ads.length > 0,
     };
   }
 
@@ -238,7 +238,7 @@ export default class Activity extends BaseComponent {
     });
 
     if (res.length > 2) {
-      res.splice(2, 0, this._renderPromoteFeature());
+      res.splice(3, 0, this._renderPromoteFeature());
     } else {
       res.push(this._renderPromoteFeature());
     }
@@ -663,29 +663,48 @@ export default class Activity extends BaseComponent {
   }
 
   _updatePromoteFeature() {
-    this.setState({promoteFeature: payments.promoteFeature()});
+    this.setState({promoteFeature: adsActions.getAd()});
   }
 
   _renderPromoteFeature() {
-    if (!this.state.promoteFeature || !utils.isPaymentsEnabled()) {
+    if (!this.state.promoteFeature) {
       return null;
     }
 
+    if (this.state.promoteFeature.type !== 'ad' && !utils.isPaymentsEnabled()) {
+      return null;
+    }
+
+    const item = this.state.promoteFeature;
+    let TagName = 'div';
+    let params = {};
+    if (item.url) {
+      TagName = 'a';
+      params.href = item.url;
+      params.target = '_blank';
+    }
+
+    if (item.type === 'ad') {
+      adsActions.sendSeen(item.id);
+    }
+
     return (
-      <div
+      <TagName
         className="im_dialog"
         key="promote"
         onClick={() => {
           this.state.promoteFeature.onClick();
           this._updatePromoteFeature();
         }}
+        {...params}
       >
         <div className="im_dialog_cont_wrap">
-          <div className="im_dialog_photo" style={{backgroundImage: `url(${this.state.promoteFeature.icon})`}} />
-          <div className="Activity__promote_feature__caption">{this.state.promoteFeature.caption}</div>
+          <div className="im_dialog_photo" style={{backgroundImage: `url(${item.photo_activity || item.icon})`}} />
+          <div className="Activity__promote_feature__caption">{item.caption}</div>
+          {item.type === 'ad' && <div className="im_dialog_ads"><span>Реклама</span></div> }
         </div>
         <div className="im_dialog_separator" />
-      </div>
+      </TagName>
     )
   }
 }

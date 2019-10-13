@@ -95,7 +95,7 @@ export default class Cards extends Component {
   render() {
     const state = this.props.state;
 
-    let isSystemCard = state.cards.length > 0 && state.cards[0].system;
+    let isSystemCard = state.cards.length > 0 && (state.cards[0].system && !state.cards[0].is_ad);
     const className = utils.classNames({
       Cards: true,
       is_moving: this.state.isMoving,
@@ -242,14 +242,10 @@ export default class Cards extends Component {
             className="Cards__item ads"
             key={`ad_${card.id}`}
             style={style}
-            href={card.is_external ? `https://dateapp.ru/ads_click.php?ad_id=${card.id}` : card.url}
+            href={card.url}
             target="_blank"
           >
             <div className="Cards__ads__adv-info">Реклама</div>
-            <div className="Cards__ads__info">
-              <div className="Cards__ads__title">{card.title}</div>
-              <div className="Cards__ads__button">Открыть</div>
-            </div>
           </a>
         )
       }
@@ -528,7 +524,13 @@ export default class Cards extends Component {
     }
 
     if (card.system) {
-      return cardsActions.resolveSystemCard();
+      cardsActions.resolveSystemCard();
+
+      if (card.is_ad && isLike) {
+        window.open(card.url);
+      }
+
+      return false;
     }
 
     if (cardsActions.cancelledCards[card.id] && isLike && !paymentsActions.hasPremium && utils.isPaymentsEnabled()) {

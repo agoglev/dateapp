@@ -17,6 +17,36 @@
   align-items: center;
   padding: 40px 0 20px;
   margin: 5px;
+  overflow: hidden;
+  text-decoration: none !important;
+
+  &.ads {
+    padding-top: 0;
+  }
+}
+
+.Search__promote_feature_ads_photo {
+  width: 100%;
+  background: no-repeat center/cover;
+  margin-bottom: -16px;
+
+  &:before {
+    content: '';
+    padding-top: 30%;
+    display: block;
+  }
+}
+
+.Search__promote_feature_ads_indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  background: rgba(0,0,0,.7);
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0 8px;
+  border-radius: 0 0 0 4px;
 }
 
 .Search__promote_feature__caption {
@@ -26,4 +56,5 @@
   color: var(--text_primary);
   text-align: center;
   margin-bottom: 16px;
+  padding: 0 12px;
 }

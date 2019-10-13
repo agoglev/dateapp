@@ -41,6 +41,9 @@
 .Cards__item.ads:after {
   display: none;
 }
+.Cards__item.ads:after {
+  display: none;
+}
 .Cards__item.system {
   display: flex;
   align-items: center;
@@ -269,15 +272,15 @@
   border-radius: 8px;
 }
 .Cards__ads__adv-info {
-  color: #fff;
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: normal;
   position: absolute;
-  z-index: 10;
-  top: 16px;
-  right: 16px;
-  text-shadow: 1px 1px 0.3px rgba(0, 0, 0, 0.7);
+  top: 0;
+  right: 0;
+  color: #000;
+  background: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 0 8px;
+  border-radius: 0 0 0 4px;
 }
 body.desktop .Cards {
   width: 375px;

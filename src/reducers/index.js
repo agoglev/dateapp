@@ -43,7 +43,8 @@ const initialState = {
   promoBits: 0,
   stickers: [],
   stickersMask: 0,
-  navHistory: []
+  navHistory: [],
+  ads: [],
 };
 
 export let navHistory = [];
@@ -262,6 +263,10 @@ export default function reducer(state = initialState, action) {
 
     case actionTypes.SET_PUSH_NOTIFICATIONS: {
       return Object.assign({}, state, {pushNotifications: action.items});
+    }
+
+    case actionTypes.SET_ADS: {
+      return Object.assign({}, state, { ads: action.ads });
     }
 
     default:

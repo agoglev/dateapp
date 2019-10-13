@@ -38,3 +38,5 @@ export const SET_POPOUT = 'SET_POPOUT';
 export const SET_BADGE = 'SET_BADGE';
 
 export const SET_PUSH_NOTIFICATIONS = 'SET_PUSH_NOTIFICATIONS';
+
+export const SET_ADS = 'SET_ADS';

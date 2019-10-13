@@ -6,6 +6,7 @@ import * as actions from '../../actions/index';
 import * as searchActions from '../../actions/search';
 import * as accountActions from '../../actions/account';
 import * as paymentsActions from '../../actions/payments';
+import * as adsActions from "../../actions/ads";
 import * as utils from '../../utils/index';
 import BaseComponent from '../../BaseComponent';
 import Icon24Filter from '@vkontakte/icons/dist/24/filter';
@@ -258,12 +259,33 @@ export default class Search extends BaseComponent {
   };
 
   _updatePromoteFeature() {
-    this.setState({promoteFeature: paymentsActions.promoteFeature()});
+    this.setState({promoteFeature: adsActions.getAd()});
   }
 
   _renderPromoteFeature() {
-    if (!this.state.promoteFeature || !utils.isPaymentsEnabled()) {
+    if (!this.state.promoteFeature) {
       return null;
+    }
+
+    if (this.state.promoteFeature.type !== 'ad' && !utils.isPaymentsEnabled()) {
+      return null;
+    }
+
+    const item = this.state.promoteFeature;
+
+    if (item.type === 'ad') {
+      adsActions.sendSeen(item.id);
+      return (
+        <a href={item.url} target="_blank" className="Search__promote_feature ads" key="promote" onClick={() => {
+          this.state.promoteFeature.onClick();
+          this._updatePromoteFeature();
+        }}>
+          <div className="Search__promote_feature_ads_indicator">Реклама</div>
+          <div className="Search__promote_feature_ads_photo" style={{ backgroundImage: `url(${item.photo_search})` }} />
+          <div className="Search__promote_feature__caption">{this.state.promoteFeature.caption}</div>
+          <Button size="l">Подробнее</Button>
+        </a>
+      )
     }
 
     const user = this.props.state.usersInfo[this.props.state.userId];
