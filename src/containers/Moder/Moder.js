@@ -155,6 +155,7 @@ export default class Moder extends BaseComponent {
           <div className="Moder__reports__item__photos clear_fix">{this._renderPhotos(report.user)}</div>
           <div className="Moder__reports__item__name">{report.user.name}</div>
           <div className="Moder__reports__item__about">{report.user.about}</div>
+          {report.user.ban_message && <div className="Moder__reports__item__about">{report.user.ban_message}</div>}
           {info.length > 0 && <div className="Moder__reports__item__info">{info.join(', ')}</div>}
           <div className="Moder__reports__item__summary"><b>Количество жалоб:</b> {report.reports_count}</div>
           <div className="Moder__reports__item__actions">
